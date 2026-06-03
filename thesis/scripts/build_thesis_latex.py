@@ -324,6 +324,27 @@ def convert_longtables(tex: str) -> str:
         body = body.replace(r"\bottomrule", r"\hline")
         # разделитель после каждой строки, если за ней еще нет \hline
         body = re.sub(r"(\\\\\n)(?!\s*\\hline)", r"\1\\hline\n", body)
+        # шапка таблицы (между первой и второй \hline) - полужирным
+        parts = body.split(r"\hline", 2)
+        if len(parts) == 3:
+            head = parts[1]
+            if r"\begin{minipage}" in head:
+                head = head.replace("\\RaggedRight\n", "\\RaggedRight\\bfseries\n")
+                head = head.replace("\\Centering\n", "\\Centering\\bfseries\n")
+            else:
+                # плоская строка заголовка: A & B & C \\
+                head = re.sub(
+                    r"^(\s*)(.+?)(\s*\\\\)",
+                    lambda m: m.group(1)
+                    + " & ".join(
+                        "\\textbf{" + c.strip() + "}" for c in m.group(2).split("&")
+                    )
+                    + m.group(3),
+                    head,
+                    count=1,
+                    flags=re.S,
+                )
+            body = parts[0] + r"\hline" + head + r"\hline" + parts[2]
         return match.group(1) + body + match.group(3)
 
     return re.sub(
@@ -383,8 +404,8 @@ def bind_table_captions(tex: str) -> str:
     return re.sub(
         r"(?m)^(Таблица[ ~]\d[^\n]*(?:\n[^\n]+)*?)\n\n(\\begin\{vkrlongtab\}.*?\\end\{vkrlongtab\})",
         r"\\par\\vspace{10pt}\\noindent\\begin{minipage}{\\linewidth}\n"
-        r"\\setlength{\\parindent}{1.5cm}\1\\par\\nopagebreak\n\2\n"
-        r"\\end{minipage}\\par\\vspace{6pt}",
+        r"\\setlength{\\parindent}{1.5cm}{\\small \1\\par}\\nopagebreak\\vspace{-9pt}\n\2\n"
+        r"\\end{minipage}\\par\\vspace{10pt}",
         tex,
         flags=re.S,
     )
