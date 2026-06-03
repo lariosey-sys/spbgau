@@ -282,18 +282,56 @@ def normalize_tables(tex: str) -> str:
     return tex
 
 
-def convert_longtables(tex: str) -> str:
-    """Преобразует pandoc longtable в неразрывную среду vkrlongtab.
+_COLSPEC_TOKEN = re.compile(
+    r"(?:>\{(?:[^{}]|\{[^{}]*\})*\}\s*)?"  # необязательный префикс >{...}
+    r"(?:[plcrm]\{(?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*\}|[lcr])",  # p{...} или l/c/r
+    re.S,
+)
 
-    longtable по умолчанию разрывается между страницами. Для ВКР таблицы должны
-    оставаться целыми, поэтому окружение заменяется на tabular внутри vkrlongtab
-    (см. preamble.tex), а служебные строки longtable (\\endhead и т. п.) удаляются.
-    """
+
+def _grid_colspec(spec: str) -> str:
+    """Добавляет вертикальные линии ГОСТ-таблицы в спецификацию колонок."""
+    spec = spec.strip()
+    if spec.startswith("@{}"):
+        spec = spec[3:]
+    if spec.endswith("@{}"):
+        spec = spec[:-3]
+    cols = _COLSPEC_TOKEN.findall(spec)
+    if not cols:
+        return spec
+    return "|" + "|".join(c.strip() for c in cols) + "|"
+
+
+def convert_longtables(tex: str) -> str:
+    """Преобразует pandoc longtable в неразрывную среду vkrlongtab и придает
+    таблицам закрытый ГОСТ-вид: вертикальные границы по бокам и между всеми
+    колонками, горизонтальные линии (\\hline) вместо открытых booktabs-линеек,
+    разделители между строками."""
     tex = re.sub(r"\\begin\{longtable\}\[[^\]]*\]", r"\\begin{vkrlongtab}", tex)
     tex = tex.replace(r"\begin{longtable}", r"\begin{vkrlongtab}")
     tex = tex.replace(r"\end{longtable}", r"\end{vkrlongtab}")
     tex = re.sub(r"(?m)^\s*\\end(?:firsthead|head|lastfoot|foot)\s*$", "", tex)
-    return tex
+
+    def rework(match: re.Match) -> str:
+        body = match.group(2)
+        # спецификация колонок: первая брейс-группа после \begin{vkrlongtab}
+        spec_match = re.match(r"\{((?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*)\}", body, re.S)
+        if spec_match:
+            spec = _grid_colspec(spec_match.group(1))
+            body = "{" + spec + "}" + body[spec_match.end():]
+        body = body.replace(r"\toprule", r"\hline")
+        body = body.replace(r"\midrule", r"\hline")
+        body = body.replace(r"\bottomrule", r"\hline")
+        # разделитель после каждой строки, если за ней еще нет \hline
+        body = re.sub(r"(\\\\\n)(?!\s*\\hline)", r"\1\\hline\n", body)
+        return match.group(1) + body + match.group(3)
+
+    return re.sub(
+        r"(\\begin\{vkrlongtab\})(.*?)(\\end\{vkrlongtab\})",
+        rework,
+        tex,
+        flags=re.S,
+    )
 
 
 def constrain_graphics(tex: str) -> str:
