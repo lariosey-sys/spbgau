@@ -85,17 +85,18 @@
 
 % Неразрывная табличная среда: pandoc-таблицы (longtable) преобразуются в нее
 % в postprocess, чтобы таблица не разрывалась между страницами.
-% Резерв места вставляется ПЕРЕД подписью таблицы (см. bind_table_captions в
-% build_thesis_latex.py), поэтому здесь только компактные отступы: зазор между
-% подписью «Таблица N – …» и самой таблицей должен быть минимальным.
+% Отступы таблицы задаются ЖЕСТКО (без center/trivlist с их плавающими
+% topsep): ровно 5 pt над таблицей (подпись «Таблица N – …» сидит вплотную)
+% и 6 pt под ней. Внешний отступ от текста до подписи (10 pt) добавляет
+% bind_table_captions в build_thesis_latex.py.
 \newenvironment{vkrlongtab}[1]
-  {\par\setlength{\topsep}{2pt}\setlength{\partopsep}{0pt}%
-   \begin{center}\singlespacing\small
+  {\par\nopagebreak\vspace{-12pt}\noindent\begingroup
+   \centering\singlespacing\small
    % В узких колонках длинные слова должны переноситься (в основном тексте
    % переносы отключены), иначе содержимое ячейки выходит за границу.
    \hyphenpenalty=200\relax\exhyphenpenalty=200\relax\hbadness=10000\relax
    \begin{adjustbox}{max width=\linewidth}\begin{tabular}{#1}}
-  {\end{tabular}\end{adjustbox}\end{center}\par}
+  {\end{tabular}\end{adjustbox}\par\endgroup\vspace{6pt}}
 
 \definecolor{VkrLinkColor}{HTML}{1A4F8B}
 \hypersetup{

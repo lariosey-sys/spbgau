@@ -374,12 +374,15 @@ def keep_listings_together(tex: str) -> str:
     каждый блок в неразрывный minipage. Короткие листинги ВКР целиком переходят
     на следующую страницу, если не помещаются, вместо некрасивого разрыва."""
     # \begin{verbatim}/\end{verbatim} (fancyvrb) должны стоять на отдельных
-    # строках, поэтому обертку minipage отделяем переводами строки.
+    # строках, поэтому обертку minipage отделяем переводами строки. Снаружи -
+    # явные отступы 8 pt, чтобы листинг не сливался с текстом; внутри topsep
+    # уменьшен, чтобы рамка не отъезжала от подписи.
     return re.sub(
         r"\\begin\{verbatim\}.*?\\end\{verbatim\}",
-        lambda m: "\\par\\noindent\\begin{minipage}{\\linewidth}\n"
+        lambda m: "\\par\\vspace{8pt}\\noindent\\begin{minipage}{\\linewidth}\n"
+        "\\setlength{\\topsep}{3pt}\\setlength{\\partopsep}{0pt}\n"
         + m.group(0)
-        + "\n\\end{minipage}\\par",
+        + "\n\\end{minipage}\\par\\vspace{8pt}",
         tex,
         flags=re.DOTALL,
     )
@@ -397,6 +400,18 @@ def tighten_equations(tex: str) -> str:
     return tex
 
 
+def bind_listing_captions(tex: str) -> str:
+    """Привязывает подпись «Листинг N – …» к листингу: оба в одном неразрывном
+    minipage, подпись кеглем 12 пт, между подписью и рамкой - запрет разрыва."""
+    return re.sub(
+        r"(?m)^(Листинг[ ~]\d[^\n]*(?:\n[^\n]+)*?)\n\n"
+        r"\\par\\vspace\{8pt\}\\noindent\\begin\{minipage\}\{\\linewidth\}",
+        r"\\par\\vspace{10pt}\\noindent\\begin{minipage}{\\linewidth}\n"
+        r"\\setlength{\\parindent}{1.5cm}{\\small \1\\par}\\nopagebreak",
+        tex,
+    )
+
+
 def bind_table_captions(tex: str) -> str:
     """Привязывает подпись «Таблица N – …» к таблице: оба оборачиваются в один
     неразрывный minipage, поэтому подпись не может остаться на одной странице,
@@ -404,7 +419,7 @@ def bind_table_captions(tex: str) -> str:
     return re.sub(
         r"(?m)^(Таблица[ ~]\d[^\n]*(?:\n[^\n]+)*?)\n\n(\\begin\{vkrlongtab\}.*?\\end\{vkrlongtab\})",
         r"\\par\\vspace{10pt}\\noindent\\begin{minipage}{\\linewidth}\n"
-        r"\\setlength{\\parindent}{1.5cm}{\\small \1\\par}\\nopagebreak\\vspace{-9pt}\n\2\n"
+        r"\\setlength{\\parindent}{1.5cm}{\\small \1\\par}\\nopagebreak\n\2\n"
         r"\\end{minipage}\\par\\vspace{10pt}",
         tex,
         flags=re.S,
@@ -425,6 +440,7 @@ def postprocess_tex(tex: str) -> str:
     tex = constrain_graphics(tex)
     tex = pin_figures(tex)
     tex = keep_listings_together(tex)
+    tex = bind_listing_captions(tex)
     tex = bind_table_captions(tex)
     tex = tighten_equations(tex)
     return tex
