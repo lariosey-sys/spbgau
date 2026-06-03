@@ -213,6 +213,11 @@
 \RecustomVerbatimEnvironment{verbatim}{Verbatim}{
   breaklines=true,
   breakanywhere=true,
+  % без технических маркеров переноса строки (стрелок) в листингах
+  breaksymbolleft={},
+  breaksymbolright={},
+  breakanywheresymbolpre={},
+  breakanywheresymbolpost={},
   fontsize=\small,
   frame=single,
   framerule=0.4pt,

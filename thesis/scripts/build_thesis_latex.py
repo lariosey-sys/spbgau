@@ -74,8 +74,11 @@ def load_citation_key_map() -> dict[str, int]:
     return mapping
 
 
-# Группа цитирования: [key] или [key1; key2; ...]; ключ вида word+4цифры+word.
-_CITATION_KEY = r"[A-Za-z][A-Za-z0-9_]*\d{4}[A-Za-z0-9_]*"
+# Группа цитирования: [key] или [key1; key2; ...]. Шаблон ключа намеренно
+# широкий (латиница/цифры/подчеркивание, год не обязателен - например,
+# vanharisov_cyberleninka); реальная проверка - членство в карте ключей,
+# незнакомые скобочные конструкции остаются нетронутыми.
+_CITATION_KEY = r"[A-Za-z][A-Za-z0-9_]{3,}"
 _CITATION_GROUP = re.compile(
     r"\[\s*(" + _CITATION_KEY + r"(?:\s*;\s*" + _CITATION_KEY + r")*)\s*\]"
 )
