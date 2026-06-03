@@ -484,6 +484,38 @@ def build_main_tex(abstract_tex: str, body_tex: str) -> str:
     )
 
 
+def fix_pdf_text_layer(pdf_path: Path) -> None:
+    """Чинит текстовый слой PDF: шрифт Times New Roman использует один глиф для
+    «;» и греческого знака вопроса (U+037E), и xdvipdfmx прописывает в ToUnicode
+    именно U+037E. Визуально PDF корректен, но копирование/извлечение текста
+    дает нестандартный символ. Заменяем отображение на обычную «;» (U+003B).
+    Требует pikepdf; при его отсутствии шаг пропускается с предупреждением."""
+    try:
+        import pikepdf
+    except ImportError:
+        print("ПРЕДУПРЕЖДЕНИЕ: pikepdf не установлен - текстовый слой PDF "
+              "не исправлен (U+037E вместо ';' при копировании).")
+        return
+    fixed = 0
+    with pikepdf.open(str(pdf_path), allow_overwriting_input=True) as pdf:
+        for obj in pdf.objects:
+            try:
+                if not isinstance(obj, pikepdf.Stream):
+                    continue
+                data = obj.read_bytes()
+                if b"beginbfchar" not in data and b"beginbfrange" not in data:
+                    continue
+                if b"<037E>" in data:
+                    obj.write(data.replace(b"<037E>", b"<003B>"))
+                    fixed += 1
+            except Exception:
+                continue
+        if fixed:
+            pdf.save(str(pdf_path))
+    if fixed:
+        print(f"Текстовый слой PDF исправлен: {fixed} ToUnicode-карт(ы), ';' вместо U+037E.")
+
+
 def run_tectonic(tex_path: Path) -> Path:
     tectonic = ensure_tool("tectonic")
     run([tectonic, "--outdir", str(DIPLOMA_BUILDS_DIR), str(tex_path)])
@@ -516,6 +548,7 @@ def build() -> tuple[Path, Path]:
         body_tex = postprocess_tex(body_tex_path.read_text(encoding="utf-8"))
         tex_output.write_text(build_main_tex(abstract_tex, body_tex), encoding="utf-8")
         built_pdf = run_tectonic(tex_output)
+        fix_pdf_text_layer(built_pdf)
         if built_pdf != pdf_output:
             built_pdf.replace(pdf_output)
 
