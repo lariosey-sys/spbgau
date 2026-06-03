@@ -35,25 +35,21 @@ def ensure_tool(name: str) -> str:
 
 
 def next_version_number() -> int:
+    # Версия определяется только по уже существующим V-файлам в diploma_builds:
+    # ВКР-V1, ВКР-V2, ВКР-V3, ... Следующая сборка получает максимум + 1.
     DIPLOMA_BUILDS_DIR.mkdir(parents=True, exist_ok=True)
-    patterns = [
-        (DIPLOMA_BUILDS_DIR, re.compile(rf"^{re.escape(OUTPUT_BASENAME)}-(\d+)\.(?:tex|pdf)$")),
-        (BUILD_DIR, re.compile(rf"^(\d+)_{re.escape(LEGACY_OUTPUT_BASENAME)}\.(?:tex|pdf)$")),
-    ]
+    pattern = re.compile(rf"^{re.escape(OUTPUT_BASENAME)}-V(\d+)\.(?:tex|pdf)$")
     max_version = 0
-    for directory, pattern in patterns:
-        if not directory.exists():
-            continue
-        for path in directory.iterdir():
-            match = pattern.match(path.name)
-            if match:
-                max_version = max(max_version, int(match.group(1)))
+    for path in DIPLOMA_BUILDS_DIR.iterdir():
+        match = pattern.match(path.name)
+        if match:
+            max_version = max(max_version, int(match.group(1)))
     return max_version + 1
 
 
 def versioned_output(version: int, suffix: str) -> Path:
     DIPLOMA_BUILDS_DIR.mkdir(parents=True, exist_ok=True)
-    return DIPLOMA_BUILDS_DIR / f"{OUTPUT_BASENAME}-{version}{suffix}"
+    return DIPLOMA_BUILDS_DIR / f"{OUTPUT_BASENAME}-V{version}{suffix}"
 
 
 def run(command: list[str], *, cwd: Path = ROOT) -> None:
@@ -64,21 +60,48 @@ def build_numbered_markdown() -> None:
     run(["bash", "build_numbered_draft.sh"])
 
 
+def load_citation_key_map() -> dict[str, int]:
+    """Карта citation key -> номер источника из literature/citation_number_map.md."""
+    mapping: dict[str, int] = {}
+    source = PROJECT_ROOT / "literature" / "citation_number_map.md"
+    if not source.exists():
+        return mapping
+    row = re.compile(r"^\|\s*`([^`]+)`\s*\|\s*(\d+)\s*\|")
+    for line in source.read_text(encoding="utf-8").splitlines():
+        match = row.match(line)
+        if match:
+            mapping[match.group(1)] = int(match.group(2))
+    return mapping
+
+
+# Группа цитирования: [key] или [key1; key2; ...]; ключ вида word+4цифры+word.
+_CITATION_KEY = r"[A-Za-z][A-Za-z0-9_]*\d{4}[A-Za-z0-9_]*"
+_CITATION_GROUP = re.compile(
+    r"\[\s*(" + _CITATION_KEY + r"(?:\s*;\s*" + _CITATION_KEY + r")*)\s*\]"
+)
+
+
 def apply_citation_replacements(text: str) -> str:
-    table = PROJECT_ROOT / "literature" / "citation_replacement_table.md"
-    if not table.exists():
+    """Заменяет служебные citation keys на нумерованные ссылки ГОСТ: [9, 10, 11].
+
+    Работает по отдельным ключам, поэтому корректно обрабатывает любые группы
+    `[k1; k2; k3]`, а не только заранее перечисленные комбинации.
+    """
+    key_map = load_citation_key_map()
+    if not key_map:
         return text
-    for line in table.read_text(encoding="utf-8").splitlines():
-        if not line.startswith("| `"):
-            continue
-        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
-        if len(cells) < 2:
-            continue
-        source = cells[0].strip("`")
-        target = cells[1].strip("`")
-        if source.startswith("["):
-            text = text.replace(source, target)
-    return text
+
+    def repl(match: re.Match) -> str:
+        keys = [k.strip() for k in match.group(1).split(";")]
+        numbers: list[int] = []
+        for key in keys:
+            if key not in key_map:
+                # Неизвестный ключ оставляем как есть, чтобы заметить при вычитке.
+                return match.group(0)
+            numbers.append(key_map[key])
+        return "[" + ", ".join(str(n) for n in numbers) + "]"
+
+    return _CITATION_GROUP.sub(repl, text)
 
 
 def strip_heading(text: str) -> str:
@@ -162,6 +185,7 @@ def body_markdown() -> str:
     for filename in CONTENT_FILES:
         chunks.append(normalize_chapter_heading(read_source(ROOT / filename).strip()))
     chunks.append(references_markdown())
+    chunks.append(appendices_markdown())
     text = "\n\n".join(chunks).strip() + "\n"
     return apply_citation_replacements(text)
 
@@ -169,6 +193,12 @@ def body_markdown() -> str:
 def preprocess_markdown(text: str) -> str:
     text = text.replace("CO2", r"CO$_2$")
     text = re.sub(r"URL:\s*(https?://[^\s)]+)", r"URL: <\1>", text)
+    # DOI делаем кликабельной ссылкой на doi.org (отображается сам DOI).
+    text = re.sub(
+        r"DOI:\s*(10\.\d{4,}/[^\s]+?)\.(?=\s|$)",
+        r"DOI: [\1](https://doi.org/\1).",
+        text,
+    )
     return text
 
 
@@ -183,7 +213,7 @@ def run_pandoc(markdown_path: Path, tex_path: Path) -> None:
         "latex",
         "--resource-path",
         str(ROOT),
-        "--syntax-highlighting=none",
+        "--no-highlight",
         "--output",
         str(tex_path),
     ]
@@ -249,25 +279,117 @@ def normalize_tables(tex: str) -> str:
     return tex
 
 
+def convert_longtables(tex: str) -> str:
+    """Преобразует pandoc longtable в неразрывную среду vkrlongtab.
+
+    longtable по умолчанию разрывается между страницами. Для ВКР таблицы должны
+    оставаться целыми, поэтому окружение заменяется на tabular внутри vkrlongtab
+    (см. preamble.tex), а служебные строки longtable (\\endhead и т. п.) удаляются.
+    """
+    tex = re.sub(r"\\begin\{longtable\}\[[^\]]*\]", r"\\begin{vkrlongtab}", tex)
+    tex = tex.replace(r"\begin{longtable}", r"\begin{vkrlongtab}")
+    tex = tex.replace(r"\end{longtable}", r"\end{vkrlongtab}")
+    tex = re.sub(r"(?m)^\s*\\end(?:firsthead|head|lastfoot|foot)\s*$", "", tex)
+    return tex
+
+
+def constrain_graphics(tex: str) -> str:
+    """Ограничивает размер каждой иллюстрации половиной страницы.
+
+    pandoc выводит \\includegraphics без размеров, из-за чего фотографии с большим
+    разрешением переполняют страницу. Проставляем width/height с keepaspectratio.
+    """
+    return re.sub(
+        r"\\includegraphics\{",
+        r"\\includegraphics[width=0.7\\linewidth,"
+        r"height=0.44\\textheight,keepaspectratio]{",
+        tex,
+    )
+
+
+def keep_listings_together(tex: str) -> str:
+    """Не дает листингам (verbatim) разрываться между страницами: оборачивает
+    каждый блок в неразрывный minipage. Короткие листинги ВКР целиком переходят
+    на следующую страницу, если не помещаются, вместо некрасивого разрыва."""
+    # \begin{verbatim}/\end{verbatim} (fancyvrb) должны стоять на отдельных
+    # строках, поэтому обертку minipage отделяем переводами строки.
+    return re.sub(
+        r"\\begin\{verbatim\}.*?\\end\{verbatim\}",
+        lambda m: "\\par\\noindent\\begin{minipage}{\\linewidth}\n"
+        + m.group(0)
+        + "\n\\end{minipage}\\par",
+        tex,
+        flags=re.DOTALL,
+    )
+
+
+def tighten_equations(tex: str) -> str:
+    """Один отступ над формулой и под ней (текст - отступ - формула).
+
+    pandoc отделяет формулу пустой строкой, из-за чего она начинает новый абзац
+    и над ней появляется лишняя пустая строка поверх \\abovedisplayskip (двойной
+    отступ). Присоединяем формулу к предыдущему абзацу. Пояснение «где ...» по
+    ГОСТ начинается без абзацного отступа - продолжаем им тот же абзац."""
+    tex = re.sub(r"\n\n+(\\begin\{equation\})", r"\n\1", tex)
+    tex = re.sub(r"(\\end\{equation\})\n\n+(где )", r"\1\n\2", tex)
+    return tex
+
+
+def bind_table_captions(tex: str) -> str:
+    """Привязывает подпись «Таблица N – …» к таблице: оба оборачиваются в один
+    неразрывный minipage, поэтому подпись не может остаться на одной странице,
+    а таблица уехать на другую - блок целиком переносится при нехватке места."""
+    return re.sub(
+        r"(?m)^(Таблица[ ~]\d[^\n]*(?:\n[^\n]+)*?)\n\n(\\begin\{vkrlongtab\}.*?\\end\{vkrlongtab\})",
+        r"\\par\\vspace{10pt}\\noindent\\begin{minipage}{\\linewidth}\n"
+        r"\\setlength{\\parindent}{1.5cm}\1\\par\\nopagebreak\n\2\n"
+        r"\\end{minipage}\\par\\vspace{6pt}",
+        tex,
+        flags=re.S,
+    )
+
+
+def pin_figures(tex: str) -> str:
+    """Фиксирует рисунки по месту (`[H]`), чтобы подписи не отрывались от
+    иллюстраций и порядок рисунков совпадал с порядком ссылок в тексте."""
+    return tex.replace(r"\begin{figure}", r"\begin{figure}[H]")
+
+
 def postprocess_tex(tex: str) -> str:
     tex = replace_structural_sections(tex)
     tex = normalize_enumeration_labels(tex)
     tex = normalize_tables(tex)
+    tex = convert_longtables(tex)
+    tex = constrain_graphics(tex)
+    tex = pin_figures(tex)
+    tex = keep_listings_together(tex)
+    tex = bind_table_captions(tex)
+    tex = tighten_equations(tex)
     return tex
+
+
+# Временно отключено до получения точных данных титульного листа (факультет,
+# кафедра, направление, руководитель). Вернуть в True, когда титул будет готов.
+INCLUDE_TITLE_PAGE = False
 
 
 def build_main_tex(abstract_tex: str, body_tex: str) -> str:
     preamble = PREAMBLE.read_text(encoding="utf-8")
-    title_page = TITLE_PAGE.read_text(encoding="utf-8")
+    front_matter: list[str] = []
+    if INCLUDE_TITLE_PAGE:
+        title_page = TITLE_PAGE.read_text(encoding="utf-8")
+        front_matter = [
+            r"\hypersetup{pageanchor=false}",
+            title_page,
+            r"\setcounter{page}{2}",
+            r"\hypersetup{pageanchor=true}",
+        ]
     return "\n".join(
         [
             preamble,
             "",
             r"\begin{document}",
-            r"\hypersetup{pageanchor=false}",
-            title_page,
-            r"\setcounter{page}{2}",
-            r"\hypersetup{pageanchor=true}",
+            *front_matter,
             "",
             abstract_tex,
             r"\clearpage",

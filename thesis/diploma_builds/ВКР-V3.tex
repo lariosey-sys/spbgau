@@ -25,18 +25,12 @@
 \onehalfspacing
 \setlength{\parindent}{1.5cm}
 
-% По ГОСТ формула выделяется в отдельную строку со свободной строкой СВЕРХУ и
-% СНИЗУ. Размерные макросы LaTeX (\normalsize и др.) сбрасывают display-skip'ы
-% при каждом переключении шрифта, поэтому значения вшиваются прямо в \normalsize -
-% иначе настройка из преамбулы затирается в начале документа.
-\makeatletter
-\g@addto@macro\normalsize{%
-  \setlength{\abovedisplayskip}{18pt plus 2pt minus 2pt}%
-  \setlength{\belowdisplayskip}{18pt plus 2pt minus 2pt}%
-  \setlength{\abovedisplayshortskip}{16pt plus 2pt minus 2pt}%
-  \setlength{\belowdisplayshortskip}{16pt plus 2pt minus 2pt}%
-}
-\makeatother
+% По ГОСТ формула выделяется в отдельную строку со свободной строкой сверху и
+% снизу. Задаем заметные вертикальные отступы вокруг выключных формул.
+\setlength{\abovedisplayskip}{14pt plus 3pt minus 2pt}
+\setlength{\belowdisplayskip}{14pt plus 3pt minus 2pt}
+\setlength{\abovedisplayshortskip}{12pt plus 3pt minus 2pt}
+\setlength{\belowdisplayshortskip}{12pt plus 3pt minus 2pt}
 \setlength{\parskip}{0pt}
 
 % Сдаваемая версия ВКР не должна разрывать слова переносами вида
@@ -72,8 +66,6 @@
 \usepackage{placeins}
 \usepackage{xurl}
 \usepackage{hyperref}
-% URL в списке литературы набираются основным шрифтом (Times), а не моноширинным.
-\urlstyle{same}
 \usepackage{bookmark}
 \usepackage{xcolor}
 
@@ -172,10 +164,8 @@
 \setlength{\cftbeforesecskip}{2pt}
 \setlength{\cftbeforesubsecskip}{1pt}
 
-% Подписи иллюстраций - 12 пт (правила СПбГАУ допускают 12 пт для пояснений к
-% иллюстрациям; основной текст - 14 пт).
 \captionsetup{
-  font={small,stretch=1},
+  font={normalsize,stretch=1},
   labelformat=empty,
   labelsep=none,
   justification=centering,
@@ -283,7 +273,7 @@
 \hypertarget{ux440ux435ux444ux435ux440ux430ux442}{%
 \VkrStructuralSectionNoToc{РЕФЕРАТ}\label{ux440ux435ux444ux435ux440ux430ux442}}
 
-Работа содержит \pageref{LastPage} с., 16 рис., 14 табл., 32 источн.
+Работа содержит \pageref{LastPage} с., 12 рис., 16 табл., 32 источн.
 
 Выпускная квалификационная работа посвящена разработке интеллектуальной
 системы управления микроклиматом теплицы на основе машинного обучения.
@@ -1167,8 +1157,8 @@ ML-слоя. Правило проверяет значение датчика, 
 Для развития платформы целесообразно расширить модель данных до
 сущностей, приведенных в таблице 2.1.
 
-\par\vspace{10pt}\noindent\begin{minipage}{\linewidth}
-\setlength{\parindent}{1.5cm}Таблица 2.1 -- Перспективная модель данных расширяемой платформы\par\nopagebreak
+\par\Needspace*{0.30\textheight}
+Таблица 2.1 -- Перспективная модель данных расширяемой платформы\par\nopagebreak
 \begin{vkrlongtab}{@{}
   >{\RaggedRight\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
   >{\RaggedRight\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
@@ -1194,7 +1184,6 @@ ML-слоя. Правило проверяет значение датчика, 
 обучения \\
 \bottomrule
 \end{vkrlongtab}
-\end{minipage}\par\vspace{6pt}
 
 Текущие таблицы можно рассматривать как первый инкремент этой модели.
 Они не исчерпывают будущую платформу, но уже фиксируют главное:
@@ -1239,10 +1228,12 @@ PPFD, DLI, электрическая мощность освещения, EC и
 данных и постановки ML-задачи.
 
 Упрощенный тепловой баланс теплицы можно записать в виде:
+
 \begin{equation}
 C_{\text{в}} \frac{dT}{dt} = Q_{\text{нагр}} + Q_{\text{свет}} + Q_{\text{сол}} - Q_{\text{пот}} - Q_{\text{вент}} - Q_{\text{исп}},
 \tag{2.1}
 \end{equation}
+
 где \(T\) - температура воздуха, °C; \(C_{\text{в}}\) - эффективная
 теплоемкость воздуха и конструкций; \(Q_{\text{нагр}}\) - тепловая
 мощность нагрева; \(Q_{\text{свет}}\) - тепловыделение освещения;
@@ -1251,20 +1242,24 @@ C_{\text{в}} \frac{dT}{dt} = Q_{\text{нагр}} + Q_{\text{свет}} + Q_{\te
 тепла при вентиляции; \(Q_{\text{исп}}\) - тепловой эффект испарения.
 
 Баланс влаги можно представить как:
+
 \begin{equation}
 C_{\text{вл}} \frac{dH}{dt} = G_{\text{исп}} + G_{\text{увл}} - G_{\text{вент}} - G_{\text{конд}},
 \tag{2.2}
 \end{equation}
+
 где \(H\) - влагосодержание воздуха; \(C_{\text{вл}}\) - влагоемкость
 воздуха; \(G_{\text{исп}}\) - испарение с растений и раствора;
 \(G_{\text{увл}}\) - подача влаги увлажнителем; \(G_{\text{вент}}\) -
 удаление влаги вентиляцией; \(G_{\text{конд}}\) - конденсация.
 
 Баланс CO\(_2\) в упрощенном виде:
+
 \begin{equation}
 V \frac{dC}{dt} = F_{\text{обм}}(C_{\text{нар}} - C) + G_C - U_{\text{раст}},
 \tag{2.3}
 \end{equation}
+
 где \(C\) - концентрация CO\(_2\) в теплице; \(V\) - объем воздуха;
 \(F_{\text{обм}}\) - воздухообмен; \(C_{\text{нар}}\) - наружная
 концентрация; \(G_C\) - подача или внутреннее образование углекислого
@@ -1280,27 +1275,33 @@ V \frac{dC}{dt} = F_{\text{обм}}(C_{\text{нар}} - C) + G_C - U_{\text{ра
 
 Для анализа временных рядов используются более простые расчетные
 показатели. Изменение параметра после события реле определяется как:
+
 \begin{equation}
 \Delta x = \bar{x}_{\text{после}} - \bar{x}_{\text{до}},
 \tag{2.4}
 \end{equation}
+
 где \(\bar{x}_{\text{до}}\) - среднее значение в окне до события;
 \(\bar{x}_{\text{после}}\) - среднее значение в окне после события. Для
 оценки прогноза используются стандартные метрики - средняя абсолютная
 ошибка (2.5), корень из средней квадратичной ошибки (2.6) и коэффициент
 детерминации (2.7):
+
 \begin{equation}
 MAE = \frac{1}{n}\sum_{i=1}^{n}|y_i-\hat{y}_i|,
 \tag{2.5}
 \end{equation}
+
 \begin{equation}
 RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat{y}_i)^2},
 \tag{2.6}
 \end{equation}
+
 \begin{equation}
 R^2 = 1 - \frac{\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}{\sum_{i=1}^{n}(y_i-\bar{y})^2},
 \tag{2.7}
 \end{equation}
+
 где \(y_i\) - фактическое значение; \(\hat{y}_i\) - прогноз; \(\bar{y}\)
 - среднее фактических значений; \(n\) - число точек.
 
@@ -1380,26 +1381,32 @@ Transformer целесообразны после расширения дата�
 \end{enumerate}
 
 Энергозатраты освещения определяются по формуле:
+
 \begin{equation}
 E_{\text{осв}} = P_{\text{осв}} \cdot t_{\text{осв}},
 \tag{2.8}
 \end{equation}
+
 где \(P_{\text{осв}}\) - электрическая мощность светильника;
 \(t_{\text{осв}}\) - продолжительность работы. Для световых вариантов с
 фотопериодом 18 ч/сут суточная световая доза DLI рассчитывается по
 формуле (2.9):
+
 \begin{equation}
 DLI = \frac{PPFD \cdot 18 \cdot 3600}{1\,000\,000},
 \tag{2.9}
 \end{equation}
+
 где \(PPFD\) - фотосинтетический поток фотонов, мкмоль/(м²·с); множители
 18 и 3600 переводят фотопериод в секунды, а делитель приводит мкмоль к
 моль. Энергия исполнительных устройств рассчитывается по длительности
 включения реле согласно формуле (2.10):
+
 \begin{equation}
 E_{\text{обор}} = \sum_{j=1}^{m} P_j \cdot t_j,
 \tag{2.10}
 \end{equation}
+
 где \(P_j\) - номинальная мощность \(j\)-го устройства; \(t_j\) -
 суммарное время его включения по журналу реле; \(m\) - число устройств.
 Если фактическая мощность части оборудования неизвестна, расчет должен
@@ -1407,10 +1414,12 @@ E_{\text{обор}} = \sum_{j=1}^{m} P_j \cdot t_j,
 
 Сценарная экономия от прогнозного управления может быть оценена как доля
 предотвращенных лишних включений по формуле (2.11):
+
 \begin{equation}
 S_{\text{эк}} = E_{\text{баз}} \cdot k_{\text{эк}} \cdot c_{\text{эл}},
 \tag{2.11}
 \end{equation}
+
 где \(E_{\text{баз}}\) - базовое энергопотребление; \(k_{\text{эк}}\) -
 сценарная доля экономии; \(c_{\text{эл}}\) - тариф на электроэнергию.
 Отдельно может оцениваться эффект от снижения потерь продукции и
@@ -1515,8 +1524,8 @@ Mega 2560 и группа силовых электромагнитных рел
 микроклимата: вентиляция, нагрев и циркуляция раствора являются
 основными управляемыми источниками тепло- и влагообмена.
 
-\par\vspace{10pt}\noindent\begin{minipage}{\linewidth}
-\setlength{\parindent}{1.5cm}Таблица 3.1 -- Энергопотребляющее оборудование опытного тепличного бокса\par\nopagebreak
+\par\Needspace*{0.30\textheight}
+Таблица 3.1 -- Энергопотребляющее оборудование опытного тепличного бокса\par\nopagebreak
 \begin{vkrlongtab}{@{}
   >{\RaggedRight\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1765}}
   >{\Centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2353}}
@@ -1552,7 +1561,6 @@ SLA-\hspace{0pt}05VDC-\hspace{0pt}SL-\hspace{0pt}C & катушка 5 В DC;
 контакты 30 А, 250 В AC & коммутируемая нагрузка \\
 \bottomrule
 \end{vkrlongtab}
-\end{minipage}\par\vspace{6pt}
 
 По установленной мощности в боксе доминируют канальные
 электронагреватели: на два ТЭНа приходится около 12 кВт, что на порядок
@@ -1714,8 +1722,8 @@ ppm и больше 10\,000 ppm отбрасываются, после чего 
 \texttt{green} и сохранена как локальное доказательство внедрения.
 Диапазон данных приведен в таблице 3.2.
 
-\par\vspace{10pt}\noindent\begin{minipage}{\linewidth}
-\setlength{\parindent}{1.5cm}Таблица 3.2 -- Объем и временной охват таблиц истории\par\nopagebreak
+\par\Needspace*{0.30\textheight}
+Таблица 3.2 -- Объем и временной охват таблиц истории\par\nopagebreak
 \begin{vkrlongtab}{@{}lrc@{}}
 \toprule
 Таблица & Число строк & Период \\
@@ -1725,7 +1733,6 @@ ppm и больше 10\,000 ppm отбрасываются, после чего 
 \texttt{relay\_log} & 165 & 28.03.2026 - 25.05.2026 \\
 \bottomrule
 \end{vkrlongtab}
-\end{minipage}\par\vspace{6pt}
 
 Датасет охватывает почти два месяца опытной эксплуатации. Это уже
 достаточная основа для описательного анализа, проверки качества данных,
@@ -1744,8 +1751,8 @@ ppm и больше 10\,000 ppm отбрасываются, после чего 
 диапазоне примерно 17,6-34,9 °C, а средние значения различались по
 точкам измерения (таблица 3.3).
 
-\par\vspace{10pt}\noindent\begin{minipage}{\linewidth}
-\setlength{\parindent}{1.5cm}Таблица 3.3 -- Сводные характеристики сенсорных рядов после исключения
+\par\Needspace*{0.30\textheight}
+Таблица 3.3 -- Сводные характеристики сенсорных рядов после исключения
 технических нулей\par\nopagebreak
 \begin{vkrlongtab}{@{}
   >{\RaggedRight\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1579}}
@@ -1772,7 +1779,6 @@ ppm и больше 10\,000 ppm отбрасываются, после чего 
 \texttt{th-2} & 81\,315 & 27,85 & 27,57 & - \\
 \bottomrule
 \end{vkrlongtab}
-\end{minipage}\par\vspace{6pt}
 
 Различия между датчиками имеют практическое значение. Среднее абсолютное
 расхождение температуры между \texttt{th-1} и \texttt{th-2} составило
@@ -1817,10 +1823,12 @@ th-2 и co2-1 за период наблюдений}
 \texttt{th-2}), поэтому дефицит давления водяного пара (VPD) оказался
 хронически высоким. VPD рассчитывается как разность давления насыщенного
 и фактического водяного пара по формуле (3.1):
+
 \begin{equation}
 \mathrm{VPD} = e_{\text{н}}(T)\left(1 - \frac{\varphi}{100}\right), \qquad e_{\text{н}}(T) = 0{,}6108\,\exp\!\left(\frac{17{,}27\,T}{T + 237{,}3}\right),
 \tag{3.1}
 \end{equation}
+
 где \(T\) - температура воздуха, °C; \(\varphi\) - относительная
 влажность, \%; \(e_{\text{н}}(T)\) - давление насыщенного водяного пара
 по формуле Тетенса, кПа. С позиции теплоэнергетики VPD определяет
@@ -1862,38 +1870,42 @@ th-2 и co2-1 за период наблюдений}
 делает возможным наблюдательный анализ реакции микроклимата на включения
 оборудования (таблица 3.4).
 
-\par\vspace{10pt}\noindent\begin{minipage}{\linewidth}
-\setlength{\parindent}{1.5cm}Таблица 3.4 -- Активность наиболее задействованных релейных каналов за
+\par\Needspace*{0.30\textheight}
+Таблица 3.4 -- Активность наиболее задействованных релейных каналов за
 период наблюдений\par\nopagebreak
 \begin{vkrlongtab}{@{}
-  >{\Centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
-  >{\RaggedRight\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1500}}
-  >{\Centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2500}}
-  >{\Centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}@{}}
+  >{\Centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1739}}
+  >{\RaggedRight\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1304}}
+  >{\Centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1739}}
+  >{\Centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1739}}
+  >{\Centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1739}}
+  >{\Centering\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1739}}@{}}
 \toprule
 \begin{minipage}[b]{\linewidth}\Centering
 Реле
 \end{minipage} & \begin{minipage}[b]{\linewidth}\RaggedRight
-Назначение по профилям
+Интерпретация по профилям
 \end{minipage} & \begin{minipage}[b]{\linewidth}\Centering
 Событий
-\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
-ON/OFF
 \end{minipage} & \begin{minipage}[b]{\linewidth}\Centering
-Время ON, мин
+ON
+\end{minipage} & \begin{minipage}[b]{\linewidth}\Centering
+OFF
+\end{minipage} & \begin{minipage}[b]{\linewidth}\Centering
+Наблюдаемое время ON, мин
 \end{minipage} \\
 \midrule
 
-8 & приток с улицы (бокс 2), основное действие & 43 & 22/21 &
+8 & приток с улицы, бокс 2, основное действие & 43 & 22 & 21 &
 39\,556,75 \\
-9 & приток с улицы (бокс 2), подготовка & 37 & 19/18 & 38\,273,87 \\
-11 & приток с улицы (бокс 2), подготовка & 33 & 17/16 & 39\,513,27 \\
-2 & ультразвуковой увлажнитель 2 & 18 & 9/9 & 2\,961,92 \\
-3 & ультразвуковой увлажнитель 1 & 6 & 3/3 & 1\,332,62 \\
+9 & приток с улицы, бокс 2, предварительное действие & 37 & 19 & 18 &
+38\,273,87 \\
+11 & приток с улицы, бокс 2, предварительное действие & 33 & 17 & 16 &
+39\,513,27 \\
+2 & 2-й ультразвуковой увлажнитель & 18 & 9 & 9 & 2\,961,92 \\
+3 & 1-й ультразвуковой увлажнитель & 6 & 3 & 3 & 1\,332,62 \\
 \bottomrule
 \end{vkrlongtab}
-\end{minipage}\par\vspace{6pt}
 
 Анализ временного распределения событий выявил характерную особенность
 логики управления: за все 55 суток наблюдений ни одно реле не
@@ -1993,8 +2005,8 @@ ML-модели это означает необходимость исполь�
 Для световых вариантов зафиксирован фотопериод 18 часов света и 6 часов
 темноты. PPFD и рассчитанный DLI составляют (таблица 3.5):
 
-\par\vspace{10pt}\noindent\begin{minipage}{\linewidth}
-\setlength{\parindent}{1.5cm}Таблица 3.5 -- Световые варианты: PPFD, расчетный DLI и электрическая
+\par\Needspace*{0.30\textheight}
+Таблица 3.5 -- Световые варианты: PPFD, расчетный DLI и электрическая
 мощность\par\nopagebreak
 \begin{vkrlongtab}{@{}
   >{\Centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
@@ -2020,7 +2032,6 @@ DLI, моль/(м²·сут)
 5 & 245,5 & 15,91 & 478,0 \\
 \bottomrule
 \end{vkrlongtab}
-\end{minipage}\par\vspace{6pt}
 
 Важно не смешивать PPFD и электрическую мощность. PPFD описывает
 фотосинтетический поток на уровне растений, а мощность в ваттах -
@@ -2071,8 +2082,8 @@ DLI, моль/(м²·сут)
 поврежденных или некондиционных листьев, вероятно усиленный высоким VPD.
 Сводка по вариантам приведена в таблице 3.6.
 
-\par\vspace{10pt}\noindent\begin{minipage}{\linewidth}
-\setlength{\parindent}{1.5cm}Таблица 3.6 -- Влияние светового варианта на урожай, энергоэффективность
+\par\Needspace*{0.30\textheight}
+Таблица 3.6 -- Влияние светового варианта на урожай, энергоэффективность
 и качество салата (среднее по 6 сортам)\par\nopagebreak
 \begin{vkrlongtab}{@{}
   >{\Centering\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1429}}
@@ -2107,7 +2118,6 @@ DLI, моль/(м²·сут)
 5 & 15,91 & 93,8 & 0,20 & 62,4 & 7,90 & 1,79 \\
 \bottomrule
 \end{vkrlongtab}
-\end{minipage}\par\vspace{6pt}
 
 Противоположные тренды качества - снижение нитратов и рост сухого
 вещества с увеличением света - показаны на рисунке 3.10.
@@ -2167,12 +2177,14 @@ EC, температура раствора, биометрия и итогов�
 Для освещения суточное потребление при фотопериоде 18 часов оценивается
 по формуле (2.8) как произведение мощности на время. Например, для
 варианта 5 с мощностью 478 Вт суточное потребление составляет (3.2):
+
 \begin{equation}
 E = 0{,}478 \cdot 18 = 8{,}604 \text{ кВт·ч/сут}.
 \tag{3.2}
 \end{equation}
 
 Для варианта 2 с мощностью 97 Вт - формула (3.3):
+
 \begin{equation}
 E = 0{,}097 \cdot 18 = 1{,}746 \text{ кВт·ч/сут}.
 \tag{3.3}
@@ -2186,6 +2198,7 @@ E = 0{,}097 \cdot 18 = 1{,}746 \text{ кВт·ч/сут}.
 Для исполнительных устройств расчет строится по журналу реле согласно
 формуле (2.10), которая в обозначениях данного раздела принимает вид
 (3.4):
+
 \begin{equation}
 E_{\text{обор}} = \sum P_j \cdot t_j.
 \tag{3.4}
@@ -2196,6 +2209,7 @@ E_{\text{обор}} = \sum P_j \cdot t_j.
 канал 8 (приточный вентилятор, мощность 0,33 кВт) по журналу проработал
 около 39\,557 минут, то есть примерно 659 ч за период наблюдений.
 Соответствующее потребление составляет:
+
 \begin{equation}
 E_{\text{вент}} = 0{,}33 \cdot 659 \approx 217 \text{ кВт·ч}.
 \tag{3.5}
@@ -2212,10 +2226,12 @@ E_{\text{вент}} = 0{,}33 \cdot 659 \approx 217 \text{ кВт·ч}.
 
 Сценарная экономия от прогнозного управления оценивается как доля
 предотвращенной избыточной работы оборудования по формуле (3.6):
+
 \begin{equation}
 S = k_{\text{эк}} \cdot E_{\text{баз}} \cdot c_{\text{эл}},
 \tag{3.6}
 \end{equation}
+
 где \(E_{\text{баз}}\) - базовое энергопотребление по журналу;
 \(k_{\text{эк}}\) - сценарная доля экономии (например, 0,1);
 \(c_{\text{эл}}\) - тариф на электроэнергию. Такой расчет показывает
@@ -2288,8 +2304,8 @@ CO\(_2\) на горизонте 10 и 30 минут. Данные раздел�
 датчик \texttt{th-1}; CO\(_2\) прогнозировался по очищенному ряду
 \texttt{co2-1}.
 
-\par\vspace{10pt}\noindent\begin{minipage}{\linewidth}
-\setlength{\parindent}{1.5cm}Таблица 3.7 -- Метрики baseline-прогноза микроклимата на горизонтах 10 и
+\par\Needspace*{0.30\textheight}
+Таблица 3.7 -- Метрики baseline-прогноза микроклимата на горизонтах 10 и
 30 минут\par\nopagebreak
 \begin{vkrlongtab}{@{}
   >{\RaggedRight\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1364}}
@@ -2340,7 +2356,6 @@ CO\(_2\) \texttt{co2-1}, ppm & 30 мин & ridge regression & 8,396 &
 14,486 & 0,919 \\
 \bottomrule
 \end{vkrlongtab}
-\end{minipage}\par\vspace{6pt}
 
 Сравнение ошибки RMSE для наивного прогноза и ridge-регрессии на
 горизонте 30 минут показано на рисунке 3.11 (шкала логарифмическая из-за
@@ -2639,189 +2654,164 @@ EC, биометрию и потери массы при хранении. В р
   El Ouaham W., Sadik M., Ennajih A., Mouzouna Y., Orchi H., Elouaham S.
   Smart Greenhouses in the Era of IoT and AI: A Comprehensive Review of
   AI Applications, Spectral Sensing, Multimodal Data Fusion, and
-  Intelligent Systems // Agriculture. -- 2026. -- Vol. 16, No.~7. --
-  Article 761. -- DOI:
+  Intelligent Systems // Agriculture. 2026. Vol. 16, No.~7. Article 761.
+  DOI:
   \href{https://doi.org/10.3390/agriculture16070761}{10.3390/agriculture16070761}.
 \item
   Bersani C., Ruggiero C., Sacile R., Soussi A., Zero E. Internet of
   Things Approaches for Monitoring and Control of Smart Greenhouses in
-  Industry 4.0 // Energies. -- 2022. -- Vol. 15, No.~10. -- Article
-  3834. -- DOI:
+  Industry 4.0 // Energies. 2022. Vol. 15, No.~10. Article 3834. DOI:
   \href{https://doi.org/10.3390/en15103834}{10.3390/en15103834}.
 \item
   Ван Вэйянь, Харисов А. Р. Сравнительный анализ современных систем
   автоматизированного управления микроклиматом в теплице // Вестник
-  науки. -- 2025. -- № 12 (93). -- С. 256-275. -- URL:
-  \url{https://cyberleninka.ru/article/n/sravnitelnyy-analiz-sovremennyh-sistem-avtomatizirovannogo-upravleniya-mikroklimatom-v-teplitse}
-  (дата обращения: 03.06.2026).
+  науки. 2025. № 12 (93). С. 256-275. URL:
+  \url{https://cyberleninka.ru/article/n/sravnitelnyy-analiz-sovremennyh-sistem-avtomatizirovannogo-upravleniya-mikroklimatom-v-teplitse.}
 \item
   Халина Т. М., Цыбанюк Д. Е. Разработка автоматизированной системы
   управления микроклиматом тепличного комплекса // Наука и молодежь:
-  материалы XVII Всероссийской научно-технической конференции. --
-  Барнаул: АлтГТУ, 2020. -- С. 125-126. -- URL:
-  \url{https://journal.altstu.ru/konf_2020/2020_1/54/} (дата обращения:
-  03.06.2026).
+  материалы XVII Всероссийской научно-технической конференции. Барнаул:
+  АлтГТУ, 2020. С. 125-126.
 \item
   Тарков Ю. М., Сукьясов С. В. Построение модели управления параметрами
-  микроклимата в теплице // Научные исследования студентов в решении
-  актуальных проблем АПК: материалы Всероссийской студенческой
-  научно-практической конференции (20-21 февраля 2025 г.). --
-  Молодежный: Иркутский ГАУ, 2025. -- С. 836-839. -- URL:
-  \url{https://irsau.ru/structure/science/materials.php} (дата
-  обращения: 03.06.2026).
+  микроклимата в теплице // Материалы Иркутского ГАУ. 2025. С. 836-839.
 \item
   Воробьева Н. С. {[}и др.{]}. Интеллектуальная система контроля
   температуры в теплице // Известия Нижневолжского агроуниверситетского
-  комплекса. -- 2026. -- № 2 (86). -- С. 516-523. -- DOI:
-  \href{https://doi.org/10.32786/2071-9485-2026-02-57}{10.32786/2071-9485-2026-02-57}.
+  комплекса. 2026. № 2 (86). С. 517-522.
 \item
   Кельсин А. А. Автоматизированная система управления тепличным
   хозяйством на базе микроконтроллеров: выпускная квалификационная
-  работа. -- Екатеринбург: Уральский государственный педагогический
-  университет, 2021. -- URL: \url{http://elar.uspu.ru/handle/uspu/15860}
-  (дата обращения: 03.06.2026).
+  работа. Екатеринбург: Уральский государственный педагогический
+  университет, 2021.
 \item
   Гречиха А. С. Обзор системы управления микроклиматом
   автоматизированной теплицы для выращивания микрозелени // Агротехника
-  и энергообеспечение. -- 2023. -- № 2. -- URL:
-  \url{https://cyberleninka.ru/article/n/obzor-sistemy-upravleniya-mikroklimatom-avtomatizirovannoy-teplitsy-dlya-vyraschivaniya-mikrozeleni}
-  (дата обращения: 03.06.2026).
+  и энергообеспечение. 2023. № 2.
 \item
   Alhnaity B., Pearson S., Leontidis G., Kollias S. Using Deep Learning
-  to Predict Plant Growth and Yield in Greenhouse Environments
-  {[}Электронный ресурс{]} // arXiv. -- 2019. -- arXiv:1907.00624. --
-  URL: \url{https://arxiv.org/abs/1907.00624} (дата обращения:
-  03.06.2026).
+  to Predict Plant Growth and Yield in Greenhouse Environments.
+  arXiv:1907.00624. 2019. URL: \url{https://arxiv.org/abs/1907.00624.}
 \item
   Gong L., Yu M., Jiang S., Cutsuridis V., Pearson S. Deep Learning
   Based Prediction on Greenhouse Crop Yield Combined TCN and RNN //
-  Sensors. -- 2021. -- Vol. 21, No.~13. -- Article 4537. -- DOI:
+  Sensors. 2021. Vol. 21, No.~13. Article 4537. DOI:
   \href{https://doi.org/10.3390/s21134537}{10.3390/s21134537}.
 \item
   Ahn J. Y., Kim Y., Park H., Park S. H., Suh H. K. Evaluating
   Time-Series Prediction of Temperature, Relative Humidity, and CO\(_2\)
   in the Greenhouse with Transformer-Based and RNN-Based Models //
-  Agronomy. -- 2024. -- Vol. 14, No.~3. -- Article 417. -- DOI:
+  Agronomy. 2024. Vol. 14, No.~3. Article 417. DOI:
   \href{https://doi.org/10.3390/agronomy14030417}{10.3390/agronomy14030417}.
 \item
   Huang S., Liu Q., Wu Y., Chen M., Yin H., Zhao J. Edible Mushroom
   Greenhouse Environment Prediction Model Based on Attention CNN-LSTM //
-  Agronomy. -- 2024. -- Vol. 14, No.~3. -- Article 473. -- DOI:
+  Agronomy. 2024. Vol. 14, No.~3. Article 473. DOI:
   \href{https://doi.org/10.3390/agronomy14030473}{10.3390/agronomy14030473}.
 \item
   Choi W.-J., Yang M. Probabilistic Deep Learning Framework for
   Greenhouse Microclimate Prediction with Time-Varying Uncertainty and
-  Covariance Analysis // Agriculture. -- 2025. -- Vol. 15, No.~23. --
-  Article 2461. -- DOI:
+  Covariance Analysis // Agriculture. 2025. Vol. 15, No.~23. Article
+  2461. DOI:
   \href{https://doi.org/10.3390/agriculture15232461}{10.3390/agriculture15232461}.
 \item
   Aborujilah A., Al-Sarem M., Abu-Zanona M. A. Forecast-Driven Climate
   Control for Smart Greenhouses: Energy Optimization Using LSTM Model //
-  Energies. -- 2025. -- Vol. 18, No.~21. -- Article 5821. -- DOI:
+  Energies. 2025. Vol. 18, No.~21. Article 5821. DOI:
   \href{https://doi.org/10.3390/en18215821}{10.3390/en18215821}.
 \item
   Soumo E. A., Calisti M., Polydoros A. Data-Driven Greenhouse Climate
   Regulation in Lettuce Cultivation Using BiLSTM and GRU Predictive
-  Control {[}Электронный ресурс{]} // arXiv. -- 2026. --
-  arXiv:2507.21669. -- URL: \url{https://arxiv.org/abs/2507.21669} (дата
-  обращения: 03.06.2026).
+  Control. arXiv:2507.21669. 2026. URL:
+  \url{https://arxiv.org/abs/2507.21669.}
 \item
   Thwin K. M. M., Horanont T., Phatrapornnant T. Machine-Learning
   Microclimate Forecasting for Adaptive Equipment Control via Web
-  Integration in Open-Ventilated Greenhouses // AgriEngineering. --
-  2024. -- Vol. 6, No.~3. -- P. 2845-2869. -- DOI:
+  Integration in Open-Ventilated Greenhouses // AgriEngineering. 2024.
+  Vol. 6, No.~3. P. 2845-2869. DOI:
   \href{https://doi.org/10.3390/agriengineering6030165}{10.3390/agriengineering6030165}.
 \item
   Mallick S., Airaldi F., Dabiri A., Sun C., De Schutter B.
   Reinforcement learning-based model predictive control for greenhouse
-  climate control // Smart Agricultural Technology. -- 2025. -- Vol. 10.
-  -- Article 100751. -- DOI:
+  climate control // Smart Agricultural Technology. 2025. Vol. 10.
+  Article 100751. DOI:
   \href{https://doi.org/10.1016/j.atech.2024.100751}{10.1016/j.atech.2024.100751}.
 \item
   Msaad S., Harraway M., McAllister R. D. RL-Guided MPC for Autonomous
-  Greenhouse Control {[}Электронный ресурс{]} // arXiv. -- 2025. --
-  arXiv:2506.13278. -- URL: \url{https://arxiv.org/abs/2506.13278} (дата
-  обращения: 03.06.2026).
+  Greenhouse Control. arXiv:2506.13278. 2025. URL:
+  \url{https://arxiv.org/abs/2506.13278.}
 \item
   Morcego B., Yin W., Boersma S., van Henten E., Puig V., Sun C.
   Reinforcement Learning Versus Model Predictive Control on Greenhouse
-  Climate Control {[}Электронный ресурс{]} // arXiv. -- 2023. --
-  arXiv:2303.06110. -- URL: \url{https://arxiv.org/abs/2303.06110} (дата
-  обращения: 03.06.2026).
+  Climate Control. arXiv:2303.06110. 2023. URL:
+  \url{https://arxiv.org/abs/2303.06110.}
 \item
   Xiao M., Lan J., Yu J., Ma W., Xie Q., Sun C. Grower-in-the-Loop
-  Interactive Reinforcement Learning for Greenhouse Climate Control
-  {[}Электронный ресурс{]} // arXiv. -- 2025. -- arXiv:2505.23355. --
-  URL: \url{https://arxiv.org/abs/2505.23355} (дата обращения:
-  03.06.2026).
+  Interactive Reinforcement Learning for Greenhouse Climate Control.
+  arXiv:2505.23355. 2025. URL: \url{https://arxiv.org/abs/2505.23355.}
 \item
   Platero-Horcajadas M., Pardo-Pina S., Cámara-Zapata J.-M.,
   Brenes-Carranza J.-A., Ferrández-Pastor F.-J. Enhancing Greenhouse
   Efficiency: Integrating IoT and Reinforcement Learning for Optimized
-  Climate Control // Sensors. -- 2024. -- Vol. 24, No.~24. -- Article
-  8109. -- DOI:
+  Climate Control // Sensors. 2024. Vol. 24, No.~24. Article 8109. DOI:
   \href{https://doi.org/10.3390/s24248109}{10.3390/s24248109}.
 \item
   Jawad M., Wahid F., Ali S., Ma Y., Alkhyyat A., Khan J., Lee Y. Energy
   optimization and plant comfort management in smart greenhouses using
-  the artificial bee colony algorithm // Scientific Reports. -- 2025. --
-  Vol. 15. -- DOI:
+  the artificial bee colony algorithm // Scientific Reports. 2025. DOI:
   \href{https://doi.org/10.1038/s41598-024-84141-5}{10.1038/s41598-024-84141-5}.
 \item
   Teja G. S., Sathish P. MQTT Protocol based Smart Greenhouse
   Environment Monitoring System using Machine Learning // International
-  Journal of Innovative Technology and Exploring Engineering. -- 2020.
-  -- Vol. 9, No.~9. -- P. 278-283. -- DOI:
+  Journal of Innovative Technology and Exploring Engineering. 2020. Vol.
+  9, No.~9. P. 278-283. DOI:
   \href{https://doi.org/10.35940/ijitee.I7149.079920}{10.35940/ijitee.I7149.079920}.
 \item
   Joni I. M. {[}et al.{]}. Smart Farming Experiment: IoT-Enhanced
   Greenhouse Design for Rice Cultivation with Foliar and Soil
-  Fertilization // AgriEngineering. -- 2025. -- Vol. 7, No.~11. --
-  Article 380. -- DOI:
+  Fertilization // AgriEngineering. 2025. Vol. 7, No.~11. Article 380.
+  DOI:
   \href{https://doi.org/10.3390/agriengineering7110380}{10.3390/agriengineering7110380}.
 \item
   Wu Y., Fu X. Clean and Smart Energy Technologies for Agricultural
   Energy Internet Systems: A Comprehensive Review and Future
-  Perspectives // Applied Sciences. -- 2026. -- Vol. 16, No.~10. --
-  Article 4859. -- DOI:
-  \href{https://doi.org/10.3390/app16104859}{10.3390/app16104859}.
+  Perspectives // Applied Sciences. 2026. Vol. 16, No.~10. Article 4859.
+  DOI: \href{https://doi.org/10.3390/app16104859}{10.3390/app16104859}.
 \item
   Hindi I., Alsharkawi A., Al-Ajlouni M., Qarallah B. Enhancing
   autonomous agriculture control systems in greenhouses for sustainable
-  resource usage using deep learning techniques // PLOS One. -- 2026. --
-  DOI:
+  resource usage using deep learning techniques // PLOS One. 2026. DOI:
   \href{https://doi.org/10.1371/journal.pone.0344946}{10.1371/journal.pone.0344946}.
 \item
   Тюхтий Ю. А. Разработка интеллектуальной системы управления
-  температурой в помещении: магистерская диссертация. -- Екатеринбург:
+  температурой в помещении: магистерская диссертация. Екатеринбург:
   Уральский федеральный университет, 2021.
 \item
   Chen S., Liu A., Tang F., Hou P., Lu Y., Yuan P. A Review of
   Environmental Control Strategies and Models for Modern Agricultural
-  Greenhouses // Sensors. -- 2025. -- Vol. 25, No.~5. -- Article 1388.
-  -- DOI: \href{https://doi.org/10.3390/s25051388}{10.3390/s25051388}.
+  Greenhouses // Sensors. 2025. Vol. 25, No.~5. Article 1388. DOI:
+  \href{https://doi.org/10.3390/s25051388}{10.3390/s25051388}.
 \item
   Ogunlowo Q. O., Akpenpuun T. D., Na W.-H., Rabiu A., Adesanya M. A.,
   Addae K. S., Kim H.-T., Lee H.-W. Analysis of Heat and Mass
   Distribution in a Single- and Multi-Span Greenhouse Microclimate //
-  Agriculture. -- 2021. -- Vol. 11, No.~9. -- Article 891. -- DOI:
+  Agriculture. 2021. Vol. 11, No.~9. Article 891. DOI:
   \href{https://doi.org/10.3390/agriculture11090891}{10.3390/agriculture11090891}.
 \item
   Li H., Li A., Hou Y., Zhang C., Guo J., Li J., Ma Y., Wang T., Yin Y.
   Analysis of Heat and Humidity in Single-Slope Greenhouses with Natural
-  Ventilation // Buildings. -- 2023. -- Vol. 13, No.~3. -- Article 606.
-  -- DOI:
+  Ventilation // Buildings. 2023. Vol. 13, No.~3. Article 606. DOI:
   \href{https://doi.org/10.3390/buildings13030606}{10.3390/buildings13030606}.
 \item
   Ghaderi M., Reddick C., Sorin M. A Systematic Heat Recovery Approach
   for Designing Integrated Heating, Cooling, and Ventilation Systems for
-  Greenhouses // Energies. -- 2023. -- Vol. 16, No.~14. -- Article 5493.
-  -- DOI: \href{https://doi.org/10.3390/en16145493}{10.3390/en16145493}.
+  Greenhouses // Energies. 2023. Vol. 16, No.~14. Article 5493. DOI:
+  \href{https://doi.org/10.3390/en16145493}{10.3390/en16145493}.
 \item
   Самарин Г. Н., Попов А. Н., Плотников С. В., Ружьев В. А. Методика
   построения имитационной модели оптимального управления параметрами
   микроклимата сельскохозяйственного объекта // Аграрный научный журнал.
-  -- 2025. -- № 1. -- С. 126-135. -- DOI:
+  2025. № 1. С. 126-135. DOI:
   \href{https://doi.org/10.28983/asj.y2025i1pp126-135}{10.28983/asj.y2025i1pp126-135}.
 \end{enumerate}
 
@@ -2894,12 +2884,18 @@ MQTT-команд}\label{ux430.4.-ux43eux431ux440ux430ux431ux43eux442ux43aux430-
 Команда \texttt{set} меняет состояние, команда \texttt{get} публикует
 текущее состояние без изменения реле.
 
-Поддерживаются команды: \texttt{ON} (или \texttt{1}) - включить реле;
-\texttt{OFF} (или \texttt{0}) - выключить реле; \texttt{TOGGLE} -
-переключить состояние на противоположное. После выполнения команды
-контроллер публикует подтвержденное состояние канала в соответствующий
-топик \texttt{state}, поэтому веб-панель всегда отображает фактическое,
-а не предполагаемое положение реле.
+Поддерживаемые команды:
+
+\begin{vkrlongtab}{@{}ll@{}}
+\toprule
+Команда & Действие \\
+\midrule
+
+\texttt{ON} или \texttt{1} & включить реле \\
+\texttt{OFF} или \texttt{0} & выключить реле \\
+\texttt{TOGGLE} & переключить состояние \\
+\bottomrule
+\end{vkrlongtab}
 
 \hypertarget{ux43fux440ux438ux43bux43eux436ux435ux43dux438ux435-ux431-ux444ux440ux430ux433ux43cux435ux43dux442ux44b-ux43fux440ux43eux448ux438ux432ux43eux43a-ux441ux435ux43dux441ux43eux440ux43dux44bux445-ux443ux437ux43bux43eux432}{%
 \VkrAppendixSection{Б}{Фрагменты прошивок сенсорных
@@ -2982,36 +2978,31 @@ Payload
 \end{minipage} \\
 \midrule
 
-sensor -\textgreater{} broker &
-\texttt{greenhouse/\hspace{0pt}env/\hspace{0pt}th-1/\hspace{0pt}state} &
+sensor -\textgreater{} broker & \texttt{greenhouse/env/th-1/state} &
 JSON \texttt{ts}, \texttt{device}, \texttt{t}, \texttt{h} & температура
 и влажность \\
-sensor -\textgreater{} broker &
-\texttt{greenhouse/\hspace{0pt}env/\hspace{0pt}co2-1/\hspace{0pt}state}
-& JSON \texttt{ts}, \texttt{device}, \texttt{co2}, \texttt{t},
-\texttt{h} & CO\(_2\), температура, влажность \\
+sensor -\textgreater{} broker & \texttt{greenhouse/env/co2-1/state} &
+JSON \texttt{ts}, \texttt{device}, \texttt{co2}, \texttt{t}, \texttt{h}
+& CO\(_2\), температура, влажность \\
 device -\textgreater{} broker &
-\texttt{greenhouse/\hspace{0pt}\textless{}device\textgreater{}/\hspace{0pt}status}
-& \texttt{online} / \texttt{offline} & доступность узла \\
+\texttt{greenhouse/\textless{}device\textgreater{}/status} &
+\texttt{online} / \texttt{offline} & доступность узла \\
 dashboard -\textgreater{} relay &
-\texttt{greenhouse/\hspace{0pt}relay/\hspace{0pt}\textless{}n\textgreater{}/\hspace{0pt}set}
-& \texttt{ON}, \texttt{OFF}, \texttt{TOGGLE}, \texttt{1}, \texttt{0} &
-команда на реле \\
-dashboard -\textgreater{} relay &
-\texttt{greenhouse/\hspace{0pt}relay/\hspace{0pt}all/\hspace{0pt}set} &
+\texttt{greenhouse/relay/\textless{}n\textgreater{}/set} & \texttt{ON},
+\texttt{OFF}, \texttt{TOGGLE}, \texttt{1}, \texttt{0} & команда на
+реле \\
+dashboard -\textgreater{} relay & \texttt{greenhouse/relay/all/set} &
 \texttt{ON}, \texttt{OFF}, \texttt{TOGGLE}, \texttt{1}, \texttt{0} &
 команда на все реле \\
 dashboard -\textgreater{} relay &
-\texttt{greenhouse/\hspace{0pt}relay/\hspace{0pt}\textless{}n\textgreater{}/\hspace{0pt}get}
-& любое сообщение & запрос состояния \\
+\texttt{greenhouse/relay/\textless{}n\textgreater{}/get} & любое
+сообщение & запрос состояния \\
 relay -\textgreater{} broker &
-\texttt{greenhouse/\hspace{0pt}relay/\hspace{0pt}\textless{}n\textgreater{}/\hspace{0pt}state}
-& \texttt{ON} / \texttt{OFF} & подтвержденное состояние \\
-relay -\textgreater{} broker &
-\texttt{greenhouse/\hspace{0pt}relay/\hspace{0pt}summary} & JSON &
-диагностическая сводка \\
-relay -\textgreater{} broker &
-\texttt{greenhouse/\hspace{0pt}mega-1/\hspace{0pt}status} &
+\texttt{greenhouse/relay/\textless{}n\textgreater{}/state} & \texttt{ON}
+/ \texttt{OFF} & подтвержденное состояние \\
+relay -\textgreater{} broker & \texttt{greenhouse/relay/summary} & JSON
+& диагностическая сводка \\
+relay -\textgreater{} broker & \texttt{greenhouse/mega-1/status} &
 \texttt{online} / \texttt{offline} & состояние контроллера \\
 \bottomrule
 \end{vkrlongtab}
@@ -3020,15 +3011,7 @@ relay -\textgreater{} broker &
 
 \par\noindent\begin{minipage}{\linewidth}
 \begin{verbatim}
-{
-  "ts": 123456,
-  "device": "mega-1",
-  "uptime": 3600,
-  "wifi_rc": 3,
-  "mqtt_rc": 0,
-  "rssi": -61,
-  "relays": {"1": false, "2": false, "3": true}
-}
+{"ts":123456,"device":"mega-1","uptime":3600,"wifi_rc":3,"mqtt_rc":0,"rssi":-61,"relays":{"1":false,"2":false,"3":true}}
 \end{verbatim}
 \end{minipage}\par
 
@@ -3078,12 +3061,15 @@ relay -\textgreater{} broker &
 \subsubsection{Г.3.
 Индексы}\label{ux433.3.-ux438ux43dux434ux435ux43aux441ux44b}}
 
-Для ускорения выборок по временным интервалам в базе созданы два
-индекса: \texttt{idx\_sensor\_ts} по полю \texttt{ts} таблицы
-\texttt{sensor\_log} и \texttt{idx\_relay\_ts} по полю \texttt{ts}
-таблицы \texttt{relay\_log}. Индексация по временной метке выбрана
-потому, что все аналитические запросы платформы (графики, экспорт, окна
-до/после событий реле) фильтруют историю именно по диапазону времени.
+\begin{vkrlongtab}{@{}lll@{}}
+\toprule
+Индекс & Таблица & Поле \\
+\midrule
+
+\texttt{idx\_sensor\_ts} & \texttt{sensor\_log} & \texttt{ts} \\
+\texttt{idx\_relay\_ts} & \texttt{relay\_log} & \texttt{ts} \\
+\bottomrule
+\end{vkrlongtab}
 
 \hypertarget{ux433.4.-sql-ux43fux440ux43eux432ux435ux440ux43aux430}{%
 \subsubsection{Г.4.
@@ -3134,59 +3120,55 @@ limit 5;
 \VkrAppendixSection{Е}{Веб-интерфейс
 оператора}\label{ux43fux440ux438ux43bux43eux436ux435ux43dux438ux435-ux435-ux432ux435ux431-ux438ux43dux442ux435ux440ux444ux435ux439ux441-ux43eux43fux435ux440ux430ux442ux43eux440ux430}}
 
-Веб-панель оператора реализована на Flask. Ниже приведены снимки экрана
-основных страниц панели, полученные при работе системы с фактической
-базой истории и конфигурацией опытного объекта.
+Веб-панель оператора реализована на Flask и предоставляет следующие
+страницы:
 
-Главная страница (рисунок Е.1) отображает текущие показания всех
-датчиков, статус контроллера, режимы вентиляции и переключатели каждого
-релейного канала по группам оборудования.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  главная страница \texttt{/} - текущее состояние датчиков и реле,
+  ручное управление каналами и группами оборудования;
+\item
+  страница \texttt{/rules} - список и редактирование правил
+  автоматизации (условие по датчику, расписание, гистерезис, действие);
+\item
+  страница \texttt{/profiles} - вентиляционные профили с
+  предварительными и основными действиями и задержками;
+\item
+  страница \texttt{/stats} - графики истории и экспорт данных в форматах
+  HTML, CSV и XLSX.
+\end{enumerate}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\linewidth,height=0.44\textheight,keepaspectratio]{figures/dashboard_main.png}
-\caption{Рисунок Е.1 -- Главная страница панели: показания датчиков,
-режимы вентиляции и управление реле}
-\end{figure}
+Полный перечень HTTP-маршрутов панели приведен в технической
+спецификации проекта.
 
-Страница правил автоматизации (рисунок Е.2) позволяет задать условие по
-датчику с гистерезисом, расписание по дням недели и времени, а также
-действие - вентиляционный режим или отдельные реле; ниже формы
-отображается список действующих правил.
+\hypertarget{ux43fux440ux438ux43bux43eux436ux435ux43dux438ux435-ux436-ux441ux445ux435ux43cux44b}{%
+\VkrAppendixSection{Ж}{Схемы}\label{ux43fux440ux438ux43bux43eux436ux435ux43dux438ux435-ux436-ux441ux445ux435ux43cux44b}}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\linewidth,height=0.44\textheight,keepaspectratio]{figures/dashboard_rules.png}
-\caption{Рисунок Е.2 -- Страница правил автоматизации с действующими
-правилами}
-\end{figure}
+Общая архитектура расширяемой IoT/ML-платформы приведена в основном
+тексте на рисунке 2.1. Она объединяет следующие информационные потоки:
 
-Страница вентиляционных режимов (рисунок Е.3) содержит конструктор
-профилей с двумя шагами (заслонки, затем вентиляторы и ТЭНы) и
-задержками, а также список созданных режимов с описанием
-последовательности действий.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  публикацию телеметрии сенсорными узлами в MQTT-топики;
+\item
+  передачу команд исполнительному контроллеру и публикацию
+  подтвержденных состояний реле;
+\item
+  подписку веб-панели на топики, выполнение правил и профилей;
+\item
+  накопление истории в SQLite и подготовку данных для машинного
+  обучения;
+\item
+  экспорт истории для статистического анализа.
+\end{enumerate}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\linewidth,height=0.44\textheight,keepaspectratio]{figures/dashboard_profiles.png}
-\caption{Рисунок Е.3 -- Страница вентиляционных режимов (профилей
-управления)}
-\end{figure}
-
-Страница статистики (рисунок Е.4) предоставляет графики истории по
-выбранным датчикам и параметрам, выгрузку данных в CSV и Excel за
-произвольный период и таблицу последних записей журнала.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.7\linewidth,height=0.44\textheight,keepaspectratio]{figures/dashboard_stats.png}
-\caption{Рисунок Е.4 -- Страница статистики: графики, выгрузка данных и
-последние записи журнала}
-\end{figure}
-
-\hypertarget{ux43fux440ux438ux43bux43eux436ux435ux43dux438ux435-ux436-ux43fux43bux430ux43d-ml-ux44dux43aux441ux43fux435ux440ux438ux43cux435ux43dux442ux430}{%
-\VkrAppendixSection{Ж}{План
-ML-эксперимента}\label{ux43fux440ux438ux43bux43eux436ux435ux43dux438ux435-ux436-ux43fux43bux430ux43d-ml-ux44dux43aux441ux43fux435ux440ux438ux43cux435ux43dux442ux430}}
+\hypertarget{ux43fux440ux438ux43bux43eux436ux435ux43dux438ux435-ux438-ux43fux43bux430ux43d-ml-ux44dux43aux441ux43fux435ux440ux438ux43cux435ux43dux442ux430}{%
+\VkrAppendixSection{И}{План
+ML-эксперимента}\label{ux43fux440ux438ux43bux43eux436ux435ux43dux438ux435-ux438-ux43fux43bux430ux43d-ml-ux44dux43aux441ux43fux435ux440ux438ux43cux435ux43dux442ux430}}
 
 Сокращенная постановка:
 

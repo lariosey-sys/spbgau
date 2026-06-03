@@ -1,0 +1,268 @@
+#!/usr/bin/env python3
+"""Генерация графиков и диаграмм для ВКР (matplotlib -> PDF).
+
+Скрипт читает SQLite-журнал датчиков/реле и формирует векторные PDF-рисунки в
+thesis/figures/. Агробиологические показатели берутся из подтвержденных сводок
+по эксперименту со светом (см. analysis/tables и главу 3) во избежание повторного
+хрупкого парсинга Excel; все значения соответствуют тексту работы.
+"""
+from __future__ import annotations
+
+import collections
+import math
+import sqlite3
+from datetime import datetime
+from pathlib import Path
+
+import matplotlib
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
+
+ROOT = Path(__file__).resolve().parent.parent
+DB = ROOT / "thesis" / "evidence" / "greenhouse_pi_data" / "history_2026-05-26.db"
+OUT = ROOT / "thesis" / "figures"
+OUT.mkdir(parents=True, exist_ok=True)
+
+plt.rcParams.update(
+    {
+        "font.family": "serif",
+        "font.serif": ["DejaVu Serif", "Liberation Serif", "Times New Roman"],
+        "font.size": 11,
+        "axes.titlesize": 12,
+        "axes.grid": True,
+        "grid.alpha": 0.3,
+        "figure.dpi": 150,
+        "savefig.bbox": "tight",
+    }
+)
+
+BLUE, RED, GREEN, ORANGE = "#1f5fae", "#c0392b", "#1e8449", "#e08a00"
+
+
+def parse(ts: str):
+    try:
+        return datetime.strptime(ts[:19], "%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        return None
+
+
+def load_sensor():
+    con = sqlite3.connect(str(DB))
+    rows = con.execute(
+        "select ts, device, temperature, humidity, co2 from sensor_log"
+    ).fetchall()
+    con.close()
+    data = collections.defaultdict(list)
+    for ts, dev, t, h, co2 in rows:
+        dt = parse(ts)
+        if dt is None:
+            continue
+        data[dev].append((dt, t, h, co2))
+    return data
+
+
+def load_relay():
+    con = sqlite3.connect(str(DB))
+    rows = con.execute("select ts, relay_id, state from relay_log").fetchall()
+    con.close()
+    return [(parse(ts), rid, st) for ts, rid, st in rows if parse(ts)]
+
+
+def esat(temp):  # давление насыщения по Тетенсу, кПа
+    return 0.6108 * math.exp(17.27 * temp / (temp + 237.3))
+
+
+def save(fig, name):
+    path = OUT / name
+    fig.savefig(path)
+    plt.close(fig)
+    print("written", path.relative_to(ROOT))
+
+
+def chart_diurnal(data):
+    fig, ax = plt.subplots(figsize=(6.2, 3.4))
+    for dev, color, label in (("th-1", BLUE, "th-1"), ("th-2", RED, "th-2")):
+        hourly = collections.defaultdict(list)
+        for dt, t, _, _ in data[dev]:
+            if t and 0 < t < 60:
+                hourly[dt.hour].append(t)
+        hours = sorted(hourly)
+        means = [sum(hourly[h]) / len(hourly[h]) for h in hours]
+        ax.plot(hours, means, "-o", color=color, ms=3.5, label=label)
+    ax.set_xlabel("Час суток")
+    ax.set_ylabel("Средняя температура, °C")
+    ax.set_xticks(range(0, 24, 2))
+    ax.axvspan(8, 17, color=ORANGE, alpha=0.08)
+    ax.legend()
+    save(fig, "chart_diurnal_temp.pdf")
+
+
+def chart_daily(data):
+    fig, ax = plt.subplots(figsize=(6.6, 3.3))
+    for dev, color in (("th-1", BLUE), ("th-2", RED), ("co2-1", GREEN)):
+        daily = collections.defaultdict(list)
+        for dt, t, _, _ in data[dev]:
+            if t and 0 < t < 60:
+                daily[dt.date()].append(t)
+        days = sorted(daily)
+        means = [sum(daily[d]) / len(daily[d]) for d in days]
+        ax.plot(days, means, "-", color=color, lw=1.2, label=dev)
+    ax.set_xlabel("Дата")
+    ax.set_ylabel("Среднесуточная температура, °C")
+    fig.autofmt_xdate(rotation=30)
+    ax.legend()
+    save(fig, "chart_daily_temp.pdf")
+
+
+def chart_vpd(data):
+    fig, ax = plt.subplots(figsize=(6.2, 3.4))
+    for dev, color, label in (("th-1", BLUE, "th-1"), ("th-2", RED, "th-2")):
+        vpd = []
+        for dt, t, h, _ in data[dev]:
+            if t and h and 0 < t < 60 and 0 < h <= 100:
+                vpd.append(esat(t) * (1 - h / 100))
+        ax.hist(vpd, bins=60, range=(0, 4), histtype="step", lw=1.6,
+                color=color, label=f"{label} (среднее {sum(vpd)/len(vpd):.2f} кПа)")
+    ax.axvspan(0.8, 1.2, color=GREEN, alpha=0.18, label="оптимум 0,8-1,2 кПа")
+    ax.set_xlabel("Дефицит давления водяного пара VPD, кПа")
+    ax.set_ylabel("Число измерений")
+    ax.legend(fontsize=9)
+    save(fig, "chart_vpd.pdf")
+
+
+def chart_relay_hourly(relay):
+    counts = collections.Counter(dt.hour for dt, _, _ in relay)
+    hours = list(range(24))
+    vals = [counts.get(h, 0) for h in hours]
+    fig, ax = plt.subplots(figsize=(6.2, 3.2))
+    colors = [ORANGE if 6 <= h < 22 else "#7f8c8d" for h in hours]
+    ax.bar(hours, vals, color=colors)
+    ax.set_xlabel("Час суток")
+    ax.set_ylabel("Число переключений реле")
+    ax.set_xticks(range(0, 24, 2))
+    ax.axvspan(22, 24, color="#7f8c8d", alpha=0.12)
+    ax.axvspan(0, 6, color="#7f8c8d", alpha=0.12)
+    ax.text(2.8, max(vals) * 0.7, "ночь:\n0 событий", ha="center", fontsize=9,
+            color="#555")
+    save(fig, "chart_relay_hourly.pdf")
+
+
+# Подтвержденные значения эксперимента со светом (среднее по 6 сортам).
+VAR = [1, 2, 3, 4, 5]
+DLI = [5.12, 6.16, 9.77, 11.75, 15.91]
+POWER = [116.3, 97.0, 221.0, 321.5, 478.0]
+YIELD = [33.8, 89.9, 85.6, 105.6, 93.8]
+GPERW = [0.29, 0.93, 0.39, 0.33, 0.20]
+NITRATE = [6.96, 3.22, 1.86, 1.86, 1.79]
+DRYMATTER = [5.24, 5.41, 7.24, 7.21, 7.90]
+
+
+def chart_light_yield():
+    fig, ax = plt.subplots(figsize=(6.2, 3.6))
+    ax.plot(DLI, YIELD, "-o", color=GREEN, label="Урожай товарного листа")
+    ax.set_xlabel("Световая доза DLI, моль/(м²·сут)")
+    ax.set_ylabel("Урожай, г/растение", color=GREEN)
+    ax.tick_params(axis="y", labelcolor=GREEN)
+    for x, y, v in zip(DLI, YIELD, VAR):
+        ax.annotate(f"в{v}", (x, y), textcoords="offset points", xytext=(4, 6),
+                    fontsize=9)
+    ax2 = ax.twinx()
+    ax2.bar(DLI, GPERW, width=0.5, color=BLUE, alpha=0.35)
+    ax2.set_ylabel("Энергоэффективность, г/Вт", color=BLUE)
+    ax2.tick_params(axis="y", labelcolor=BLUE)
+    ax2.grid(False)
+    save(fig, "chart_light_yield.pdf")
+
+
+def chart_light_quality():
+    fig, ax = plt.subplots(figsize=(6.2, 3.4))
+    x = range(len(VAR))
+    ax.bar([i - 0.2 for i in x], NITRATE, width=0.4, color=RED,
+           label="Нитраты, отн. ед.")
+    ax2 = ax.twinx()
+    ax2.bar([i + 0.2 for i in x], DRYMATTER, width=0.4, color=GREEN,
+            label="Сухое вещество, %")
+    ax.set_xticks(list(x))
+    ax.set_xticklabels([f"в{v}\nDLI {d:.1f}" for v, d in zip(VAR, DLI)])
+    ax.set_ylabel("Нитраты, отн. ед.", color=RED)
+    ax2.set_ylabel("Сухое вещество, %", color=GREEN)
+    ax.tick_params(axis="y", labelcolor=RED)
+    ax2.tick_params(axis="y", labelcolor=GREEN)
+    ax2.grid(False)
+    lines = [plt.Rectangle((0, 0), 1, 1, color=RED),
+             plt.Rectangle((0, 0), 1, 1, color=GREEN)]
+    ax.legend(lines, ["Нитраты, отн. ед.", "Сухое вещество, %"], fontsize=9,
+              loc="upper center")
+    save(fig, "chart_light_quality.pdf")
+
+
+def chart_ml_metrics():
+    # RMSE: persistence (last value) vs ridge на горизонте 30 мин.
+    targets = ["Темп. th-1", "Влажн. th-1", "CO2 co2-1"]
+    last = [0.331, 0.674, 14.103]
+    ridge = [0.273, 0.633, 14.486]
+    x = range(len(targets))
+    fig, ax = plt.subplots(figsize=(6.2, 3.3))
+    ax.bar([i - 0.2 for i in x], last, width=0.4, color="#7f8c8d",
+           label="last value (persistence)")
+    ax.bar([i + 0.2 for i in x], ridge, width=0.4, color=BLUE,
+           label="ridge regression")
+    ax.set_xticks(list(x))
+    ax.set_xticklabels(targets)
+    ax.set_ylabel("RMSE (горизонт 30 мин)")
+    ax.set_yscale("log")
+    ax.legend(fontsize=9)
+    save(fig, "chart_ml_metrics.pdf")
+
+
+def box(ax, x, y, w, h, text, fc):
+    ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.02",
+                                fc=fc, ec="#333", lw=1.2))
+    ax.text(x + w / 2, y + h / 2, text, ha="center", va="center", fontsize=9.5)
+
+
+def arrow(ax, p1, p2):
+    ax.add_patch(FancyArrowPatch(p1, p2, arrowstyle="-|>", mutation_scale=12,
+                                 color="#333", lw=1.2))
+
+
+def chart_architecture():
+    fig, ax = plt.subplots(figsize=(6.4, 4.3))
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 10)
+    ax.axis("off")
+    box(ax, 0.3, 7.6, 4.3, 1.7,
+        "Сенсорный уровень\nESP8266: DHT11 (th-1, th-2),\nSCD30 (co2-1)", "#d6eaf8")
+    box(ax, 5.4, 7.6, 4.3, 1.7,
+        "Исполнительный уровень\nArduino Mega 2560 + ESP8266,\n15 силовых реле", "#fdebd0")
+    box(ax, 3.0, 4.6, 4.0, 1.5, "MQTT-брокер\nMosquitto", "#e8daef")
+    box(ax, 0.3, 1.2, 4.3, 1.9,
+        "Серверный уровень\nFlask-dashboard,\nправила и профили", "#d5f5e3")
+    box(ax, 5.4, 1.2, 4.3, 1.9,
+        "Хранение и анализ\nSQLite-журнал,\nML / экспорт данных", "#d5f5e3")
+    arrow(ax, (2.4, 7.6), (4.2, 6.1))   # sensors -> mqtt
+    arrow(ax, (5.0, 6.1), (7.5, 7.6))   # mqtt -> relay (commands)
+    arrow(ax, (7.5, 7.6), (5.0, 6.1))   # relay -> mqtt (state)
+    arrow(ax, (4.2, 4.6), (2.4, 3.1))   # mqtt -> dashboard
+    arrow(ax, (5.8, 4.6), (7.5, 3.1))   # mqtt -> storage
+    arrow(ax, (4.6, 2.1), (5.4, 2.1))   # dashboard <-> storage
+    save(fig, "chart_architecture.pdf")
+
+
+def main():
+    data = load_sensor()
+    relay = load_relay()
+    chart_diurnal(data)
+    chart_daily(data)
+    chart_vpd(data)
+    chart_relay_hourly(relay)
+    chart_light_yield()
+    chart_light_quality()
+    chart_ml_metrics()
+    chart_architecture()
+
+
+if __name__ == "__main__":
+    main()

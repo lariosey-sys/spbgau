@@ -6,18 +6,37 @@
 \setotherlanguage{english}
 \setmainfont[Ligatures=TeX]{Times New Roman}
 \newfontfamily\cyrillicfont[Ligatures=TeX]{Times New Roman}
-\newfontfamily\cyrillicfonttt{Menlo}[Scale=0.88]
-\newfontfamily\cyrillicfontsf{Arial}
+% Менялся шрифт моноширинного/рубленого начертания так, чтобы сборка шла и на
+% macOS (Menlo/Arial), и на Linux/CI (Courier New / Liberation Sans) без правок.
+\IfFontExistsTF{Menlo}
+  {\newfontfamily\cyrillicfonttt{Menlo}[Scale=0.88]}
+  {\newfontfamily\cyrillicfonttt{Courier New}[Scale=0.92]}
+\IfFontExistsTF{Arial}
+  {\newfontfamily\cyrillicfontsf{Arial}}
+  {\newfontfamily\cyrillicfontsf{Liberation Sans}}
 
 \usepackage[
   left=30mm,
-  right=15mm,
+  right=10mm,
   top=20mm,
   bottom=20mm
 ]{geometry}
 \usepackage{setspace}
 \onehalfspacing
-\setlength{\parindent}{1.25cm}
+\setlength{\parindent}{1.5cm}
+
+% По ГОСТ формула выделяется в отдельную строку со свободной строкой СВЕРХУ и
+% СНИЗУ. Размерные макросы LaTeX (\normalsize и др.) сбрасывают display-skip'ы
+% при каждом переключении шрифта, поэтому значения вшиваются прямо в \normalsize -
+% иначе настройка из преамбулы затирается в начале документа.
+\makeatletter
+\g@addto@macro\normalsize{%
+  \setlength{\abovedisplayskip}{18pt plus 2pt minus 2pt}%
+  \setlength{\belowdisplayskip}{18pt plus 2pt minus 2pt}%
+  \setlength{\abovedisplayshortskip}{16pt plus 2pt minus 2pt}%
+  \setlength{\belowdisplayshortskip}{16pt plus 2pt minus 2pt}%
+}
+\makeatother
 \setlength{\parskip}{0pt}
 
 % Сдаваемая версия ВКР не должна разрывать слова переносами вида
@@ -31,7 +50,7 @@
 \usepackage{indentfirst}
 \usepackage{microtype}
 \usepackage{graphicx}
-\usepackage{adjustbox}
+\usepackage[export]{adjustbox}
 \usepackage{float}
 \usepackage{flafter}
 \usepackage{caption}
@@ -53,14 +72,38 @@
 \usepackage{placeins}
 \usepackage{xurl}
 \usepackage{hyperref}
+% URL в списке литературы набираются основным шрифтом (Times), а не моноширинным.
+\urlstyle{same}
 \usepackage{bookmark}
 \usepackage{xcolor}
 
-\graphicspath{{./}{../}{docx_pipeline/figures/png/}{docx_pipeline/figures/svg/}}
+\graphicspath{{./}{../}{figures/}{docx_pipeline/figures/png/}{docx_pipeline/figures/svg/}}
 
+% По ГОСТ/требованиям вуза иллюстрация не должна занимать более половины
+% страницы. Размеры каждому \includegraphics проставляются в постобработке
+% (width<=0.7\linewidth, height<=0.44\textheight, keepaspectratio).
+
+% Неразрывная табличная среда: pandoc-таблицы (longtable) преобразуются в нее
+% в postprocess, чтобы таблица не разрывалась между страницами.
+% Резерв места вставляется ПЕРЕД подписью таблицы (см. bind_table_captions в
+% build_thesis_latex.py), поэтому здесь только компактные отступы: зазор между
+% подписью «Таблица N – …» и самой таблицей должен быть минимальным.
+\newenvironment{vkrlongtab}[1]
+  {\par\setlength{\topsep}{4pt}\setlength{\partopsep}{0pt}%
+   \begin{center}\singlespacing\small
+   % В узких колонках длинные слова должны переноситься (в основном тексте
+   % переносы отключены), иначе содержимое ячейки выходит за границу.
+   \hyphenpenalty=200\relax\exhyphenpenalty=200\relax\hbadness=10000\relax
+   \begin{adjustbox}{max width=\linewidth}\begin{tabular}{#1}}
+  {\end{tabular}\end{adjustbox}\end{center}\par}
+
+\definecolor{VkrLinkColor}{HTML}{1A4F8B}
 \hypersetup{
   unicode=true,
-  colorlinks=false,
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=VkrLinkColor,
   pdfborder={0 0 0},
   pdftitle={Разработка и внедрение интеллектуальной системы управления микроклиматом в теплице на основе машинного обучения},
   pdfauthor={Ларионов Сергей Иванович}
@@ -74,21 +117,21 @@
   {}
   {0pt}
   {}
-\titlespacing*{\section}{1.25cm}{0pt}{12pt}
+\titlespacing*{\section}{1.5cm}{0pt}{12pt}
 
 \titleformat{\subsection}
   {\normalfont\bfseries}
   {}
   {0pt}
   {}
-\titlespacing*{\subsection}{1.25cm}{12pt}{6pt}
+\titlespacing*{\subsection}{1.5cm}{12pt}{6pt}
 
 \titleformat{\subsubsection}
   {\normalfont\bfseries}
   {}
   {0pt}
   {}
-\titlespacing*{\subsubsection}{1.25cm}{10pt}{6pt}
+\titlespacing*{\subsubsection}{1.5cm}{10pt}{6pt}
 
 \pretocmd{\section}{\FloatBarrier\clearpage}{}{}
 \pretocmd{\subsection}{\Needspace{6\baselineskip}}{}{}
@@ -129,8 +172,10 @@
 \setlength{\cftbeforesecskip}{2pt}
 \setlength{\cftbeforesubsecskip}{1pt}
 
+% Подписи иллюстраций - 12 пт (правила СПбГАУ допускают 12 пт для пояснений к
+% иллюстрациям; основной текст - 14 пт).
 \captionsetup{
-  font={normalsize,stretch=1},
+  font={small,stretch=1},
   labelformat=empty,
   labelsep=none,
   justification=centering,
@@ -146,8 +191,8 @@
   skip=6pt
 }
 
-\setlist[itemize]{label=\textemdash,leftmargin=1.25cm,itemsep=0pt,topsep=0pt,parsep=0pt}
-\setlist[enumerate]{leftmargin=1.25cm,itemsep=0pt,topsep=0pt,parsep=0pt}
+\setlist[itemize]{label=\textemdash,leftmargin=1.5cm,itemsep=0pt,topsep=0pt,parsep=0pt}
+\setlist[enumerate]{leftmargin=1.5cm,itemsep=0pt,topsep=0pt,parsep=0pt}
 
 \lstset{
   basicstyle=\ttfamily\small,

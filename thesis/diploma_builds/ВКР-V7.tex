@@ -3184,9 +3184,32 @@ limit 5;
 последние записи журнала}
 \end{figure}
 
-\hypertarget{ux43fux440ux438ux43bux43eux436ux435ux43dux438ux435-ux436-ux43fux43bux430ux43d-ml-ux44dux43aux441ux43fux435ux440ux438ux43cux435ux43dux442ux430}{%
-\VkrAppendixSection{Ж}{План
-ML-эксперимента}\label{ux43fux440ux438ux43bux43eux436ux435ux43dux438ux435-ux436-ux43fux43bux430ux43d-ml-ux44dux43aux441ux43fux435ux440ux438ux43cux435ux43dux442ux430}}
+\hypertarget{ux43fux440ux438ux43bux43eux436ux435ux43dux438ux435-ux436-ux441ux445ux435ux43cux44b}{%
+\VkrAppendixSection{Ж}{Схемы}\label{ux43fux440ux438ux43bux43eux436ux435ux43dux438ux435-ux436-ux441ux445ux435ux43cux44b}}
+
+Общая архитектура расширяемой IoT/ML-платформы приведена в основном
+тексте на рисунке 2.1. Она объединяет следующие информационные потоки:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  публикацию телеметрии сенсорными узлами в MQTT-топики;
+\item
+  передачу команд исполнительному контроллеру и публикацию
+  подтвержденных состояний реле;
+\item
+  подписку веб-панели на топики, выполнение правил и профилей;
+\item
+  накопление истории в SQLite и подготовку данных для машинного
+  обучения;
+\item
+  экспорт истории для статистического анализа.
+\end{enumerate}
+
+\hypertarget{ux43fux440ux438ux43bux43eux436ux435ux43dux438ux435-ux438-ux43fux43bux430ux43d-ml-ux44dux43aux441ux43fux435ux440ux438ux43cux435ux43dux442ux430}{%
+\VkrAppendixSection{И}{План
+ML-эксперимента}\label{ux43fux440ux438ux43bux43eux436ux435ux43dux438ux435-ux438-ux43fux43bux430ux43d-ml-ux44dux43aux441ux43fux435ux440ux438ux43cux435ux43dux442ux430}}
 
 Сокращенная постановка:
 
