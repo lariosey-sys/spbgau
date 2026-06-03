@@ -1,0 +1,212 @@
+
+
+--- page 1 ---
+HAL Id: hal-05401361
+https://hal.science/hal-05401361v1
+Submitted on 5 Dec 2025
+HAL is a multi-disciplinary open access archive
+for the deposit and dissemination of scientific re-
+search documents, whether they are published or not.
+The documents may come from teaching and research
+institutions in France or abroad, or from public or pri-
+vate research centers.
+L’archive ouverte pluridisciplinaire HAL, est des-
+tinée au dépôt et à la diffusion de documents scien-
+tifiques de niveau recherche, publiés ou non, émanant
+des établissements d’enseignement et de recherche
+français ou étrangers, des laboratoires publics ou
+privés.
+HAL Authorization
+Reinforcement Learning-Enhanced MPC for Sustainable
+Greenhouse Climate Management
+Masoud Pourghavam
+To cite this version:
+Masoud Pourghavam. Reinforcement Learning-Enhanced MPC for Sustainable Greenhouse Climate Man-
+agement. The 12th International Conference on Electrical Engineering, Computer, Mechanics and Artificial
+Intelligence, 2025, Mashhad, Iran. ⟨hal-05401361⟩
+
+
+--- page 2 ---
+ 
+1 
+ 
+ 
+ 
+ 
+ 
+Reinforcement Learning-Enhanced MPC for Sustainable 
+Greenhouse Climate Management 
+   
+Masoud Pourghavam 
+Mechanical Engineering, University of Tehran 
+masoud.pourghavam@ut.ac.ir 
+  
+  
+ 
+Abstract 
+ 
+Greenhouse climate control presents a complex challenge involv ing 
+nonlinear dynamics, environmental uncertainty, and the need for 
+economically efficient decisions. This paper proposes a novel hybrid 
+control framework —RL-Guided MPC —that integrates Reinforcement 
+Learning (RL) with Model Predictive Control (MPC) to enha nce 
+economic performance in autonomous greenhouse management. The 
+approach uses a trained Soft Actor -Critic RL agent to define both a 
+terminal cost and terminal region constraint, thereby guiding the MPC’s 
+decision-making without requiring long prediction horizons. 
+Simulations were conducted under both deterministic and stochastic 
+conditions using a validated greenhouse model. Comparative 
+evaluations with standalone MPC and RL controllers reveal that RL -
+Guided MPC consistently outperforms both, especially a t shorter 
+horizons, by effectively balancing long -term economic objectives with 
+short-term system constraints. The framework retains MPC’s strengths 
+in constraint satisfaction while leveraging RL’s ability to learn optimal 
+control strategies from experienc e. While the RL agent alone 
+underperformed in cumulative reward metrics due to constraint 
+handling limitations, its integration into MPC notably improved overall 
+system performance. These results demonstrate the potential of 
+combining data -driven policies with model -based control for energy -
+efficient, economically optimal greenhouse operation. 
+  
+                   Keywords: Greenhouse climate control, Reinforcement Learning, Model 
+Predictive Control, Economic optimization 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- page 3 ---
+ 
+2 
+ 
+1 Introduction 
+Greenhouses play a crucial role in sustainable agriculture by providing a controlled environment that 
+enhances crop yield while promoting efficient resource usage. To manage these systems effectively, 
+especially under varying external weather conditions, advanced control methods are needed to 
+dynamically regulate key climate variables such as temperature, humidity, and CO ₂  concentration. 
+However, traditional control techniques often fall short when it comes to balancing real -time 
+operational decisions with long-term economic performance. 
+Reinforcement Learning (RL) and Model Predictive Control (MPC) have both emerged as promising 
+tools to tackle these challenges. RL is well -suited for dealing with uncertainty and learning optimal 
+strategies through experience, while MPC off ers a robust, model -based approach that enforces 
+constraints and adapts decisions over time. Previous studies have largely investigated RL and MPC 
+independently. For instance, van Laatum et al. (2024) introduced an open -source environment to 
+evaluate vario us RL methods for greenhouse control, and Morcego et al. (2023) developed a deep 
+deterministic policy gradient-based RL controller and compared its performance with that of an MPC -
+based solution. On the MPC side, Boersma et al. (2022) proposed a robust MPC  controller that 
+improved upon traditional implementations. Yazdi et al. (2024) propose a hybrid control strategy that 
+combines MPC with reinforcement learning to enhance quadruped locomotion in dynamic 
+environments. Their results show improved velocity tr acking and task efficiency using the RLMPC 
+approach compared to pure MPC.  A more integrated approach was explored by Mallick et al. (2025), 
+where MPC was used as a function approximator within an RL framework. 
+The core of the greenhouse control problem lie s in economic optimization. While conventional MPC 
+typically targets steady -state tracking of economically favorable conditions, such static approaches 
+may not suit greenhouse operations, which benefit more from time -varying adjustments to climate 
+conditions for better economic returns. Economic MPC, which directly incorporates economic costs 
+into the control objective rather than focusing on stabilizing to a fixed reference, is a better fit. Still, 
+many implementations of economic MPC rely on steady -state or reference trajectories to ensure 
+stability and performance (as discussed in Amrit et al., 2011; Risbeck and Rawlings, 2020; Angeli et 
+al., 2012). 
+This paper proposes a novel hybrid approach—RL-Guided MPC—that leverages a trained RL policy 
+to enhance the  MPC framework. Specifically, the RL policy is used to define both the terminal cost, 
+via a cost function approximator, and the terminal region constraint, based on policy rollouts. This 
+combination enables the controller to maintain high performance even with shorter prediction 
+horizons, improving computational efficiency without compromising control quality. 
+To evaluate the effectiveness of the proposed method, simulations were carried out in two settings: a 
+deterministic environment and one with parametr ic uncertainty. The RL -Guided MPC controller is 
+compared against traditional MPC and standalone RL in both cases. 
+The remainder of the paper is organized as follows: Section 2 introduces the greenhouse model, 
+simulation scenarios, and the shared optimizati on problem. Sections 3 and 4 detail the RL agent and 
+MPC controller, respectively. Section 5 presents the proposed RL -Guided MPC framework. Section 6 
+provides numerical results, and conclusions are drawn in Section 7. 
+ 
+Table 1. Physical meaning of input u, state x, and disturbance d. 
+inputs meaning states meaning disturbances meaning 
+u1 CO2 injection (mg m-2 s-1) x1 Dry weight (kg m-2) d1 Solar radiation (W m-2) 
+u2 Ventilation (mm s-1) x2 Indoor CO2 (ppm) d2 outdoor CO2 (kg m-3) 
+u3 Heating (W m-2) x3 Indoor temperature (°C) d3 Outdoor temperature (°C) 
+  x4 Indoor humidity (%) d4 Outdoor humidity (kg m-3) 
+2 Background 
+2.1 Greenhouse Model 
+The greenhouse and crop model adopted in this study is based on the formulation presented by Van 
+Henten (1994). To implement it in discrete time, the system is discretized using a fourth -order Runge-
+
+
+--- page 4 ---
+ 
+3 
+ 
+Kutta method, with a sampling interval of Δ t = 1800 seconds (equivalent to 30 minutes). This 
+discretization yields the following state-space representation: 
+(1) 
+        1   ,  ,  ,  x k f x k u k d k p 
+The system runs in discrete time, where the time index is defined as 
+k
+
+ ¢ . At each step, the system’s 
+state is represented by 
+4
+()xk  ¡ , the control input by 
+3
+()uk  ¡ , and the external weather disturbance 
+by 
+4
+()dk  ¡ . All the parameters required by the model are grouped into the vector  
+22
+p  ¡ . The 
+specific values of p and the nonlinear function 
+()f   are explained in Boersma et al. (2022). 
+This work assumes that the full state 
+ xk  is available at every time step, so no state estimation is 
+performed. The physical meanings of the states, inputs, and disturbances are listed in Table 1.  The 
+dataset used for training and simulation comes from the Venlow Greenhouse in Bleiswijk, covering 
+January 30 to March 11, 2014. The weather conditions during this period are treated as deterministic 
+and known for every time step. Since the time step is 3 0 minutes, the dataset spans 4 0 days and 
+contains 1920 steps. 
+Two scenarios are analyzed in simulation: one deterministic and one stochastic. In real greenhouse 
+systems, uncertainty arises due to imperfect weather forecasts, measurement errors, or actuator  
+imprecision. Following the approach in Boersma et al. (2022), this uncertainty is modeled as 
+parametric variation.  The uncertain parameter vector is denoted by 
+22
+ˆp  ¡  and is assumed to be 
+sampled from a uniform distribution: 
+(2) 
+ˆ ~ ( (1 ), (1 ))p p p U 
+In this context, the vector p denotes the nominal parameter values, while \delta specifies the 
+percentage range used to define the bounds of the uniform distribution. Throughout all stochastic 
+simulations described in Section 6, the value of 
+  is fixed at 5%. 
+For every run of the stochastic scenario, a fresh realization of the uncertain parameter vector 
+ˆp  is 
+drawn from the distribution defined by Equation (2). T he system is then simulated using the model 
+described in Equation (1), substituting 
+ˆpp  during each rollout. 
+2.2 Optimization Problem 
+The objective of optimal greenhouse control is to sustain environmental conditions that promote 
+healthy crop development —specifically regulating temperature, humidity, and CO 2 concentration—
+while keeping resource usage to a minimum. This regulation is performed by adjusting control inputs: 
+heating (via pipe systems), ventilation (through window operation),  and CO 2 enrichment (via 
+injection). The overarching goal is to maximize crop yield while minimizing input costs and energy 
+consumption. 
+ 
+Table 2. Pricing and penalty factors. 
+Symbol Value Unit 
+c1 1.906.10-1 € mg-1 
+c3 1.281.10-1 € J-1 
+r 20.93 € kg-1 
+2
+ 5.10-5 € (ppm m2)-1 
+3
+ 5.10-3 € (°C m2)-1 
+4
+ 5.10-4 € (% m2)-1 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

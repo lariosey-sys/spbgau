@@ -1,0 +1,16 @@
+source,type,rows,period_start,period_end,comment,cols,non_empty_cells,numeric_cells,date_cells,text_cells
+history_2026-05-26.db:sensor_log,SQLite table,243946,2026-03-28 16:12:15,2026-05-26 22:26:46,"Минутные показания трех устройств: th-1, th-2, co2-1.",,,,,
+history_2026-05-26.db:relay_log,SQLite table,165,2026-03-28 16:22:35,2026-05-25 11:30:07,События ON/OFF релейных каналов.,,,,,
+Greenhouse/dashboard/data/history.db,SQLite table check,0,,,"Локальная БД dashboard проверена отдельно: sensor_log=0, relay_log=0; дополнительных наблюдений нет.",,,,,
+Greenhouse/mosquitto/data/mosquitto.db,Mosquitto persistence file,,,,"Проверен как доступный файл данных; это служебное хранилище MQTT-брокера, а не структурированный журнал измерений.",,,,,
+Данные салат мощность.xlsx:хлорофиллметр,Excel sheet,32,,,,18,389,355,0,34
+Данные салат мощность.xlsx:пит р-р+ээ,Excel sheet,125,,,,23,1224,1057,7,160
+Данные салат мощность.xlsx:фенология,Excel sheet,64,,,,21,169,32,35,102
+Данные салат мощность.xlsx:биометрия,Excel sheet,146,,,,72,2868,2766,0,102
+Данные салат мощность.xlsx:биохимия,Excel sheet,31,,,,46,1188,1145,0,43
+Данные салат мощность.xlsx:асс пл,Excel sheet,31,,,,18,457,418,0,39
+Данные салат мощность.xlsx:сух в-во,Excel sheet,46,,,,17,495,425,0,70
+Данные салат мощность.xlsx:водный деф,Excel sheet,32,,,,33,749,690,0,59
+Данные салат мощность.xlsx:водоудерж способ,Excel sheet,35,,,,27,668,612,0,56
+Данные салат мощность.xlsx:хранение,Excel sheet,38,,,,24,252,240,0,12
+Данные салат мощность.xlsx:органолептика,Excel sheet,31,,,,7,146,30,0,116

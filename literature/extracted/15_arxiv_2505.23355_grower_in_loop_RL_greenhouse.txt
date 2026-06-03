@@ -1,0 +1,121 @@
+
+
+--- page 1 ---
+Grower-in-the-Loop Interactive Reinforcement Learning
+for Greenhouse Climate Control
+Maxiu Xiao1, Jianglin Lan2, Jingxin Yu1,3,4, Weihong Ma5, Qiuju Xie6,
+Congcong Sun1,∗
+Abstract
+Climate control is crucial for greenhouse production as it directly affects crop
+growth and resource use. Reinforcement learning (RL) has received increasing
+attention in this field, but still faces challenges, including limited training effi-
+ciency and high reliance on initial learning conditions. Interactive RL, which
+combines human (grower) input with the RL agent’s learning, offers a poten-
+tial solution to overcome these challenges. However, interactive RL has not
+yet been applied to greenhouse climate control and may face challenges related
+to imperfect inputs. Therefore, this paper aims to explore the possibility and
+performance of applying interactive RL with imperfect inputs into greenhouse
+climate control, by: (1) developing three representative interactive RL algo-
+rithms tailored for greenhouse climate control (reward shaping, policy shaping
+and control sharing); (2) analyzing how input characteristics are often contra-
+dicting, and how the trade-offs between them make grower’s inputs difficult to
+perfect; (3) proposing a neural network-based approach to enhance the robust-
+∗Corresponding email: congcong.sun@wur.nl
+1Agricultural Biosystems Engineering Group, Wageningen University, 6700 AA Wagenin-
+gen, The Netherlands
+2James Watt School of Engineering, University of Glasgow, Glasgow G12 8QQ, United
+Kingdom
+3National Engineering Research Center for Intelligent Equipment in Agriculture, Beijing,
+100097, China
+4Research Center for Intelligent Equipment Technology, Beijing Academy of Agriculture
+and Forestry Sciences, Beijing, 100097, China
+5Information Technology Research Center, Beijing Academy of Agriculture and Forestry
+Sciences, Beijing, 100097, China
+6College of Electrical and Information, Northeast Agricultural University,150030 Harbin,
+China
+arXiv:2505.23355v3  [cs.LG]  7 Sep 2025
+
+
+--- page 2 ---
+ness of interactive RL agents under limited input availability; (4) conducting
+a comprehensive evaluation of the three interactive RL algorithms with imper-
+fect inputs in a simulated greenhouse environment. The demonstration shows
+that interactive RL incorporating imperfect grower inputs has the potential to
+improve the performance of the RL agent. RL algorithms that influence ac-
+tion selection, such as policy shaping and control sharing, perform better when
+dealing with imperfect inputs, achieving 8.4% and 6.8% improvement in profit,
+respectively. In contrast, reward shaping, an algorithm that manipulates the
+reward function, is sensitive to imperfect inputs and leads to a 9.4% decrease
+in profit. This highlights the importance of selecting an appropriate mechanism
+when incorporating imperfect inputs.
+Keywords:Interactive reinforcement learning, grower-in-the-loop learning,
+greenhouse climate control, and agri-food production.
+2
+
+
+--- page 3 ---
+1. Introduction
+In response to the threat that climate change poses to global food security,
+greenhouse production has emerged as a vital strategy for mitigating risks and
+enhancing food production efficiency worldwide [1, 2, 3]. Within greenhouse sys-
+tems, climate control plays a critical role, as it directly influences plant growth
+by regulating key environmental factors such as temperature, humidity, and
+CO2 concentration. However, climate control is also one of the most significant
+sources of energy consumption in greenhouse operations [4]. Looking ahead,
+greenhouse horticulture faces several pressing challenges, including high energy
+demands [5], as well as a shortage of skilled labor and experienced managers [6].
+Therefore, developing optimal and autonomous climate control systems is es-
+sential for improving crop productivity while minimizing energy and resource
+consumption.
+Over the past years, various control methods have been investigated and
+can be broadly classified into model-based and non-model-based approaches [7].
+Model-based methods rely on a presentation (model) of the greenhouse system
+(climate, crop, and economic). Among them, model predictive control (MPC)
+is the most common approach due to its ability to handle the complexity of
+the greenhouse system [8, 9]. MPC predicts the future behavior of the system
+using a model and optimizes its strategy accordingly. In contrast, non-model-
+based methods rely on knowledge, experience, or data. This type of method
+includes expert systems [10], fuzzy logic [11], and genetic algorithms [12]. How-
+ever, these methods can’t guarantee optimality as they don’t include dynamic
+optimization [7].
+Recently, reinforcement learning (RL) has attracted growing attention in
+greenhouse climate control. RL is a learning-based method with a model-free
+nature and adaptive learning capabilities. These features enable RL to per-
+form effectively in complex, error-prone, and uncertain environments [13] [14],
+which are characteristic of greenhouse systems. As a data-driven approach, RL
+can continuously optimize control strategies while adapting to dynamic envi-
+3
+
+
+--- page 4 ---
+ronmental conditions. Several studies have already evaluated RL in simulated
+greenhouse settings [15, 16, 17], demonstrating its potential for achieving opti-
+mal climate control. Despite these promising results, RL applications in green-
+house climate management still face significant challenges. Among the most
+frequently mentioned limitations are low learning efficiency and limited robust-
+ness [17]. Moreover, current RL approaches often exclude growers from the
+control loop, failing to leverage their domain knowledge and practical experi-
+ence, which could enhance learning efficiency. This lack of involvement may also
+lead to growers’ reluctance to adopt RL or other artificial intelligence methods
+in real-world applications, as they have limited control or understanding of the
+decision-making process.
+Interactive RL is a variant of RL that incorporates human input into the
+trainingprocess. Inthisapproach, theRLagentlearnsthroughinteractionswith
+both the environment and human feedback. Interactive RL has been tested on
+classic control tasks like Pac-Man [18], MountainCar [19], and CartPole [19],
+and more complicated environments like robotic arm control [20]. These studies
+have demonstrated that interactive RL can surpass traditional RL in terms of
+both training efficiency and overall performance. However, to the best of our
+knowledge, interactiveRLhasnotyetbeenexploredinthecontextofgreenhouse
+climate control. In addition, inputs in greenhouse climate control are difficult
+to perfect and could present a potential challenge for interactive RL.
+Given this background, this paper aims to explore the feasibility and perfor-
+mance of applying interactive RL with imperfect inputs to greenhouse climate
+control. The main contributions are summarized as follows:
+•We developed three representative interactive RL algorithms tailored for
+greenhouse climate control: policy shaping, which uses grower advice
+on actions; control sharing, and reward shaping, both of which rely on
+grower’s feedback regarding control performance.
+•We analyzed how input characteristics are often contradicting, and how
+the trade-offs between them make grower’s inputs difficult to perfect. We
+4

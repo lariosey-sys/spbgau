@@ -1,0 +1,110 @@
+
+
+--- page 1 ---
+arXiv:2303.06110v1  [math.OC]  10 Mar 2023
+Reinforcement Learning Versus Model Predictive
+Control on Greenhouse Climate Control
+Bernardo Morcego 1, Wenjie Yin 1, Sjoerd Boersma 2, Eldert van Henten 3,
+Vicen¸ c Puig1, Congcong Sun 3,∗
+Abstract
+Greenhouse is an important protected horticulture system for fe eding the world
+with enough fresh food. However, to maintain an ideal growing climat e in a
+greenhouse requires resources and operational costs. In orde r to achieve eco-
+nomical and sustainable crop growth, eﬃcient climate control of gr eenhouse
+production becomes essential. Model Predictive Control (MPC) is t he most
+commonly used approach in the scientiﬁc literature for greenhouse climate con-
+trol. However, with the developments of sensing and computing tec hniques,
+reinforcement learning (RL) is getting increasing attention recent ly. With each
+control method having its own way to state the control problem, d eﬁne control
+goals, and seek for optimal control actions, MPC and RL are repre sentatives of
+model-based and learning-based control approaches, respectiv ely. Although re-
+searchers have applied certain forms of MPC and RL to control the greenhouse
+climate, very few eﬀort has been allocated to analyze connections, diﬀerences,
+pros and cons between MPC and RL either from a mathematical or pe rformance
+perspective. Therefore, this paper will 1) propose MPC and RL app roaches for
+greenhouse climate control in an uniﬁed framework; 2) analyze con nections and
+diﬀerences between MPC and RL from a mathematical perspective; 3) compare
+performance of MPC and RL in a simulation study and afterwards pre sent and
+∗Corresponding email: congcong.sun@wur.nl
+1Automatic Control Group (CS2AC), Universitat Polit` ecnic a de Catalunya, Spain
+2Biometris Group, W ageningen University, 6700 AA W ageninge n, The Netherlands
+3Agricultural Biosystems Engineering Group, W ageningen Un iversity, 6700 AA W agenin-
+gen, The Netherlands
+Preprint submitted to Elsevier March 13, 2023
+
+
+--- page 2 ---
+interpret comparative results into insights for the application of th e diﬀerent
+control approaches in diﬀerent scenarios.
+Keywords: Greenhouse Climate Control, Model Predictive Control,
+Reinforcement Learning
+2
+
+
+--- page 3 ---
+1. Introduction
+The world population has grown drastically in recent decades. Althou gh its
+growth is slowing down, it is estimated that the world population will incr ease
+by 2,000 million people in the next 30 years reaching 9,700 million people in
+2050 [1]. To feed this population in 2050, projections show that food produc-
+tion would need to increase by 70% between 2005/07 and 2050. Prod uction
+in developing countries would have to nearly double [2]. On the other ha nd,
+the Intergovernmental Panel on Climate Change (IPCC) declared that it is cru-
+cial and urgent to render the way of land use and the agricultural p roduction
+methods more eﬃcient in order to curb global warming.
+All of these facts have motivated innovative production methods a nd tech-
+nical solutions in the agricultural sector to improve agri-food prod uction and
+increase yield per hectare. Climate controlled greenhouses, which a llows for
+growing crops regardless of the outdoor environment, is one of th e important
+growing methods, especially in a changing climate. To maintain proper g row-
+ing climate with eﬃcient energy usage and operational cost, advanc ed control
+methods of greenhouse production system (e.g. lighting, heating, CO2 dosing,
+ventilation, screening, etc.) are also needed. Moreover, as the nu mber of green-
+house production systems is increasing, while the number of experie nced growers
+is limited, autonomous climate control of a greenhouse production s ystem is also
+necessary.
+Among various control methods, MPC is eﬀective to optimize a green house
+production system due to its promising performance in multi-input an d multi-
+output systems. However, predicting disturbances along the pre diction horizon
+remins a challenging task [3, 4, 5]. The ﬁrst implementations of MPC for green-
+house climate control can be traced back to the beginning of this ce ntury. The
+authors in [6] illustrate that a real-time applied MPC outperforms an a dap-
+tive PID controller, demonstrating its potential. MPC applications ca n also be
+found in, among others, [7, 8, 9, 10, 11, 12, 13, 14, 15]. Furtherm ore, [11] ﬁrstly
+introduces a non-linear MPC incorporating energy and water consu mption to
+3
+
+
+--- page 4 ---
+maintain climatic conditions in a greenhouse near the coast of Spain. C ompar-
+ison results show that MPC can work better than set-point trackin g controller,
+in some areas achieving an improvement of up to 10 times. [12] presen ts an-
+other nonlinear MPC approach based on a Volterra model [16] that captures
+the nonlinear relationship between ventilation and temperature. Th e proposed
+nonlinear MPC is ﬁnally applied to a detailed simulation greenhouse model.
+[17] also used a non-linear MPC to control the greenhouse tempera ture and its
+ventilation, as well as a hybrid MPC in [18]. Besides nonlinear MPC, linear
+MPC is also designed for temperature control of a greenhouse by [1 9], which
+behaves much better than the conventional on-oﬀ pulse-width mo dulation con-
+troller that was previously implemented. Moreover, [20] presents a tube-based
+linear MPC for a greenhouse system with two-time-scale dynamics. W ith de-
+velopment of sensing technology and data science, MPC tends to en ter into a
+new stage where data-based techniques are integrated into cont rol design. For
+instance, [5] proposes a data-driven MPC for greenhouse climate c ontrol, mainly
+focusing on temperature and carbon dioxide concentration level. T he main con-
+tribution of [5] is to combine a dynamical model with a data-based mod el in
+order to identify uncertainties in the weather forecast. Besides o ptimization, [21]
+also involved tracking performance using a hierarchical MPC improvin g energy
+eﬃciency and reduction of operational costs. More precisely, a tw o layer-based
+MPC structure was deﬁned, where the upper layer generates opt imal set-points
+for the greenhouse climate control. The lower layer is introduced to track the
+trajectories produced by the upper layer.
+Recent advances in Information and Communication Technologies (I CT),
+as well as artiﬁcial intelligence (AI) have motivated the usage of AI- based or
+learning-based control, more speciﬁcally Reinforcement Learning ( RL), as the
+key technology to transform the modern farming control mindset . Actually, the
+development and application of RL has a long and well-known history (s ee [22]
+and references therein). In the last two decades, several applic ations have been
+published to use RL to solve real world challenges [23], where the most relevant
+come from the adoption of the deep learning paradigm [24]. RL compris es a
+4

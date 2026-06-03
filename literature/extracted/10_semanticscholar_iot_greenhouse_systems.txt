@@ -1,0 +1,465 @@
+
+
+--- page 1 ---
+MJSAT 4 (2) 169-179 
+ 
+ 
+ABSTRACT 
+ 
+KEYWORDS 
+ 
+ARTICLE HISTORY 
+` 
+ 
+ 
+ 
+ 
+ 
+IoT-enabled Greenhouse Systems: Optimizing Plant Growth and Efficiency 
+ 
+Swathi Manoharan1, Chong Peng Lean *1, Chen Li 1,2, Kong Feng Yuan 3, Ng Poh Kiat 3 and M. Reyasudin 
+Basir Khan4 
+ 
+1 School of Engineering and Computing, MILA University, No 1, MIU Boulevard, Putra Nilai, Nilai 71800, Malaysia. 
+ 2 Hainan Yuanli Artificial intelligence Technology Co.,Ltd., Room 207, Building B, No.3 Haitao Avenue, Jiangdong New District, 
+Haikou City, Hainan Province, China. 
+3 Faculty of Engineering and Technology, Multimedia University, Jalan Ayer Keroh Lama, Melaka 75450, Malaysia. 
+4 Tun Razak Graduate School (TRGS), Universiti Tun Abdul Razak (UNIRAZAK), Wisma UNIRAZAK, 195A, Jln Tun Razak, 
+Hampshire Park, Kuala Lumpur, 50450, Malaysia. 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1. INTRODUCTION 
+The Internet of Things (IoT) refers to the network of 
+physical objects or "things" embedded with sensors, software, 
+and other technologies that enable them to connect and 
+exchange data with other devices and systems over the internet 
+[1]. These objects can range from everyday items such as 
+household appliances and wearable devices to industrial 
+machinery and infrastructure components  [2]. IoT technology 
+allows these objects to collect and transmit data about their 
+environment, usage, and status, facilitati ng real -time 
+monitoring, control, and automation of various processes. By 
+enabling seamless communication between devices, IoT has the 
+potential to revolutionize numerous industries, including 
+agriculture, healthcare, transportation, manufacturing, and 
+smart cities, among others. It promises to improve efficiency, 
+optimize resource utilization, enhance decision -making, and 
+create new oppo rtunities for innovation and business growth.  
+Thus, IoT is widely used in various fields for optimization and 
+smart control [3-6]. 
+As an example, IoT is used in e nergy harvesting purpose. 
+It is used in energy harvesting by integrating sensors and 
+devices with energy -harvesting technologies such as solar 
+panels, microbial fuel cell [ 7-9], and plant microbial fuel cell  
+[10-12]. These IoT devices can gather energy from their 
+Greenhouses have long been important in the advancement of agricultural operations 
+because they provide regulated settings for optimal plant growth. With the introduction of 
+real-time monitoring and automation capabilities, the Internet of Things (IoT) integration 
+into greenhouse systems represents a revolutionary change. This abstract delves into the 
+wider field of greenhouse technology, highlighting the role that IoT plays in improving 
+agricultural in controlled environments. Conventional greenhouses provide plants with a 
+protected environment, but they might not be as accurate or flexible. Intelligent control of 
+environmental conditions is made possible by the introduction of IoT-enabled greenhouses, 
+which utilize data exchange protocols, actuators, and sensors that are networked. The project 
+aims to elevate traditional greenhouse models by integrating Node -RED and MQTT 
+technologies. Transitioning from a Blynk -based prototype showcases the system's 
+versatility. Other key components, including NodeMCU, sensors for real -time data, and 
+LED lighting, collaborate to redefine controlled environment agriculture. The Raspberry Pi 
+serves as a central hub, facilitating seamless communication through Node -RED and 
+MQTT. This advanced greenhouse system harmonizes cutting -edge technologies, 
+showcasing a commitment to sophistication and adaptability in agricultural practices. 
+Internet of Things 
+Esp8266 
+Smart Agriculture 
+Node-Red 
+MQTT  
+Malaysian Journal of Science   
+and 
+Advanced Technology 
+ 
+journal homepage: https://mjsat.com.my/ 
+© 2024 The Authors. Published by Penteract Technology. 
+This is an open access article under the CC BY-NC 4.0 license (https://creativecommons.org/licenses/by-nc/4.0/).  
+ 
+ 
+Received 15 March 2024 
+Received in revised form  
+25 March 2024 
+Accepted 30 March 2024 
+Available online 8 April 2024 
+ 
+ 
+ 
+*Corresponding author: 
+E-mail address: Chong Peng Lean <keith.chong@mila.edu.my>. 
+https://doi.org/10.56532/mjsat.v4i2.294  
+2785-8901/ © 2024 The Authors. Published by Penteract Technology. 
+This is an open access article under the CC BY-NC 4.0 license (https://creativecommons.org/licenses/by-nc/4.0/).  
+
+
+--- page 2 ---
+                                            Chong Peng Lean et al./ Malaysian Journal of Science and Advanced Technology                                                    170 
+    
+surrounding environment, such as sunlight, vibrations, or 
+temperature differentials, to power themselves, eliminating the 
+need for traditional batteries or wired power sources. This 
+enables the deployment of IoT sensors in remote or hard -to-
+reach locations where traditional power sources are impractical 
+or unavailable, thus expanding the scope of monitoring and 
+control applications [13]. Thus, IoT combination with energy 
+harvesting are used for p owering sensors. In IoT applications, 
+particularly in remote o r distributed environments, powering 
+sensors is a crucial consideration  [14]. IoT devices often 
+employ low -power microcontrollers and wireless 
+communication protocols to minimize energy consumption [15-
+16]. Additionally, energy -efficient design principles, such as 
+duty cycling and sleep modes, are implemented to prolong 
+battery life. Moreover, advancements in energy harvesting 
+technologies, as mentioned earlier, further contribute to 
+powering IoT sensors wi thout the need for frequent battery 
+replacements or wired connections to grid for electricity [ 17-
+20]. 
+Hence, similar concept of using IoT for power sensors for 
+greenhouse for smart monitoring is implemented.  In smart 
+farming applications, IoT is utilized in greenhouse 
+environments to monitor and control various factors such as 
+temperature, humidity, soil moisture, and light intensity. IoT 
+sensors deployed throughout the greenhouse continuously 
+collect data on  environmental conditions, which is then 
+transmitted to a central management system. Farmers can 
+remotely monitor and adjust these conditions in real -time, 
+optimizing crop growth and resource utilization. Additionally, 
+IoT platforms analyze the collected data to provide insights and 
+recommendations for crop management, pest control, and 
+irrigation scheduling, ultimately improving productivity and 
+sustainability in greenhouse farming. The greenhouse industry 
+is the world's fastest expanding industry. By separating the crop 
+from its surroundings, the greenhouse offers some protection 
+from the direct effects of the outside weather. This makes it 
+possible to cultivate crops that would not otherwise be able to 
+be produced at that site. The greenhouse enclosure enables the 
+manipulation of the crop environment.[21] With this asset, the 
+farmer can enhance cultivation in a way that best suits the needs 
+of the plants. Increased crop yield, longer production time, 
+improved quality, and reduced usage of protective pesticides 
+are the results.  
+Research in [22] presents a study conducted to maximize 
+the circumstances for plant growth, the study focuses on the 
+design and implementation of a greenhouse monitoring and 
+control system utilizing Node MCU ESP 8266. The writers 
+stress the value of technology developments in agriculture, 
+especially w hen it comes to using the internet to monitor 
+greenhouses. The utilization of sensors such the LDR light 
+sensor, soil moisture sensor, and DHT11 temperature and 
+humidity sensor—all of which are coupled to the N ode MCU 
+ESP8266 microcontroller —is also covered in the paper.  The 
+project delves into creating an advanced greenhouse system, 
+employing contemporary technologies like the Internet of 
+Things (IoT) to enhance controlled environment agriculture. 
+Greenhouses, as covered structures, furnish regulated climatic 
+conditions, establishing optimal growth microenvironments for 
+plants. From temperature control to carbon dioxide 
+concentration, reduced pest exposure, and humidity 
+management, greenhouses offer advantages o ver traditional 
+outdoor farming. 
+Node-RED is a free server and web GUI built on JavaScript 
+that the project uses to create a reliable and secure 
+communication infrastructure. Node -RED solves security and 
+privacy issues by enabling greater control and ownership of 
+data, in contrast to thir d-party apps. This server offers an 
+adaptable and user -friendly web interface for system 
+management, enabling the integration of several hardware 
+components, application programming interfaces, and web 
+services. 
+This Internet of Things greenhouse project uses MQTT 
+(Message Queuing Telemetry Transport) as its communication 
+protocol, while Mosquitto acts as the MQTT broker. MQTT is 
+well-known for its simple, publish/subscribe architecture, 
+which makes it perfect for  effective machine -to-machine 
+communication. Targeted connection inside the IoT greenhouse 
+system is ensured and flawless data interchange between 
+devices is made possible by the NodeMCU's MQTT 
+communication with the Raspberry Pi server.  Raspbian is an 
+operating system based on Linux that is tailored specifically for 
+the Raspberry Pi. Raspbian contributes to the stability and 
+dependability of the project by serving as the basis for hosting 
+and maintaining the system components.[ 23] A progressive 
+approach to greenhouse systems is represented by the 
+integration of IoT technologies, such as NodeMCU, sensors, 
+LED lights, Raspberry Pi, Mosquitto, and Raspbian. By 
+delivering real -time monitoring, precise control, and user -
+friendly experiences, this cooperative syn ergy hopes to herald 
+in a new era of intelligent and flexible controlled environment 
+agriculture. 
+It is inherently difficult for traditional greenhouse systems 
+to monitor and regulate critical environmental parameters 
+including soil moisture, temperature, humidity, and light 
+levels.[24] plant growth optimization is frequently hampered by 
+the lack of a strong monitoring and control system, which 
+results in subpar yields and resource use. the flexible and 
+responsive real -time nature of conventional systems is 
+insufficient to meet the cha nging and dynamic demands of 
+contemporary agriculture.  By utilizing NodeMCU v3's 
+capabilities, the proposed solution seeks to address these issues 
+and transform greenhouse management. the traditional method 
+struggles to give farmers thorough insights on the greenhouse 
+environment, which hinders their ability to make wise 
+judgments. by integrating NodeMCU v3, the project attempts 
+to construct a sophisticated monitoring and control system that 
+gives real -time data on soil moisture, temperature, humidity, 
+and light levels.  In addition, the project aims to use node -red 
+and MQTT to create a self -hosted iot infrastructure. concerns 
+regarding data security, privacy, and personalization are raised 
+by the fact that many modern greenhouse systems rely on third-
+party applications. the greenhouse system's ability to adjust to 
+demands and speci fications is restricted by the lack of a 
+specialized and modifiable infrastructure. 
+In addition to filling in the gaps in current conventional 
+greenhouse systems, the small iot greenhouse system 
+envisioned in this project is meant to pave the way for future 
+innovations. not only are immediate problem solutions 
+prioritized, but also buildin g a platform that may change with 
+time. the suggested solution's essential elements of flexibility 
+and upgradeability guarantee that the system will adapt to new 
+developments in technology and agricultural methods.  The 
+difficulties and unresolved concerns  in integrating iot 
+technology in greenhouse farming are the focus of the journal 
+
+
+--- page 3 ---
+                                            Chong Peng Lean et al./ Malaysian Journal of Science and Advanced Technology                                                    171 
+    
+"a survey on enabling technologies, applications, and 
+protocols." these difficulties include issues with privacy and 
+security, a lack of connectivity, the layout of the sensor 
+distribution network, data processing capacity, the choice of 
+technology, salinity of the soil, a lack of government backing, 
+expensive marketing, a large investment, and a lack of 
+interoperability. the document also emphasizes the need of 
+addressing both technical and non -technical barriers to enable 
+the widespread adoption of iot te chnology in greenhouse 
+agriculture, as well as the need for in -depth analysis and 
+comprehension of the state of research in iot-based greenhouse 
+farming.[25] 
+A complete and cutting-edge greenhouse system that goes 
+above and beyond accepted methods is the goal of the project. 
+The project entails the creation of a connected greenhouse. 
+Blynk is used for testing and prototyping at first, and later, a 
+self-hosted s olution with Node -RED and MQTT is used for 
+more customization and management. The incorporation of IoT 
+technology to facilitate automation, upgradability, and real -
+time monitoring is part of the scope. Enhancements in 
+aesthetics, safety protocols, and thor ough documentation are 
+essential elements that guarantee a safe and easy -to-use 
+greenhouse setting.  
+The smart global agriculture market is expected to reach 
+$15.3 billion by the end of 2025.[26] Its development is greatly 
+aided by new inventions and technologies such as big data, 
+blockchain, machine learning, artificial intelligence (AI), data 
+analytics, Internet of Things (IoT), and data analytics. [ 27-31] 
+The Internet of Things (IoT) is one of the most promising 
+enablers and is thought to represent a paradigm change in the 
+development of smart agriculture [ 32], and it is anticipated to 
+obfuscate the dis tinctions between the real and virtual worlds. 
+This is accomplished by giving things (i.e., machines, gadgets, 
+and objects) processing capacity and linking them so they may 
+share information and communicate with one another without 
+the assistance of a huma n.[33-34] The project's overarching 
+goal is to showcase the possibilities of contemporary 
+technologies in controlled environment agriculture by offering 
+gardening lovers a flexible and advanced greenhouse system. 
+An innovative approach to resolving problems in modern 
+agriculture, including labour-intensive procedures, limited 
+water resources, and crop vulnerability to disease, is the 
+suggested Internet of Things (IoT) smart greenhouse. The 
+greenhouse's advanced array of sensors and automation 
+technologies allow for accurate monitoring and control of 
+critical factors that are necessary to plant growth. Solar energy 
+is used in conjunction with a strong battery and inverter system 
+to provide sustainability and independence. Real -time data 
+visualization on an intuitive webpage providing insights into 
+temperature, humidity, light intensity, soil moisture, and water 
+levels is made possible by the system's connectivity with the 
+Internet of Things (IoT). Additionally, the addition of manual 
+control functions improves responsiveness and flexibility, 
+giving farmers a complete instrument to manage the challenges 
+of contemporary agriculture and lessen the effects of seasonal 
+changes. [35] 
+ The energy -efficient features and cost savings from 
+large-scale manufacture of LED lighting have attracted a lot of 
+academic interest in recent years. There is a significant research 
+gap in the context of horticulture, even though numerous 
+studies have ex amined control technologies that optimize 
+energy savings and aspects like human comfort, colo ur 
+temperature, and daylight harvesting in residential and 
+commercial settings. LEDs are becoming more and more 
+popular in horticulture due to their energy -saving qualities, 
+controllability, and compatibility with Internet of Things 
+technology.  
+ 
+Fig. 1. Overview of the testbed greenhouse environment 
+It provides an adjustable lighting system with conditions 
+for plant growth that can be customized, combined with Internet 
+of Things technology for remote monitoring and control. With 
+an emphasis on scalability, low maintainability, high flexibility, 
+automation, and cheap cost, the testbed's design and 
+development methodology offer a potential path forward for the 
+advancement of research in intelligent LED lighting control for 
+horticulture in greenhouse situations. [36] 
+Farmers benefit from Automated Greenhouse Systems, 
+which employ the Internet of Things (IoT) to control 
+environmental conditions, including crop health assessment 
+through image analysis. Two main things typically impact 
+greenhouses: plant diseases and weat her patterns that cause 
+productivity to decline.  The research suggests a completely 
+automated greenhouse with data protection and a less expensive 
+image evaluation framework for the plant disease analysis. The 
+Raspberry Pi, MSP432 microcontroller, temperature, moisture, 
+and humidity sensors, as well as the OpenCV image inspection 
+system, make up the prototype of the suggested system. When 
+predefined threshold values are reached, MCU MSP432 uses 
+relays to operate the actuators and motors. The Extended Tiny 
+Encryption Algorithm (XTEA) is used to provide embedded 
+data security in the suggested design.  Finally, the cloud-based 
+application allows the farmers to become acquainted with the 
+suggested framework. The farmers can remotely assess and 
+manage the ecology of their greenhouse thanks to the 
+autonomous framework. [37] 
+The importance of greenhouses in maximizing plant 
+development conditions and raising crop yield is highlighted in 
+the introduction. This project explores the idea of the Internet 
+of Things, highlighting how it may be used to connect actual 
+objects and make data sharing easier. It goes over current 
+techniques for controlling and monitoring greenhouse 
+environments, such as SMS-based systems and ZigBee module-
+based wireless climate monitoring. A crucial contrast is shown 
+between several communication systems, including Wi -Fi and 
+SMS. They introduce the hardware components of the proposed 
+
+
+
+--- page 4 ---
+                                            Chong Peng Lean et al./ Malaysian Journal of Science and Advanced Technology                                                    172 
+    
+system, which include motors, sensors, and Arduino UNO. The 
+integration of fuzzy logic for decision-making and the Internet 
+of Things application that uses ThingSpeak as a cloud server 
+are described in depth. [38] 
+ Eighty percent of Vietnam's GDP comes from 
+agriculture, making it one of the emerging nations. Vietnam's 
+agricultural output, along with that of other agricultural nations 
+worldwide, has been severely impacted by global climate 
+change. Due to their physic al labor and lack of scientific 
+foundation, farmers frequently squander resources during 
+irrigation and fertilization, which raises unneeded expenses. 
+Climate change is also causing a depletion and degradation of 
+water resources, which has an impact on agricultural production 
+quality. To support farmers with crop care, reduce costs, and 
+boost labor productivity, the authors investigate and integrate 
+technologies in agricultural production such as IoT, smart 
+sensors, MQTT, intelligent pumping systems, and edge 
+computing to design automati c or semi -automatic irrigation 
+systems. [39] 
+The article "IoT -Based Smart Agriculture Aid System 
+using Raspberry Pi" offers a solution to the problems farmers 
+face when trying to manage soil quality and water distribution 
+in agriculture.  The authors emphasize the importance of 
+agriculture as a crucial profession and the rising demand for 
+fresh food production in their opening paragraph. They draw 
+attention to the problems with agricultural water use and the 
+demand for sustainable methods.  The proposed solution 
+involves the development of an IoT-based smart agricultural aid 
+system using Raspberry Pi. The system utilizes various sensors, 
+including a capacitive soil moisture sensor, DHT -11 humidity 
+temperature sensor, rain sensor, and pH sensor, to monitor and 
+control irrigation and soil conditions. The R aspberry Pi serves 
+as the central control unit, facilitating data collection, analysis, 
+and remote monitoring through ThingSpeak server.[40] 
+The creation of an Internet of Things -enabled, machine 
+learning-module-equipped, sustainable automated greenhouse 
+design is covered in the research article. Through the 
+integration of IoT technologies for remote greenhouse 
+monitoring and control, the suggested system seeks to increase 
+the sustainability of agricultural. The two primary areas of 
+emphasis for the proposed effort are energy management and 
+soil and crop management. The system uses a variety of sensors 
+and parts that are connected to a NodeMCU a nd Raspberry Pi 
+board to monitor soil moisture, air quality, temperature, and sun 
+exposure. Platforms like ThingSpeak and Blynk are utilized for 
+storing and analysing the acquired data. The system also 
+incorporates machine learning algorithms for irrigation control 
+and soil prediction.  Finally, an approach to tracking and 
+controlling soil conditions in agriculture is provided by the 
+Internet of Things-enabled intelligent soil management system. 
+[41] 
+The goal of the study is to design a prototype smart 
+greenhouse system that can use Internet of Things (IoT) 
+technology to assess temperature, humidity, and soil moisture. 
+The research addresses the drawbacks of standard greenhouse 
+irrigation systems, including high human contact, expense, and 
+water usage. To improve sustainability and energy efficiency, 
+the system also includes a solar power system to deliver 
+electricity to the electrical components.  The use of IoT 
+technology to smart farming is covered, including temperature-
+based ventilation system control in greenhouses, smart 
+irrigation systems, and IoT adoption in agriculture. The 
+utilization of solar energy as an alternative energy source and 
+its potential to improve agricultural practices' energy efficiency 
+are also included in the literature study. Additionally, it 
+highlights how crucial automated agricultural systems —like 
+ventilation fans and water pumps—are to maximizing resource 
+efficiency and raising plant yields. [42] 
+The creation of a smart environment for plant growth is 
+discussed in the paper through the implementation of an 
+Internet of Things -based greenhouse monitoring and 
+controlling system. The system focuses on adjusting 
+characteristics like as soil moisture, light intensity, temperature, 
+and humidity to satisfy the individual needs of crop production.  
+ 
+Fig. 2. System Overview [43]. 
+The soil moisture sensor, LDR sensor, and DHT22 
+(temperature and humidity) sensor are some of the sensors it 
+uses to gather data. This data is processed and used to manage 
+many factors, including motors, water pumps, exhaust systems, 
+and light systems. Farmers can get real-time environmental data 
+on their smartphones by connecting the system to wireless 
+internet or IoT platforms such as Telegram bot, thanks to the 
+NodeMCU ESP8266 module. The use of technology in 
+agriculture is emphasized to address the problems caus ed by 
+disease outbreaks in traditional farming methods and changing 
+weather patterns to achieve effective and sustainable 
+agricultural production.[43]. 
+The design of an automated, smart, solar -powered 
+greenhouse system is discussed in the journal with the goal of 
+increasing agricultural yield in Cameroon, specifically to 
+produce off -season crops. The system incorporates several 
+modules, such as an Arduino  and Internet of Things (IoT) -
+powered solar power system and the physicochemical 
+parameters required for vegetable development. It also includes 
+an Android app that allows you to monitor and analyse the 
+metrics from any Wi -Fi-enabled device. In addition to  
+highlighting the need of agriculture for economic growth —
+especially in developing or impoverished nations —the paper 
+also underlines the requirement of accuracy in agricultural 
+practices to maximize productivity, lower production costs, and 
+use less water. It also covers the automation of the greenhouse, 
+the calibration of a pH tester for controlling fertilizer, and the 
+features of the power supply, such as the quantity of solar 
+panels, battery capacity, and charge controller. The advantages 
+of the solar sm art and fully automated greenhouse system are 
+highlighted in the study's conclusion. They also highlight the 

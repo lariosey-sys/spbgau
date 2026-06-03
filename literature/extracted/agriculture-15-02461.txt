@@ -1,0 +1,217 @@
+
+
+--- page 1 ---
+Academic Editors: Dong Sub Kim,
+Sunghyun Yoon and Young-Yeol Cho
+Received: 28 October 2025
+Revised: 25 November 2025
+Accepted: 25 November 2025
+Published: 27 November 2025
+Citation: Choi, W.-J.; Yang, M.
+Probabilistic Deep Learning
+Framework for Greenhouse
+Microclimate Prediction with
+Time-Varying Uncertainty and
+Covariance Analysis. Agriculture 2025,
+15, 2461. https://doi.org/10.3390/
+agriculture15232461
+Copyright: © 2025 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed under the terms and
+conditions of the Creative Commons
+Attribution (CC BY) license
+(https://creativecommons.org/
+licenses/by/4.0/).
+Article
+Probabilistic Deep Learning Framework for Greenhouse
+Microclimate Prediction with Time-Varying Uncertainty and
+Covariance Analysis
+Woo-Joo Choi 1
+ and Myongkyoon Yang 2,3, *
+1 Department of Agricultural Machinery Engineering, Jeonbuk National University,
+Jeonju 54896, Republic of Korea; ujuchoe79@jbnu.ac.kr
+2 Department of Bioindustrial Machinery Engineering, Jeonbuk National University,
+Jeonju 54896, Republic of Korea
+3 Institute pf Agricultural Machinery & ICT Convergence, Jeonbuk National University,
+Jeonju 54896, Republic of Korea
+* Correspondence: yangmk@jbnu.ac.kr
+Abstract
+Although greenhouse microclimates typically exhibit gradual and near-linear transitions,
+abrupt fluctuations in external weather conditions and actuator operations introduce
+nonlinear dynamics that complicate accurate interpretation and prediction. Predicting
+greenhouse microclimate is a key element for achieving stable and energy efficient crop
+production, particularly in strawberry greenhouse. However, existing greenhouse microcli-
+mate deterministic prediction models do not adequately reflect the nonlinear, time-varying
+characteristics of greenhouses and the inherent uncertainty in data, limiting probabilistic
+decision-making. In this study, we developed a probabilistic deep learning framework
+to estimate and interpret uncertainty while simultaneously predicting greenhouse mi-
+croclimate quantitatively. The proposed one-dimensional convolutional neural network
+model learned the time-series characteristics of greenhouse internal and external envi-
+ronmental information and control data, predicting a total of nine parameters, including
+three-dimensional predicted values 3 h later and six-dimensional covariance elements. The
+model demonstrated high sharpness and calibration performance, with an average R2 of
+0.93, a negative log likelihood of 2.08, and a Coverage 90% of 0.901 for three microclimates.
+In addition, the estimated covariance matrix was used to interpret the time-varying cor-
+relations between microclimate variables, confirming local simultaneous variability not
+captured by global correlation analysis. These results suggest that the model in this study
+can provide greenhouse operators with explainable uncertainty interpretation and robust
+control decision support information.
+Keywords: covariance prediction; greenhouse microclimate; prediction uncertainty;
+probabilistic deep learning model; time-varying correlation
+1. Introduction
+The stable production of high-quality and high-yield crops is achieved through the
+optimization of greenhouse environmental control decisions [ 1]. Such optimization is
+based on a foundation of empirically accumulated experience and experimentally validated
+knowledge, enabling growers to achieve both high productivity and enhanced energy
+efficiency [2]. Decision-making for environmental control relies on predicting fluctuations
+Agriculture 2025, 15, 2461 https://doi.org/10.3390/agriculture15232461
+
+
+--- page 2 ---
+Agriculture 2025, 15, 2461 2 of 15
+within the greenhouse microclimate while simultaneously integrating the effects of external
+weather conditions and the operation of control devices [3].
+Advances in computing resources and deep learning algorithms have enabled mul-
+tidimensional data analysis techniques to predict greenhouse microclimate [4,5]. To pre-
+dict time-series changes in greenhouse microclimate for optimal growth conditions, re-
+search has focused on using deep learning models to learn from the external environ-
+ment, the operating status of greenhouse control actuators, and time-series changes in
+greenhouse microclimate [6,7]. Furthermore, research has been conducted to implement
+real-time prediction-control loop optimization and incorporate safety constraints by ap-
+plying learning-based model predictive control techniques that utilize predictions from
+learned models [8,9]. Previous research has focused on improving energy efficiency and
+reducing microclimate constraint violations during greenhouse actuator operation by ap-
+plying state-of-the-art algorithms [10,11]. However, existing control loop implementation
+studies often utilize deterministic predictive models, which fail to accurately reflect the
+non-linearities and uncertainties associated with internal climate changes within the green-
+house. This limits probability-based decision-making, thereby reducing the validity of
+control implementation.
+Microclimate change, external disturbances, actuator execution, and crop physiologi-
+cal responses within a greenhouse exhibit nonlinear relationships with multidimensional
+time-varying properties; therefore, changes in feature patterns at each point in time within
+the system (e.g., cultivation environment and seasonal transitions) significantly affect the
+reliability of deterministic predictions [12,13]. Furthermore, real-world greenhouse envi-
+ronments inevitably contain significant noise, such as sensor inaccuracy and missing data.
+Since most artificial intelligence models are highly dependent on the data they use, models
+with blackbox characteristics have a risk of being uninterpretable. Therefore, to build a
+model for real-time greenhouse control decision-making with guaranteed robustness, it
+is essential to analyze the uncertainty and prediction reliability of quantitative models
+over time, as well as the deterministic prediction. However, its application in agriculture,
+especially in microclimate prediction, is limited.
+This study proposes a method for predicting greenhouse microclimate, including
+internal temperature, relative humidity, and CO2 concentration, three hours later, using a
+probabilistic deep learning model. This approach simultaneously analyzes uncertainty and
+model reliability through time-varying covariance output. Model training to output three
+microclimate predictions and time-varying covariances relied on the negative log likelihood
+(NLL) loss function. These covariances enable the quantitative calculation of uncertainty
+and model reliability, thereby assessing sharpness and calibration. The performance of
+the probabilistic model was validated using a deterministic model commonly used in
+previous studies.
+The main contributions of this study are summarized as follows:
+- Building a probabilistic deep neural network for the temporal projection of impor-
+tant greenhouse microclimate variables (internal temperature, relative humidity, and
+CO2 concentration).
+- Integration of an NLL training objective enabling concurrent generation of projections
+and temporal covariance, thereby encoding model variability
+- Deriving model variability and dependence between nonlinear variables through
+temporal covariance analysis using Cholesky factorization.
+- Introducing analytical methods to quantify the variability and reliability of network
+output and support the assessment of predictive reliability and resilience.
+
+
+--- page 3 ---
+Agriculture 2025, 15, 2461 3 of 15
+2. Materials and Methods
+2.1. Data Acquisition and Preprocessing
+Greenhouse microclimate, external environment, and control data, all of which were
+sourced from public datasets provided by the Korea Institute of Agriculture Technol-
+ogy Promotion Agency, were collected from a smart strawberry greenhouse in Nonsan,
+Chungcheongnam-do, Republic of Korea, from 21 September 2023 to 26 April 2024. During
+this period, the strawberry crop underwent a single cultivation cycle from transplanting to
+the fifth inflorescence stage. At the same time, we collected the following information from
+the commercial greenhouse control system and environmental sensors: The greenhouse
+microclimate dataset included hourly measurements of internal temperature, internal
+relative humidity, and CO2 concentration. The external environment dataset comprised
+hourly observations of external temperature, external relative humidity, precipitation, wind
+speed, wind direction, solar radiation, snowfall, and ground temperature. The control
+dataset consisted of 1 min interval recordings of window and curtain opening statuses.
+In addition, the labels “01–04” for each actuator (Up window, Side window, and Curtain)
+denote the indices of independently operating units located within the greenhouse. In
+other words, each actuator functions independently across four separate zones. The overall
+data distribution is summarized in Table 1.
+Table 1. Types, measurement ranges and number of outliers of the collected greenhouse microclimate,
+external environment, and control data. The range of each variable represents its temporal variability
+and the operational range of the corresponding sensors.
+Factor Values Outlier
+Internal temperature (◦C) 2.75 to 32.67 18
+Internal relative humidity (%) 28.92 to 99.33 37
+Internal CO2 concentration (ppm) 120.5 to 671 23
+External temperature (◦C) −10.4 to 28.3 11
+External relative humidity (%) 16 to 100 17
+Precipitation (mm) 0 to 45.3 0
+Wind speed (m/s) 0 to 6.7 9
+Wind direction (◦) 0 to 360 0
+Radiation (W/m2) 0 to 850.83 39
+Snowfall (cm) 0 to 5.7 0
+Ground temperature (◦C) −8 to 42.7 23
+Up window (left, right—01 to 04) (%) 0, 50, 100 0
+Side window (left, right—01 to 04) (%) 0, 50, 100 0
+Curtain (up, down, left, right—01 to 04) (%) 0, 50, 100 0
+The collected data contained numerous missing values and outliers, and the sampling
+intervals varied. Therefore, preprocessing was performed to address these issues. Unre-
+ceived data in the microclimate and external environmental variables were observed for
+precipitation and snowfall, with proportions of 94% and 98%, respectively. This occurs
+when the sensors did not collect information for each meteorological environment. Further-
+more, since the sensitivity of each sensor is 0.1 mm and 0.1 cm, respectively, missing data
+may be collected when meteorological conditions fall below these values. However, in this
+case, the impact on the greenhouse interior environment is minimal, and assuming that
+multivariate analysis of other external meteorological data can account for this, all missing
+data were replaced with zero. For the control data, an average of 3% of missing data was
+present, which occurred when the system was not activated and thus could not receive
+data. This was handled by interpolating data values prior to the missing gaps using the
+“forward fill” method.
+
+
+--- page 4 ---
+Agriculture 2025, 15, 2461 4 of 15
+To unify the time scale of the whole dataset, the datasets were then resampled to
+an hourly basis based on the mean. Sensors occasionally recorded outlier values due to
+physical operational errors of the devices (for example, an internal CO2 concentration of
+5 ppm). To detect such outliers, both microclimate and external environment data were
+decomposed using seasonal-trend decomposition with a 24 h cycle. Residuals obtained
+after removing trend and seasonality were considered outliers when they deviated from the
+mean by more than five standard deviations, and their number is shown in Table 1. These
+outlier values were removed and subsequently interpolated using the “linear” method.
+Seasonal characteristics are crucial for model learning because they significantly influ-
+ence the temporal variability and correlation of greenhouse microclimate [14]. To preserve
+the cyclicality of temporal variables and learn periodic patterns, variables for time, day of
+the week, and month were normalized by the length of their respective cycles and then
+expanded into a two-dimensional representation using sine and cosine transforms [15]. The
+pre-processed and computed data were integrated into a time-series dataset consisting of
+45 features, and the data were split along the temporal axis into training and validation sets;
+all 45 feature sequences were then used as inputs for learning the deep-learning model.
+To train the deep learning model, input–output datasets were constructed (Figure 1).
+The input data consisted of time-series vectors containing 45 features, representing con-
+tinuous values of length W from a specific time point T. W used input sequence lengths
+of 6 H, 12 H, and 24 H, and trained the model for each length and optimized it through
+evaluation and comparison. The output data were defined as the greenhouse microclimate
+variables three hours after time T. All input–output datasets were normalized across the
+45 features using Min–Max scaling and repeatedly applied to the entire time-series interval
+through a sliding window approach. The probabilistic deep learning model in this study
+primarily aimed to explore short-term patterns based on a sliding window and learn about
+time-varying uncertainty and correlations. Furthermore, the input and output dataset
+samples were generated using sliding windows and these are independent observation
+units at each point in time, preventing leakage of future information from sample units.
+Therefore, the random shuffling and partitioning in this study did not damage the overall
+time series structure and limited the risk of temporal leakage. This allowed the model
+to learn generalized temporal patterns without direct future information. Afterwards, to
+ensure the reproducibility of model learning, five random numbers (3, 141, 4755, 94,955,
+240,707) were selected, and used as the random of dataset shuffling and the global random
+seed of tensorflow 2.11 (Google, Mountain View, CA, USA) and python. The dataset was
+then partitioned into training, validation, and testing groups at a ratio of 0.72:0.18:0.1.
+Figure 1. Schematic overview of the input–output dataset construction based on the sliding window
+method using the collected time-series greenhouse internal, external environmental, and control
+data. The sliding window method was employed to construct training datasets for predicting future
+microclimate time-varying characteristic variables from past input sequences of internal environment,
+external environment data, and control with length of W.

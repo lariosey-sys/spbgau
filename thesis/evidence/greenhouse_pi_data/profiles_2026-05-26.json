@@ -1,0 +1,90 @@
+[
+  {
+    "id": "e3b8b01f",
+    "name": "Приток с улицы (Бокс 1)",
+    "description": "Заслонки 1,2   Вентилятор 1",
+    "pre": [
+      {
+        "relay": 14,
+        "state": "ON"
+      },
+      {
+        "relay": 12,
+        "state": "ON"
+      }
+    ],
+    "delay": 10,
+    "delay_off": 10,
+    "main": [
+      {
+        "relay": 10,
+        "state": "ON"
+      }
+    ]
+  },
+  {
+    "id": "5dc579e8",
+    "name": "Рециркуляция (Бокс 1)",
+    "description": "Только заслонка 1, воздух гоняется внутри",
+    "pre": [
+      {
+        "relay": 14,
+        "state": "ON"
+      }
+    ],
+    "delay": 10,
+    "delay_off": 10,
+    "main": [
+      {
+        "relay": 10,
+        "state": "ON"
+      }
+    ]
+  },
+  {
+    "id": "72295c21",
+    "name": "Обогрев (Бокс 1)",
+    "description": "Заслонка 1   Вентилятор 1   Левый ТЭН",
+    "pre": [
+      {
+        "relay": 14,
+        "state": "ON"
+      }
+    ],
+    "delay": 10,
+    "delay_off": 10,
+    "main": [
+      {
+        "relay": 10,
+        "state": "ON"
+      },
+      {
+        "relay": 15,
+        "state": "ON"
+      }
+    ]
+  },
+  {
+    "id": "6fe4dfb2",
+    "name": "Приток с улицы (Бокс 2)",
+    "description": "Заслонки 3,4   Вентилятор 2",
+    "pre": [
+      {
+        "relay": 11,
+        "state": "ON"
+      },
+      {
+        "relay": 9,
+        "state": "ON"
+      }
+    ],
+    "delay": 10,
+    "delay_off": 10,
+    "main": [
+      {
+        "relay": 8,
+        "state": "ON"
+      }
+    ]
+  }
+]

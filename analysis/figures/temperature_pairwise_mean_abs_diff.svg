@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="430" viewBox="0 0 1000 430">
+<rect width="100%" height="100%" fill="white"/>
+<text x="500.0" y="30" text-anchor="middle" font-family="Arial" font-size="20">Среднее абсолютное расхождение температурных датчиков</text>
+<text x="20" y="215.0" transform="rotate(-90 20 215.0)" text-anchor="middle" font-family="Arial" font-size="13">°C</text>
+<line x1="80" y1="320.0" x2="970" y2="320.0" stroke="#dddddd"/>
+<text x="72" y="324.0" text-anchor="end" font-family="Arial" font-size="12">0.0</text>
+<line x1="80" y1="267.0" x2="970" y2="267.0" stroke="#dddddd"/>
+<text x="72" y="271.0" text-anchor="end" font-family="Arial" font-size="12">0.7</text>
+<line x1="80" y1="214.0" x2="970" y2="214.0" stroke="#dddddd"/>
+<text x="72" y="218.0" text-anchor="end" font-family="Arial" font-size="12">1.5</text>
+<line x1="80" y1="161.0" x2="970" y2="161.0" stroke="#dddddd"/>
+<text x="72" y="165.0" text-anchor="end" font-family="Arial" font-size="12">2.2</text>
+<line x1="80" y1="108.0" x2="970" y2="108.0" stroke="#dddddd"/>
+<text x="72" y="112.0" text-anchor="end" font-family="Arial" font-size="12">3.0</text>
+<line x1="80" y1="55.0" x2="970" y2="55.0" stroke="#dddddd"/>
+<text x="72" y="59.0" text-anchor="end" font-family="Arial" font-size="12">3.7</text>
+<rect x="124.5" y="128.3" width="207.7" height="191.7" fill="#4c78a8"/>
+<text x="228.3" y="123.3" text-anchor="middle" font-family="Arial" font-size="11">2.7</text>
+<text x="228.3" y="338" transform="rotate(-35 228.3 338)" text-anchor="end" font-family="Arial" font-size="12">th-1 - th-2</text>
+<rect x="421.2" y="277.3" width="207.7" height="42.7" fill="#4c78a8"/>
+<text x="525.0" y="272.3" text-anchor="middle" font-family="Arial" font-size="11">0.6</text>
+<text x="525.0" y="338" transform="rotate(-35 525.0 338)" text-anchor="end" font-family="Arial" font-size="12">th-1 - co2-1</text>
+<rect x="717.8" y="89.6" width="207.7" height="230.4" fill="#4c78a8"/>
+<text x="821.7" y="84.6" text-anchor="middle" font-family="Arial" font-size="11">3.2</text>
+<text x="821.7" y="338" transform="rotate(-35 821.7 338)" text-anchor="end" font-family="Arial" font-size="12">th-2 - co2-1</text>
+</svg>

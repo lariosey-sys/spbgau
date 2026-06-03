@@ -1,0 +1,6026 @@
+
+
+--- page 1 ---
+ 
+ 
+ 
+ 
+ 
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891. https://doi.org/10.3390/agriculture11090891
+ 
+www.mdpi.com/journal/agriculture
+ 
+Article
+ 
+Analysis of Heat and Mass Distribution in a Single
+-
+ 
+and 
+ 
+Multi
+-
+Span Greenhouse Microclimate
+ 
+Qazeem Opeyemi 
+Ogunlowo
+ 
+1,2
+, 
+Timothy Denen Akpenp
+u
+un
+ 
+3,4
+, Wook
+-
+Ho Na
+ 
+3
+, Anis Rabiu
+ 
+1
+, 
+ 
+Misbaudeen Aderemi Adesanya
+ 
+1
+, Kwame
+ 
+Sasu Addae
+ 
+1
+, Hyeon
+-
+Tae Kim
+ 
+5
+ 
+and Hyun
+-
+Woo Lee
+ 
+1,3
+,
+*
+ 
+1
+ 
+Department of Agricultural Civil Engineering, College of Agricultural and Life Sciences, Kyungpook 
+ 
+Nation
+al University, 
+Daegu 702
+-
+701
+, 
+Korea
+; 
+ogunlowoqazeem@knu.ac.kr 
+(
+Q.O.O.
+)
+; 
+ 
+rabiuanis@knu.ac.kr 
+(
+A.R.
+)
+; 
+misbauadesanya@knu.ac.kr
+ 
+(M.A.A.)
+;
+ 
+kwameaddae@knu.ac.kr 
+(
+K.S.A.
+)
+ 
+2
+ 
+Department of Agricultural and Bioenvironmental Engineering, Federal College of 
+Agriculture Ibadan, 
+Ibadan
+ 
+PMB 5029
+, Nigeria
+ 
+3
+ 
+Smart Agriculture Innovation Center, Kyungpook National University, Daegu 41566, 
+Korea; 
+ 
+akpenpuun.td@unilorin.edu.ng 
+(
+T.D.A.
+)
+; 
+wooks121@knu.ac.kr 
+(
+W.
+-
+H.N.
+)
+ 
+4
+ 
+Department of Agricultural and Biosystems Engineer
+ing, University of Ilorin, Ilorin
+ 
+PMB 1515
+, Nigeria
+ 
+5
+ 
+Department of Bio
+-
+Industrial Machinery Engineering, Gyeongsang National University, Jinju 52828
+, Korea; 
+bioani@gnu.ac.kr
+ 
+*
+ 
+Correspondence: 
+whlee@knu.ac.kr; Tel.: +82
+-
+53
+-
+950
+-
+5736
+ 
+Abstract: 
+Recently, heat and mass distributions within a greenhouse were
+ 
+assumed to be homoge-
+neous. Heat is gained or lost in absolute terms, and crop contribution in a greenhouse or its effect is 
+not considered. In this study, statistical analyses were conducted to
+ 
+establish the significance of 
+heat and mass variation at sensor nodes in two single
+-
+span and multi
+-
+span greenhouses. Three 
+greenhouses were used in this study, 168 m
+2
+ 
+floor area a single
+-
+layered 
+(
+SLG
+)
+, double
+-
+layered 
+(
+DLG
+)
+ 
+single
+-
+span gothic roof type gre
+enhouses,
+ 
+and 7572.6 m
+2
+ 
+floor area multi
+-
+span greenhouse 
+(
+MSG
+)
+. The microclimatic parameters investigated were temperature 
+(
+T
+)
+, relative humidity 
+(
+RH
+)
+, 
+solar radiation 
+(
+SR
+)
+, carbon dioxide 
+(
+CO
+2
+)
+, and vapor pressure deficit 
+(
+VPD
+)
+. To check their hori-
+zontal 
+distribution, all microclimate data collected
+ 
+from each sensor node in each greenhouse were 
+subjected to descriptive statistics and Tukey
+ 
+honestly significant difference 
+(
+HSD
+)
+ 
+test. The lowest 
+minimum temperatures of 2.93
+ 
+°C
+, 3.33
+ 
+°C
+ 
+and 10.50
+ 
+°C
+ 
+were reco
+rded at sensor points in SLG, 
+DLG, and MSG, respectively, whereas the highest maximum temperatures of 29.17
+ 
+°C
+, 29.07
+ 
+°C
+ 
+and 
+27.20
+ 
+°C 
+were recorded at sensor point, in SLG, DLG, and MSG, respectively. 
+The difference be-
+tween the center and the side into the
+ 
+single
+-
+span was approximately 0.88
+ 
+°C
+–
+1.0
+ 
+°C
+ 
+and
+ 
+in the MSG 
+was approximately 1.03
+ 
+°C
+. Significant variation was observed in the horizontal distribution of T, 
+RH, SR, and VPD within SLG, DLG, and MSG.
+ 
+Also significant was CO
+2
+ 
+in the MSG.
+ 
+Estimating 
+the energy demand of greenhouses should be done based on the distribution rather than assumi
+ng 
+microclimatic parameters homogeneity, especially for T, with VPD as a control parameter. Such 
+estimation should also be done using a 
+crop model that considers instant changes in air and crop 
+temperature
+.
+ 
+Keywords:
+ 
+energy 
+estimation; heat; mass; distribu
+tion; greenhouse; microclimate
+ 
+ 
+1. 
+Introduction
+ 
+A greenhouse is an agricultural structure used in protecting crops from harmful and 
+extreme weather conditions. Energy is required to heat up or cool down greenhouse mi-
+croclimate in the winter and summer, respectively. Therefore, the energy demand of the 
+g
+reenhouse should be estimated. The estimation can be done theoretically or using energy 
+simulation models such as TRNSYS 
+[1
+–
+3]
+, energy plus, and so on. The tools accept energy
+-
+related microclimate parameters and return the estimated energy as output
+. Micro
+climate 
+parameters are distributed homogeneously or heterogeneously within a greenhouse and 
+Citation:
+ 
+Ogunlowo, Q.O.; 
+ 
+Akpenp
+u
+un, T.D.; Na, W.
+-
+H.; Rabiu, 
+A.; Adesanya, M.A.; Addae, K.S.; 
+Kim, H.
+-
+T.; Lee, H.
+-
+W. Analysis of 
+Heat and Mass Distribution in a 
+ 
+Single
+-
+ 
+and Multi
+-
+Span Greenhouse 
+Microclimate. 
+Agriculture 
+2021
+, 
+11
+, 
+891. https://doi.org/
+10.3390/
+ 
+agriculture11090891
+ 
+Academic Edi
+tor
+: 
+Xavier Aranda 
+Frattarola
+ 
+ 
+Received: 
+30 July 2021
+ 
+Accepted: 
+15 September 2021
+ 
+Publishe
+d:
+ 
+16 September 2021
+ 
+Publisher’s Note:
+ 
+MDPI stays neutral 
+with regard to jurisdictional cla
+ims in 
+published maps and institutional af-
+filiations.
+ 
+ 
+C
+opyright:
+ 
+© 2021
+ 
+by the authors. 
+ 
+Licensee MDPI, Basel, Switzerland. 
+This article is an open access article 
+distributed under the terms and 
+ 
+conditions of the Creative Commons 
+Attribution (CC BY) license 
+(http://creativecommons.org/li-
+censes/by/4.0/).
+ 
+
+
+
+--- page 2 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+2
+ 
+of 
+26
+ 
+ 
+ 
+are determined by the heat and mass distributions within the greenhouse. Temperature, 
+radiation, and dew point temperature are heat
+-
+related parameters, whereas rela
+tive hu-
+midity 
+(
+RH
+)
+ 
+(
+moisture
+)
+, CO
+2
+, and vapor pressure deficit 
+(
+VPD
+)
+ 
+are mass
+-
+related. Optimal 
+crop growth in a greenhouse requires optimal temperature, humidity, carbon dioxide, and 
+solar radiation 
+[4
+–
+7]
+. Mass and heat transfer phenomena 
+(
+e.g., evaporatio
+n, condensation, 
+photosynthesis, and climate change
+)
+ 
+affect the quality and quantity of the produced crops.
+ 
+Previous studies focused on the vertical component of the environmental parameters 
+within greenhouses, and most of these studies have discovered sig
+nificant temperature 
+gradients, even though the experiments were conducted in small greenhouses 
+[8
+,
+9]
+ 
+found 
+a 4.5
+ 
+°C
+–
+5
+ 
+°C
+ 
+temperature difference between the top and bottom of the greenhouse can-
+opy. According to 
+[10]
+, the highest temperatures 
+were found nearer the roof, with a dif-
+ference of 5
+ 
+°C
+ 
+between the coolest and warmest points. However, temperature gradients 
+were incre
+ased by 14% in the presence of crops. Nevertheless, 
+ref. 
+[11]
+ 
+has already re-
+ported a temperature difference of 6
+ 
+°C
+ 
+near the roof, just above the crop canopy.
+ 
+Ref. 
+[12]
+ 
+studied the distribution of temperature, humidity, and photosynthetic photon flux 
+(
+PPF
+)
+ 
+in a double
+-
+covering
+-
+conventional and air
+-
+inflated greenhouse used for tomato produc-
+tion and reported a temperature difference of 3.5
+ 
+°C
+ 
+between a double
+-
+layered
+-
+conven-
+tional and air
+-
+inflated greenhouse and a lower PPF in a conventional greenhouse. Re-
+cent
+ly, 
+ref. 
+[13]
+ 
+compared the averaged microclimate parameters of polyolefin
+–
+thermal 
+screen 
+(
+PoTS
+)
+ 
+and polyolefin
+–
+thermal screen
+–
+polyethylene 
+(
+PoTSPe
+)
+ 
+glazed greenhouse 
+used for strawberry cultivation and reported that more energy was consumed in the PoTS 
+tha
+n in PoTSPe. 
+Ref. 
+[14]
+ 
+used wireless sensor networks in mechanically and naturally 
+ventilated and shaded greenhouses
+ 
+to describe and chart the horizontal and vertical var-
+iability in air temperature and RH within a greenhouse, concluding that there
+ 
+was a hor-
+izontal 
+homogeneity among the sensors
+.
+ 
+Most studies have reported using more than one sensor 
+[1
+–
+3,15]
+, but mainly use 
+mean sensor values to estimate the energy demand of greenhouse. Some researchers 
+[16], 
+[17]
+ 
+also 
+assumed that greenhouse aerial 
+temperature is the same in all directions
+. How-
+ever, using the
+ 
+mean is not a good representation of a group of scores 
+[18]
+. 
+Furthermore, 
+only a single sensor is used to set the greenhouse microclimate control. In this regard, if 
+there is a significant diffe
+rence among sensor values, there may be over or underestima-
+tion of energy demand, and some crops might be exposed to unfavorable climatic condi-
+tions 
+[19]
+. Additionally, mean values are not always predicted correctly 
+[20]
+. Therefore, 
+further studies should 
+investigate the distribution of environmental variables within the 
+greenhouse, evaluating the presence of hot spots.
+ 
+Previously, some researchers assumed that crop evapotranspiration in greenhouse 
+energy estimation was positive, while other researchers con
+sidered that it was negative 
+[3
+,
+15]
+ 
+examined the results of a plant
+-
+air interaction using a 90% cultivated fraction of the 
+greenhouse floor and a mass surface density of 10 kg/m
+2
+. They concluded that the heat 
+loss during the daytime is the highest during t
+he summer months, because of the higher 
+transpiration rates and longer sunlight hours per day, whereas the opposite occurs during 
+the nighttime. Considering this context, this study analyzes horizontal heat and mass dis-
+tribution within a greenhouse microcl
+imate and 
+the interaction of the crop
+-
+air tempera-
+ture
+.
+ 
+2. 
+Materials and 
+Methods
+ 
+2.1. 
+Profile of the 
+Experimental Greenhouse
+ 
+2.1.1. 
+Single
+-
+Span Greenhouses
+ 
+A double
+-
+layer 
+(
+DLG
+)
+ 
+and single
+-
+layer 
+(
+SLG
+)
+ 
+greenhouse were built in Daegu, South 
+Korea, located at 35.53° N, 128.36° E, and 48 m above sea level. As shown in Figure 1, both 
+greenhouses are single
+-
+span, gothic
+-
+type roofs covered with polyolefin 
+(
+PO
+)
+ 
+and polyeth-
+ylene 
+(
+PE
+)
+, and only PO material, resp
+ectively, a single
+-
+layer thermal screen, and E
+-
+W 
+orientation. With a gross volume of 553.1 m
+3
+ 
+and a floor area of 168 m
+2
+, the dimensions 
+
+
+--- page 3 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+3
+ 
+of 
+26
+ 
+ 
+ 
+were 24 × 7 × 4 m. Natural side and roof ventilation were used in both greenhouses. 
+Ref. 
+[21]
+ 
+had
+ 
+studied the efficienc
+y of natural ventilation on these greenhouses
+ 
+(Figure
+ 
+A1
+ 
+is 
+as presented in the Appendix
+ 
+A
+)
+. During the day, both greenhouses are single
+-
+layer, but 
+at night, the polyethylene that makes up the second layer in the DLG is deployed 
+(
+hence, 
+double layer
+)
+. The 
+roof vent of the DLG is open on both sides, whereas the roof vent of 
+SLG is opened only on one side 
+(
+Figure 1
+)
+. The SLG floor is covered with a layer of granite, 
+whereas the DLG is covered with tarpaulin, the effects of which were studied as green-
+house fea
+tures rather than the heat and mass distribution. In each greenhouse, six fans of 
+25 m
+3
+/min flow rate were installed, three at each end facing the opposite direction to ena-
+ble a better mixture of mass and heat within the greenhouse. The sensors and fans ar
+e 
+shown in Figure 2. The greenhouses were temperature
+-
+controlled, with minimum and 
+maximum interior temperatures between 8
+ 
+°C
+ 
+and 23
+ 
+°C
+, respectively. The roof and side 
+vents open when the temperature exceeds 21
+ 
+°C
+ 
+and 23
+ 
+°C
+ 
+and close when the tempera-
+ture 
+falls below the minimum temperature setpoints. The heat source was a diesel
+-
+fired 
+boiler connected to heating pipes that run through the greenhouse. When the temperature 
+inside the greenhouse falls below 8
+ 
+°C
+, the boiler turned on and the hot water was pum
+ped 
+through the heating pipes, to raise the microclimate temperature until the temperature 
+reached the minimum setpoint of 8
+ 
+°C
+, at which it turned off until the temperature fell 
+below again. The sensor at position C2 controls the opening and closing of th
+e roof and 
+side vents, as well as the powering of the boiler. The thermal screens in both greenhouses 
+were scheduled to close and open at 6.00 pm and 8.30 am, respectively, whereas the PE 
+screen in DLG was scheduled to open and close by 9.00 am and 5.30 pm
+, respectively. 
+Strawberry 
+(
+Seolhyang 
+sp.
+)
+ 
+was cultivated during the experimental period in both green-
+houses.
+ 
+ 
+Figure 1. 
+Single
+-
+span gothic
+-
+type experimental greenhouse. 
+(
+a
+)
+ 
+SLG 
+(
+b
+)
+ 
+DLG
+.
+ 
+
+
+
+--- page 4 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+4
+ 
+of 
+26
+ 
+ 
+ 
+ 
+Figure 2. 
+Position of sensors in the single
+-
+span 
+greenhouse
+.
+ 
+2.1.2. 
+Multi
+-
+Span 
+Greenhouse 
+(
+MSG
+)
+ 
+The multi
+-
+span greenhouse 
+(
+MSG
+)
+ 
+was built in an N
+–
+S orientation in Taean Gun, 
+Chungcheongnam
+-
+do, South Korea, located at 36.88° N, 126.24° E, and 45 m above sea 
+level. The greenhouse has a Venlo
+-
+style roof wit
+h 15 spans. The dimension, floor area, and 
+span width
+ 
+of the greenhouse were 63 × 120.2 × 7.48 m, 7572.6 m
+2
+, and 8 m, respectively. 
+The sides and roof were made of polycarbonate 
+(
+PC
+)
+ 
+and horticulture glass 
+(
+HG
+)
+, which 
+were 16 and 4 mm thick, 
+respectively. In the greenhouse, thirty 100 m
+3
+/min flow rate fans 
+were installed in alternate directions, as shown in Figure 3b. The aim is to create a better 
+mixture of mass and heat within the greenhouse. One PH_77 thermal screen with thermal 
+conductivit
+y and thickness of 0.59 W/mK and 0.4 mm, respectively, and two PH
+-
+Super 
+thermal screens with thermal conductivity and thickness 0.08 W/mK and 0.3 mm, respec-
+tively, were installed directly under the HG roof, with a layer of the PH_77 thermal screen 
+installe
+d on the greenhouse sidewalls. The vertical and horizontal views of the full speci-
+fications are shown in Figure 3a
+,
+b, respectively. Strawberr
+ies
+ 
+(
+Seolhyang 
+sp.
+)
+ 
+w
+ere
+ 
+also cul-
+tivated in the MSG during the experimental period.
+ 
+
+
+
+--- page 5 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+5
+ 
+of 
+26
+ 
+ 
+ 
+ 
+ 
+Figure 3. 
+Greenhouse dimensions and positions of sensors in the MSG experimental greenhouse: 
+(
+a
+)
+ 
+vertical view and 
+(
+b
+)
+ 
+horizontal view.
+ 
+The greenhouse temperature was controlled within a range of 15
+ 
+°C
+ 
+and 19
+ 
+°C
+ 
+as the 
+minimum and maximum temperatures, respectively.
+ 
+The roof vent opened and closed 
+when the temperatures were above 19
+ 
+°C
+ 
+and below 15
+ 
+°C
+, respectively, while the thermal 
+screens are scheduled as follows:
+ 
+Thermal screen 1: 
+ 
+o
+pened after sunrise or temperature is 10
+ 
+°C
+ 
+or SR is 100 W.
+ 
+Closed after sunset o
+r temperature are 12
+ 
+°C
+ 
+and SR is 100 W.
+ 
+Thermal screen 2: 
+ 
+o
+pened after sunrise or temperature is 5
+ 
+°C
+ 
+or SR is 50 W.
+ 
+Closed after sunset or temperature are 12
+ 
+°C
+ 
+and SR is 50 W.
+ 
+Thermal screen 3: 
+ 
+o
+pened after sunrise or temperature is 12
+ 
+°C
+ 
+or SR is 150 W.
+ 
+Closed after sunset or temperature are 14
+ 
+°C
+ 
+and SR is 150 W.
+ 
+2.2. 
+Data 
+Collection
+ 
+2.2.1. 
+Single
+-
+Span Greenhouse
+ 
+
+
+
+--- page 6 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+6
+ 
+of 
+26
+ 
+ 
+ 
+Nine Hobo onset U23
+-
+002 sensors with a sensitivity of 
+±0.21
+ 
+°C
+ 
+(
+from 0
+ 
+°C
+–
+50
+ 
+°C
+)
+ 
+and 
+±2.5% 
+(
+from 10
+–
+100%
+ 
+RH
+)
+ 
+were installed ho
+rizontally immediately above the strawberry 
+plants to record the air temperature 
+(
+T
+)
+, dew point temperature 
+(
+T
+dp
+)
+, and relative humid-
+ity 
+(
+RH
+)
+. Furthermore, two Kipp 
+and
+ 
+Zonen pyranometers 
+(
+CMP3 model
+)
+ 
+with a sensitiv-
+ity of <5%, 
+−10
+ 
+°C
+–
+40
+ 
+°C
+, and 
+spectral range of 300
+–
+2800 nm were installed to record the 
+solar radiation 
+(
+SR
+)
+ 
+received at those points. The distance and positions of the sensors are 
+shown in Figure 2. The condition of the crops in the greenhouse is affected by the micro-
+climate conditio
+n. Therefore, the temperatures and RH sensors were chosen to measure 
+the condition near most of the crops, as well as the sides and center of the greenhouse. All 
+sensors recorded data every 10 min. The data were collected 
+from 
+1 
+November 2020, to
+ 
+3
+ 
+March 2
+021. After data extraction and processing, the VPD at the respective sensor points 
+was calculated using 
+E
+quations 
+(
+1
+)
+ 
+and 
+(
+2
+)
+. An Apogee infrared radiometer surface tem-
+perature sensor of model SI
+-
+131
+-
+SS with an uncertainty of 
+±0.3
+ 
+°C
+ 
+(
+ranging from 
+−30
+ 
+°C
+–
+6
+5
+ 
+°C
+)
+ 
+was installed to measure the leaf surface temperature 
+(
+Figure 2
+)
+.
+ 
+2.2.2. 
+Multi
+-
+Span Greenhouse
+ 
+To record the air temperature 
+(
+T
+)
+ 
+and RH, four SHT75 Sensirion sensors with a sen-
+sitivity of 
+0%
+–
+100% RH ±
+ 
+1.8% and 
+−40
+ 
+°C
+–
+123.8
+ 
+°C
+ 
+± 0.3
+ 
+°C
+ 
+were horizontally installed at 
+the immediate site of the strawberry plants. Unlike SLG and DLG, MSG has four installed 
+sensors because stratification occurs more easily in large spaces, also, due to a limited 
+number of sensors. Four Kipp 
+and
+ 
+Zonen pyranom
+eter
+s
+ 
+(
+CMP3 model
+)
+ 
+with a sensitivity 
+<5%, 
+−10
+ 
+°C
+ 
+−40
+ 
+°C
+ 
+and spectral range of 300
+–
+2800 nm were also installed to record the 
+solar radiation and four TR
+-
+76UI
+-
+H Tecpel CO
+2
+ 
+sensors with a sensitivity of ± 50 ppm were 
+installed to measure CO
+2
+ 
+at those points.
+ 
+The distance and positions of the sensors are 
+shown in Figure 3. The data was collected 
+from 
+25 
+December 2020, to 
+7 
+January
+ 
+2021, and 
+the data logging interval for all sensors was 1 min.
+ 
+After data extraction and processing, the VPD at the respective sens
+or points were 
+calculated using 
+Equations 
+(
+1
+)
+ 
+and 
+(
+2
+)
+.
+ 
+   
+=
+610
+.
+78
+ 
+×
+2
+.
+71828
+ 
+ 
+ 
+ 
+   
+ 
+×
+  
+.
+    
+ 
+ 
+(
+1
+)
+   
+=
+   
+ 
+×
+(
+1
+−
+ 
+  
+100
+)
+ 
+(
+2
+)
+2.3. 
+Data 
+Analysis
+ 
+All data collected
+ 
+for each sensor in each greenhouse were subjected to descriptive 
+statistics and analysis of variance 
+(
+ANOVA
+)
+ 
+using the Microsoft Excel 2019 statistical 
+package. The level of significant variations among the sensors in the single
+-
+span and 
+multi
+-
+span greenho
+uses was conducted using horizontal distribution analysis. The sen-
+sors that were significantly different from each other were subjected to Tukey
+ 
+honestly 
+significant difference 
+(
+HSD
+)
+ 
+test.
+ 
+The interaction between the greenhouse crops and the air temperatur
+e was also ana-
+lyzed.
+ 
+3.
+ 
+Results and Discussion
+ 
+3.1. 
+Single
+-
+Span Greenhouse
+ 
+3.1.1. 
+Heat and 
+Mass Variation
+ 
+The descriptive statistics of the distribution of microclimate parameters for all sen-
+sors are presented in Tables 
+1
+–
+4
+. The control sensor minimum and 
+maximum values for 
+SLG 
+(
+Tables
+ 
+1 and 
+3
+)
+ 
+were 4.12
+ 
+°C
+ 
+and 29.14
+ 
+°C
+, 18.95%, and 98.38%, 3.32
+ 
+°C
+ 
+and 22.19
+ 
+°C
+, 
+0.06 kPa, and 2.96 kPa, and 7.29 W/m
+2
+ 
+and 647.23 W/m
+2
+, for T, RH, T
+dp
+, VPD, and SR, 
+respectively. The control sensor minimum and maximum values for DLG 
+(
+Tables 
+2
+ 
+and 
+4
+)
+ 
+were 3.91
+ 
+°C
+ 
+and 28.99
+ 
+°C
+, 15.49%, and 99
+.18%, 5.18
+ 
+°C
+, and 21.72
+ 
+°C
+, 0.05 kPa, and 2.91 
+
+
+--- page 7 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+7
+ 
+of 
+26
+ 
+ 
+ 
+kPa, and 9.04 W/m
+2
+ 
+and 653.97 W/m
+2
+. The percentage change in the pa
+rameter sum be-
+tween control 
+(
+C2
+)
+ 
+and other sensors in SLG and DLG are shown in Tables 
+5
+ 
+and 
+6
+, re-
+spectively. In SLG, T, RH, T
+dp
+, and VPD sum was 10.29%, 4.70%, 15.04%, and 30.70% 
+higher changes between the C2 and E3, A1, A1, and E3, respectively. In DLG, T
+, RH, T
+dp
+, 
+and VPD sum were 8.09%, 2.7%, 5.90%, and 28.03% higher changes between the C2 and 
+E3, E3, A3, and E3, respectively.
+ 
+Table 1.
+:
+ 
+Descriptive statistics of T, RH, T
+dp
+, and VPD distributions in SLG. SD: standard deviation; Min.: minimum; Max.: 
+maximum; RH: 
+r
+elative humidity; T
+dp
+: dew point temperature; VPD: vapor pressure deficit; SLG: single
+-
+layered green-
+house
+.
+ 
+Paramete
+r
+ 
+Descripti
+on
+ 
+A1
+ 
+A2
+ 
+A3
+ 
+C1
+ 
+C2
+ 
+C3
+ 
+E1
+ 
+E2
+ 
+E3
+ 
+T 
+(
+°C
+)
+ 
+Mean
+ 
+12.79
+ 
+12.80
+ 
+12.53
+ 
+12.83
+ 
+13.35
+ 
+12.83
+ 
+12.70
+ 
+12.60
+ 
+12.11
+ 
+Median
+ 
+11.05
+ 
+11.05
+ 
+10.93
+ 
+11.25
+ 
+11.42
+ 
+11.13
+ 
+11.18
+ 
+11.27
+ 
+10.91
+ 
+Mode
+ 
+7.52
+ 
+7.52
+ 
+7.47
+ 
+7.72
+ 
+8.82
+ 
+7.62
+ 
+7.67
+ 
+7.72
+ 
+7.42
+ 
+SD
+ 
+4.99
+ 
+5.05
+ 
+4.81
+ 
+4.76
+ 
+5.28
+ 
+4.85
+ 
+4.71
+ 
+4.29
+ 
+4.12
+ 
+Min.
+ 
+2.93
+ 
+3.30
+ 
+2.85
+ 
+3.17
+ 
+4.12
+ 
+3.33
+ 
+2.90
+ 
+3.56
+ 
+2.96
+ 
+Max.
+ 
+29.17
+ 
+29.09
+ 
+29.04
+ 
+29.17
+ 
+29.14
+ 
+28.97
+ 
+27.75
+ 
+26.11
+ 
+26.21
+ 
+Sum
+ 
+225,775.99
+ 
+226,074.66
+ 
+221,288.56
+ 
+226,502.90
+ 
+235,782.19
+ 
+226,614.26
+ 
+224,185.28
+ 
+222,483.19
+ 
+213,773.05
+ 
+RH 
+(
+%
+)
+ 
+Mean
+ 
+72.57
+ 
+76.72
+ 
+76.97
+ 
+75.55
+ 
+75.99
+ 
+75.90
+ 
+76.36
+ 
+77.51
+ 
+77.97
+ 
+Median
+ 
+81.60
+ 
+85.57
+ 
+84.59
+ 
+83.00
+ 
+84.69
+ 
+84.02
+ 
+85.06
+ 
+84.26
+ 
+85.16
+ 
+Mode
+ 
+84.57
+ 
+91.03
+ 
+90.63
+ 
+90.64
+ 
+91.51
+ 
+90.54
+ 
+90.76
+ 
+91.32
+ 
+90.81
+ 
+SD
+ 
+17.76
+ 
+19.92
+ 
+18.57
+ 
+18.40
+ 
+20.00
+ 
+19.22
+ 
+19.94
+ 
+17.02
+ 
+18.01
+ 
+Min.
+ 
+13.00
+ 
+17.10
+ 
+18.99
+ 
+18.82
+ 
+18.58
+ 
+18.04
+ 
+16.45
+ 
+20.89
+ 
+17.98
+ 
+Max.
+ 
+85.79
+ 
+97.75
+ 
+97.58
+ 
+96.77
+ 
+98.38
+ 
+97.19
+ 
+97.98
+ 
+97.26
+ 
+97.89
+ 
+Sum
+ 
+1
+,
+281,503.
+08
+ 
+1,354,745.4
+7
+ 
+1,359,120.1
+5
+ 
+1,334,000.1
+4
+ 
+1,341,787.7
+5
+ 
+1,340,154.4
+0
+ 
+1,348,420.6
+1
+ 
+1,368,657.8
+2
+ 
+1,376,706.1
+6
+ 
+T
+dp
+ 
+(
+°C
+)
+ 
+Mean
+ 
+7.28
+ 
+8.01
+ 
+7.91
+ 
+7.94
+ 
+8.38
+ 
+7.94
+ 
+7.85
+ 
+8.23
+ 
+7.76
+ 
+Median
+ 
+6.68
+ 
+7.33
+ 
+7.19
+ 
+7.22
+ 
+7.66
+ 
+7.24
+ 
+7.23
+ 
+7.53
+ 
+7.20
+ 
+Mode
+ 
+4.92
+ 
+6.41
+ 
+5.99
+ 
+6.14
+ 
+11.41
+ 
+6.20
+ 
+6.53
+ 
+6.31
+ 
+6.15
+ 
+SD
+ 
+3.31
+ 
+3.56
+ 
+3.56
+ 
+3.48
+ 
+3.44
+ 
+3.59
+ 
+3.65
+ 
+3.50
+ 
+3.72
+ 
+Min.
+ 
+−7.89
+ 
+−4.79
+ 
+−4.77
+ 
+−4.94
+ 
+−3.32
+ 
+−5.54
+ 
+−6.71
+ 
+−4.94
+ 
+−7.27
+ 
+Max.
+ 
+20.63
+ 
+21.77
+ 
+22.61
+ 
+22.11
+ 
+22.19
+ 
+22.54
+ 
+21.84
+ 
+22.88
+ 
+22.00
+ 
+Sum
+ 
+128,635.57
+ 
+141,357.52
+ 
+139,635.59
+ 
+140,202.36
+ 
+147,988.51
+ 
+140,290.91
+ 
+138,591.04
+ 
+145,344.18
+ 
+137,075.71
+ 
+VPD 
+(
+kPa
+)
+ 
+Mean
+ 
+0.50
+ 
+0.45
+ 
+0.42
+ 
+0.45
+ 
+0.49
+ 
+0.45
+ 
+0.44
+ 
+0.39
+ 
+0.37
+ 
+Median
+ 
+0.25
+ 
+0.19
+ 
+0.20
+ 
+0.22
+ 
+0.20
+ 
+0.21
+ 
+0.19
+ 
+0.21
+ 
+0.19
+ 
+Mode
+ 
+0.17
+ 
+0.10
+ 
+0.15
+ 
+0.15
+ 
+0.15
+ 
+0.15
+ 
+0.16
+ 
+0.14
+ 
+0.15
+ 
+SD
+ 
+0.53
+ 
+0.53
+ 
+0.48
+ 
+0.48
+ 
+0.57
+ 
+0.50
+ 
+0.49
+ 
+0.39
+ 
+0.39
+ 
+Min.
+ 
+0.12
+ 
+0.07
+ 
+0.07
+ 
+0.08
+ 
+0.06
+ 
+0.07
+ 
+0.06
+ 
+0.07
+ 
+0.06
+ 
+Max.
+ 
+3.06
+ 
+2.95
+ 
+3.00
+ 
+2.91
+ 
+2.96
+ 
+2.97
+ 
+2.76
+ 
+2.48
+ 
+2.52
+ 
+Sum
+ 
+8910
+.40
+ 
+7979
+.37
+ 
+7502
+.32
+ 
+7968
+.27
+ 
+8620
+.88
+ 
+7993
+.55
+ 
+7782
+.34
+ 
+6950
+.87
+ 
+6595
+.67
+ 
+Count
+ 
+17,658.00
+ 
+17,658.00
+ 
+17,658.00
+ 
+17,658.00
+ 
+17,658.00
+ 
+17,658.00
+ 
+17,658.00
+ 
+17,658.00
+ 
+17,658.00
+ 
+Table 
+2
+:
+ 
+Descriptive statistics of T, RH, T
+dp
+, and VPD distributions in DLG. SD: standard deviation; Min.: minimum; Max.: 
+maximum. T: air temperature; RH: 
+r
+elative humidity; T
+dp
+: dew point temperature; VPD: vapor pressure deficit; DLG: dou-
+ble
+-
+layered greenhouse.
+ 
+Paramete
+r
+ 
+Descripti
+on
+ 
+A1
+ 
+A2
+ 
+A3
+ 
+C1
+ 
+C2
+ 
+C3
+ 
+E1
+ 
+E2
+ 
+E3
+ 
+T 
+(
+°C
+)
+ 
+Mean
+ 
+13.21
+ 
+12.91
+ 
+12.47
+ 
+13.20
+ 
+13.34
+ 
+12.64
+ 
+12.96
+ 
+12.53
+ 
+12.34
+ 
+Median
+ 
+11.42
+ 
+11.27
+ 
+11.01
+ 
+11.49
+ 
+11.64
+ 
+11.22
+ 
+11.35
+ 
+11.22
+ 
+11.08
+ 
+Mode
+ 
+8.82
+ 
+7.87
+ 
+8.02
+ 
+8.87
+ 
+8.52
+ 
+8.42
+ 
+7.87
+ 
+9.31
+ 
+8.67
+ 
+
+
+--- page 8 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+8
+ 
+of 
+26
+ 
+ 
+ 
+SD
+ 
+5.28
+ 
+5.05
+ 
+4.81
+ 
+5.19
+ 
+5.14
+ 
+4.67
+ 
+4.99
+ 
+4.45
+ 
+4.44
+ 
+Min.
+ 
+3.56
+ 
+3.56
+ 
+3.33
+ 
+3.64
+ 
+3.91
+ 
+3.70
+ 
+3.64
+ 
+3.62
+ 
+3.51
+ 
+Max.
+ 
+28.49
+ 
+27.36
+ 
+27.92
+ 
+29.07
+ 
+28.99
+ 
+28.42
+ 
+27.73
+ 
+26.21
+ 
+26.92
+ 
+Sum
+ 
+233,245.80
+ 
+228,029.07
+ 
+220,183.48
+ 
+233,157.38
+ 
+235,517.34
+ 
+223,116.99
+ 
+228,883.83
+ 
+221,263.42
+ 
+217,878.43
+ 
+RH 
+(
+%
+)
+ 
+Mean
+ 
+79.07
+ 
+80.35
+ 
+81.62
+ 
+79.04
+ 
+79.86
+ 
+80.92
+ 
+80.05
+ 
+81.57
+ 
+82.02
+ 
+Median
+ 
+91.97
+ 
+92.09
+ 
+93.44
+ 
+91.05
+ 
+92.22
+ 
+91.81
+ 
+91.76
+ 
+91.96
+ 
+92.41
+ 
+Mode
+ 
+95.29
+ 
+96.13
+ 
+95.55
+ 
+94.36
+ 
+93.77
+ 
+95.20
+ 
+95.97
+ 
+95.35
+ 
+95.24
+ 
+SD
+ 
+23.41
+ 
+21.77
+ 
+22.20
+ 
+22.35
+ 
+22.40
+ 
+20.96
+ 
+21.78
+ 
+20.12
+ 
+19.98
+ 
+Min.
+ 
+12.73
+ 
+16.27
+ 
+14.76
+ 
+15.14
+ 
+15.49
+ 
+16.58
+ 
+17.51
+ 
+18.75
+ 
+18.60
+ 
+Max.
+ 
+98.31
+ 
+98.87
+ 
+99.50
+ 
+98.58
+ 
+99.18
+ 
+98.64
+ 
+99.49
+ 
+99.47
+ 
+98.84
+ 
+Sum
+ 
+1,396,171.6
+6
+ 
+1,418,874.6
+6
+ 
+1,441,173.7
+6
+ 
+1,395,665.3
+0
+ 
+1,410,111.8
+7
+ 
+1,428,888.9
+0
+ 
+1,413,535.4
+4
+ 
+1,440,319.4
+6
+ 
+1,448,323.0
+0
+ 
+T
+dp
+ 
+(
+°C
+)
+ 
+Mean
+ 
+8.46
+ 
+8.63
+ 
+8.38
+ 
+8.59
+ 
+8.88
+ 
+8.54
+ 
+8.64
+ 
+8.66
+ 
+8.56
+ 
+Median
+ 
+8.09
+ 
+8.18
+ 
+8.05
+ 
+8.14
+ 
+8.46
+ 
+8.11
+ 
+8.15
+ 
+8.16
+ 
+8.12
+ 
+Mode
+ 
+6.43
+ 
+7.13
+ 
+5.90
+ 
+7.83
+ 
+6.33
+ 
+6.61
+ 
+6.28
+ 
+7.15
+ 
+7.35
+ 
+SD
+ 
+3.76
+ 
+3.65
+ 
+3.79
+ 
+3.61
+ 
+3.53
+ 
+3.61
+ 
+3.63
+ 
+3.59
+ 
+3.60
+ 
+Min.
+ 
+−7.86
+ 
+−6.45
+ 
+−9.04
+ 
+−5.71
+ 
+−5.18
+ 
+−7.01
+ 
+−5.80
+ 
+−5.28
+ 
+−6.31
+ 
+Max.
+ 
+21.56
+ 
+22.01
+ 
+21.12
+ 
+21.80
+ 
+21.72
+ 
+21.00
+ 
+22.56
+ 
+22.36
+ 
+21.36
+ 
+Sum
+ 
+149,390.75
+ 
+152,473.18
+ 
+148,027.80
+ 
+151,618.70
+ 
+156,770.67
+ 
+150,863.41
+ 
+152,522.42
+ 
+152,942.62
+ 
+151,168.81
+ 
+VPD 
+(
+kPa
+)
+ 
+Mean
+ 
+0.46
+ 
+0.41
+ 
+0.38
+ 
+0.45
+ 
+0.44
+ 
+0.38
+ 
+0.42
+ 
+0.36
+ 
+0.35
+ 
+Median
+ 
+0.12
+ 
+0.12
+ 
+0.10
+ 
+0.13
+ 
+0.12
+ 
+0.12
+ 
+0.12
+ 
+0.12
+ 
+0.12
+ 
+Mode
+ 
+0.07
+ 
+0.08
+ 
+0.06
+ 
+0.12
+ 
+0.08
+ 
+0.08
+ 
+0.07
+ 
+0.06
+ 
+0.07
+ 
+SD
+ 
+0.63
+ 
+0.54
+ 
+0.53
+ 
+0.59
+ 
+0.59
+ 
+0.50
+ 
+0.53
+ 
+0.44
+ 
+0.44
+ 
+Min.
+ 
+0.06
+ 
+0.05
+ 
+0.05
+ 
+0.06
+ 
+0.05
+ 
+0.05
+ 
+0.05
+ 
+0.05
+ 
+0.05
+ 
+Max.
+ 
+2.95
+ 
+2.68
+ 
+2.81
+ 
+3.02
+ 
+2.91
+ 
+2.85
+ 
+2.65
+ 
+2.53
+ 
+2.56
+ 
+Sum
+ 
+8181
+.67
+ 
+7300
+.08
+ 
+6709
+.50
+ 
+7985
+.00
+ 
+7819
+.08
+ 
+6757
+.94
+ 
+7355
+.64
+ 
+6302
+.59
+ 
+6107
+.11
+ 
+Count
+ 
+17,658.00
+ 
+17,658.00
+ 
+17,658.00
+ 
+17,658.00
+ 
+17,658.00
+ 
+17,658.00
+ 
+17,658.00
+ 
+17,658.00
+ 
+17,658.00
+ 
+Table 
+3
+:
+ 
+Descriptive statistics of SR in SLG 
+(
+single
+-
+layered greenhouse
+)
+. SR: solar radiation; C2 and 
+E2: 
+control and experimental sensors; SD: standard deviation; Min.: minimum; Max.: maximum.
+ 
+ 
+SR 
+(
+W/m
+2
+)
+ 
+ 
+C2
+ 
+E2
+ 
+Mean
+ 
+200.29
+ 
+103.07
+ 
+Median
+ 
+163.99
+ 
+85.79
+ 
+Mode
+ 
+10.93
+ 
+77.12
+ 
+SD
+ 
+157.97
+ 
+75.23
+ 
+Min.
+ 
+7.29
+ 
+8.67
+ 
+Max.
+ 
+647.23
+ 
+532.93
+ 
+Sum
+ 
+1,347,972.30
+ 
+693,658.58
+ 
+Count
+ 
+6730
+.00
+ 
+6730
+.00
+ 
+Table 
+4
+:
+ 
+Descriptive
+ 
+statistics of the SR in DLG 
+(
+double
+-
+layered greenhouse
+)
+. SR: solar radiation; C2 
+and E2: control and experimental sensors; SD: standard deviation; Min.: minimum; Max.: maxi-
+mum.
+ 
+ 
+SR 
+(
+W/m
+2
+)
+ 
+ 
+C2
+ 
+E2
+ 
+Mean
+ 
+215.65
+ 
+112.66
+ 
+Median
+ 
+181.41
+ 
+103.56
+ 
+Mode
+ 
+9.68
+ 
+25.24
+ 
+SD
+ 
+167.11
+ 
+76.64
+ 
+
+
+--- page 9 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+9
+ 
+of 
+26
+ 
+ 
+ 
+Min.
+ 
+9.04
+ 
+8.41
+ 
+Max.
+ 
+653.97
+ 
+717.15
+ 
+Sum
+ 
+1,420,052.29
+ 
+741,862.14
+ 
+Count
+ 
+6585
+.00
+ 
+6585
+.00
+ 
+Table 
+5
+. 
+Percentage change in parameter sum between the control sensor and the other sensors in SLG 
+(
+single
+-
+layered 
+greenhouse
+)
+ 
+T: air temperature; RH: 
+r
+elative humidity; T
+dp
+: dew point temperature; VPD: vapor pressure deficit; SR: solar 
+radiation.
+ 
+Parameter
+ 
+Positi
+on
+ 
+A1
+ 
+A2
+ 
+A3
+ 
+C1
+ 
+C3
+ 
+E1
+ 
+E2
+ 
+E3
+ 
+T
+ 
+Control 
+sensor 
+(
+C2
+)
+ 
++4.43
+ 
++4.29
+ 
++6.54
+ 
++4.09
+ 
++4.04
+ 
++5.17
+ 
++5.97
+ 
++10.29
+ 
+RH
+ 
++4.70
+ 
+−
+0.96
+ 
+−
+1.29
+ 
++0.58
+ 
++0.12
+ 
+−
+0.49
+ 
+−
+2.00
+ 
+−
+2.60
+ 
+T
+dp
+ 
++15.04
+ 
++4.69
+ 
++5.98
+ 
++5.55
+ 
++5.48
+ 
++6.78
+ 
++1.81
+ 
++7.96
+ 
+VPD
+ 
+−
+3.35
+ 
++8.03
+ 
++14.90
+ 
++8.19
+ 
++7.84
+ 
++10.77
+ 
++24.0
+ 
++30.70
+ 
+SR
+ 
+--
+ 
+--
+ 
+--
+ 
+--
+ 
+--
+ 
+--
+ 
++94.3
+ 
+--
+ 
++: C2 higher
+ 
+−
+: C2 lower
+ 
+--
+: 
+s
+ensor not in the position.
+ 
+Table 
+6
+. 
+Percentage change in parameter sum between control sensor and other sensors in DLG 
+(
+double
+-
+layered green-
+house
+)
+. T: air temperature; RH: 
+r
+elative humidity; T
+dp
+: dew point temperature; VPD: vapor pressure deficit; SR: solar ra-
+diation.
+ 
+Parameter
+ 
+Position
+ 
+A1
+ 
+A2
+ 
+A3
+ 
+C1
+ 
+C3
+ 
+E1
+ 
+E2
+ 
+E3
+ 
+T
+ 
+Control sensor 
+(
+C2
+)
+ 
++0.97
+ 
++3.28
+ 
++6.96
+ 
++1.01
+ 
++5.55
+ 
++2.89
+ 
++6.44
+ 
++8.09
+ 
+RH
+ 
++0.99
+ 
+−
+0.62
+ 
+−
+2.20
+ 
++1.03
+ 
+−
+1.33
+ 
+−
+0.24
+ 
+−
+2.14
+ 
+−
+2.70
+ 
+T
+dp
+ 
++4.94
+ 
++2.81
+ 
++5.90
+ 
++3.39
+ 
++3.91
+ 
++2.78
+ 
++2.50
+ 
++3.70
+ 
+VPD
+ 
+−
+4.63
+ 
++7.10
+ 
++16.53
+ 
+−
+2.12
+ 
+−
+15.70
+ 
++6.30
+ 
++24.06
+ 
++28.03
+ 
+SR
+ 
+--
+ 
+--
+ 
+--
+ 
+--
+ 
+--
+ 
+--
+ 
++91.4
+ 
+--
+ 
++: C2 higher
+ 
+−
+: C2 lower
+ 
+--
+: 
+s
+ensor not in the position.
+ 
+The ANOVA results in Tables 
+7
+ 
+and 
+8
+ 
+show the significant differences in the distri-
+bution
+ 
+of all the microclimate parameters within the greenhouses. The 
+p
+-
+value corre-
+sponding to the 
+F
+-
+statistic of one
+-
+way ANOVA is less than 0.05, indicating that one or 
+more treatments are significantly different. Despite the installation of circulation fans in 
+the greenhouses, the distribution was found to be heterogeneous. This significant varia-
+tion supports the findings by 
+[8]
+, who stated that significant temperature gradients were 
+observed even when experiments were conducted in small experimental greenhouses
+. Ex-
+cept for the fog cooling condition, the result is similar to the result obtained by 
+[12]
+, who 
+reported nonuniformity of T and RH distribution within a conventional DLG during the 
+day and nighttime, under heating, no heating, and no fogging conditions. 
+However, 
+[22]
+ 
+found no differences in T and RH readings between an SLG and DLG.
+ 
+Table 
+7
+. 
+ANOVA results for T, RH, Tdp, VPD, SR, and CO
+2
+ 
+distribution in SLG. T: air temperature; RH: 
+r
+elative humidity; 
+T
+dp
+: dew point temperature; VPD: vapor pressure deficit;
+ 
+SR: solar radiation.
+ 
+Parameter
+ 
+df
+ 
+F
+ 
+p
+-
+Value
+ 
+F 
+Crit
+ 
+T 
+(
+°C
+)
+ 
+8, 158,913
+ 
+83.49
+ 
+p
+ 
+< 0.01
+ 
+1.94
+ 
+RH 
+(
+%
+)
+ 
+8, 158,914
+ 
+121.50
+ 
+p
+ 
+< 0.01
+ 
+1.94
+ 
+T
+dp
+ 
+(
+°C
+)
+ 
+8, 158,915
+ 
+132.53
+ 
+p
+ 
+< 0.01
+ 
+1.94
+ 
+VPD 
+(
+kPa
+)
+ 
+8, 158,916
+ 
+126.52
+ 
+p
+ 
+< 0.01
+ 
+1.94
+ 
+SR 
+(
+W/m
+2
+)
+ 
+1, 13,168
+ 
+2148
+.90
+ 
+p
+ 
+< 0.01
+ 
+3.84
+ 
+ 
+ 
+
+
+--- page 10 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+10
+ 
+of 
+26
+ 
+ 
+ 
+Table 
+8
+. 
+ANOVA result of the T, RH, T
+dp
+, VPD, SR, and CO
+2
+ 
+distribution in DLG. T: air temperature; RH: 
+r
+elative humidity; 
+T
+dp
+: dew point temperature; VPD: vapor pressure deficit; SR: solar radiation.
+ 
+Parameter
+ 
+df
+ 
+F
+ 
+p
+-
+Value
+ 
+F crit
+ 
+T 
+(
+°C
+)
+ 
+8, 158,913
+ 
+97.73
+ 
+p
+ 
+< 0.01
+ 
+1.94
+ 
+RH 
+(
+%
+)
+ 
+8, 158,914
+ 
+45.51
+ 
+p
+ 
+< 0.01
+ 
+1.94
+ 
+T
+dp
+ 
+(
+°C
+)
+ 
+8, 158,915
+ 
+25.78
+ 
+p
+ 
+< 0.01
+ 
+1.94
+ 
+VPD 
+(
+kPa
+)
+ 
+8, 158,916
+ 
+108.89
+ 
+p
+ 
+< 0.01
+ 
+1.94
+ 
+SR 
+(
+W/m
+2
+)
+ 
+1, 13,168
+ 
+2066
+.50
+ 
+p
+ 
+< 0.01
+ 
+3.84
+ 
+Figures 4 and 5
+ 
+show the Tukey HSD test of data from the control sensor 
+(
+C2
+)
+ 
+and 
+other sensors in the SLG and DLG. In SLG, T, T
+dp,
+ 
+and the VPD readings in the control 
+sensor were significantly different from the other sensors. The RH in the control sensor 
+was significant
+ly different from all other sensors except for C1, C3, and E1. Similarly, in 
+DLG, the variables T
+dp
+ 
+and VPD gathered in the control sensor were significantly different 
+from those obtained in other sensors. The variables T and RH in the control sensor were 
+significantly different from all the other sensors, except A1 and C1, and A2 and E1. Con-
+sidering the Tukey pairwise comparison of all sensors, the variables T, RH, T
+dp
+, and VPD 
+were 66.6%, 72.2%, 72.2%, and 80.5% higher in SLG. When DLG is considered, the 
+varia-
+bles T, RH, T
+dp
+, and VPD were 80.5%, 72.2%, 50.0%, and 86.1%, respectively, higher than 
+the 
+control sensors. These values confirm that the distribution of the variables is hetero-
+geneous. 
+Ref
+s
+. 
+[
+14
+,
+23
+]
+ 
+recommended 
+±
+0.75
+ 
+°C
+ 
+and 
+± 
+3% of standard deviatio
+n for T and 
+RH, respectively, for a homogeneous
+ 
+distribution. T and RH 
+in SLG and DLG analyzed in 
+this study, were 
+4.786
+ 
+°C
+ 
+and 18.84%, respectively, and 4.911
+ 
+°C
+ 
+and 21.71%. These values 
+were higher than the recommended, confirming the heterogeneity of he
+at distribution in 
+both greenhouses.
+ 
+ 
+ 
+(
+a
+)
+ 
+(
+b
+)
+ 
+
+
+
+--- page 11 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+11
+ 
+of 
+26
+ 
+ 
+ 
+ 
+ 
+(
+c
+)
+ 
+(
+d
+)
+ 
+Figure 4. 
+Tukey pairwise comparison between the control sensor and other sensors for T 
+(
+a
+)
+, RH 
+(
+b
+)
+, T
+dp
+ 
+(
+c
+)
+, and VPD 
+(
+d
+)
+ 
+in SLG.
+ 
+ 
+ 
+(
+a
+)
+ 
+(
+b
+)
+ 
+
+
+
+--- page 12 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+12
+ 
+of 
+26
+ 
+ 
+ 
+ 
+ 
+(
+c
+)
+ 
+(
+d
+)
+ 
+Figure 5. 
+Tukey Pairwise comparison between the control sensor and other sensors for T 
+(
+a
+)
+, RH 
+(
+b
+)
+, T
+dp
+ 
+(
+c
+)
+, and VPD 
+(
+d
+)
+ 
+in DLG.
+ 
+Significant:
+ 
+ 
+ 
+Nonsignificant:
+ 
+ 
+ 
+ 
+(
+p
+ 
+< 0.01
+)
+.
+ 
+As shown in Tables 
+7
+ 
+and 
+8
+, the SR distribution within SLG and DLG was also sig-
+nificantly different. The SR variation can be attributed to the interruption by thermal 
+screens inside the covering material and condensation 
+[24]
+.
+ 
+The Pareto chart in Figure 6 shows the distribution of 
+T, RH, T
+dp
+, and VPD data in 
+the control sensors in SLG and DLG, respectively. In Figure 6a, the data for these variables 
+in the SLG and DLG 8
+ 
+were
+ 
+95% and 94.2%, within the range of 8
+ 
+°C
+–
+23
+ 
+°C
+; 40.4% and 
+40.06%, within the range of 7.3
+ 
+°C
+–
+10.8
+ 
+°C
+; 17.1% an
+d 20.0%, within the range of 10.9
+ 
+°C
+–
+13
+ 
+°C
+; and, 22.6% and 22.7%, within the range of 18
+ 
+°C
+–
+23
+ 
+°C
+. The minimum and maxi-
+mum temperature setpoint in the SLG and DLG was 8
+ 
+°C
+–
+23
+ 
+°C
+, respectively. However, 
+for strawberries, 
+ref 
+[6
+,
+7]
+ 
+recommend
+s
+ 
+optimum daytime
+ 
+and nighttime temperature 
+ranges of 18
+ 
+°C
+–
+23
+ 
+°C
+ 
+and 10
+ 
+°C
+–
+13
+ 
+°C
+, respectively.
+ 
+Figure 6b shows the RH data within the SLG and DLG were 10.7% and 10.4%, within 
+the range of 60% and 75%; 20.5% and 19.2%, within 18
+–
+59% and 15
+–
+59% RH; and 68.7% 
+and 70.3 %, 
+within 76
+%
+–
+96% and 76
+%
+–
+99% RH, respectively. However, for strawberries, 
+ref 
+[4
+,
+6]
+ 
+recommend an optimum range of 60
+%
+–
+75% RH. Figure 6c shows that the VPD 
+data within the SLG and DLG were 21.2% and 10.2%, within the range 0.25 kPa and 0.5 
+kPa; 4.4% and 5.3%,
+ 
+within 0.8 kPa and 1.2 kPa, 9.1% and 7.8%, within 1.3 kPa and 1.6 kPa; 
+65.3% and 76.6%, were outside 0.2 kPa and 1.6 kPa in SLG and DLG, respectively. How-
+ever, for strawberries, 
+ref 
+[4
+,
+6]
+ 
+recommended a range of 0.2
+–
+1.6 kPa.
+ 
+Although 95% and 94.2% of the t
+emperature data were within the setpoint range of 
+8
+ 
+°C
+–
+23
+ 
+°C
+, respectively,
+ 
+approximately 68.7% and 70.3% of RH resulted in the VPD being 
+outside the optimum value in SLG and DLG. The higher temperature sum at C2 than the 
+temperature sums from other sensor
+ 
+points invariably means that the RH at these sensor 
+points was higher. Therefore, this result means that the sensor readings will consequently 
+result in lower VPD readings. Therefore, this result indicates worse conditions at other 
+points.
+ 
+
+
+
+--- page 13 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+13
+ 
+of 
+26
+ 
+ 
+ 
+ 
+ 
+(
+a
+)
+ 
+
+
+
+--- page 14 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+14
+ 
+of 
+26
+ 
+ 
+ 
+ 
+ 
+(
+b
+)
+ 
+
+
+
+--- page 15 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+15
+ 
+of 
+26
+ 
+ 
+ 
+ 
+ 
+(
+c
+)
+ 
+ 
+Figure 6. 
+Pareto
+ 
+chart showing data spread of microclimate parameters
+ 
+T(
+a
+), RH (
+b
+) and VPD (
+c
+)
+ 
+in SLG and 
+DLG
+.
+ 
+
+
+
+--- page 16 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+16
+ 
+of 
+26
+ 
+ 
+ 
+3.1.2. 
+Air
+-
+Leaf 
+Temperature Interaction
+ 
+During the day, there was a significant difference between the leaf and surrounding 
+air temperature in both greenhouses, but only in SLG at night, as the 
+p
+-
+value correspond-
+ing to the 
+F
+-
+statistic of one
+-
+way ANOVA is less than 0.05, indicating that one or mo
+re 
+treatments are significantly different. The ANOVA results for the air
+-
+leaf temperature in 
+daytime and nighttime in SLG and DLG are shown in Table 
+9
+, and the air
+-
+leaf temperature 
+patterns in the daytime 
+(
+Figure 
+7A
+)
+ 
+and nighttime 
+(
+Figure 
+7B
+)
+ 
+are shown in Figure 7. Dur-
+ing the day, as the thermal screen opens, the incoming SR warms up the microclimate 
+environment increasing the air temperature. As the energy increases, so does the air tem-
+perature and the leaves, with both maintaining thermal eq
+uilibrium. As shown in Figure 
+7A, the rate of transpiration increased as crop temperature increased. The moisture evap-
+orated from the leaf surface creates a cooling effect thereby reducing the leaf temperature. 
+The crop behaved as a heat sink in those inst
+ances, resulting in energy loss because the air 
+temperature was higher than the leaf temperature and to maintain thermal equilibrium 
+with the surrounding air.
+ 
+Table 
+9
+. 
+ANOVA
+ 
+results of the daytime and nighttime air
+-
+leaf temperature interaction in SLG and D
+LG.
+ 
+SLG: single
+-
+layered greenhouse; DLG: double
+-
+layered greenhouse.
+ 
+Period
+ 
+Interaction
+ 
+df
+ 
+F
+ 
+p
+-
+Value
+ 
+F crit
+ 
+Day
+ 
+T_Leaf_SLG
+ 
+vs. 
+T_Air_SLG
+ 
+1, 35,998
+ 
+122.48
+ 
+p
+ 
+< 0.01
+ 
+3.84
+ 
+T_Leaf_DLG
+ 
+vs. 
+T_Air_DLG
+ 
+1, 35,998
+ 
+170.17
+ 
+p
+ 
+< 0.01
+ 
+3.84
+ 
+Night
+ 
+T_Leaf_SLG
+ 
+vs. 
+T_Air_SLG
+ 
+1, 35,998
+ 
+17.44
+ 
+p
+ 
+< 0.01
+ 
+3.84
+ 
+T_Leaf_DLG
+ 
+vs. 
+T_Air_DLG
+ 
+1, 35,998
+ 
+2.63
+ 
+0.104787
+ 
+3.84
+ 
+During the night, as the ambient temperature falls, energy is lost to the ambient be-
+cause of the temperature difference between the greenhouses air temperature and the am-
+bient temperature through the cover and infiltration. Figure 7B shows that as the air 
+tem-
+perature falls, so does the temperature of the leaves. This is because of the exchange be-
+tween the crop and the surrounding air. To maintain thermal equilibrium, the crop loses 
+energy to the surrounding, as the greenhouse also loses energy to the ambien
+t. This means 
+that the greenhouse microclimate gains energy from the crop that subsequently loses it to 
+the ambient environment. The leaf temperature was found to be higher than the air tem-
+perature at the late hours of the night and early hours of the day 
+(
+Figure 7
+)
+. This can be 
+attributed to the energy gained through the crop root zone during the night from radiated 
+heat from the heating pipe located beneath the root zone. When the greenhouse tempera-
+ture falls below the set temperature of 8
+ 
+°C
+, 
+hot water i
+s pumped through the pipes. The 
+increase continued until the crop temperature exceeded the temperature of the surround-
+ing air. During this period, the crop behaves like a heat source, emitting heat into the 
+surrounding air, allowing the greenhouse microcli
+mate to gain heat
+. This result is similar 
+to that of 
+[15]
+, who reported similar crop and greenhouse air temperature trends. The 
+implication of this is that, rather than the assumption of absolute heat loss reported by 
+[3]
+ 
+and absolute gain reported by 
+[25]
+ 
+to crop effect in energy estimation in a greenhouse, the 
+TRNSYS building energy simulation crop model component that considers the changes in 
+the air and crop temperature should be used.
+ 
+
+
+--- page 17 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+17
+ 
+of 
+26
+ 
+ 
+ 
+ 
+ 
+A
+ 
+ 
+
+
+
+--- page 18 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+18
+ 
+of 
+26
+ 
+ 
+ 
+ 
+B
+ 
+Figure 7. 
+Leaf air temperature interaction 
+(
+A
+)
+ 
+during the day and 
+(
+B
+)
+ 
+during the night in SLG and 
+DLG.
+ 
+3.2. 
+Multi Span Greenhouse
+ 
+Table 
+10
+ 
+shows the descriptive statistics of the microclimate parameters distribution 
+for all sensors. The minimum and maximum temperatures of 10.5
+ 
+°C
+ 
+and 27.2
+ 
+°C
+ 
+were 
+recorded at S2 and N1, respectively. The amount of temperature at N1 was 8.0%, 6.7%, 
+and 1.0% hi
+gher than S2, S1, and N2, respectively. The lowest and highest RH values of 
+39.60% and 83.240% were recorded at N1 and N2. The sum of RH recorded at S2 was 
+higher than RH at N1, S1, and N2 by 4.6%, 0.7%, and 3.0%, respectively. The sum value of 
+VPD at N1 w
+as higher than VPD at S1, N2, and S2 by 21.1%, 6.3%, and 21.2%, respectively. 
+The lowest and highest VPD values of S2 and N1 recorded 0.23 kPa and 1.86 kPa, respec-
+tively. The sum of CO
+2
+ 
+recorded at N2 was 12.5%, 11.0%, and 31.1 % higher than the total 
+CO
+2
+ 
+recorded at N1, S1, and S2, respectively. The lowest and highest values of 207 ppm 
+and 
+1156
+ 
+ppm were recorded at S2 and N1, respectively.
+ 
+Table 
+10
+. 
+Descriptive
+ 
+statistics of T, RH, VPD, and CO
+2
+ 
+distribution in the fifteen
+-
+span greenhouse. T: air temperature; 
+RH: 
+r
+elative humidity; T
+dp
+: dew point temperature; VPD: vapor pressure deficit; SR: solar radiation; CO
+2
+: carbon dioxide; 
+N1, S1, N2, S2: experimental sensors; SD: standard deviation; Min.: 
+minimum; Max.: maximum.
+ 
+Parameter
+ 
+Description
+ 
+N1
+ 
+S1
+ 
+N2
+ 
+S2
+ 
+T (°C)
+ 
+Mean
+ 
+16.57
+ 
+15.52
+ 
+16.40
+ 
+15.34
+ 
+Median
+ 
+15.10
+ 
+14.30
+ 
+15.00
+ 
+14.10
+ 
+Mode
+ 
+14.40
+ 
+13.50
+ 
+14.80
+ 
+13.70
+ 
+SD
+ 
+3.11
+ 
+2.91
+ 
+2.96
+ 
+3.25
+ 
+Min.
+ 
+13.50
+ 
+11.60
+ 
+13.10
+ 
+10.50
+ 
+Max.
+ 
+27.20
+ 
+26.00
+ 
+26.50
+ 
+26.40
+ 
+Sum
+ 
+333
+,
+757.10
+ 
+312
+,
+632.00
+ 
+330
+,
+379.50
+ 
+309
+,
+046.00
+ 
+RH 
+(
+%
+)
+ 
+Mean
+ 
+72.16
+ 
+75.48
+ 
+73.28
+ 
+75.54
+ 
+Median
+ 
+74.30
+ 
+78.10
+ 
+74.90
+ 
+78.30
+ 
+Mode
+ 
+77.00
+ 
+80.00
+ 
+77.30
+ 
+79.80
+ 
+SD
+ 
+6.62
+ 
+6.65
+ 
+5.67
+ 
+6.90
+ 
+Min.
+ 
+39.60
+ 
+42.20
+ 
+45.00
+ 
+42.70
+ 
+Max.
+ 
+82.00
+ 
+83.10
+ 
+83.40
+ 
+83.20
+ 
+Sum
+ 
+1
+,
+453
+,
+788.20
+ 
+1
+,
+520
+,
+680.70
+ 
+1
+,
+476
+,
+234.60
+ 
+1
+,
+521
+,
+782.60
+ 
+VPD 
+(
+kPa
+)
+ 
+Mean
+ 
+0.55
+ 
+0.46
+ 
+0.52
+ 
+0.46
+ 
+Median
+ 
+0.45
+ 
+0.36
+ 
+0.43
+ 
+0.34
+ 
+Mode
+ 
+0.37
+ 
+0.30
+ 
+0.42
+ 
+0.29
+ 
+
+
+
+--- page 19 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+19
+ 
+of 
+26
+ 
+ 
+ 
+SD
+ 
+0.27
+ 
+0.24
+ 
+0.23
+ 
+0.27
+ 
+Min.
+ 
+0.29
+ 
+0.26
+ 
+0.26
+ 
+0.23
+ 
+Max.
+ 
+1.86
+ 
+1.73
+ 
+1.60
+ 
+1.81
+ 
+Sum
+ 
+11
+,
+164.09
+ 
+9215.84
+ 
+10
+,
+496.89
+ 
+9212.35
+ 
+CO
+2
+ 
+(
+ppm
+)
+ 
+Mean
+ 
+526.85
+ 
+533.91
+ 
+592.75
+ 
+452.15
+ 
+Median
+ 
+502.00
+ 
+521.00
+ 
+576.00
+ 
+439.00
+ 
+Mode
+ 
+501.00
+ 
+527.00
+ 
+581.00
+ 
+443.00
+ 
+SD
+ 
+120.14
+ 
+99.64
+ 
+126.00
+ 
+105.31
+ 
+Min.
+ 
+267.00
+ 
+288.00
+ 
+304.00
+ 
+207.00
+ 
+Max.
+ 
+1156.00
+ 
+1068.00
+ 
+1083.00
+ 
+900.00
+ 
+Sum
+ 
+10
+,
+613
+,
+874.00
+ 
+10
+,
+756
+,
+218.00
+ 
+11
+,
+941
+,
+488.00
+ 
+9
+,
+109
+,
+010.00
+ 
+ 
+Count
+ 
+20
+,
+146
+ 
+20
+,
+146
+ 
+20
+,
+146
+ 
+20
+,
+146
+ 
+Table 
+11
+ 
+shows that there are significant differences in the distribution of the micro-
+climate parameters within the greenhouse based on the ANOVA results. The 
+p
+-
+value cor-
+responding to the 
+F
+-
+statistic of one
+-
+way ANOVA is less than 0.05, indicating that one or 
+more treatments are significantly different. The Tukey pairwise comparison of the sensors 
+regarding temperature, RH, VPD, and CO
+2
+ 
+is shown in Figure 8. The Tukey pairwise com-
+parison of the sensors in Figure 8a for temperature and CO
+2
+ 
+was significantly diff
+erent 
+p
+ 
+< 0.01 from each other, whereas there was a similarity between sensors at S1 and S2 for 
+RH and VPD as shown in Figure 8b, confirming the heterogeneity in their distribution 
+[8]
+. 
+The standard deviation 
+(
+pooled total
+)
+ 
+of 3.1
+ 
+°C
+ 
+and 6.6% for temperatu
+re and RH, respec-
+tively, also confirms the heterogeneity of the distribution of the parameters within the 
+greenhouse 
+[
+14
+,
+23
+]
+. In a similar result, 
+ref 
+[19]
+ 
+reported significant daily temperature dif-
+ferences inside a 15
+-
+span and 18
+-
+span greenhouse.
+ 
+Table 
+11
+. 
+ANOVA results for T, RH, VPD, and CO
+2
+ 
+distribution in the fifteen
+-
+span greenhouse. T: 
+air temperature; RH: 
+r
+elative humidity; T
+dp
+: dew point temperature; VPD: vapor pressure deficit; 
+CO
+2
+: carbon dioxide.
+ 
+Parameter
+ 
+df
+ 
+F
+ 
+p
+-
+Value
+ 
+F 
+Crit
+ 
+T 
+(
+°C
+)
+ 
+3, 
+80,583
+ 
+817.20
+ 
+p
+ 
+< 0.01
+ 
+2.61
+ 
+RH 
+(
+%
+)
+ 
+3, 80,583
+ 
+1345.42
+ 
+p
+ 
+< 0.01
+ 
+2.61
+ 
+VPD 
+(
+kPa
+)
+ 
+3, 80,583
+ 
+727.29
+ 
+p
+ 
+< 0.01
+ 
+2.61
+ 
+CO
+2
+ 
+(
+ppm
+)
+ 
+3, 80,583
+ 
+5218.42
+ 
+p
+ 
+< 0.01
+ 
+2.61
+ 
+ 
+Figure 8. 
+The
+ 
+Tukey pairwise comparison of all sensors for 
+(
+a
+)
+ 
+T and CO
+2
+ 
+(
+b
+)
+ 
+RH and VPD, in 
+MSG.
+ 
+Significant:
+ 
+ 
+ 
+ 
+ 
+ 
+Nonsignificant: 
+ 
+ 
+ 
+ 
+ 
+(
+p
+ 
+< 0.01
+)
+.
+ 
+
+
+
+--- page 20 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+20
+ 
+of 
+26
+ 
+ 
+ 
+Figure 9 shows the distribution of the T data
+ 
+from sensors in the MSG. The spread 
+shows that 32.92%, 34.01%, 27.50%, and 2
+0.07% of the data were within the greenhouse 
+control temperature range of 15
+ 
+°C
+–
+19
+ 
+°C
+; 17.04%, 15.82%, 12.57%, and 12.64% above the 
+setpoints; and 50.01%, 50.04%, 59.92%, and 67.27% below the set points in N1, N2, S1, and 
+S2, respectively. The majority of 
+those values, 58.24%, 57.62%, 64.54%, and 60.73 % are 
+within the 13.9
+ 
+°C
+–
+15.9
+ 
+°C
+ 
+(
+14.40
+ 
+°C
+)
+ 
+range in N1; 13.9
+ 
+°C
+–
+15.8
+ 
+°C
+ 
+(
+14.8
+ 
+°C
+)
+ 
+in N2, 13.1
+ 
+°C
+–
+15.3
+ 
+°C
+ 
+(
+13.5
+ 
+°C
+)
+ 
+in S1 and 12.6
+ 
+°C
+–
+15.1
+ 
+°C
+ 
+(
+13.7
+ 
+°C
+)
+ 
+in S
+2
+, respectively
+. As shown in Table 
+10
+, the bracketed values represent the mode of the data. These results indicate that the 
+control sensor is in the vicinity of the N
+-
+zone. By implication, because of the heterogeneity 
+of the temperature distribution, the conditions in ot
+her parts may be unfavorable to the 
+crops.
+ 
+The data spread for RH and VPD were considered only for N1 
+(Figure 10) 
+because it 
+falls within the N
+-
+zone. With the minimum and maximum RH being 39.60% and 82.00%, 
+respectively, 38.70% of the data was within the r
+ange 75
+%
+–
+82% of RH, and 54.66% was 
+within the range 60%
+–
+75% RH. However, 
+[4
+,
+6]
+ 
+recommended an optimum RH range of 
+60
+%
+–
+75%. In this case, 94.15% of the VPD data were within the recommended value of 
+0.2
+–
+1.2 kPa for strawberry, whereas 54.05% was below 0.5 kP
+a 
+[4,5]
+. These results show 
+an optimum condition at the point despite 32.92% of the temperature data failing within 
+the temperature setpoint. Contrary to the result in the SLG and DLG, where all data falling 
+within the setpoints resulted in the VPD being o
+utside the optimum range, approximately 
+33% of the temperature data in MSG falling within the setpoints resulted in the majority 
+of the VPD data falling within the optimum range. The implication of this is that it will be 
+beneficial for the crop if VPD is 
+used as a setpoint rather than the temperature.
+ 
+ 
+
+
+
+--- page 21 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+21
+ 
+of 
+26
+ 
+ 
+ 
+ 
+a
+ 
+ 
+
+
+
+--- page 22 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+22
+ 
+of 
+26
+ 
+ 
+ 
+ 
+b
+ 
+ 
+Figure 9. 
+Pareto
+ 
+chart showing 
+North (
+a
+) and South (
+b
+) 
+temperature d
+ata spread of the MSG’s sensors
+.
+ 
+
+
+
+--- page 23 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+23
+ 
+of 
+26
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 10. 
+Pareto chart showing
+ 
+RH and VPD data spread at N1
+.
+ 
+
+
+
+--- page 24 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+24
+ 
+of 
+26
+ 
+ 
+ 
+4. 
+Conclusions
+ 
+Heat and mass distribution variations in single
+-
+ 
+and MSGs were statistically ana-
+lyzed. Analyses showed significant variations in the horizontal distribution of T, RH, SR, 
+CO
+2
+, and VPD within the single
+-
+ 
+and mul
+ti
+-
+span greenhouses despite the installation of 
+distribution fans in the greenhouses. Unlike the vertical variation in greenhouses, where 
+the 
+temperature difference
+ 
+between the top and bottom of the greenhouse is approxi-
+mately 4
+ 
+°C
+–
+6
+ 
+°C
+, and horizontal var
+iation in an unfanned greenhouse, where the differ-
+ence is approximately 3.5
+ 
+°C
+, the difference between the center and the side into the single
+-
+span was approximately 0.88
+ 
+°C
+–
+1.0
+ 
+°C
+, and
+ 
+in the MSG was approximately 1.03
+ 
+°C
+.
+ 
+Because the crops are arranged h
+orizontally, the overall Tukey pairwise comparison 
+of the variable sensors of 50
+%
+–
+86% indicates that the majority of the crop was never in the 
+same condition. While some are growing well, others may be exposed to diseases because 
+of high VPD value or tip b
+urns due to low VPD value.
+ 
+There is a significant variation between the central and side’s sensors. The variation 
+between the central and sides sensors was expected because it is easier to lose energy from 
+the sides than the center, which is far from the e
+nds. However, the result also showed 
+variation between the sensors of both sides. This is because when the side vents are 
+opened during the day, the amount of wind for ventilation will be different due to the 
+orientation of the sides to the wind direction.
+ 
+Furthermore, external obstructions redirect 
+the wind and cast shade.
+ 
+In greenhouse control, using a single temperature value as the setpoint does not ac-
+curately represent the condition within the greenhouse. Therefore, further research 
+should be conducted
+ 
+using VPD as the control and energy demand estimation parameter.
+ 
+This study result will help in making the following decisions: 
+(
+a
+)
+ 
+where the temper-
+ature sensors 
+(
+which control the heating system operation
+)
+ 
+should be positioned and 
+(
+b
+)
+ 
+what should be the 
+setpoint temperatures knowing that different temperatures will exist 
+within the greenhouse. Additionally, the last one may finally lead to alteration of the pre-
+dicted energy consumption.
+ 
+The use of energy simulation tools such as TRNSYS to estimate the ene
+rgy demand 
+of greenhouse can be 
+conducted
+ 
+more accurately by considering the distribution of the 
+microclimate parameters required as input in the model. Using this method, underesti-
+mation or overestimation can be avoided. Furthermore, the TRNSYS model can 
+make use 
+of the crop component model that considers instant changes in the air and crop tempera-
+ture.
+ 
+Author Contribution
+s: 
+Conceptualization
+, Q
+.
+O
+.
+O
+.
+; methodology, 
+Q
+.
+O
+.
+O
+.
+; formal analysis, 
+Q
+.
+O
+.
+O
+.
+; 
+investigation, 
+Q
+.
+O
+.
+O
+.
+, T
+.
+D
+.
+A
+.
+, W
+.
+-
+H
+.
+N
+.
+, A
+.
+R
+.
+, M
+.
+A
+.
+A
+.
+ 
+and K
+.
+S
+.
+A
+.
+; resources, H
+.
+-
+W
+.
+L
+.
+, H
+.
+-
+T
+.
+K
+.
+, 
+T
+.
+D
+.
+A
+.
+ 
+and W
+.
+-
+H
+.
+N
+.
+; data curation, 
+T
+.
+D
+.
+A
+.
+ 
+and W
+.
+-
+H
+.
+N
+.
+; writing
+—
+original draft preparation, 
+Q
+.
+O
+.
+O
+.
+; writ-
+ing
+—
+review and editing, H
+.
+-
+W
+.
+L
+.
+, H
+.
+-
+T
+.
+K
+.
+, 
+T
+.
+D
+.
+A
+.
+, A
+.
+R
+.
+, 
+M
+.
+A
+.
+A
+. 
+and 
+K
+.
+S
+.
+A
+.
+; visualization, 
+Q
+.
+O
+.
+O
+.
+ 
+and W
+.
+-
+H
+.
+N
+.
+; 
+supervision, H
+.
+-
+W
+.
+L
+.
+ 
+and H
+.
+-
+T
+.
+K
+.
+; project administration, H
+.
+-
+W
+.
+L
+.
+; funding acquisi-
+tion, H
+.
+-
+W
+.
+L
+.
+ 
+All authors have read and agreed to the published version of the manuscript.
+ 
+Funding: 
+This
+ 
+work was supported by 
+the 
+Korea Institute of Planning and Evaluation 
+for Technol-
+ogy in Food, Agriculture, Forestry 
+(
+IPET
+)
+ 
+through Agriculture, Food and Rural Affairs Convergence 
+Technologies Program for Educating Creative Global Leader, funded by the Ministry of Agriculture, 
+Food and Rural Affairs 
+(
+MAFRA
+)
+ 
+(
+717001
+-
+7
+)
+. This w
+ork was supported by the Korea Institute of 
+Planning and Evaluation for Technology in Food, Agriculture, and Forestry 
+(
+IPET
+)
+ 
+through the Ag-
+ricultural Energy Self
+-
+Sufficient Industrial Model Development Program, funded by the Ministry of 
+Agriculture, Food a
+nd Rural Affairs 
+(
+MAFRA
+)
+ 
+(
+120096
+-
+3
+)
+. This research was supported by 
+the 
+Basic 
+Science Research Program through the National Research Foundation of Korea 
+(
+NRF
+)
+,
+ 
+funded by 
+the Ministry of Education 
+(
+NRF
+-
+2019R1I1A3A01051739
+)
+.
+ 
+Data Availability Statement: 
+Data
+ 
+available on request due to restrictions.
+ 
+Conflicts of Interest: 
+The authors declare no conflict of interest.
+ 
+ 
+ 
+
+
+--- page 25 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+25
+ 
+of 
+26
+ 
+ 
+ 
+Appendix
+ 
+A
+ 
+ 
+Figure A1. 
+C
+onfiguration
+ 
+and contours of inside air temperature of greenhouses as presented by Rasheed et al. 
+(
+2019
+)
+.
+ 
+References
+ 
+1.
+ 
+Rasheed, A.; Na, W.H.; Lee, J.W.; Kim, H.T.; Lee, H.W. Optimization of greenhouse thermal screens for maximized energy 
+conservation
+. 
+Energies
+ 
+2019
+, 
+12
+,
+ 
+3592
+, 
+doi:
+10.3390/en12193592.
+ 
+2.
+ 
+Rasheed, A.; Kwak, C.S.; Na, W.H.; Lee, J.W.; Kim, H.T.; Lee, H.W. Development of a Building Energy Simulation Model for 
+Control of Multi
+-
+Span Greenhouse Microclimate. 
+Agronomy
+ 
+2020
+, 
+10
+, 1236
+, doi:
+10.3390/agronomy10091236.
+ 
+3.
+ 
+Choab, N.; Allouhi, A.; Maakoul, A. El; Kousksou, T.; Saadeddine, S.; Jamil, A. Effect of Greenhouse Design Parameters on the
+ 
+Heating and Cooling Requirement of Greenhouses in Moroccan Climatic Conditions. 
+IEEE Access
+ 
+2021
+, 
+9
+, 298
+6
+–
+3003
+, 
+doi:
+10.1109/ACCESS.2020.
+3047851.
+ 
+4.
+ 
+Lieten, P. The effect of humidity on the performance of greenhouse grown strawberry. 
+Acta Hortic.
+ 
+2002
+, 
+567
+, 479
+–
+482
+, 
+doi:10.17660/ActaHortic.2002.567.101.
+ 
+5.
+ 
+Argus Controls. Understanding and Using VPD. Canada. 2009. 
+Available online: https://www.arguscontrols.com/re-
+sources/VPD_Application_Note.pdf (accessed on 
+22 May 2021
+day month year).
+ 
+6.
+ 
+Hort Americas. Essentials for Growing Hydroponic Strawberries. 2020. https://hortamericas.com/blog/news/essentials
+-
+for
+-
+growing
+-
+hydro
+ponic
+-
+strawberries
+-
+successfully/ (accessed on 22 May 2021).
+ 
+7.
+ 
+Sim, H.S.; Kim, D.S.; Ahn, M.G.; Ahn, S.R.; Kim, S.K. Prediction of strawberry growth and fruit yield based on environmental 
+and growth data in a greenhouse for soil cultivation with applied auton
+omous facilities. 
+Hortic. Sci. Technol.
+ 
+2020
+, 
+38
+, 840
+–
+849
+, 
+doi:
+10.7235/HORT.20200076.
+ 
+8.
+ 
+Lamrani, M.A.; Boulard, T.; Roy, J.C.; Jaffrin, A. Airflows and temperature patterns induced in a confined greenhouse. 
+J. Agric. 
+Eng. Res.
+ 
+2001
+, 
+78
+, 75
+–
+88
+, 
+doi:
+10.1006/ja
+er.2000.0568.
+ 
+9.
+ 
+Zhao
+, Y.; Teitel, M.; Barak
+, M. Vertical temperature and humidity gradients in a naturally ventilated greenhouse. 
+J. Agric. Eng. 
+Res.
+ 
+2001
+, 
+78
+, 431
+–
+436
+.
+ 
+10.
+ 
+Soni, P.; Salokhe, V.M.; Tantau, H.J. Effect of screen mesh size on vertical temperature 
+distribution in naturally ventilated trop-
+ical greenhouses. 
+Biosyst. Eng.
+ 
+2005
+, 
+92
+, 469
+–
+482
+, 
+doi:
+10.1016/j.biosystemseng.2005.08.005.
+ 
+11.
+ 
+Boulard
+, T.; Fatnassi, H.; Majdoubi, H.; Bouirden, L. Airflow and microclimate patterns in a one
+-
+hectare canary type green-
+house: An experimental and CFD assisted study. 
+Acta Hortic.
+ 
+2008
+, 
+801 Pt 2
+, 837
+–
+845, 
+doi:
+10.17660/actahortic.2008.801.98.
+ 
+12.
+ 
+Lee, H.
+-
+W.; Sim, S.
+-
+Y.; Kim, Y.
+-
+S. Characteristics of Temperature, Humidity and PPF Distribution by Covering Method and 
+Environmental Control in Double Covering Greenhouse. 
+J. Bio
+-
+Environ
+.
+ 
+Control
+ 
+2012
+, 
+21
+, 1
+–
+11
+.
+ 
+13.
+ 
+Akpenpuun, T.D.; Na, W.H.; Ogunlowo, Q.O.; Rabiu, A.; Adesanya
+, M.A.; Addae, K.S.; Kim, H.T.; Lee, H.W. Effect of glazing 
+configuration as an energy
+-
+saving strategy in naturally ventilated greenhouses for 
+strawberry (
+Seolhyang
+ 
+sp.) cultivation
+. 
+J. 
+Agric. Eng.
+ 
+2021
+, 
+52
+, 1
+–
+24
+, 
+doi:
+10.4081/jae.2021.1177.
+ 
+14.
+ 
+Cesar, T.Q.Z.; 
+Leal, P.A.M.; 
+Branquinho, O.C.; Miranda, F.A.M. Wireless sensor network to identify the reduction of meteoro-
+logical gradients in greenhouse in subtropical conditions. 
+J. Agric. Eng.
+ 
+2021
+, 
+52
+, 1
+–
+8
+, doi:10.4081/jae.2020.1105.
+ 
+15.
+ 
+Ward, R.; Choudhary, R.; Cundy, 
+C.; Johnson, G.; Mcrobie, A. Simulation of plants in buildings; incorporating plant
+-
+Air inter-
+actions in building energy simulation. In
+ 
+Proceedings of the 
+14th International Conference of IBPSA
+—
+International Building 
+Performance Simulation Association (IBPS
+A)
+,
+ 
+Hyderabad, India, 7
+–
+9
+ 
+December
+, 
+2015
+;
+ 
+pp. 2256
+–
+2263.
+ 
+16.
+ 
+Kiyan, M.; Bingöl, E.; Meliko
+ǧ
+lu, M.; Albostan, A. Modelling and simulation of a hybrid solar heating system for greenhouse 
+applications using Matlab/Simulink. 
+Energy Convers. Manag.
+ 
+2013
+, 
+72
+, 147
+–
+155
+, 
+doi:
+10.1016/j.enconman.2012.09.036.
+ 
+17.
+ 
+Ahamed, M.S.; Guo, H.; Tanino, K. A quasi
+-
+steady
+ 
+state model for predicting the heating requirements of conventional green-
+houses in cold regions. 
+Inf. Process. Agric.
+ 
+2018
+, 
+5
+, 33
+–
+46
+, 
+doi:
+10.1016/j.inpa.2017.12.003.
+ 
+18.
+ 
+Speelman, C.P.; McGann, M. How mean is the mean? 
+Front. Psychol.
+ 
+2013
+, 
+4
+, 1
+–
+12
+, 
+doi:
+10.33
+89/fpsyg.2013.00451.
+ 
+19.
+ 
+Bojacá, C.R.; Gil, R.; Gómez, S.; Cooman, A.; Schrevens, E. Analysis of greenhouse air temperature distribution using geostat
+is-
+tical methods. 
+Trans. ASABE
+ 
+2009
+, 
+52
+, 957
+,
+ 
+doi:
+10.13031/2013.27393.
+ 
+
+
+
+--- page 26 ---
+Agriculture
+ 
+2021
+,
+ 
+11
+, 891
+ 
+26
+ 
+of 
+26
+ 
+ 
+ 
+20.
+ 
+Critten, D.L.; Bailey, B.J. A review of 
+greenhouse engineering developments during the 1990s. 
+Agric. For. Meteorol.
+ 
+2002
+, 
+112
+, 1
+–
+22
+, 
+doi:
+10.1016/S0168
+-
+1923(02)00057
+-
+6.
+ 
+21.
+ 
+Rasheed
+, A.; Lee, J.W.; Kim, H.T.; Lee, H.W. Efficiency of Different Roof Vent Designs on Natural Ventilation of Single
+-
+Span 
+Plastic Greenhouse. 
+Prot. Hortic. Plant Fact.
+ 
+2019
+, 
+28
+, 225
+–
+233
+, 
+doi:
+10.12791/ksbec.2019.28.3.225.
+ 
+22.
+ 
+Cayli
+, A. Temperature and relative humidity spatial 
+variability: An assessment
+ 
+of the environmental conditions inside green-
+houses. 
+Fresenius
+ 
+Environ. Bull.
+ 
+2020
+, 
+29
+, 4954
+–
+4962
+.
+ 
+23.
+ 
+Balendonck, J.; Os, E.A. Van; Schoor, R. Van Der; Van
+ 
+Tuijl, B.A.J. Monitoring Spati
+al and 
+Temporal Distribution of Temperature 
+and Relative Humidity in Greenhouses based on Wireless Sensor Technology. 
+Trials
+ 
+2010
+,
+ 
+52,
+ 
+443
+–
+452
+.
+ 
+doi.org/10.4081/jae.2020.1105
+ 
+24.
+ 
+Lee, Hyun
+-
+Woo; Kim, Y.
+-
+S. Va
+riation of Photosynthetic Photon Flux in Commercial plastic Greenhouses. 
+Curr. Res. Agric. 
+Life 
+Sci. 
+2012
+, 
+30
+, 27
+–
+33
+.
+ 
+25.
+ 
+Baglivo
+, C.; Mazzeo, D.; Panico, S.; Bonuso, S.; Matera, N.; Congedo, P.M.; Oliveti, G. Complete greenhouse dynamic simulation 
+tool to assess the crop thermal well
+-
+being and energy needs. 
+Appl. Therm. Eng.
+ 
+2020
+, 
+179
+, 115698
+, 
+doi:
+10.1016/j.ap-
+plthermaleng.2020.1156
+98
+.
+ 
+ 

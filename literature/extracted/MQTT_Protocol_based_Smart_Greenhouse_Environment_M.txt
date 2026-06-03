@@ -1,0 +1,449 @@
+
+
+--- page 1 ---
+International Journal of Innovative Technology and Exploring Engineering (IJITEE) 
+ISSN: 2278-3075 (Online), Volume-9 Issue-9, July 2020 
+278 
+Published By: 
+Blue Eyes Intelligence Engineering 
+and Sciences Publication  
+Retrieval Number: I7149079920/2020©BEIESP 
+DOI: 10.35940/ijitee.I7149.079920 
+Journal Website: www.ijitee.org 
+ 
+Abstract: Internet of Things (IoT ) allows connections among 
+various devices using the internet with the ability to gather and 
+exchange data. IoT has various connecting protocols like HTTPS, 
+MQTT, CoAP, SMCP, etc. A lightweight protocol of all these 
+protocols is the Message Queuing Telemet ry Transport (MQTT) 
+protocol. Agriculture is the backbone of India it plays a significant 
+role in the growth of the economics of the country. The majority of 
+the population in India focused on developing a good yield of the 
+crop at their available space wh ich is leading to the development 
+of various greenhouse and smart farming methods. The 
+technology developments will be enabling to design and develop a 
+simple intelligent system for smart farming and maintaining the 
+greenhouse environment. The proposed system is designed using 
+an ARM Cortex processor with the other supporting peripherals 
+for monitoring  and constantly updating and controlling 
+environmental parameter values to achieve optimal growth and 
+yield of plants. In this paper, the proposed system cons ists of 
+several sensors for measuring different parameters including 
+temperature, humidity, soil moisture, air pressure, and fertilizer 
+content. Further, the obtained data is sent to the cloud by using 
+IoT based ThingSpeak with the secured MQTT protocol to  
+monitor the parameters. An efficient Machine Learning algorithm 
+is developed to predict the parameters like soil moisture, fertilizer 
+content sprayed and weather data i.e., humidity, and temperature. 
+The accuracy obtained using Machine Learning algorithm i.e. 
+Decision Tree method is 97%. 
+Index Terms: Machine Learning, MQTT, IoT, ARM, 
+ThingSpeak. 
+I. INTRODUCTION 
+Among all the sectors, there is rapid growth in the 
+agriculture sector. The increase in the farming sector is due to 
+the introduction of a smart agri culture concept using IoT 
+devices, digitalization, and greenhouse. The term 
+greenhouses mean a controlled environment space or area to 
+grow plants [1]. To increase the yield production of the crops 
+different environmental parameters including temperature, 
+air pressure, humidity, soil moisture, fertilizer content in the 
+farm, etc. needs continuous surveillance and control are 
+necessary for a greenhouse system.  
+ 
+ 
+Revised Manuscript Received on July 30, 2020. 
+* Correspondence Author 
+G. Sai Teja *, Department of Electronics and Communication, CBIT, 
+Hyderabad, INDIA. (e-mail: gandlasaitej@gmail.com).  
+P. Sathish  Department of Electronics and Communication, CBIT, 
+Hyderabad, INDIA. (e-mail: psathish_ece@cbit.ac.in). 
+ 
+© The Authors. Published by Blue Eyes Intelligence Engineering and 
+Sciences Publication (BEIESP). This is an open access article under the CC 
+BY-NC-ND license (http://creativecommons.org/licenses/by-nc-nd/4.0/) 
+ 
+ 
+Even the population in the world is growing day by day so the 
+need of food and limitation of space or land as an  
+agro-economic activity make smart farming and greenhouses 
+are becoming popular and has become one of promising 
+solution for securing the food supply. Apart from that, 
+extreme weather changes and climates affect the production 
+of the crop, thu s increasing their prices and lowering the 
+quality of the crops produced [9].      The Internet of Things 
+allows for clear linkages between various computers, apps, 
+and internet infrastructure, and this system often enables 
+people to operate easily. As clai med by the government of 
+INDIA the IoT policy, the government plans to invest 15 
+billion in the IoT domain by the year 2020. Besides, in the 
+Indian Government's policy, IoT helps automate solutions to 
+the problems facing different industries, such as shopp ing, 
+disaster management, farming, vehicles, mining, banking, 
+and so on. There is a huge and wide range of IoT equipment 
+designed by various organizations are market available for 
+services such as quality of water monitoring, crop growth 
+patterns tracking, smart routes for field sprinkling pesticides 
+and fertilizers, high -tech laser -assisted precision land 
+leveling, plants, and human health monitoring, and various 
+other applications. But most sections available in the market 
+are inexpensive and the procurem ent of this commodity is 
+economically unnecessary in a nation such as India still has 
+low and marginal 80% of farmers [7]. 
+II. LITERATURE SURVEY 
+Hamza, Mounir, Khaoula, designed a smart irrigation 
+system based on Arduino and ThingSpeak for Algeria. The 
+system is based on the IoT platform ThingSpeak cloud and 
+Arduino to control the irrigation by using smartphones. The 
+authors used the ESP8266 Wi -Fi module to communicate 
+with the cloud and the sensors networks. Few gaps observed 
+in the like in this system there i s no SMS alert related to the 
+farmer. They did not measure the air temperature and air 
+pressure of the farm. Any prediction methods are used by the 
+authors in their design [1].  The authors developed an IoT 
+based greenhouse model for traceability and monito ring of 
+seedlings and other agricultural products in the germination 
+and growth stages of a crop. The crop they used for the 
+greenhouse system is the cherry tomato. The proposed 
+method helps to monitor variables include luminosity, 
+humidity, temperature, a nd use of water, showing the 
+cumulative utilization of water by field, field trends, and time 
+for production.  
+ 
+ 
+ 
+MQTT Protocol based Smart Greenhouse 
+Environment Monitoring System using Machine 
+Learning 
+G. Sai Teja, P. Sathish.  
+
+
+
+--- page 2 ---
+MQTT Protocol based Smart Greenhouse Environment Monitoring System using Machine Learning 
+ 
+279 
+Published By: 
+Blue Eyes Intelligence Engineering 
+and Sciences Publication  
+Retrieval Number: I7149079920/2020©BEIESP 
+DOI: 10.35940/ijitee.I7149.079920 
+Journal Website: www.ijitee.org 
+The system also enables automated control of the 
+greenhouse using a temperature control or irrigation system 
+and discusses the important profile o f the in-home terrace of 
+agricultural products ranging from seed to crop final produce.  
+They have done a novel behavioral study of many species 
+comprising local agriculture. The data collected is uploaded 
+to the web service platform and then shared wit h consumers 
+and supply-chain actors. They used the Raspberry Pi 3 as the 
+main microcontroller unit to communicate via Wi-Fi. Analog 
+proportional-integral (PID) control techniques are being 
+developed in conjunction with the multi -input Multi -output 
+(MIMO) system. So, based on this assumption, a fuzzy PID 
+control was constructed from a state -space in which all 
+variables that make up the device have an inﬂuence. One of 
+the gaps observed is that PID control is designed only for the 
+temperature and humidity parameters [2]. 
+Ravi Kishore Kodali et.al made an MQTT based smart 
+irrigation system. The microcontroller unit used is 
+NodeMCU and a soil moisture sensor, and with a water pump 
+to pump the water. In this device Message Queue, Telemetry 
+Transport Protocol (MQTT ) is used for moving the records 
+among NodeMCU12E and the sensor. Soil moisture sends 
+data to NodeMCU-12E, if the soil is dry then NodeMCU-12E 
+send instruction to the water pump and water pump will start 
+and after moisture goes up by some value it will off the water 
+pump. They are even using LCD to display the current state 
+of soil and water pump. Depending on the reputation of soil 
+moisture content material the control unit will power the 
+pump-action of water and the same values are displayed on a 
+web page  of a browser or cell application. They used a 
+thinger.io platform to display the value of soil moisture and 
+relay position on a mobile app and web page. The security of 
+the system is provided through cryptographic protocols 
+Transport Layer Security (TLS) and Secure Socket Layer 
+(SSL). The major gap of the system is the authors used 
+NodeMCU microcontroller for the system development 
+which can’t be manufactured at the industrial level because it 
+is too sensitive MCU. The proposed system is not using an 
+algorithm to decide the status factors of the parameters [3].  
+The authors compared CoAP with MQTT in the smart 
+health care system. They explained the importance of IoT in 
+health and provided a summary of some clever health 
+systems in addition to a summary of m ost of the application 
+protocols used by listing their strengths and weaknesses [6]. 
+III. MEASUREMENT PARAMETERS OF SMART 
+FARM SYSTEM 
+Basically, many parameters are needed to be measured for 
+the farm. However, the Smart Farm system proposed 
+measures the key agriculture parameters: 
+ The temperature of the field atmosphere. 
+ Soil Moisture Level of the field. 
+ Fertilizer content sprayed on the farm. 
+ The humidity of the farm atmosphere.  
+ Air Pressure of the farm. 
+IV. METHODOLOGY OF THE PROPOSED SYSTEM 
+The Smart Farm/Greenhouse system makes use of four 
+sensors (soil moisture, gas, pressure, and DHT -11), with a 
+processing module Raspberry Pi with ARM microcontroller 
+unit and one data transmission which is built in it. The main 
+purpose of the proposed syst em is to gather sensor data and 
+submitting it to the user every time a smart farm/greenhouse 
+user wishes to verify soil moisture, fertilizer content, and 
+temperature, humidity, and pressure. The Raspberry Pi acts 
+as an Internet access portal server. It fun ctions as a 
+mini-network with sensor control. The data is protected by 
+security (secure socket layer) protocol. Also, the MQTT 
+Server stores data on an ongoing basis. The benefit of using 
+the cryptographic MQTT protocol and Transport Layer 
+Security (TLS) i s that no uncertain data is saved along with 
+the correct data. All the data of sensors processed by the 
+MCU and updated into the ThingSpeak server. The entire 
+block diagram of the designed system is shown in figure 1. 
+ 
+ 
+Fig. 1. Block Diagram of the System 
+The authorized users can access this data using a User ID 
+and password to log into their accounts to view data on the 
+ThingSpeak server. The parameters are also displayed on the 
+customized website for the farmers. Form that websit e not 
+only the farmer can see the parameters of the farm but also 
+control the farm by ON/OFF of the eater motor or ON/OFF 
+the fan if needed even when it is automated. The information 
+all will be stored, distributed, interpreted, evaluated, and 
+displayed in  real-time. The monitored data is stored in the 
+database for further data processing. Here the user will also 
+get an SMS alert if there is any change in the parameters of 
+the farm. The collected data is verified, processed, and sent 
+for machine learning algorithm for prediction purposes. Here 
+the farmer is provided with an algorithm outputs so that the 
+accuracy of the parameters is improved. A decision tree 
+algorithm is used. The parameters like the temperature, 
+humidity, air pressure, soil moisture, and th e fertilizers 
+sprayed will be predicted by the algorithm. 
+A. Raspberry Pi 4  
+The Raspberry Pi is a microcomputer with debit card 
+thickness. This has the power to process code for 
+programming and to monitor a large range of components 
+using its GPIO pins, the complete smart farm monitor 
+network.  
+ 
+ 
+ 
+ 
+
+
+
+--- page 3 ---
+International Journal of Innovative Technology and Exploring Engineering (IJITEE) 
+ISSN: 2278-3075 (Online), Volume-9 Issue-9, July 2020 
+280 
+Published By: 
+Blue Eyes Intelligence Engineering 
+and Sciences Publication  
+Retrieval Number: I7149079920/2020©BEIESP 
+DOI: 10.35940/ijitee.I7149.079920 
+Journal Website: www.ijitee.org 
+With a 64-bit ARMv8 Quad-Core processor with a 1.5 GHz 
+minimum, the Raspberry Pi is equipped with BCM2711. This 
+features 40 GPIO connectors, 4 USB ports, two micro HDMI 
+sockets, and the micro -SD slot. [12]. The Raspberr y Pi 
+provides wireless networking through Wi -Fi and Bluetooth 
+devices.  
+The Raspberry Pi can be configured until the computer is 
+attached to a display, mouse, and keyboard. Raspberry Pi can 
+be linked and managed via Secure Shell (SSH) from a 
+smartphone or device. Putty is a Windows SSH free client 
+[13] which is used in this system, developed by Simon 
+Tatham. In short, the Raspberry Pi connected to various 
+sensors, using Python codes and performing properly 
+specified codes with the correct commands. Raspb erry Pi 4's 
+front plot is seen in figure 2. 
+ 
+Fig. 2. Raspberry Pi 4. 
+B. Sensors 
+The various sensors used in this work are explained in the 
+following section. 
+1) Soil Moisture Sensor (FC-28) 
+    The sensor of ground moisture uses the soil determining 
+the volumetric water content. The relationship between the 
+property measured and the ground moisture must be 
+modified, depending on environmental conditions such as 
+temperature, soil content, and other electrical conductivity 
+[1]. The microwave emissions reflected can be affected by 
+soil moisture and are primarily used for agriculture and 
+remote hydrological sensing. Such detectors are generally 
+called gypsum blocks as soil water -potential detector . Its 
+device can be worked by placing it in the earth and recording 
+the status of the amount of water in the soil as shown in figure 
+3. 
+ 
+Fig. 3. Soil Moisture Sensor 
+2) Gas Sensor (MQ-2) 
+    It is a metal oxide semiconductor (MOS)-style Gas Sensor 
+as shown in figure 4, which is often referred to as chemical 
+resistors since the sensing device is based on resistance 
+changes as the gas interacts in the device. Gas concentrations 
+can be measured using a simple voltage splitter network.  It 
+detects gasses such as LPG, alcohol, propane, carbon, CO, 
+and even methane and can be measured [14]. The sensor's 
+module version is supplied with a wireless pin to work 
+without a microcontroller. The analog pin must also use the 
+analog pin in ppm when measuring the gas. 
+ 
+ 
+Fig. 4. Gas Sensor (MQ-2). 
+3) Temperature and Humidity Sensor (DHT-11) 
+     The DHT11 commonly used for the measurement of 
+surrounding atmosphere temperature and humidity values as 
+shown in figure 5. The sensor comes with a Negative 
+coefficient of temperature to calculate the temperature and 
+has an 8-bit microcontroller to output, so that the temperature 
+and moisture values are transmitted as serial data. to the 
+microcontroller. The sensor is also factory calibrated so we 
+need not calibrate it again and hence easy to interface with 
+other microcontrollers [7]. This sensor is us ed to find the 
+surrounding atmosphere temperature so that the pH sensor 
+and turbidity sensors work correctly for a long duration of 
+time. The type of marine species that can live in the water can 
+also be determined by temperature calculation. 
+ 
+Fig. 5. DHT 11 Sensor 
+4) Piezoelectric Transducer 
+ 
+     A piezoelectric transducer as shown in figure 6 is a 
+measuring instrument that translates energy into electrical 
+charge for measuring the speed, strain, stress, and energy 
+[16]. Its principle is that the power produces electric charges 
+on the crystal surface when applied to the quartz crystal. In 
+the same way, a force or acceleration can be measured, the 
+Piezoelectric Transducer can calculate pressure [15]. 
+Possible volume vibration should be accounted for 
+low-pressure calculation. 
+ 
+
+
+
+--- page 4 ---
+MQTT Protocol based Smart Greenhouse Environment Monitoring System using Machine Learning 
+ 
+281 
+Published By: 
+Blue Eyes Intelligence Engineering 
+and Sciences Publication  
+Retrieval Number: I7149079920/2020©BEIESP 
+DOI: 10.35940/ijitee.I7149.079920 
+Journal Website: www.ijitee.org 
+ 
+Fig. 6. Piezoelectric Transducer 
+5) Relay 
+        Relays are the most commonly used switching device in 
+electronics [16]. It is a device that is operated electrically. It 
+detects the undesirable condition in a given region and 
+controls the breaker circuit for the field being disconnected 
+by ON or OFF. Relay has 3 main pins they are Common pin 
+(COM), Normally Open (NO), Normally close(NC). If the 
+circuit of relay senses the current fault, the electromagnetic 
+area that creates the tempo rary magnetic field is energized. 
+The magnet effect drives the armature of the relay for the 
+connections opening or closing up.  
+6) Water Pump 
+     Micro water pump 3 -6V Mini submersible pump is used 
+in this system design. It is a low -cost, lightweight 
+Submersible pumping motor that can be operated from 3 ~ 
+6V. With a low current consumption of 220 mA, it takes up to 
+120 liters an hour. The pipe of tube is simply attached to the 
+motor outlet, submerged, and operated in water [1]. The dry 
+run may cause heati ng damage to the motor, and it will also 
+cause noise. 
+7) DC Fan 
+     With a scale of 40x40 mm, the Brushless DC Cooling Fan 
+works at 12V.The fan is extremely quiet and pushes around 
+20CFM [7]. It is used in the system to cool the farm when it is 
+used as a  greenhouse product to control the humidity and 
+temperature of the house for the farmer. 
+C.  Python 
+   Python is an immensely common scripting language [17] 
+because of its flexibility to code the large array of functions 
+customized to all the user's needs. Py thon is used for the 
+creation of a program that integrates the sensors and target 
+board.  
+D. ThingSpeak Server 
+ThingSpeak is an IoT  data collection application for the 
+analysis of various sensors, e.g. temperature, soil moisture, 
+humidity, pressure, fertilizer content sprayed etc. The data 
+collector collects data from edge node devices (this happens 
+with the Raspberry Pi) and also all ows the data to be 
+modified for historical data analysis in a software 
+environment using secured MQTT protocol. First, the user 
+must log in with details on his / her server. The key 
+component of ThingSpeak operations is the channel 
+containing data fields and a status screen. After a ThingSpeak 
+channel has been developed, data is modified, processed, and 
+interpreted with MATLAB code, and the data is reacted by 
+tweets and other alerts [18]. 
+E. MQTT Protocol  
+    MQTT is an application layer interface that utiliz es the 
+network TCP / IP type of communication. It is a protocol 
+suited for devices with minimal resource requirements and 
+was invented in 1999, Arlen Nipper and Dr. Andy 
+Stanford-Clarke. The protocol is lightweight, transparent, 
+simple to use, and suitable  for connectivity in environments 
+such as IoT of resource management [4]. MQTT is designed 
+to ensure reliable message delivery for resource -rest rusted 
+devices in restricted environments such as low network 
+bandwidth and unsatisfactory networks. The messag e is 
+transmitted using the publish -subscribe message protocol 
+client-server. This protocol has Clients subscribe to topics 
+called SUBSCRIBE. Messages shall be published in a 
+PUBLISH subject name. The message routing is handled by a 
+broker server. An addres s known as a topic is published in 
+each message. Multiple topics can be subscribed to by clients. 
+Each customer subscribed to a subject receives each message 
+on the subject. 
+F. Machine Learning 
+Machine learning (ML) is about extracting knowledge 
+from data. It  is a tool for transforming information into 
+knowledge.  Machine Learning is simply defined as an 
+automating and improving the learning process of their 
+experiences are focused on computers without really being 
+programmed, that means without any human assistance [19].  
+In this smart farming system mainly used supervised 
+machine learning algorithm to predict the parameters and 
+accuracy of the prediction. The algorithm in supervised 
+learning is decision tree algorithm. 
+V. ALGORITHM OF THE SYSTEM 
+The proposed system's entire algorithm is shown in Figure 
+7. Initially, the installation of operating system and the 
+required packages in Raspberry Pi are installed. Next for the 
+python algorithm for the hardware configuration, the 
+required libraries such as paho-mqtt, twilio, DHT-11 libraries 
+and etc. are imported. As Raspberry Pi works in both BCM 
+and board modes, in the hardware connection side the 
+required mode need to be selected in the python code. Now 
+the hardware pins of sensors which are connected with 
+Raspberry Pi needs to be configured and declared. When the 
+user initiates the code the sensors will be supplied with 
+sufficient voltage and the data collection will be initiated by 
+the target board. The collected data is transmitted via MQTT 
+protocol to ThingSpeak server for data display for the farmer 
+and analysis of the data. Even the same data is posted on the 
+web site designed for farmers using PHP.  
+The hardware part of the system contains automatic motor 
+ON/OFF and Fan ON/OFF for greenhouse to regulate 
+greenhouse temperature and humidity. If the soil moisture is 
+less than 40% automatically the water pump will be activated 
+and about the same information of the motor status is sent to 
+farmer as an offline SMS to his/her personal mobile. Even in 
+case of temperature say for a particular crop if the green 
+house temperature should not be more than 30 0C the 
+automatically the exhaust fan will be activated to reduce the 
+greenhouse atmosphere temperature. Even here the farmer 
+will be getting an offline SMS to his/her personal mobile. The 
+collected data is also further processed and given as the 
+dataset for decision tree algorithm. The algorithm is trained 
+with the real time data set and the parameters are predicted.  
+ 
+ 
+ 

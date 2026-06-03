@@ -1,0 +1,499 @@
+
+
+--- page 1 ---
+Smart Agricultural Technology 10 (2025) 100751
+Available online 31 December 2024
+2772-3755/© 2025 The Authors. Published by Elsevier B.V. This is an open access article under the CC BY license ( http://creativecommons.org/licenses/by/4.0/).
+Contents lists available at ScienceDirect
+Smart Agricultural Technology
+journal homepage: www.journals.elsevier.com/smart-agricultural-technology
+Reinforcement learning-based model predictive control for greenhouse 
+climate control
+Samuel Mallicka, ,∗,1, Filippo Airaldia, ,1, Azita Dabiria, , Congcong Sunb, ,
+BartDe  Schuttera,
+a Delft Center for Systems and Control, Delft University of Technology, 2628 CD, Delft, the Netherlands
+b Agricultural Biosystems Engineering Group, Wageningen University, 6700 AA, Wageningen, the Netherlands
+A R T I C L E I N F O A B S T R A C T 
+Keywords:
+Greenhouse climate control
+Model predictive control
+Reinforcement learning
+Greenhouse climate control is concerned with maximizing performance in terms of crop yield and resource ef-
+ﬁciency. One promising approach is model predictive control (MPC), which leverages a model of the system to 
+optimize the control inputs, while enforcing physical constraints. However, prediction models for greenhouse 
+systems are inherently inaccurate due to the complexity of the real system and the uncertainty in predicted 
+weather proﬁles. For model-based control approaches such as MPC, this can degrade performance and lead to 
+constraint violations. Existing approaches address uncertainty in the prediction model with robust or stochastic 
+MPC methodology; however, these necessarily reduce crop yield due to conservatism and often bear higher com-
+putational loads. In contrast, learning-based control approaches, such as reinforcement learning (RL), can handle 
+uncertainty naturally by leveraging data to improve performance. This work proposes an MPC-based RL control 
+framework to optimize the climate control performance in the presence of prediction uncertainty. The approach 
+employs a parametrized MPC scheme that learns directly from data, in an online fashion, the parametrization 
+of the constraints, prediction model, and optimization cost that minimizes constraint violations and maximizes 
+climate control performance. Simulations show that the approach can learn an MPC controller that signiﬁcantly
+outperforms the current state-of-the-art in terms of constraint violations and eﬃcient crop growth.
+1. Introduction
+Greenhouse climate control presents a key opportunity to address the 
+growing world population’s food production requirements in a changing 
+climate, and the grand societal challenge of eﬃcient energy consump-
+tion. With modern greenhouses equipped with actuation systems such 
+as heating, ventilation, and CO2 injection, eﬀective control approaches 
+can lead to high crop yield in an energy-eﬃcient manner. However, the 
+control challenge is diﬃcult as the process dynamics are highly nonlin-
+ear and complex [28], and the climate variables, such as temperature 
+and humidity, must be eﬀectively constrained to avoid damage to crops 
+due to, e.g., spread of diseases [6,34,11]. While traditional methods, e.g.,
+on-oﬀ and PID control, have been used for low-level regulation, these 
+strategies are not rooted in optimal control and are in general unable to 
+deliver optimal performance and to systematically handle complex state 
+and/or input constraints [12,15].
+* Corresponding author.
+E-mail address:s.h.mallick@tudelft.nl(S. Mallick).
+1 These authors contributed equally to this work.
+Model predictive control (MPC) is an optimization-based control 
+methodology that naturally handles multi-input-multi-output systems 
+with state, input, and output constraints [5]. It has seen huge theoret-
+ical success and application in process control, and has been proposed 
+to solve greenhouse control challenges [3,10,21]. However, MPC relies 
+heavily on an accurate prediction model, while in a greenhouse pre-
+diction model there always exist uncertainties due to, e.g., modeling 
+error and inaccurate weather forecasting. For model-based control, an 
+incorrect model can lead the controller to drive the system to an un-
+desired point of operation, possibly violating constraints. Furthermore,
+as constraints often represent the validity range for the accuracy of the 
+prediction model, violations of the constraints can lead to degraded per-
+formance when applied to the real system [34].
+Some existing works have addressed prediction uncertainty only in 
+the context of external disturbances, such as weather predictions [6,14].
+In [8], the uncertainty in market prices is addressed with a scenario-
+https://doi.org/10.1016/j.atech.2024.100751
+Received 14 October 2024; Received in revised form 17 December 2024; Accepted 24 December 2024 
+
+
+--- page 2 ---
+Smart Agricultural Technology 10 (2025) 100751
+2
+S. Mallick, F. Airaldi, A. Dabiri et al. 
+based stochastic MPC controller; however, the controller is based on 
+mixed-integer optimization, requiring signiﬁcant computational eﬀorts.
+Alternatively, the following existing works have explored uncertainty
+stemming from an incorrect physical model of the system. In [12], the 
+robustness of predictive control for a greenhouse in the presence of 
+model uncertainties is considered empirically, however no mechanism 
+to compensate for the prediction error is introduced. In [19,20], a neu-
+ral network is used as a prediction model, with a robust MPC controller
+addressing the prediction uncertainty; however, a min-max robust MPC 
+approach is used, which is inherently conservative. In [34], an approach 
+to mitigating the negative eﬀects of model uncertainty is presented us-
+ing online parameter estimation. However, only a small subset of the 
+(possibly) uncertain model parameters are estimated. Of particular note,
+in [4], parametric uncertainty in all model parameters is addressed.
+A robust sample-based MPC controller is proposed to incorporate the 
+uncertainty into the control approach. However, the resulting control 
+scheme is unable to adequately reduce constraint violations, and re-
+sults in less crop yield due to conservativeness. More recently, [27] has 
+proposed a chance-constrained stochastic MPC formulation to address 
+parametric uncertainties in greenhouse production systems. However,
+this approach relies on linearization of the prediction model, further
+increasing prediction uncertainty. Additionally, the chance constrained 
+formulation leads to a computational load that is higher than traditional 
+MPC schemes.
+In contrast to MPC, reinforcement learning (RL) is a model-free con-
+trol methodology where a control policy is learned from data observed 
+from the system [26]. RL controllers naturally handle uncertainty and 
+adapt to changing conditions with no additional mechanisms, as they are 
+learned through direct interaction with the real system. For complex sys-
+tems with large continuous state and action spaces, the state-of-the-art 
+for RL uses deep neural networks (DNNs) as function approximators to 
+represent the controller. With the power of DNNs as general function 
+approximators, this idea has seen unprecedented success on previously
+unsolved problems, e.g., the games of chess and Go [25]. The power
+and inherent uncertainty handling of RL has been identiﬁed as useful 
+for greenhouse climate control, with [32] proposing a DNN-based RL ap-
+proach based on deep deterministic policy gradient (DDPG) [17], and 
+[22] drawing a comparison between MPC and DDPG. However, an inher-
+ent drawback for RL controllers is the absence of theoretical guarantees 
+on the satisfaction of constraints and a lack of interpretability due to the 
+black-box DNN function approximation. In the context of greenhouse 
+control, this means growers have no guarantee that the automated con-
+troller will eﬀectively constrain climate variables to safe ranges, with 
+potential negative implications on crop health and proﬁt.
+Recently, [9] proposed and justiﬁed an integrated MPC and RL con-
+trol paradigm, where the MPC controller serves as a function approxima-
+tor for the optimal policy in model-based RL. Fig. 1depicts a schematic 
+overview of this architecture. In such a scheme, the MPC controller’s op-
+timization problem acts both as policy provider, picking actions based 
+on a state, and value function approximator, estimating ‘how good’ it is 
+to be in a given state. The learning algorithm, e.g., Q-learning [33], is 
+tasked with adjusting the parametrization of the MPC controller in an 
+eﬀort to discover the optimal control policy, thus improving closed-loop 
+performance in a data-driven fashion. In this way, despite the presence 
+of mismatches between the prediction model and the real system, the 
+MPC control scheme is able to learn and deliver, at convergence, the op-
+timal policy and value functions of the underlying RL task, granted the 
+MPC parametrization is rich enough. In contrast to DNN-based RL, the 
+MPC scheme at the core of this approach provides the option of inte-
+grating prior information that may be known on the system in the form 
+of, e.g., an expert-based, possibly imperfect, prediction model. More-
+over, MPC-based agents are in general more amenable to analysis and 
+certiﬁcation in terms of stability and constraint satisfaction [5]. Finally,
+MPC-based controllers can take constraints into account in an explicit 
+and structured way, which DNNs are generally incapable of doing. The 
+above beneﬁts render this methodology suitable for greenhouse climate 
+Fig. 1.Diagram of the MPC-based RL architecture. 
+control, where an inaccurate prediction model is known, and climate 
+variables must be constrained. 
+Therefore, in this work we propose an integrated MPC and RL frame-
+work to address the problem of greenhouse climate control under para-
+metric uncertainty stemming from uncertain weather predictions and 
+modeling mismatches. Speciﬁcally:
+1. To the best of the authors’ knowledge, a combined MPC and RL
+approach for greenhouse climate control in the presence of uncer-
+tainty is proposed for the ﬁrst time. A parametrized MPC scheme,
+inspired by [9], is crafted to serve as policy provider and value func-
+tion approximator in an RL formulation of the greenhouse climate 
+control problem. A second-order Q-learning algorithm is leveraged 
+to adjust the parametrization of the MPC scheme online, automati-
+cally learning a control policy. The approach provides an adaptive 
+and high-performing climate controller that minimizes potentially
+dangerous constraint violations, without negatively aﬀecting crop 
+growth due to robustness conservatism, and without relying on an 
+expensive-to-acquire accurate prediction model. Additionally, in 
+contrast to DNN-based learning approaches, the behavior of the 
+resulting controller can be interpreted by analyzing the learned 
+parametrization of the constraints, prediction model, and cost func-
+tion.
+2. The approach is then validated in simulation, and compared against 
+both model-based MPC and model-free RL state-of-the-art con-
+trollers. The results demonstrate the eﬀectiveness of the approach,
+with the proposed methodology outperforming existing controllers 
+from the literature in both constraint satisfaction and eﬃcient crop 
+growth.
+Compared to the state-of-the-art MPC formulations [4,8,19,20,27],
+instead of addressing uncertainty in the parametrization in a robust or
+stochastic fashion, the proposed methodology adapts its policy via RL in 
+order to improve closed-loop performance. This has the distinct advan-
+tage of yielding less conservative control schemes while retaining low
+computational complexity. In comparison with DNN-based approaches 
+such as [22,32], our method integrates MPC as function approximator
+in the RL algorithm, fostering a model-based approach that is more suit-
+able for learning high-performance, constraint-abiding policies.
+The paper is structured as follows. In Section 2relevant background 
+is provided on the greenhouse model used, and on the combined MPC 
+and RL paradigm from [9]. The problem we address is formally deﬁned 
+in Section 3. Section 4 presents the proposed methodology, which is 
+then applied and assessed extensively in simulation in Section 5. Finally,
+conclusions and future work directions are given in Section 6.
+2. Background
+This section describes the greenhouse model considered in this work.
+Additionally, background theory on combining MPC and RL is provided,
+upon which the methodology proposed in this paper is built.
+
+
+--- page 3 ---
+Smart Agricultural Technology 10 (2025) 100751
+3
+S. Mallick, F. Airaldi, A. Dabiri et al. 
+Table 1
+Physical meaning of the state 𝑥, output 𝑦, input 𝑢, and disturbance 𝑑.
+𝑥1 dry-weight (kgm−2) 𝑦1 dry-weight (g m−2) 𝑑1 radiation (W m−2) 
+𝑥2 indoor CO2 (kgm−3) 𝑦2 indoor CO2 (‰ ) 𝑑2 outdoor CO2 (kgm−3) 
+𝑥3 indoor temperature (◦C) 𝑦3 indoor temperature (◦C) 𝑑3 outdoor temperature (◦C) 
+𝑥4 indoor humidity (kgm−3) 𝑦4 indoor humidity (%) 𝑑4 outdoor humidity (kgm−3)
+𝑢1 CO2 injection (mgm−2s−1) 𝑢2 ventilation (mms−1) 𝑢3 heating (W m−2) 
+2.1. Lettuce greenhouse model
+We consider a greenhouse for lettuce growing, with the continuous-
+time model, presented in [28], given in the Appendix. While the 
+continuous-time model is used in all simulations, for control purposes a 
+discrete-time model is considered
+𝑥(𝑘+1)= 𝑓(𝑥(𝑘),𝑢(𝑘),𝑑(𝑘),𝑝),
+𝑦(𝑘)= 𝑔(𝑥(𝑘),𝑝),
+(1)
+with 𝑥∈ℝ4 the state, 𝑢∈ℝ3 the control input, 𝑑∈ℝ4 the weather
+disturbance, and 𝑦∈ℝ4 the output. Furthermore, 𝑝∈ℝ28 is a set of 
+model parameters, and 𝑘∈ℤ+ is the discrete-time counter for discrete 
+time steps of Δ𝑡= 900s (15 minutes). The nonlinear functions 𝑓and 
+𝑔, and the model parameters 𝑝, are given in the Appendix. The physical 
+meaning of the states, outputs, inputs, and disturbances is summarized 
+in Table 1. Estimation is out the scope of this paper, and it is assumed,
+as in [4], that at each time step 𝑘a perfect estimate of the state 𝑥(𝑘)is 
+available. 
+2.2. MPC as a function approximator in RL
+Consider discrete-time system dynamics as a Markov Decision Pro-
+cess (MDP) [26] with continuous state 𝑠∈ℝ𝑛, continuous action 𝑎∈ℝ𝑚,
+and state transitions 𝑠,𝑎→𝑠+ with the underlying conditional probabil-
+ity density
+ℙ[𝑠+|𝑠,𝑎]∶ℝ𝑛× ℝ𝑚× ℝ𝑛→[0,1]. (2)
+Consider a deterministic policy 𝜋𝜃(𝑠)∶ℝ𝑛→ ℝ𝑚parametrized by 𝜃∈
+ℝ𝑙. Selecting actions based on this policy will cause the system to visit 
+the MDP’s states with a given distribution, denoted 𝜂𝜋𝜃. The perfor-
+mance of such a policy is deﬁned as [26]
+𝐽(𝜋𝜃)= 𝔼𝜂𝜋𝜃
+[𝑁s∑
+𝑘=0
+𝛾𝑘𝐿
+(
+𝑠𝑘,𝜋𝜃
+(𝑠𝑘
+))]
+, (3)
+where 𝑠𝑘is the state at time step 𝑘, 𝐿(𝑠,𝑎)∶ℝ𝑛× ℝ𝑚→ ℝ the stage 
+cost, 𝛾∈( 0,1] the discount factor, and 𝑁s the number of time steps 
+considered in a task. The RL task is then to ﬁnd the optimal policy 𝜋⋆
+𝜃
+as
+𝜋⋆
+𝜃= arg min
+𝜃
+𝐽(𝜋𝜃). (4)
+The familiar notions of state-and  action-value functions [26] are deﬁned 
+respectively as 
+𝑄𝜃
+(𝑠𝑘,𝑎𝑘
+)=𝐿
+(
+𝑠𝑘,𝑎𝑘
+)
++ 𝔼𝜂𝜋𝜃
+[ 𝑁s∑
+𝜏=𝑘+1
+𝛾𝜏−𝑘𝐿
+(
+𝑠𝑘,𝜋𝜃
+(𝑠𝑘
+))]
+, (5)
+and 𝑉𝜃
+(
+𝑠𝑘
+)
+=𝑄𝜃
+(
+𝑠𝑘,𝜋𝜃
+(
+𝑠𝑘
+))
+. While DNNs are the most common choice 
+for representing the policy and value functions [17], their black-box
+nature does not facilitate the injection of prior information, e.g., approx-
+imate prediction models, nor is it conducive to an interpretable policy
+and the addition of constraints. To account for these drawbacks, [9] pro-
+posed the use of an MPC scheme in place of a DNN.
+Consider the following MPC problem approximating the value func-
+tion, parametrized by 𝜃, 𝑉𝜃∶ℝ𝑛→ ℝ as
+𝑉𝜃(𝑠)=  minx, u, 𝝈 𝜆𝜃
+(𝑥(0))
++
+𝑁−1∑
+𝑘=0 
+𝛾𝑘
+(
+𝐿𝜃
+(𝑥(𝑘),𝑢(𝑘))+𝜔⊤𝜎(𝑘)
+)
++𝛾𝑁
+(
+𝑉f
+𝜃
+(𝑥(𝑁))+𝑤⊤
+f 𝜎(𝑁)
+)
+(6a)
+s.t.𝑥 (0)= 𝑠, (6b)
+for 𝑘=0,… ,𝑁−1
+𝑥(𝑘+1)= 𝑓𝜃
+(𝑥(𝑘),𝑢(𝑘)), (6c)
+ℎ𝜃
+(𝑥(𝑘),𝑢(𝑘))≤𝜎(𝑘), (6d)
+𝜎(𝑘) ≥0, (6e)
+ℎf
+𝜃
+(𝑥(𝑁))≤𝜎(𝑁), (6f)
+𝜎(𝑁) ≥0, (6g)
+where slack variable 𝜎(𝑘)softens the inequality constraint for time step 
+𝑘, and the vectors x, uand 𝝈respectively collect the states, actions, and 
+slack variables over the horizon 𝑁. Problem (6)i s solved numerically
+online to generate the value 𝑉𝜃(𝑠). In (6), 𝜆𝜃is an initial cost term, 𝐿𝜃
+is the stage cost, and 𝑉f
+𝜃is a terminal cost approximation, all of which 
+are parametrized by 𝜃. Furthermore, 𝑓𝜃is the model approximation, and 
+ℎ𝜃, ℎf
+𝜃are inequality constraints. Lastly, 𝑤and 𝑤f are the weights of the 
+slack variable in the objective. Note that the formulation (6)is  general,
+i.e., the dimension of 𝜃, and how it enters into the respective functions 
+in (6), is not made explicit. In Section 4 we will introduce a concrete 
+realization, designed for the greenhouse climate control problem.
+Given (6), the action value function 𝑄𝜃and the policy 𝜋𝜃, satisfying 
+the fundamental equalities of the Bellman equations [9], are deﬁned as 
+follows:
+𝑄𝜃(𝑠,𝑎)=  minx, u, 𝝈 (6a)
+s.t. (6b)−(6g),
+𝑢(0)= 𝑎,
+(7)
+𝜋𝜃(𝑠)=  arg min
+𝑎 
+𝑄𝜃(𝑠,𝑎). (8)
+Therefore, in RL terms, the parametric MPC scheme acts as policy
+provider for the learning agent, whose goal is to modify the parame-
+ters 𝜃of the controller in order to minimize (4). Various forms of RL
+[26] exist that solve this problem directly or indirectly via iterative up-
+dates 
+𝜃←𝜃−𝛼∇𝜃
+𝑚 ∑
+𝑖=1 
+𝜓(𝑠𝑖,𝑎𝑖,𝑠𝑖+1,𝜃), (9)
+where 𝛼∈ℝ+ is the learning rate, 𝑧denotes the number of observa-
+tions used in the update (i.e., a batch of observations), and 𝜓captures 
+the controller’s performance and varies with the speciﬁc algorithm. For
+example, in recursive Q-learning we have that 𝑚=1 and 𝜓=𝛿2
+𝑖, where 
+the temporal-diﬀerence (TD) error
+𝛿𝑖=𝐿(𝑠𝑖,𝑎𝑖)+ 𝛾𝑉𝜃(𝑠𝑖+1)−𝑄𝜃(𝑠𝑖,𝑎𝑖) (10)
+captures the estimation error of the value functions [26].
+
+
+--- page 4 ---
+Smart Agricultural Technology 10 (2025) 100751
+4
+S. Mallick, F. Airaldi, A. Dabiri et al. 
+3. Problem formulation
+We address the problem of optimal greenhouse climate control for
+crop yield and resource eﬃciency. As in [4], we consider the predictive 
+uncertainty, stemming from uncertain weather predictions and mod-
+eling errors, to be captured by parametric uncertainty2 in the model 
+parameters 𝑝. Speciﬁcally, the true values for 𝑝are assumed to be un-
+known.
+Growth cycles of 40 days are considered, where control inputs are 
+computed at 15 minute time steps, i.e., growth cycles of 𝑁s = 3840
+time steps. This duration is in line with the literature [4,22], and rep-
+resents a standard lettuce growth cycle, at the end of which the let-
+tuce is harvested and sold, generating economic proﬁt. During each 
+growth cycle, we wish to maximize the yield and minimize the viola-
+tions of constraints on the system outputs, whilst minimizing the cost 
+associated with control signals. The system outputs are constrained as 
+𝑦min(𝑘) ≤𝑦(𝑘) ≤𝑦max(𝑘), with [4,22]
+𝑦min(𝑘)=
+(
+0,0,𝑦3,min
+(𝑑1(𝑘)),0
+)⊤
+,
+𝑦max(𝑘)=
+(
+∞,1.6,𝑦3,max
+(𝑑1(𝑘)),70
+)⊤
+,
+(11)
+and with the time-varying third element deﬁned as
+𝑦3,min
+(𝑑)=
+{
+10, if 𝑑<10
+15, if 𝑑≥10,
+𝑦3,max
+(𝑑)=
+{
+15, if 𝑑<10
+20, if 𝑑≥10.
+(12)
+These time varying constraints are common in the literature; they reﬂect 
+that inside the greenhouse it is colder during the night than during the 
+day [22,4,24]. The inputs are constrained as 𝑢min ≤𝑢(𝑘) ≤𝑢max, with 
+[4,22]
+𝑢min =(0,0,0)⊤,
+𝑢max =(1.2,7.5,150)⊤.
+(13)
+Finally, the input rate is constrained as [4,22]
+|𝑢(𝑘+1)−𝑢(𝑘)|≤(1∕10)𝑢max. (14)
+Deﬁne the following performance indicators:
+•Final yield 𝑦1(𝑁s)
+•Constraint violations Ψ
+•Economic proﬁt indicator 𝑃.
+The ﬁnal yield 𝑦1(𝑁s)is the dry lettuce weight at the end of a growth 
+cycle of 𝑁s time steps. The constraint violations indicator Ψis deﬁned 
+as
+Ψ=
+𝑁s∑
+𝑘=0
+4 ∑
+𝑖=1 
+(
+max
+(
+0,
+𝑦𝑖(𝑘)−𝑦𝑖,max(𝑘) 
+𝑦𝑖,max(𝑘)−𝑦𝑖,min(𝑘)
+)
++max
+(
+0,
+𝑦𝑖,min(𝑘)−𝑦𝑖(𝑘) 
+𝑦𝑖,max(𝑘)−𝑦𝑖,min(𝑘)
+))
+. (15)
+2 The choice to represent modeling error and weather prediction inaccuracy
+via the uncertainty in 𝑝results in a prediction model in which even the param-
+eters that may represent known physical quantities, e.g., the ideal gas constant 
+𝑝23, being unknown.
+Table 2
+Coeﬃcient values for the economic proﬁt 
+indicator 𝑃(the former Dutch currency Hﬂ,
+the Guilder, is used for adherence to the lit-
+erature [4,22,27–29]).
+Symbol Value Unit 
+𝑐price,1 1.8 Hflm −2
+𝑐price,2 1.6 Hflkg −1
+𝑐q 6.35 ⋅10−9 HflJ −1
+𝑐CO2
+42 ⋅10−2 Hflkg −1
+Δ𝑡 900 s
+This performance indicator captures the magnitude of violations on the 
+output constraints over a growth cycle. Finally, the economic proﬁt in-
+dicator3 𝑃is deﬁned as [29,22]
+𝑃=𝑐price,1 +𝑐price,2 𝑦1(𝑁s)−
+𝑁s∑
+𝑘=0
+(𝑐CO2𝑢1(𝑘)+ 𝑐q𝑢3(𝑘))Δ𝑡, (16)
+where the relation between auction price and harvest weight of lettuce 
+is modeled linearly with coeﬃcients 𝑐price,1 and 𝑐price,2, and the ﬁnan-
+cial cost of the climate conditioning equipment is linearly related to the 
+amount of energy and carbon dioxide put into the system, weighted by
+prices 𝑐q and 𝑐CO2, respectively. Note that in 𝑃no cost is associated to 
+natural ventilation used for cooling and dehumidiﬁcation, i.e., 𝑢2 [8].
+The values of the coeﬃcients of this economic model are given in Ta-
+ble 2, and more details are available in, e.g., [29, Section 2.1]. This 
+performance indicator represents the monetary value of a growth cy-
+cle, and captures the eﬃciency of the control with respect to the use of 
+costly actuators. 
+4. Methodology
+To address the issues caused by inaccurate knowledge of the true 
+prediction model parameters 𝑝for model-based MPC controllers, we 
+propose a novel parametrized MPC scheme for the greenhouse climate 
+control problem. Then, leveraging closed loop data, we show how the 
+parameter values can be learned using RL techniques [9], compensating 
+for the performance loss introduced by an inaccurate prediction model.
+4.1. Greenhouse climate control as an RL problem
+In order to apply an RL methodology to learn the MPC parametriza-
+tion, the greenhouse climate control must be modeled as an RL task, i.e.,
+as an MDP deﬁned as in Section 2.2. Trivially, the greenhouse input vari-
+able 𝑢corresponds directly to the actions 𝑎in the RL context. Deﬁne the 
+concatenation of the current state, and the current and previous outputs,
+as the RL state:
+𝑠(𝑘)=
+(
+𝑥⊤(𝑘),𝑦⊤(𝑘),𝑦⊤(𝑘−1)
+)⊤. (17)
+Furthermore, the state transitions are determined by the true system 
+model (1), where the exact probabilities are conditioned on the weather
+disturbance 𝑑. Note that, to enforce the control rate constraint (14)i n 
+the MDP, the input variable is clipped prior to being applied to the sys-
+tem.
+The stage cost 𝐿requires particular attention, as it implicitly deﬁnes 
+the optimization problem (4)t h a t the RL agent is tasked with solving.
+Crafting the stage cost 𝐿such that the resulting RL policy performs well 
+with respect to the performance indicators deﬁned in Section 3is a de-
+sign challenge. Consider the stage cost
+3 Note that 𝑃represents a proﬁt indicator per square meter, as the lettuce 
+model in this work is normalized by the surface area (see Section 2.1and [28,
+29]).

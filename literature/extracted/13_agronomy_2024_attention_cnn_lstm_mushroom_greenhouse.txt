@@ -1,0 +1,214 @@
+
+
+--- page 1 ---
+ 
+ 
+ 
+ 
+Agronomy 2024, 14, 473. https://doi.org/10.3390/agronomy14030473  www.mdpi.com/journal/agronomy 
+Article 
+Edible Mushroom Greenhouse Environment Prediction Model 
+Based on Attention CNN-LSTM 
+Shuanggen Huang 1, Quanyao Liu 1, Ya n Wu 1, Minmin Chen 2, Hua Yin 3,* and Jinhui Zhao 1,* 
+1  Key Laboratory of Modern Agricultural Equipment in Jiangxi Province, Jiangxi Agricultural University, 
+Nanchang 330045, China; shuanggenhuang1979@jxau.edu.cn (S.H.); 630620474@stu.jxau.edu.cn (Q.L.); 
+wuyan1981@jxau.edu.cn (Y.W.) 
+2  Department of Marine Engineering, Shanwei Institute of Technology, Shanwei 516600, China; 
+13560552877@163.com 
+3  School of Software, Jiangxi Agricultural University, Nanchang 330045, China 
+*  Correspondence: yinhua@jxau.edu.cn (H.Y.); zhaojh@jxau.edu.cn (J.Z.) 
+Abstract: The large-scale production of edible mushrooms typically requires the use of greenhouses, 
+as the greenhouse environment signiﬁcantly aﬀects the growth of edible mushrooms. It is crucial to 
+eﬀectively  predict  the  temperature,  humidity,  and  carbon  dioxide  ﬂuctuations  within  the  mush-
+room  greenhouse  for  determining  the  environmental  stress  and  pre-regulation  of  edible  mush-
+rooms. To address the nonlinearity, temporal dynamics, and strong coupling of the edible mush-
+room  greenhouse  environment,  a  temperature,  humidity,  and  carbon  dioxide  prediction  model 
+based on the combination of the attention mechanism, the convolutional neural network, and the 
+long short-term memory neural network (A-CNN-LSTM) is proposed. Experimental data were col-
+lected from both the inside and outside of the greenhouse, including environmental data and the 
+on–oﬀ data of environmental control devices. After completing missing data using linear interpola-
+tion,  denoising  with  Kalman  ﬁltering,  and  normalization,  the  recurrent  neural  network  (RNN) 
+model, long short-term memory (LSTM) model, and A-CNN-LSTM model were trained and tested 
+on the time series data. These models were used to predict the environmental changes in tempera-
+ture,  humidity,  and  carbon  dioxide  inside  the  greenhouse.  The  results  indicate  that  the A-CNN-
+LSTM model outperforms the other two models in terms of denoising, non-denoising, and diﬀerent 
+prediction time steps. The proposed method accurately predicts temperature, humidity, and carbon 
+dioxide  levels with  errors  of  0.17  °C  (R2  =  0.974),  2.06%  (R2  =  0.804),  and  8.367  ppm  (R2  =  0.993), 
+respectively. These results indicate improved prediction accuracy for temperature, humidity, and 
+carbon  dioxide  values  inside  the  edible  mushroom  greenhouse.  The  ﬁndings  provide  a  decision 
+basis for the precise control of the greenhouse environment. 
+Keywords:  deep  learning;  edible  mushroom  greenhouse;  greenhouse  environment  prediction;  
+attention mechanism; A-CNN LSTM model 
+ 
+1. Introduction 
+The main environmental factors that inﬂuence the growth of edible mushrooms in-
+clude temperature, humidity, and carbon dioxide levels [1–4]. Stable greenhouse condi-
+tions are crucial for the large-scale cultivation of edible mushrooms. However, traditional 
+greenhouses  can  only  monitor  the  current  greenhouse  environment,  and  there  is  a  lag 
+issue in environmental control devices in terms of environmental regulation [5,6]. Cur-
+rently, the mainstream focus of greenhouse environmental control is primarily on tem-
+perature and humidity. Therefore, it is necessary to establish an accurate greenhouse mi-
+croclimate model to determine the operating status of environmental control devices in 
+advance. 
+Citation: Huang, S.; Liu, Q.; Wu, Y.; 
+Chen, M.; Yin, H.; Zhao, J. Edible 
+Mushroom Greenhouse  
+Environment Prediction Model 
+Based on Attention CNN-LSTM. 
+Agronomy 2024, 14, 473. 
+https://doi.org/10.3390/ 
+agronomy14030473 
+Academic Editor: Gniewko Niedbała 
+Received: 7 February 2024 
+Revised: 24 February 2024 
+Accepted: 25 February 2024  
+Published: 27 February 2024 
+ 
+Copyright: © 2024 by the authors. Li-
+censee  MDPI,  Basel,  Switzerland. 
+This  article  is  an  open  access  article 
+distributed under the terms and con-
+ditions of the Creative Commons At-
+tribution (CC BY) license (https://cre-
+ativecommons.org/licenses/by/4.0/). 
+
+
+
+--- page 2 ---
+Agronomy 2024, 14, 473  2 of 16 
+ 
+ 
+Traditional physical modeling prediction methods require the collection of multiple 
+complex data, which often involve calculations and are diﬃcult to estimate. The environ-
+mental  factors  inside  the  greenhouse  exhibit  nonlinearity  and  temporal  characteristics, 
+and there is coupling between these factors [7–11]. Therefore, traditional physical model-
+ing encounters certain diﬃculties. Deep learning methods can address this issue as these 
+models  can  accurately  predict  the  internal  greenhouse  environment  for  the  next  few 
+minutes based on historical data [12–14]. Better prediction of greenhouse temperature and 
+humidity was achieved by combining CNN with GRU compared with that achieved with 
+the BP neural network, LSTM, and GRU. CNN is prone to damaging the integrity of time 
+series [15]. Jung et al. have solved the issue of gradient explosion in RNN by combining 
+RNN with LSTM. The RNN-LSTM model performed the best in predicting greenhouse 
+environments,  as  determined  by  comparing  the RNN-LSTM  model  with  the ANN  and 
+NARX models. However, the RNN-LSTM model was complex and had poor prediction 
+performance for humidity [16]. Qi Liu et al. utilized the Elman neural network to predict 
+the temperature and humidity of diﬀerent canopies in crops. The predicted RMSE values 
+of  temperature  and  humidity  were  less  than  0.8  °C  and  1.5%,  respectively.  This  model 
+employed the gradient descent method to solve the loss function, which was diﬃcult to 
+achieve global optimization under [17]. The present study proposes an A-CNN-LSTM pre-
+diction model suitable for greenhouses to address the issues mentioned above. To the best 
+of our knowledge, there is no study on the establishment of a prediction model that com-
+bines edible mushroom greenhouse environmental data both inside and outside with on–
+oﬀ data of environmental control equipment. 
+In this study, a large amount of environmental data from sensors inside and outside 
+the edible mushroom greenhouse, as well as on–oﬀ data from control devices, were col-
+lected. The collected data were processed using linear interpolation for missing data, then 
+denoising  with  Kalman  ﬁltering,  and  normalization.  Three  prediction  models,  RNN, 
+LSTM, and A-CNN-LSTM, were established using time series inputs. The models were 
+evaluated  by comparing  the  prediction results  before and  after denoising, the diﬀerent 
+time steps for prediction, the diﬀerent sample sizes for prediction, and the diﬀerent input 
+features for prediction. 
+2. Design of Data Collection Platform and Data Processing 
+2.1. Design of Data Collection Platform 
+The edible mushroom greenhouse used in this experiment was a closed space con-
+structed with fully enclosed metal insulation panels, measuring 130 × 60 × 90 cm in length, 
+width,  and  height.  The  top  of  the  greenhouse  was equipped  with  holes  connected  to  a 
+humidiﬁer, while the side had an air conditioning vent. Additionally, a metal mushroom 
+placement rack was installed inside the greenhouse. The environmental information in-
+side and outside the greenhouse was measured using sensors from Shandong Renke Con-
+trol Technology Co., Ltd. Jinan, China. These sensors included a temperature and humid-
+ity  carbon  dioxide  multi-sensor  (model  RS-CO2WS-N01)  and  an  illuminance  sensor 
+(model  RS-GZ-N01).  These  sensors  were  capable  of  accurately  measuring  temperature, 
+humidity, carbon dioxide levels, and light intensity to provide comprehensive environ-
+mental  data  for  the  experiment. All  sensors  and  environmental  control  actuators  were 
+connected to a smart gateway (STM32F104). The sensors transmitted the environmental 
+information from  inside  and  outside  the  greenhouse  to  the  gateway  using  the  Modbus 
+protocol.  The  gateway  then  utilized  a  4G  signal  to  transmit  the  data  to  the  server.  The 
+server analyzed the environmental data and transmitted control signals back to the gate-
+way. This allowed the gateway to control the humidiﬁer and air conditioning system to 
+keep the greenhouse environment within the desired threshold. Additionally, the server 
+received status updates from the environmental control devices through the gateway. This 
+integrated  system  enabled  the  real-time  monitoring  and  control  of  the  greenhouse 
+
+
+--- page 3 ---
+Agronomy 2024, 14, 473  3 of 16 
+ 
+ 
+environment, ensuring that it remained within the speciﬁed parameters for optimal mush-
+room cultivation. 
+2.2. Data Acquisition 
+The experiment took place in Nanchang, Jiangxi Province. The designed greenhouse 
+was used for data  collection from August  2022  to  October  2022.  Inside  the greenhouse, 
+there were two sets of environmental data sensors. They collected data on air temperature 
+(TEMP1; TEMP2), relative humidity (HUM1; HUM2), and carbon dioxide levels (CO21; 
+CO22) inside the greenhouse. Outside the greenhouse, there was another set of environ-
+mental data sensors that collected data on outside air temperature (TEMP(out)) and out-
+side air relative humidity (HUM(out)). Additionally, data on the on–oﬀ status of the hu-
+midiﬁer (HUMBtn) and air conditioning (TEMPBtn) were also collected. The data collec-
+tion interval for all these sensors was 1 min, and the data were collected continuously for 
+24 h. The collected data were sent from the gateway to the server. The interior and exterior 
+images of the data collection platform are shown in Figure 1. The structural diagram of 
+the data collection system is shown in Figure 2. 
+ 
+Figure 1. Intelligent cultivation and phenotyping platform for edible mushroom interior and exte-
+rior images. The blue Chinese in the ﬁgure means Intelligent cultivation and phenotyping platform 
+for edible mushroom. 
+ 
+ 
+Figure 2. Structure diagram of edible mushroom environmental data collection platform. 
+   
+
+
+
+--- page 4 ---
+Agronomy 2024, 14, 473  4 of 16 
+ 
+ 
+2.3. Data Processing 
+2.3.1. Processing of Missing Data 
+Due  to  the  high-humidity  environment  in  the  greenhouse,  there  were  issues  with 
+data loss during the data collection process [18]. In addition, the system utilized a 4G sig-
+nal to transmit data to the server. However, data may be aﬀected by issues such as net-
+work transmission quality or device malfunctions. To address this problem, linear inter-
+polation was employed in this study for data imputation [19]. When short-term data gaps 
+occur, linear interpolation is used to calculate the missing data values. Speciﬁcally, for a 
+given time point, t, if the temperature data are missing, the following formula can be used 
+to estimate the temperature data at that time T(t): 
+𝑇ሺ𝑡ሻൌ 𝑇ሺ𝑘ሻ൅൫𝑇ሺ𝑘൅ 1ሻെ𝑇ሺ𝑘ሻ൯
+൫𝑡ሺ𝑘൅ 1ሻെ𝑡ሺ𝑘ሻ൯൫𝑡െ𝑡 ሺ𝑘ሻ൯   (1)
+where (k) represents the position of the timestamp in the temperature data before the (k) 
+segment; (T(k)) and (T(k + 1)) represent the temperature values in the (t) and (t + 1) seg-
+ments, respectively. 
+Similarly, for a given time point (t), if humidity and carbon dioxide data are missing, 
+linear  interpolation  can  also  be  used  to  estimate  the  data  at  that  time.  The  principle  of 
+linear interpolation is based on using the linear relationship between known data points 
+to estimate the missing values. It is advantageous due to its simplicity and fast computa-
+tion speed, but it may introduce errors in cases of signal discontinuities or noise. In the 
+case of long-term data gaps, another set of sensor data is used as a substitute. 
+2.3.2. Data Denoising 
+Noise handling was considered during the design of the system. This involved the 
+use of appropriate sensors and the incorporation of suitable protective and shielding de-
+vices. Additionally, long-distance transmission from the gateway to the server utilized a 
+4G signal and the increase in the system’s data acquisition frequency. However, due to 
+the high-humidity environment in mushroom greenhouses and the inﬂuence of environ-
+mental control equipment, the indoor environment is prone to ﬂuctuations, resulting in 
+some  degree  of  noise  interference.  Therefore,  in  the  data  processing  stage,  the  Kalman 
+ﬁlter can be employed to reduce the impact of noise on the data [20]. 
+The Kalman ﬁlter is based on a linear dynamic system model and utilizes state esti-
+mation methods. At each time point, it combines the current observation with the previ-
+ously estimated state history to make predictions and obtain future state estimates. This 
+approach, which consists of two main stages, the prediction stage and the update stage, 
+allows  for  the  estimation  of  the  future  state  based  on  the  available  information.  In  the 
+prediction stage, a physical model is used to predict the possible value and variance in the 
+next state. In the update stage, the Bayesian theorem is utilized to combine the prior esti-
+mate with the observed information, resulting in a merged posterior estimate and its cor-
+responding variance. 
+Speciﬁcally, the state vector prediction formula is as follows: 
+𝑋ሺ𝑘 ∣ 𝑘െ 1 ሻൌ𝐴 𝑋ሺ𝑘െ 1 ∣ 𝑘െ 1 ሻ൅𝐵 𝑈ሺ𝑘ሻ   (2)
+The covariance matrix prediction formula is as follows: 
+𝑃ሺ𝑘 ∣ 𝑘െ 1 ሻൌ𝐴 𝑃ሺ𝑘െ 1 ∣ 𝑘െ 1 ሻ𝐴்൅𝑄   (3)
+The state vector update formula is as follows: 
+ 𝑋ሺ𝑘 ∣ 𝑘 ሻൌ𝑋ሺ𝑘 ∣ 𝑘െ 1 ሻ൅𝐾ሺ𝑘ሻሾ𝑍ሺ𝑘ሻെ𝐻 𝑋ሺ𝑘 ∣ 𝑘െ 1 ሻሿ   (4)
+The covariance matrix update formula is as follows: 
+𝑃ሺ𝑘 ∣ 𝑘 ሻൌሺ𝐼െ𝐾 ሺ𝑘ሻ𝐻ሻ𝑃ሺ𝑘 ∣ 𝑘െ 1 ሻ   (5)

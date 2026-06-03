@@ -1,0 +1,233 @@
+\documentclass[a4paper,14pt]{extarticle}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setotherlanguage{english}
+\setmainfont[Ligatures=TeX]{Times New Roman}
+\newfontfamily\cyrillicfont[Ligatures=TeX]{Times New Roman}
+\newfontfamily\cyrillicfonttt{Menlo}[Scale=0.88]
+\newfontfamily\cyrillicfontsf{Arial}
+
+\usepackage[
+  left=30mm,
+  right=15mm,
+  top=20mm,
+  bottom=20mm
+]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0pt}
+
+% Сдаваемая версия ВКР не должна разрывать слова переносами вида
+% "обозначе- / ния", особенно на стыке страниц.
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\brokenpenalty=10000
+\doublehyphendemerits=1000000
+\finalhyphendemerits=1000000
+
+\usepackage{indentfirst}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{float}
+\usepackage{flafter}
+\usepackage{caption}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{calc}
+\usepackage{ragged2e}
+\usepackage{etoolbox}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fvextra}
+\usepackage{listings}
+\usepackage{lastpage}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{needspace}
+\usepackage{placeins}
+\usepackage{xurl}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage{xcolor}
+
+\graphicspath{{./}{../}{docx_pipeline/figures/png/}{docx_pipeline/figures/svg/}}
+
+\hypersetup{
+  unicode=true,
+  colorlinks=false,
+  pdfborder={0 0 0},
+  pdftitle={Разработка и внедрение интеллектуальной системы управления микроклиматом в теплице на основе машинного обучения},
+  pdfauthor={Ларионов Сергей Иванович}
+}
+
+\setcounter{secnumdepth}{0}
+\setcounter{tocdepth}{3}
+
+\titleformat{\section}
+  {\normalfont\bfseries}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\section}{1.25cm}{0pt}{12pt}
+
+\titleformat{\subsection}
+  {\normalfont\bfseries}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\subsection}{1.25cm}{12pt}{6pt}
+
+\titleformat{\subsubsection}
+  {\normalfont\bfseries}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\subsubsection}{1.25cm}{10pt}{6pt}
+
+\pretocmd{\section}{\FloatBarrier\clearpage}{}{}
+\pretocmd{\subsection}{\Needspace{6\baselineskip}}{}{}
+\pretocmd{\subsubsection}{\Needspace{5\baselineskip}}{}{}
+
+\newcommand{\VkrStructuralSection}[1]{%
+  \FloatBarrier
+  \clearpage
+  \phantomsection
+  \addcontentsline{toc}{section}{#1}%
+  \begin{center}\bfseries #1\end{center}%
+  \par\nopagebreak\vspace{12pt}%
+}
+
+\newcommand{\VkrStructuralSectionNoToc}[1]{%
+  \begin{center}\bfseries #1\end{center}%
+  \par\nopagebreak\vspace{12pt}%
+}
+
+\newcommand{\VkrAppendixSection}[2]{%
+  \FloatBarrier
+  \clearpage
+  \phantomsection
+  \addcontentsline{toc}{section}{ПРИЛОЖЕНИЕ #1 #2}%
+  \begin{center}\bfseries ПРИЛОЖЕНИЕ #1\end{center}%
+  \par\nopagebreak\vspace{6pt}%
+  \begin{center}\bfseries #2\end{center}%
+  \par\nopagebreak\vspace{12pt}%
+}
+
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\makeatletter
+\renewcommand{\tableofcontents}{%
+  \section*{СОДЕРЖАНИЕ}%
+  \@starttoc{toc}%
+}
+\makeatother
+\setlength{\cftbeforesecskip}{2pt}
+\setlength{\cftbeforesubsecskip}{1pt}
+
+\captionsetup{
+  font={normalsize,stretch=1},
+  labelformat=empty,
+  labelsep=none,
+  justification=centering,
+  singlelinecheck=false,
+  skip=6pt
+}
+\captionsetup[lstlisting]{
+  font={normalsize,stretch=1},
+  labelformat=simple,
+  labelsep=endash,
+  justification=raggedright,
+  singlelinecheck=false,
+  skip=6pt
+}
+
+\setlist[itemize]{label=\textemdash,leftmargin=1.25cm,itemsep=0pt,topsep=0pt,parsep=0pt}
+\setlist[enumerate]{leftmargin=1.25cm,itemsep=0pt,topsep=0pt,parsep=0pt}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  columns=fullflexible,
+  keepspaces=true,
+  frame=single,
+  framerule=0.4pt,
+  framesep=4pt,
+  captionpos=t,
+  rulecolor=\color{black},
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  aboveskip=6pt,
+  belowskip=6pt
+}
+\renewcommand{\lstlistingname}{Листинг}
+\RecustomVerbatimEnvironment{verbatim}{Verbatim}{
+  breaklines=true,
+  breakanywhere=true,
+  fontsize=\small,
+  frame=single,
+  framerule=0.4pt,
+  framesep=4pt
+}
+\renewcommand{\texttt}[1]{\textnormal{#1}}
+
+\sloppy
+\emergencystretch=2em
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\pagestyle{plain}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\newcommand{\VkrFigureFull}[1]{%
+  \adjustbox{max width=\linewidth,max totalheight=0.74\textheight,keepaspectratio,center}{#1}%
+}
+\newcommand{\VkrFigureInline}[1]{%
+  \adjustbox{max width=0.94\linewidth,max totalheight=0.55\textheight,keepaspectratio,center}{#1}%
+}
+\newcommand{\VkrFigureArchitecture}[1]{%
+  \adjustbox{max width=0.98\linewidth,max totalheight=0.74\textheight,keepaspectratio,center}{#1}%
+}
+\newcommand{\VkrFigureTurnCycle}[1]{%
+  \adjustbox{max width=0.98\linewidth,max totalheight=0.76\textheight,keepaspectratio,center}{#1}%
+}
+\newcommand{\VkrFigureStagePolicy}[1]{%
+  \adjustbox{max width=0.98\linewidth,max totalheight=0.65\textheight,keepaspectratio,center}{#1}%
+}
+\newcommand{\VkrFigureExperimentDesign}[1]{%
+  \adjustbox{max width=0.98\linewidth,max totalheight=0.60\textheight,keepaspectratio,center}{#1}%
+}
+\newcommand{\VkrFigureTall}[1]{%
+  \adjustbox{max width=0.88\linewidth,max totalheight=0.50\textheight,keepaspectratio,center}{#1}%
+}
+\newcommand{\VkrFigureVertical}[1]{%
+  \adjustbox{max width=0.88\linewidth,max totalheight=0.56\textheight,keepaspectratio,center}{#1}%
+}
+\newcommand{\VkrFigureCompact}[1]{%
+  \adjustbox{max width=0.92\linewidth,max totalheight=0.48\textheight,keepaspectratio,center}{#1}%
+}
+\newcommand{\VkrFigureWideCompact}[1]{%
+  \adjustbox{max width=0.88\linewidth,max totalheight=0.38\textheight,keepaspectratio,center}{#1}%
+}
+\providecommand{\pandocbounded}[1]{\VkrFigureFull{#1}}
+\providecommand{\passthrough}[1]{#1}
+\newcounter{none}
+
+\setlength{\LTpre}{0pt}
+\setlength{\LTpost}{6pt}
+\setlength{\tabcolsep}{3.5pt}
+\setlength{\extrarowheight}{2pt}
+\renewcommand{\arraystretch}{1.22}
+\AtBeginEnvironment{longtable}{\small\singlespacing}
+
+\newcommand{\VkrTableCaption}[1]{%
+  \Needspace{0.44\textheight}%
+  \par\smallskip
+  {\singlespacing\noindent #1\par}%
+  \vspace{2pt}%
+}

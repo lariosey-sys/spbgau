@@ -1,0 +1,220 @@
+
+
+--- page 1 ---
+Academic Editor: José Miguel Molina
+Martínez
+Received: 9 April 2026
+Revised: 5 May 2026
+Accepted: 6 May 2026
+Published: 13 May 2026
+Copyright: © 2026 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed under the terms and
+conditions of the Creative Commons
+Attribution (CC BY) license.
+Review
+Clean and Smart Energy Technologies for Agricultural Energy
+Internet Systems: A Comprehensive Review and
+Future Perspectives
+Yuxin Wu and Xueqian Fu *
+College of Information and Electrical Engineering, China Agricultural University, Beijing 100083, China;
+2023308130612@cau.edu.cn
+* Correspondence: fuxueqian@cau.edu.cn
+Abstract
+The Agricultural Energy Internet (AEI) represents an emerging systemic paradigm driven
+by the convergence of intelligent agriculture and rural energy transformation. It is not a
+simple extension of agricultural informatization or rural electrification; rather, it redefines
+agricultural processes—such as irrigation, greenhouse environmental control, supplemen-
+tary lighting, cold-chain logistics, and agricultural machinery—as perceptible, computable,
+and schedulable energy-related processes, thereby enabling the deep integration of agricul-
+ture, energy, environmental management, and intelligent decision-making. This review
+systematically examines the evolutionary trajectory of AEI, from early agricultural digi-
+talization and Internet of Things (IoT)-based monitoring to edge intelligence and digital
+twin technologies, and ultimately to the coordinated optimization of agriculture–energy–
+environment systems. A comprehensive technical framework is established, encompassing
+physical energy coupling, multi-source sensing and actuation, interconnection and in-
+teroperability, edge–cloud collaborative control, data governance, digital twin modeling,
+artificial intelligence-enabled optimization, and application-oriented decision-making. The
+review further highlights that high-quality data governance, edge–cloud collaboration, and
+digital twin calibration are critical enablers of the transition from visualization-oriented
+management to closed-loop intelligent operation. In addition, this study clarifies the com-
+plementary relationship between agricultural informatization and electrification: the former
+provides capabilities for perception, prediction, optimization, and coordination, whereas
+the latter provides a controllable execution chain. Together, they constitute the foundation
+of a cyber-physical agricultural energy system. Finally, frontier research directions are
+identified, including high-temperature solid oxide electrolysis for hydrogen production,
+edge AI–IoT-enabled closed-loop agricultural operation, and privacy, security, and trust
+mechanisms in federated edge intelligence. The findings suggest that AEI can serve as a
+strategic technological framework for supporting the next generation of smart agriculture
+toward low-carbon, resilient, and collaborative operation.
+Keywords: Agricultural Energy Internet; smart agriculture; agricultural electrification;
+collaborative optimization; artificial intelligence
+1. Background and Policy Context
+1.1. Global Context
+Over the past few years, intelligent agriculture has served as a critical approach to
+tackling issues surrounding food security, the sustainable growth of agriculture, and climate
+Appl. Sci. 2026, 16, 4859 https://doi.org/10.3390/app16104859
+
+
+--- page 2 ---
+Appl. Sci. 2026, 16, 4859 2 of 47
+change. According to data from the United Nations Food and Agriculture Organization
+(FAO), the global smart agriculture market is expected to witness a compound annual
+growth rate (CAGR) of over 15% during the 2021–2024 period, and in major agricultural
+nations, the adoption rates of technologies like the IoT, AI, and precision irrigation have
+risen from 12% to 27% [1]. The core objective of smart agriculture is to optimize resource
+allocation, reduce environmental impacts, and ensure food supply under global population
+growth through digital technologies. The Organisation for Economic Co-operation and
+Development (OECD) emphasized in a 2024 report that intelligent agricultural technologies
+can improve grain production efficiency by 20–30% while reducing fertilizer and water
+consumption by 15–25%, making them key drivers of agricultural transformation [2].
+Developed countries in Europe and America have rolled out a series of smart agricul-
+ture policies to accelerate technological innovation and large-scale implementation. The
+European Commission updated its digital agriculture strategy in 2023 and set a goal to
+connect 80% of farms in EU Member States to the digital agriculture service platform by
+2025. The strategy gives priority to precision agriculture, intelligent animal husbandry,
+and a data sharing system, and provides 7.2 billion euros of special funds for R&D and
+farmer training [3]. Back in 2024, the United States Department of Agriculture (USDA)
+rolled out a dedicated program targeting technological innovation and precision agriculture
+applications across the agricultural sector. They invested USD 5 billion to deploy Internet of
+Things devices on farms, develop artificial intelligence models, and realize cross-state data
+sharing. Their goal is to achieve 90% coverage of precision agriculture in major corn and
+soybean production areas by 2026 [4]. In 2022, Germany’s Federal Ministry of Food and
+Agriculture introduced the Smart Agriculture 2030 initiative, focusing on sensor networks,
+autonomous agricultural machinery [ 5], and carbon footprint monitoring technologies,
+while encouraging SMEs to participate through tax incentives and subsidies.
+Clean and efficient use of agricultural energy is the cornerstone of agricultural policies
+in the United States and Europe. The European Union unveiled its “Rural Renewable
+Energy Action Plan” in 2024, integrating agricultural energy transition into the framework
+of the “European Green Deal” and setting a target for renewable energy to account for
+50% of agricultural energy consumption by 2030. The plan prioritizes supporting farm
+photovoltaic (PV) power stations, biomass energy utilization, and smart microgrids, while
+offering 30% investment subsidies for rural distributed PV projects [6]. The U.S. Inflation
+Reduction Act of 2023 allocated $3.5 billion specifically for agricultural energy transition,
+including subsidies for purchasing clean energy equipment on farms, tax credits for re-
+newable energy generation, and rural grid upgrades, encouraging farmers to adopt PV
+energy storage systems for energy self-sufficiency [ 7]. In 2023, the UK Department of
+Energy launched the “Rural Clean Energy Plan”, investing £2 billion to support wind and
+PV projects in agricultural parks and promote flexible interconnection between agricultural
+energy systems and the main grid [8], with the aim to achieve 80% clean energy coverage
+in rural areas by 2025.
+Currently, the advancement of intelligent agriculture in China has moved into the
+stage of extensive promotion and nationwide deployment, becoming a core pillar of rural
+revitalization and agricultural modernization. Data from the Ministry of Agriculture
+and Rural Affairs (MARA) shows that the total investment in China’s smart agriculture
+sector topped 120 billion yuan over the 2022–2024 period. Emerging technologies like the
+Internet of Things, big data, and AI have been fully incorporated into the entire lifecycle
+of staple crops, including wheat, rice, and maize, spanning sowing [9], cultivation, field
+management, and crop harvesting.
+To date, China has established 100 national smart agriculture demonstration bases,
+with precision sowing, smart irrigation, and green pest control technologies covering over
+https://doi.org/10.3390/app16104859
+
+
+--- page 3 ---
+Appl. Sci. 2026, 16, 4859 3 of 47
+40% of major production areas. As rural digitalization continues to deepen, the integration
+of agricultural data resources is accelerating, and infrastructure such as the National
+Agricultural Product Quality and Safety Traceability Platform and the Agricultural and
+Rural Big Data Center is being progressively improved [9], providing robust support for
+the large-scale development of smart agriculture.
+Recently, China has introduced a range of major policies aimed at establishing an insti-
+tutional guarantee system for smart agriculture’s development. In 2023, six departments
+including the Ministry of Agriculture and Rural Affairs and the Ministry of Industry and
+Information Technology (MIIT) jointly promulgated the “Smart Agriculture Development
+Action Plan (2023–2025)”, which explicitly proposed to build 500 smart agriculture demon-
+stration counties by 2025, cultivate more than 100 leading enterprises in smart agriculture,
+achieve a 30% digitalization rate across the entire production process of staple crops, and
+focus on supporting breakthroughs and industrialization of core technologies such as
+agricultural sensors [10], agricultural big data models, and Smart Agricultural machinery.
+The 2024 Central Document No. 1 emphasized “accelerating smart agriculture devel-
+opment and advancing agricultural digital transformation”, proposing the establishment of
+a national agricultural data resource system and the extensive application of technologies,
+including satellite remote sensing and unmanned aerial vehicle observation, to elevate
+agricultural operational efficiency [11]. Additionally, the 2023 Digital Rural Development
+Guidelines were released by the National Rural Revitalization Administration (NRRA).
+This policy regards smart agriculture as a core element of digital rural development. It
+also encourages the construction of digital agricultural service stations in rural regions [12].
+These measures aim to enhance farmers’ digital application skills.
+The transition of agricultural energy is an important starting point for China’s rural
+energy revolution and green agricultural development, with relevant policies mainly
+focusing on clean energy substitution and efficient utilization. Released in 2024, the
+2024–2027 Implementation Plan for Rural Energy Revitalization was officially promulgated
+by the National Development and Reform Commission (NDRC) together with the National
+Energy Administration (NEA) in a joint effort. The plan clearly sets a target for 2027. By
+that year [13], the share of renewable energy consumption in rural regions is projected to
+reach 25 percent.
+Key priorities of this scheme include county-scale distributed PV expansion, integrated
+exploitation of rural biomass energy, and intelligent microgrid development in agricultural
+parks, alongside kWh subsidies for rural PV and energy storage constructions. The National
+Energy Administration jointly initiated the Rural Energy Comprehensive Demonstration
+Project with the Ministry of Agriculture and Rural Affairs in 2023. The project promoted
+technologies such as PV-equipped greenhouses, livestock manure biogas production, and
+agricultural machinery electrification in 200 counties across the country. Up to now, more
+than 300,000 rural distributed PV projects have been established [14]. Their total installed
+capacity has exceeded 150 million kilowatts.
+In 2022, the NEA released the document “Guidance on Accelerating the Transforma-
+tion and Development of Rural Energy”. The document explicitly supports clean energy
+alternatives for agricultural production. It also encourages integrated models [ 14], such
+as agricultural PV and wind-power complementarity. In addition, it promotes the deep
+integration of rural energy systems with agricultural production.
+Globally, smart agriculture has become a core direction of agricultural transformation.
+Countries around the world have promoted their development through policy guidance,
+capital investment, and technological innovation, while the clean and efficient utilization
+of agricultural energy has become an important supporting trend. Keeping pace with
+international developments, China has advanced smart agriculture in light of its own agri-
+https://doi.org/10.3390/app16104859
+
+
+--- page 4 ---
+Appl. Sci. 2026, 16, 4859 4 of 47
+cultural conditions. By improving policy systems, building demonstration platforms, and
+strengthening key technological breakthroughs, China has achieved an organic integration
+of large-scale promotion and localized innovation. In the future, deeper technological
+exchange and sustained policy support will further integrate smart agriculture with agricul-
+tural energy transition, laying a stronger foundation for global agricultural sustainability
+and China’s rural revitalization.
+1.2. Review Methodology and Analytical Criteria
+To improve the transparency of the research methodology, this review divides the
+literature review process into four consecutive stages: literature identification, preliminary
+screening, eligibility assessment, and analytical coding. The academic databases used
+for formal retrieval include the Web of Science Core Collection, Scopus, IEEE Xplore,
+ScienceDirect, and SpringerLink. Google Scholar is only adopted for forward and backward
+citation tracking, as well as the supplementary retrieval of early basic research. In addition,
+this paper cites authoritative policy documents and statistical reports released by the
+Food and Agriculture Organization, the Organisation for Economic Co-Operation and
+Development, the European Commission, the United States Department of Agriculture,
+the Ministry of Agriculture and Rural Affairs, the National Development and Reform
+Commission, and the National Energy Administration. These materials are only used as
+background references and not included in the core technical evidence. Within the scope of
+database functions, the retrieval covers titles, abstracts, and keywords. A total of more than
+170 literature records were obtained through initial retrieval and citation tracking. After
+deduplication, title and abstract screening, and full-text eligibility assessment, 143 studies
+were finally retained as the core technical literature, with policy documents supplemented
+as contextual background materials.
+The final formal database retrieval and citation-tracking update were completed on
+30 April 2026. For reproducibility, the core Boolean search strings were applied to titles,
+abstracts, and keywords where supported by each database:
+(S1) (“Agricultural Energy Internet” OR “rural energy internet” OR “agricultural
+energy system” OR “farm energy system”) AND (“smart agriculture” OR “precision
+agriculture” OR “agricultural IoT” OR “digital agriculture”).
+(S2) (“agricultural electrification” OR “electric agricultural machinery” OR “green-
+house load” OR irrigation OR “cold chain”) AND (photovoltaic OR renewable OR micro-
+grid OR “energy storage” OR “demand response”).
+(S3) (“agricultural digital twin” OR “edge computing” OR “edge intelligence” OR
+“AIoT” OR “closed-loop control”) AND (greenhouse OR irrigation OR livestock OR farm).
+(S4) (“agricultural microgrid” OR “rural microgrid” OR “carbon-constrained dispatch”
+OR “virtual power plant”) AND (agriculture OR greenhouse OR irrigation OR rural). Equiv-
+alent syntax adjustments were made only when a database required different wildcard or
+quotation rules, while the logical meaning of each query was kept unchanged.
+The extraction of key research findings in Section 2 adopts a standardized coding pro-
+cedure. After removing duplicate literature, titles, and abstracts are screened according to
+three inclusion criteria: direct relevance to agricultural energy systems or smart agriculture,
+clear technical content rather than simple policy comments, and interpretable research
+contributions to system architecture, control strategies, energy utilization, or data-driven
+decision-making. Subsequently, literature is sorted and coded from multiple dimensions,
+including application scenarios, energy/resource types, agricultural production links, re-
+search target issues, research methods, evaluation indicators, main research findings, and
+research limitations. The comparative descriptions in Tables 1–3 and the comprehensive
+https://doi.org/10.3390/app16104859

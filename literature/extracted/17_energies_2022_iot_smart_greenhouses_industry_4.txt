@@ -1,0 +1,245 @@
+
+
+--- page 1 ---
+ 
+ 
+  
+ 
+Energies 2022, 15, 3834. https://doi.org/10.3390/en15103834 www.mdpi.com/journal/energies 
+Review 
+Internet of Things Approaches for Monitoring and Control of 
+Smart Greenhouses in Industry 4.0 
+Chiara Bersani, Carmelina Ruggiero, Roberto Sacile, Abdellatif Soussi and Enrico Zero * 
+DIBRIS—Department of Informatics, Bioengineering, Robotics and Systems Engineering, University of Genoa, 
+16145 Genova, Italy; chiara.bersani@unige.it (C.B.); carmel@dibris.unige.it (C.R.); roberto.sacile@unige.it (R.S.); 
+s4420901@unige.it (A.S.) 
+* Correspondence: enrico.zero@dibris.unige.it 
+Abstract: In recent decades, climate change and a shortage of resources have brought about the need 
+for technology in agriculture. Farmers have been forced to use information and innovation in com-
+munication in order to enhance production efficiency and crop resilience. Systems engineering and 
+information infrastructure based on the Internet of Things (IoT) are the main novel approaches that 
+have generated growing interest. In agriculture, IoT solutions according to the challenges for Indus-
+try 4.0 can be applied to greenhouses. Greenhouses are protected environments in which best plant 
+growth can be achieved. IoT for smart greenhouses relates to sensors, devices, and information and 
+communication infrastructure for real-time monitoring and data collection and processing, in order 
+to efficiently control indoor parameters such as exposure to light, ventilation, humidity, tempera-
+ture, and carbon dioxide level. This paper presents the current state of the art in the IoT -based ap-
+plications to smart greenhouses, underlining benefits and opportunities of this technology in the 
+agriculture environment. 
+Keywords: Internet of Things (IoT); smart greenhouse; Industry 4.0 
+ 
+1. Industry 4.0 and System Engineering (SE) Applications for Precision Agriculture: 
+An Introduction 
+Currently, we are living in the Fourth Industrial Revolution, known as “Industry 
+4.0”, in which ICT -based production systems are requiring more and more integration 
+and agility [1], resulting in digital matching or even in digital twins on the Internet. SE 
+benefits from these new approaches in the design and analysis phases of the overall sys-
+tems to tackle their complex structures. 
+The digital twins architecture supports the co-optimization of the production sched-
+ule, energy consumption, and cost, considering significant factors and including produc-
+tion deadlines, quality grading, heating, artificial lighting, energy prices (gas and electric-
+ity), and weather forecasts [2]. This work gives a new approach to vertical integration and 
+optimization related to greenhouse production processes to improve energy efficiency, 
+production throughput, and productivity, taking into account product quality or sustain-
+ability. 
+I4.0 was introduced at the Hannover Fair in 2011 in Germany, following discussions 
+among representatives of industry, research, trade unions, and the state [3 –5]. The main 
+objective of this initiative was not to increase production automation, but to make pro-
+duction methods more intelligent through networking of machines and humans [6,7] . 
+I4.0 is defined [8] as an industrial policy aiming to gain and maintain a global com-
+petitive advantage in manufacturing companies. Because of investments by companies in 
+information technology, supply chain coordination, automation via cyber -physical sys-
+tems, embedded systems, and robotics, I4.0 is regarded as a solution for the future [9,10]. 
+Its objective is to respond to a change in consumers who request personalized products, 
+Citation: Bersani, C.; Ruggiero, C.; 
+Sacile, R.; Soussi, A.; Zero, E.  
+Internet of Things Approaches for 
+Monitoring and Control of Smart 
+Greenhouses in Industry 4.0. 
+Energies 2022, 15, 3834. https:// 
+doi.org/10.3390/en15103834 
+Academic Editors: Wen-Hsien Tsai 
+and Lorenzo Ricciardi Celsi 
+Received: 21 April 2022 
+Accepted: 19 May 2022 
+Published: 23 May 2022 
+Publisher’s Note:  MDPI stays 
+neutral with regard to jurisdictional 
+claims in published maps and 
+institutional affiliations. 
+ 
+Copyright: © 2022 by the author. Li-
+censee MDPI, Basel, Switzerland. 
+This article is an open access article 
+distributed under the terms and con-
+ditions of the Creative Commons At-
+tribution (CC BY) license (https://cre-
+ativecommons.org/licenses/by/4.0/). 
+
+
+
+--- page 2 ---
+Energies 2022, 15, 3834 2 of 30 
+ 
+ 
+forcing the industry to change its paradigms and practices and move toward personalized 
+mass production [11,12]. I4.0 is mainly applied in the previous literature to collect, share, 
+and analyze different types of data through network and data processing technologies, 
+thus supporting decision-making processes along the entire wood supply chain [13]. 
+The adoption of technological advances may lead to a significant transformation re-
+lating to the quality of products, reduced time, and lower production costs [14] . 
+Technological advances, such as massive data analysis algorithms [15,16] , IoT [17] , 
+and cloud comput ing [18], are more and more present in industrial companies and are 
+causing the emergence of new process control concepts, new service proposals, and new 
+products [19,20]. 
+System of Systems (SoS), Cyber-Physical Systems (CPS), Internet of Things (IoT), Ar-
+tificial Intelligence (AI), blockchain technology as well as big data analytics may be re-
+garded as the most important enabling technologies of I4.0 [21,22]. In these systems, tight 
+monitoring and synchronization of information from all related perspectives between 
+physical plants and cyberspace are achieved. Moreover, networked machines will be able 
+to operate more efficiently, resiliently, and collaboratively using advanced information 
+analytics. The added value of IoT application lies in improving connectivity (data, devices, 
+and connectivity related services) among horizontal and vertical services such as service 
+quality, service integration, telecommunication services and data management by cloud 
+technology. 
+I4.0, and specifically IoT, will affect a large  number of economy sectors [23]. Manu-
+facturing systems are allowed to establish real-time communication, as well as intelligent 
+decision making and human –machine interaction in manufacturing organizations by 
+monitoring physical processes and creating “digital twins” of physical entities [24,25]. 
+Currently, many sectors are already using IoT as a way to reduce costs and improve 
+productivity as far as the agricultural sector is concerned [26] . Agriculture is a key factor 
+for making human life sustainable for the whole world population. Agriculture allows us 
+to both feed the world and to employ more than 1.5 billion people around the world [27]. 
+In the context of agriculture, IoT technology represents a network of sensor systems that 
+record various indicators of climate, plant, and soil conditions: moisture, nutrition, tem-
+perature, pesticide level, etc. IoT-based use cases include precision agricu lture, irrigation 
+control, automated drones, field mapping, and, above all, smart greenhouses.  
+The agricultural sector has undergone a number of technological transformations 
+over the past few decades, becoming increasingly industrialized and technology driven 
+[28]. Furthermore, in this sector, IoT solutions take the form of devices connected to the 
+Internet to collect environmental and mechanical measurements [29]. Farmers, by using a 
+variety of smart agricultural tools, have gained more control over the breeding and grow-
+ing process, making it more predictable and improving its efficiency [30] . 
+IoT technologies have the potential to transform agriculture in many respects, such 
+as data collection about weather conditions and soil and crop quality [31] . Furthermore, 
+the ability to use these data to predict future parameters allows farmers to better plan 
+production management and the consequent distribution and sales [32] . 
+Connected objects may help to solve this problem by supporting farmers to produce 
+more efficiently [33,34] and in a more sustainable way [35]. 
+The IoT is increasingly spreading in this sector, and many innovations have already 
+been adopted, as shown in the following sections. Agriculture is one of the domains that 
+will be influenced by the IoT, and specifically agricultural greenhouses, which are the fo-
+cus of this paper. A greenhouse is a building intended to shelter crops of ornamental, 
+vegetable or fruit plants in more favorable or safer conditions than in the open air [36] . 
+This structure protects the plants by climate control, which obtains  optimal conditions of 
+growth or minimiz es photosynthesis, and also from  the greenhouse-effect phenomenon 
+which contributes to the good growth of the plant [37]. Currently, the technology trend is 
+to use wireless techniques such as IoT, which has been integrated into many fields. As a 
+result, tomorrow ’s agriculture will be automated , and agricultural production will be 
+
+
+--- page 3 ---
+Energies 2022, 15, 3834 3 of 30 
+ 
+ 
+based on the concept of intelligent agricultural greenhouses, which not only manage tem-
+perature, humidity, light, and watering, but also make control and access easier.  
+The installation of IoT infrastructure is capital-intensive and often translates to higher 
+energy demand, which elevates the risk for climate change. A new challenge, due to high 
+usage of IoT sensors and networks in the management of electronic waste, depletion of 
+finite resources, and destruction of fragile ecosystems resulting in climate change , has 
+been proposed [38]. 
+IoT system’s energy savings are to be interpreted as greenhouses consumption opti-
+mization. Recent research studies focus on these topics, for example, a novel optimization 
+system focused on obtaining a trade -off between energy consumption and expected cli-
+mate setting [39] . The proposed model has been tested in a  real case of study related to 
+fifteen days of data collected in South Korea. Another related study focused on the total 
+energy consumption and , as a consequence , to gas emission s in Turkey [40] . This work 
+showed how it is possible to keep the wheat yield constant following the optimal total  
+energy consumption. 
+This paper aims to present the literature on current technological and methodological 
+models and methods in IoT architecture for smart greenhouse applications, monitoring 
+and controlling the indoor microclimatic conditions of the greenhouse, such as indoor 
+temperature, CO
+2, humidity, soil quality, and crop types by water and energy- saving ap-
+proaches. The rest of the paper is organized as follows: Section 2 presents the IoT general 
+architecture for greenhouse applications, specifically as it relates to the aspects of commu-
+nication and sensors. The other sections are related to control and monitoring techniques 
+in relation to specific applications. Section 3 describes the techniques used to optimize 
+monitoring and control in the smart greenhouse. Section 4 describes the application of IoT 
+to indoor parameters such as monitoring and control of temperature, air humidity, light 
+intensity, soil features and internal or external wind speed. Section 5 describes  the appli-
+cation of IoT in indoor parameters such as monitoring and control focused on CO
+2 emis-
+sion. Section 6 discusses the IoT application regarding monitoring and controlling soil and 
+crop quality by water and energy -saving approaches. Section 7 discusses  the challenges 
+and limits of IoT, and Section 8 describes the research direction. 
+Although a great number of papers relate to the application of IoT in the agricultural 
+sector [41,42], few literature reviews have analyzed the application of IoT technolo gies 
+regarding smart agricultural greenhouses. It is intended to explore the current research 
+progress and future challenges of IoT technologies for smart greenhouses and to provide 
+a reference for researchers to solve current challenges. 
+Generally, multisensor network technology has been applied to smart greenhouses 
+[43]. Thus, the intelligent greenhouse monitoring system has been reviewed according to 
+three different subsystems [44]: the monitoring subsystem for environmental perception, 
+the information processing subsystem, and the communication subsystem, while the clas-
+sification based on the sensor system and communication network has been tested in [45]. 
+The microcontrollers and wireless connections mostly used in greenhouse automation 
+have been considered [46], while IoT for crop disease detection has been addressed [47]. 
+A greenhouse is a protected structure that may be covered with different kinds of 
+materials and aims to  adjust the climatic growing conditions to better manage the needs 
+of the plants  in order to increase the yields of the crops and to reduce production costs 
+[48]. 
+Our approach regarding the research paper selection is based on the main important 
+parameters that are monitored and controlled in the specific context of greenhouse culti-
+vation, which is microclimate indoor condition, CO 2 level, and soil and crop quality by 
+energy and water saving approaches [49–54]. Moreover, as it relates to the literature, this 
+review does not only list the type of available IoT solutions, it also introduces papers that 
+highlight approaches in terms of adopted IoT technologies. The methodologies, control 
+techniques and optimization models that have been used to improve the quality in 
+
+
+--- page 4 ---
+Energies 2022, 15, 3834 4 of 30 
+ 
+ 
+monitoring and control for smart greenhouse are presented, comparing them in terms of 
+performance. 
+This work presents a systematic literature review approach using three major data-
+bases, which are Google Scholar, IEEE Explore, and Scopus, for the period 2010–2021. The 
+searching paper criteria is based on the TAK approach [55], according to the keyword s 
+“greenhouse”, “IoT”, and “Internet of things”. Another set of papers was further consid-
+ered by searching for the keywords “monitor” and “control”. Within the results, in Google 
+Scholar, 461 papers were found; in Scopus, 124 papers; and in IEEE Explore , 90 papers. 
+The matching of the scientific articles was carried out according to the specific context of 
+greenhouses, excluding papers related to general agriculture or to  other applications not 
+relevant for this review. Finally, 95 citations classified into the different categories, con-
+centrated in the last 11 years, were selected. In this list, papers published between the 
+2020–2021 comprise 32%, while 53% papers are dated in the period 2015–2019. 
+2. IOT Architectures for Greenhouse Applications 
+IoT is a technological revolution in computing and communication that has mobi-
+lized the industry in recent years [56]. IoT is defined as a global network of interconnected 
+services and intelligent objects of all kinds that are designed to support humans in daily 
+life activities through sensing, computing, and communication capabilities [57,58] . 
+The ability to observe the physical world and provide information for decision mak-
+ing will be a fundamental architectural part of the Internet of the future [59,60] . These 
+objects must work in a system that is beyond enterprise boundaries , which is the digital 
+world [61]. IoT includes a great variety of devices a nd integrates sensors and actuators. 
+These sensors and actuators are the key elements of IoT [62]. They follow the state of their 
+environment and obtain information on different physical variables, e.g. , temperature, 
+movement, position [63], and forming a complex network [64], and they are generally 
+composed of a potentially large number of nodes [65]. 
+Sensors collect information present in the environment to enrich the functionalities 
+of devices [66]. They are becoming smaller and smaller and are therefore more easily in-
+tegrated into objects [34]. Seventy-five billion IoT devices will be connected to the Internet 
+by 2025 [27]. 
+IoT relates to the network, data and new services [67] and relates to various technical 
+solutions, RFID, TCP/IP, mobile technologies, etc. that identify objects and capture, store, 
+process, and transfer data in physical environments and between physical contexts and 
+virtual worlds [68,69]. 
+IoT is composed of a heterogeneous set of networks that support the communication 
+of these objects [70]. LPWA networks are emerging, with LoRa and SIGFOX in particular 
+[71]. These are long -range, low-speed networks that are entirely dedicated to communi-
+cations between objects. Other technologies are also used, such as Narrow Band or LTE-
+m [72]. Figure 1 shows an IoT architecture diagram for greenhouse applications in smart 
+agriculture. 

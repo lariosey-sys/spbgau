@@ -1,0 +1,230 @@
+
+
+--- page 1 ---
+Academic Editors: Paweł Czy˙zewski,
+Hao Shi and Mohammad Alnajideen
+Received: 9 June 2025
+Revised: 19 October 2025
+Accepted: 24 October 2025
+Published: 4 November 2025
+Citation: Aborujilah, A.; Al-
+Sarem, M.; Abu-Zanona, M.A.
+Forecast-Driven Climate Control for
+Smart Greenhouses: Energy
+Optimization Using LSTM Model.
+Energies 2025, 18, 5821. https://
+doi.org/10.3390/en18215821
+Copyright: © 2025 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed under the terms and
+conditions of the Creative Commons
+Attribution (CC BY) license
+(https://creativecommons.org/
+licenses/by/4.0/).
+Article
+Forecast-Driven Climate Control for Smart Greenhouses: Energy
+Optimization Using LSTM Model
+Abdulaziz Aborujilah 1
+ , Mohammed Al-Sarem 2,3, *
+ and Marwan Alabed Abu-Zanona 4,*
+1 Department of Management Information System, College of Commerce & Business Administration,
+Dhofar University, Salalah 211, Oman; aaborujilah@du.edu.om
+2 College of Computer Science and Engineering, Taibah University, Medina 41477, Saudi Arabia
+3 Energy, Industry, and Advanced Technologies Research Center, Taibah University,
+Madinah 41477, Saudi Arabia
+4 Department of Management Information Systems, King Faisal University, Al-Ahsa 31982, Saudi Arabia
+* Correspondence: msarem@taibahu.edu.sa (M.A.-S.); mabozanoneh@kfu.edu.sa (M.A.A.-Z.)
+Abstract
+Greenhouses play a vital role in modern agriculture by providing controlled environments
+for year-round crop production. However, climate regulation within these structures
+accounts for a significant portion of their energy consumption, often exceeding 50% of
+operational costs. Current greenhouse systems predominantly rely on reactive control
+strategies, leading to energy inefficiency and unstable internal conditions. Addressing this
+gap, the present study develops a machine learning-based framework that leverages time
+series forecasting models—specifically Long Short-Term Memory (LSTM)—that predict
+key climate parameters and generate optimal actuator control recommendations. The
+system utilizes multivariate environmental data to forecast temperature, humidity, and
+CO2 levels and minimize a composite energy proxy through proactive adjustments to heat-
+ing, ventilation, and lighting systems. Experimental results demonstrate high prediction
+accuracy (R2 = 0.9835) and significant improvements in energy efficiency. By integrating
+predictive analytics with real-time sensor feedback, the proposed approach supports intelli-
+gent, energy-aware decision-making and advances the development of smart agriculture
+through proactive greenhouse climate management.
+Keywords: smart greenhouse; climate control optimization; time series forecasting;
+machine learning; LSTM neural networks; energy-efficient agriculture
+1. Introduction
+In modern agriculture, greenhouses are very useful as they offer controlled conditions
+for plant growth and increase productivity. They provide proper temperatures, humidity,
+light, and CO2 levels for plant growth [1–3]. This enables cropping throughout the year
+irrespective of the outside weather [3]. Additionally, greenhouses protect crops from ad-
+verse climatic events, leading to improved crop quality and enhanced production [ 4,5].
+Within greenhouses, climate control plays a decisive role in optimizing growth, improving
+yield, and maintaining high standards of quality, along with auguring greater techno-
+logical integration. The importance of maintaining optimal temperature is critical since
+different crops have distinct thermal requirements during various growth phases [4]. In
+addition, the incorporation of renewable solar and geothermal energy systems enhances
+the energy performance and lowers operational expenditure [ 6,7]. Controlling humid-
+ity is crucial for disease control [4,8], maintaining transpiration, and nutrient absorption
+Energies 2025, 18, 5821 https://doi.org/10.3390/en18215821
+
+
+--- page 2 ---
+Energies 2025, 18, 5821 2 of 20
+essential to plant health [ 9]. Elevated CO 2 concentrations also increase photosynthesis
+and productivity [4,10], and automated systems can economize CO 2 in relation to yield
+profits [4]. Artificial lighting facilitates off-season production [ 11,12], and cost-effective
+lighting aids in energy conservation [13,14]. Greenhouses have integrated advanced sen-
+sors and real-data monitoring which enable access to automated integrated climate control
+systems [4,6]. These systems use refined algorithms such as neural networks, fuzzy logic,
+and predictive control for customizable, accurate regulation [6,15]. All these advancements
+reduce the amount of energy consumed, resources used, and overall negative impact
+on the environment which, in turn, promotes economic productivity and environmental
+health [4,6,13,16,17]. Furthermore, these innovations facilitate the adoption of climate-
+resilient agricultural systems [6,13]. Although these technologies offer multiple benefits,
+the current control systems in greenhouses heavily rely on reactive strategies, which result
+in enormous energy losses and inadequate conditions for plant development. Greenhouses
+have high energy consumption, especially those designed for off-season cultivation. Heat-
+ing, cooling, and lighting systems can account for up to 50% of total production costs [18,19].
+Increased operational costs occur due to fossil fuel dependency, the emission of greenhouse
+gases, and climate change [13,20]. One of the major inefficiencies of ventilation-induced
+heat loss can be solved with more modern techniques, such as air handling units, borehole
+thermal storage, and heat pumps [21]. Other technologies such as phase change materi-
+als (PCMs) have also proven to be effective by lowering gas consumption by 23.7% [6,7].
+Internal environments in a house that are maintained by reactive control strategies tend
+to fail, which is harmful to plant growth. Uncontrolled temperature and moisture levels
+in plastic-covered structures are particularly bad examples and lead to crop loss due to
+overheating or cold stress, which has been observed in cucumber production [22–24]. The
+variation in microclimate conditions within greenhouse zones also impacts the uniformity
+and consistency of plant growth and yield. Solving such issues requires deploying real-
+time monitoring advanced sensor networks on a wider scale [ 23,25]. Lighting presents
+challenges too; dynamic lighting systems have the ability to reduce energy use by up to
+20% without affecting yield [ 26]. However, passive greenhouses with inadequate light-
+ing are likely to experience stunted growth unless supplemented with treatments like
+sucrose application [27].
+Innovative optimal climate control strategies must be adopted to facilitate efficient
+and sustainable greenhouse systems. New techniques offer great potential. For exam-
+ple, some HVAC systems like rooftop greenhouses can reclaim heat energy from other
+buildings [28]. Solar, geothermal, and wind energy are renewable options that reduce
+fossil fuel dependence, and semi-transparent photovoltaics support light transmission as
+well as electricity generation [19]. Further, the sustainability of Closed-loop systems that
+recycle organic waste and drainage water is enhanced by the creation of renewable energy
+and organic fertilizers [5,29]. Sustainability in greenhouse farming is achieved with the
+combination of Internet of Things (IoT) and Machine Learning (ML) technologies that
+enable autonomous and preemptive decisions to be made based on real-time data. Crop
+yields, alongside resource use and productivity, are enhanced by the proactive, data-driven
+decision-making these technologies provide. Real-time data is critical during the grow-
+ing season, and IoT devices can capture temperature, humidity, soil moisture, and light
+intensity [30–33]. Moreover, these sensors are usually bundled with actuators that regulate
+irrigation, lighting, and ventilation to adjust to the requirements of the plant and maintain
+a stable microclimate [ 30,31,33–35]. The automation of these processes helps with the
+management of greenhouses because IoT platforms allow remote access and farmers can
+oversee and manage the systems from anywhere using web interfaces [30,31,33,35,36]. In
+addition to monitoring, ML has a major impact on predictive analytics. ML models predict
+
+
+--- page 3 ---
+Energies 2025, 18, 5821 3 of 20
+growth, foresee disease outbreaks, and detect pest infestations utilizing data from IoT
+devices, permitting timely intervention [32,37–40]. Such models further analyze historical
+and real-time data to track water, nutrient, and energy use to maximize efficiency and
+minimize wastage [3,4,8–12]. ML decision-support systems provide relevant information
+for crop management, irrigation scheduling, and pest management [35,38]. These improve-
+ments allow the achievement of optimal environmental conditions for the plants at any
+time, as well as risk minimization and enhanced productivity, while ensuring a smaller
+ecological footprint [32,38,39,41]. Minimizing labor and resource waste drives down opera-
+tional costs [37–39,41]. There are still unanswered questions, to be sure. Data privacy and
+security and expanding the IoT and ML infrastructure, as well as other concerns related to
+the integration of data, computation limits, complexity, and transparency of the models
+need attention [32,34]. Realizing the advantages of these technologies also requires one to
+adequately train the farmers and devise adoption strategies [32,34]. This study proposes
+a Clean Energy Smart Grid (CESG) design integrating demand response, energy storage,
+and forecasting to address renewable energy intermittency. A nested sizing framework
+is introduced, combining hourly optimal operation and annual optimal sizing for cost-
+effective, reliable system design. To overcome computational limits, the study replaces the
+inner Lotus Effect Algorithm (LEA) with a trained Artificial Neural Network (ANN), main-
+taining accuracy with a 98.92% time reduction. Results show demand response reduces
+costs by 28%, and the hybrid ANN-LEA approach accelerates convergence time by 43%,
+enhancing scalability and efficiency [42]. This review explores how artificial intelligence
+(AI) is transforming energy management in renewable-integrated smart grids by enhancing
+forecasting, fault detection, and control. It highlights advancements in machine learning
+and deep learning for grid observability, anomaly detection, and multi-agent optimization
+of energy dispatch and microgrids. Key barriers such as data sparsity, model transparency,
+and standardization are discussed, alongside emerging solutions like explainable AI and
+quantum-enhanced computing.
+The study concludes that integrating AI with digital infrastructure and policy reform
+is essential for enabling intelligent, resilient, and low-carbon power systems [ 43]. This
+study analyzes solar energy forecasting in the U.S. using AI-based time-series models,
+focusing on Random Forest and XGBoost for predictive accuracy.
+Both models demonstrated high reliability across hourly and daily datasets from
+major solar regions, enabling dynamic grid and storage management. Findings support
+the integration of AI forecasting in real-time dispatch, load planning, and policy-making
+to support decarbonization goals. Future research should explore hybrid deep learning
+models (LSTM, CNN-LSTM) and storage integration for enhanced accuracy and smart
+microgrid deployment [44]. This review examines the influence of uncertain factors on long-
+term energy system optimization models, essential for planning future energy transitions.
+Uncertainties are categorized into policy, economic, and technical domains, with a focus on
+carbon reduction and energy transformation challenges. The paper summarizes existing
+modeling approaches used to address these uncertainties in system evolution and planning.
+It concludes by highlighting key uncertainty factors and recommending future research
+directions for robust energy system modeling [ 45]. This study presents a web-based
+decision support tool for monitoring and upgrading HVAC systems using smart meter
+data. The tool enables real-time analysis of heating/cooling cycles, room-level efficiency,
+and retrofit energy-saving potential. Unlike traditional theoretical models, it adopts a
+data-driven, building-specific approach to optimize HVAC performance. A case study
+in Athens demonstrates its effectiveness in enhancing energy efficiency and supporting
+sustainable building practices [46]. The paper presents a novel approach for controlling
+the climate of autonomous greenhouses by implementing a predictive, energy-efficient
+
+
+--- page 4 ---
+Energies 2025, 18, 5821 4 of 20
+model using time-series machine learning techniques. The model achieves remarkable
+energy savings by preemptively adjusting control device (actuators) settings to optimal
+levels within the greenhouse based on its prediction for the temperature, humidity, and
+CO2 equilibrium surge values. This self-sufficient, intelligent system fosters sustainability
+and greater crop yields through improved data analysis.
+Review
+Researchers have proposed advanced techniques that combine Machine Learning
+(ML), optimization, and IoT to facilitate the accurate prediction of critical climate variables
+and the control of greenhouse actuators. LSTM-based models offer predictive capabilities
+on the environment’s sequential data loading, and climate forecasting using LSTM algo-
+rithms placed on IoT devices aids in making energy-conscious decisions [47]. In addition,
+temperature and humidity predictions have been made with great accuracy and minimal
+error using LSTM with Support Vector Machine (SVM) hybrids [ 48]. For more precise
+CO2 predictions, some models use multi-model fusion methods with wavelet denoising,
+variational mode decomposition, and LSTMs, which successfully reduce noise in time-
+series data using feature extraction methods [ 49]. Forecasting of internal temperature
+and relative humidity has also successfully been performed using Adaptive Neuro-Fuzzy
+Inference System (ANFIS) models [50]. In climate management, optimization algorithms
+are instrumental on the control side. Using fuzzy logic modules, Differential Evolution
+(DE) can reduce energy consumption by 36% while optimizing climate parameters (1).
+Also, the combination of Convolutional Neural Networks (CNNs), LSTM with MPC, and
+other features have shown improvement concerning responsiveness, accuracy, and control
+within the temperature, humidity, and CO2 control dimensions [51]. The impact of uncer-
+tain weather forecast monitoring is alleviated with robust data-driven MPC frameworks
+by retaining internal conditions through the use of dynamic models and optimization
+routines coupled with internal model control [52]. Using global optimization techniques
+like interpolation control and surrogate-based modeling techniques, dynamic setpoints
+are achieved, resulting in 27% energy savings and a 25% improvement in crop yield [53].
+Superiority in multi-objective optimization enhances the tuning of PID controller setpoints
+in parallel with energy efficiency using Genetic Algorithms and RBFNN. As a result, over-
+shoot and rise time are countered while maintaining the desired balance [54]. Furthermore,
+proactive microclimate control is made possible by real-time monitoring via IoT systems,
+which provides dependable and near-instantaneous communication between sensors and
+actuators [47]. The inclusion of crop physiological data into the control systems allows for
+more accurate decisions to be made, thus optimizing the advancement of the plant and the
+effectiveness of the resources used [55]. The combined effect of these approaches allows
+smart greenhouses to be accurately advanced and optimally eco-regulated, improving the
+energy efficiency and sustainability of agriculture. Different methods have also been tried in
+the prediction of greenhouse climate forecasting using time series analysis with varying ad-
+vantages and disadvantages. Increasingly sophisticated models, notably LSTMs, continue
+to be used mainly because of their ability to capture intricate relationships over time, espe-
+cially for estimating the cooling demand, temperature, and humidity levels [40,48,56,57].
+These models perform exceptionally well, attaining RMSE values as low as 0.0766 and
+R2 scores peaking at 0.982 [48,56]. On the other hand, LSTMs face challenges related to
+high computational costs and extensive model optimization known as hyperparameter
+tuning [58]. On the other hand, temperature and evapotranspiration are often predicted
+using ARIMA models which are autoregressive chronologically integrated moving aver-
+ages with a linear approach, resulting in R2 values from 0.86 to 0.91 [59]. However, ARIMA
+models do not capture nonlinear trends well and are often highly customized in terms

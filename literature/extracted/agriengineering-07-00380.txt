@@ -1,0 +1,217 @@
+
+
+--- page 1 ---
+Academic Editor: Sotirios K. Goudos
+Received: 28 September 2025
+Revised: 31 October 2025
+Accepted: 4 November 2025
+Published: 10 November 2025
+Citation: Joni, I.M.; Maulana, D.W.;
+Faizal, F.; Mulyani, O.; Panatarani, C.;
+Rupiasih, N.N.; Widiatmoko, P .; Paad,
+K.M.; Viridi, S.; Anwar, A.; et al. Smart
+Farming Experiment: IoT-Enhanced
+Greenhouse Design for Rice
+Cultivation with Foliar and Soil
+Fertilization. AgriEngineering 2025, 7,
+380. https://doi.org/10.3390/
+agriengineering7110380
+Copyright: © 2025 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed under the terms and
+conditions of the Creative Commons
+Attribution (CC BY) license
+(https://creativecommons.org/
+licenses/by/4.0/).
+Article
+Smart Farming Experiment: IoT-Enhanced Greenhouse Design
+for Rice Cultivation with Foliar and Soil Fertilization
+I Made Joni 1,2, *
+ , Dwindra Wilham Maulana 1, Ferry Faizal 1,2
+ , Oviyanti Mulyani 3, Camellia Panatarani 1,2
+ ,
+Ni Nyoman Rupiasih 4
+ , Pramujo Widiatmoko 5, Khairunnisa Mohd Paad 6
+ , Sparisoma Viridi 7
+ ,
+Aswaldi Anwar 8, Mimien Hariyanti 8 and Ni Luh Watiniasih 9
+1 Functional Nanopowder Centre of Excellence (FiNder CoE), Universitas Padjadjaran, Jl. Raya
+Bandung–Sumedang Km 21, Jatinangor, Sumedang 45363, West Java, Indonesia;
+dwindra21001@mail.unpad.ac.id (D.W.M.); ferry.faizal@unpad.ac.id (F.F.);
+c.panatarani@phys.unpad.ac.id (C.P .)
+2 Department of Physics, Faculty of Mathematics and Natural Sciences, Universitas Padjadjaran, Jl. Raya
+Bandung–Sumedang Km 21, Jatinangor, Sumedang 45363, West Java, Indonesia
+3 Department of Soil Sciences, Faculty of Agriculture, Universitas Padjadjaran, Jl. Raya Bandung–Sumedang
+Km 21, Jatinangor, Sumedang 45363, West Java, Indonesia; oviyanti.mulyani@unpad.ac.id
+4 Department of Physics, Faculty of Mathematics and Natural Sciences, Udayana University, Jl. Raya Kampus
+Unud, Jimbaran, Kuta Selatan, Badung 80361, Bali, Indonesia; rupiasih@unud.ac.id
+5 Department of Chemical Engineering, Bandung Institute of Technology, Jl. Ganesha No. 10,
+Bandung 40132, West Java, Indonesia; pramujo@che.itb.ac.id
+6 Department of Chemical and Environmental Engineering (ChEE), Malaysia-Japan International Institute of
+Technology (MJIIT), Universiti Teknologi Malaysia Kuala Lumpur, 54100 Kuala Lumpur, Malaysia;
+khairunnisa.kl@utm.my
+7 Department of Physics, Institut Teknologi Bandung, Jl. Ganesha No. 10, Bandung 40132, West Java, Indonesia;
+viridi@itb.ac.id
+8 Department of Agroecotechnology, Faculty of Agriculture, Universitas Andalas, Jl. Lingkar Universitas
+Andalas, Limau Manis, Padang 25163, West Sumatra, Indonesia; aswaldianwar@agr.unand.ac.id (A.A.)
+9 Department of Biology, Faculty of Mathematics and Natural Sciences, Udayana University, Jl. Raya Kampus
+Unud, Jimbaran, Kuta Selatan, Badung 80361, Bali, Indonesia
+* Correspondence: imadejoni@phys.unpad.ac.id; Tel.: +62-812-7292-4155
+Abstract
+This study introduces an IoT-enabled smart greenhouse system tailored for rice cultiva-
+tion and designed as a controlled experimental platform to evaluate fertilizer application
+methods. Traditional greenhouse farming often struggles with unpredictable weather, pest
+infestations, and inefficient resource use. To overcome these challenges, the proposed
+system optimizes environmental conditions and enables precise monitoring and control
+through the Thingsboard IoT platform, which tracks temperature, humidity, and sunlight
+intensity in real time. The cultivation process involved Inceptisol soil preparation, slurrying,
+fertilization, seeding, transplantation, and continuous monitoring. The novelty lies in its
+dual-purpose design, enabling both cultivation and structured agronomic experimentation
+under identical environmental conditions. The system enables both rice cultivation and
+comparative testing of nano-silica fertilizer applied via root (soil) and foliar (leaf) meth-
+ods. Automated temperature control (maintaining 20–36.5 ◦C) and humidity regulation
+(10–85% RH) with a mist blower response time under 5 s ensured consistent conditions.
+Sensor accuracy was validated with deviations of 0.4% (±0.11 ◦C) and 0.77% (±0.5% RH).
+Compared to conventional setups, this system achieved superior environmental stability
+and control precision, improving experimental reproducibility. Its integration potential
+with machine learning models opens new possibilities for forecasting plant responses based
+on historical data. Overall, the study demonstrates how advanced technology can enhance
+agricultural precision, sustainability, and research reliability.
+AgriEngineering 2025, 7, 380 https://doi.org/10.3390/agriengineering7110380
+
+
+--- page 2 ---
+AgriEngineering 2025, 7, 380 2 of 20
+Keywords: IoT-enabled greenhouse; rice cultivation; smart farming; environmental
+monitoring; precision agriculture
+1. Introduction
+Global demand for rice has continued to rise in recent years, prompting the need
+for innovations in agricultural practices to ensure sustainable and efficient production.
+Traditional rice cultivation is challenged by unpredictable weather, pest infestations, and
+limited resource availability, all of which can adversely affect crop yield and quality. To
+overcome these limitations, the integration of technology into agriculture, particularly
+through smart farming systems, has emerged as a promising solution. Smart farming
+leverages Internet of Things (IoT) technology, automation, and data analytics to enhance
+agricultural efficiency, optimize resource management, and improve crop productivity [1,2].
+Recent developments in smart farming systems have introduced advanced sensor
+technologies, automated control mechanisms, and real-time data processing capabilities [3].
+IoT-enabled greenhouses are specifically designed to monitor and regulate environmental
+parameters such as temperature, humidity, and soil moisture, thereby creating optimal con-
+ditions for plant growth [4]. These systems often incorporate machine learning algorithms
+to interpret data and generate actionable insights, supporting better decision-making and
+resource allocation [5]. Furthermore, improvements in wireless communication and cloud
+computing have enabled seamless integration of IoT devices, forming a responsive and
+interconnected agricultural ecosystem [6,7].
+The convergence of IoT and artificial intelligence (AI) technologies has significantly
+advanced smart agriculture. In greenhouse applications, IoT systems integrate diverse sen-
+sors and communication protocols to optimize crop production and resource efficiency [1].
+AIoT enhances intelligent decision-making, predictive analytics, and real-time monitor-
+ing [2]. Despite challenges such as data security and infrastructure costs, IoT continues
+to drive precision farming and smart irrigation [ 3]. Hardware and communication in-
+novations contribute to improved productivity and sustainability [4], while IoT applica-
+tions in early fire detection and water management bolster agricultural resilience [ 6,7].
+Nonetheless, economic and technical barriers remain in deploying smart sensors across
+agricultural settings [8–12]. The integration of AI and IoT supports enhanced data analysis
+and decision-making in precision agriculture [13–18], with ongoing research highlighting
+the transformative potential of IoT in improving efficiency, reducing resource consumption,
+and increasing yields [19].
+Despite these advancements, several gaps persist in the development of intelligent
+farming systems. High implementation and maintenance costs pose challenges for small-
+scale farmers [3], and interoperability issues among IoT devices hinder widespread adop-
+tion due to the lack of standardized protocols [2]. Moreover, long-term studies are needed
+to assess the impacts of IoT-based agriculture on crop performance, soil health, and envi-
+ronmental sustainability [4,20].
+In parallel, nano-silica has emerged as a promising fertilizer, with foliar spraying
+proving more effective than soil or root application. Foliar application enhances rice plant
+height and biomass under both normal and stress conditions [21], as nano-silica is absorbed
+through leaf apoplast and distributed efficiently [22]. Soil application, by contrast, suffers
+from adsorption, desorption, and polymerization reactions influenced by concentration
+and pH, leading to significant losses and higher dosage requirements [23]. Foliar spraying
+also boosts proline levels and antioxidant enzyme activity, improving tolerance to abiotic
+stress [22], particularly in saline and alkaline soils [24].
+
+
+--- page 3 ---
+AgriEngineering 2025, 7, 380 3 of 20
+However, to rigorously evaluate the comparative effectiveness of these application
+methods, a precision-controlled farming system is essential. Most existing greenhouse
+systems are designed for production or simulation, not for structured experimentation.
+This study addresses that gap by developing an IoT-equipped smart greenhouse system
+specifically designed as a comparative testing platform. With automated temperature
+control and humidity regulation, the system enables parallel testing of nano-silica fertilizer
+via soil and foliar application under identical environmental conditions. This transforms
+the greenhouse into a valid and replicable research environment, capable of supporting
+experimental agronomy and input optimization.
+Previous IoT-based greenhouse systems often lacked experimental flexibility, suffered
+from limited sensor integration, and were designed primarily for production rather than
+research. These limitations motivated the development of our system, which integrates
+real-time monitoring, automated control, and modular treatment zones. The objective of
+this study is to evaluate the effectiveness of nano-silica fertilizer applied via foliar and soil
+methods under controlled conditions. We hypothesize that foliar application will yield
+superior plant growth due to better nutrient absorption. Key contributions of this work
+include development of a modular IoT-enhanced greenhouse for rice experimentation,
+integration of real-time sensor data with automated control systems, comparative evalua-
+tion framework for fertilizer application methods, and validation of sensor accuracy and
+environmental stability.
+Several studies have explored IoT applications in agriculture, including greenhouse
+automation and smart irrigation. However, most systems focus on production optimization
+rather than structured experimentation. For example, previous greenhouse designs have
+incorporated temperature and humidity control but lacked comparative treatment zones
+for evaluating input strategies [ 1–4]. Other implementations of sensor-based irrigation
+systems often omit validation of sensor accuracy, which is critical for reliable environmental
+control [5–7]. In contrast, our system introduces a dual-purpose design with replicated
+treatment containers, validated sensors, and real-time cloud monitoring. Components such
+as the ESP32 microcontroller, Thingsboard platform, and mist blower control were either
+newly implemented or modified to support experimental rigor.
+Accordingly, this study seeks to address two main research questions. The first
+concerns the design and performance of an IoT-enabled smart greenhouse capable of
+maintaining precise and stable environmental conditions to support structured agronomic
+experimentation. The second focuses on evaluating the system’s capability to facilitate con-
+trolled comparative experiments—specifically, assessing the differences between foliar and
+soil applications of nano-silica fertilizer at varying dosages (100, 200, and 300 kg/ha) on rice
+plants under identical environmental conditions. To rigorously compare the effectiveness of
+nano-silica fertilizer applied via foliar and soil methods, a precision-controlled environment
+is essential. The IoT-enabled greenhouse developed in this study provides such a platform
+by maintaining uniform temperature and humidity, also monitoring light intensity across
+treatment zones. This allows for direct attribution of plant response differences to the
+fertilizer application method rather than environmental variability. The integration of IoT
+technology thus plays a critical role in ensuring experimental validity and repeatability. By
+integrating advanced technologies into a structured experimental framework, this research
+contributes to the development of sustainable, efficient, and data-driven rice farming re-
+search practices. The system also holds potential for broader applications, including testing
+various fertilizer formulations, optimizing dosage and timing, and enabling predictive
+modeling of plant responses through future integration with machine learning.
+Unlike most previous IoT-based greenhouse systems that mainly focus on production
+optimization or environmental control, this study introduces a dual-purpose IoT-enabled
+
+
+--- page 4 ---
+AgriEngineering 2025, 7, 380 4 of 20
+greenhouse platform specifically designed for comparative agronomic experimentation
+under identical environmental conditions. The system combines validated environmen-
+tal control precision, maintaining temperature (20–36.5 ◦C) and humidity (10–85% RH)
+with high sensor accuracy (0.4% ± 0.11 ◦C and 0.77% ± 0.5% RH)—with a modular treat-
+ment structure that allows for parallel evaluation of foliar and soil fertilization methods.
+Furthermore, the experiment integrates a dosage optimization framework (100, 200, and
+300 kg/ha) for both application modes, demonstrating how the platform can be extended to
+future machine learning-based predictive modeling of dosage–response relationships. This
+combination of real-time control precision and structured comparative design establishes a
+novel, replicable, and data-driven experimental platform for smart farming research.
+2. Design of Control and Monitoring System
+2.1. Design of Greenhouse Smart Farming System
+The research scenario is a test rice plant with an integrated greenhouse system with
+an IoT-based instrumentation system. The Greenhouse was built according to standards
+and is carried out in the design and build stages. The design begins with designing the
+greenhouse according to standards referring to the minimum greenhouse standards of the
+Ministry of Agriculture of the Republic of Indonesia as shown in Figure 1. The greenhouse
+dimensions (14 m × 3.5 m) and flow rates for irrigation (7.7 L/min for drip, 6.5 L/min for
+foliar spray).
+Figure 1. Greenhouse Design.
+Figure 2 shows the Integrated Block Diagram of a greenhouse system that integrates
+environmental sensors (DHT11 for temperature/RH, LDR light sensor), ESP32/Mega2560
+based microcontroller, IoT platform (Thingsboard and Google Sheets) for real-time visual-
+ization, cloud storage, and historical data. DTH11 sensor data is used to control the mist
+blower actuator, while the water pump actuator, automatic valve are used as actions in
+the fertilization and irrigation process which then affect the planting system (rice plant
+containers, fertilizer tanks, and leaf and soil management).

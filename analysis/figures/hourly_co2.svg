@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="420" viewBox="0 0 1000 420">
+<rect width="100%" height="100%" fill="white"/>
+<text x="500.0" y="28" text-anchor="middle" font-family="Arial" font-size="20">Средний суточный ход: CO2, ppm</text>
+<text x="18" y="210.0" transform="rotate(-90 18 210.0)" text-anchor="middle" font-family="Arial" font-size="13">CO2, ppm</text>
+<line x1="70" y1="360.0" x2="970" y2="360.0" stroke="#dddddd"/>
+<text x="62" y="364.0" text-anchor="end" font-family="Arial" font-size="12">325.5</text>
+<line x1="70" y1="298.0" x2="970" y2="298.0" stroke="#dddddd"/>
+<text x="62" y="302.0" text-anchor="end" font-family="Arial" font-size="12">341.1</text>
+<line x1="70" y1="236.0" x2="970" y2="236.0" stroke="#dddddd"/>
+<text x="62" y="240.0" text-anchor="end" font-family="Arial" font-size="12">356.7</text>
+<line x1="70" y1="174.0" x2="970" y2="174.0" stroke="#dddddd"/>
+<text x="62" y="178.0" text-anchor="end" font-family="Arial" font-size="12">372.3</text>
+<line x1="70" y1="112.0" x2="970" y2="112.0" stroke="#dddddd"/>
+<text x="62" y="116.0" text-anchor="end" font-family="Arial" font-size="12">388.0</text>
+<line x1="70" y1="50.0" x2="970" y2="50.0" stroke="#dddddd"/>
+<text x="62" y="54.0" text-anchor="end" font-family="Arial" font-size="12">403.6</text>
+<line x1="70" y1="360" x2="970" y2="360" stroke="#333"/>
+<line x1="70" y1="50" x2="70" y2="360" stroke="#333"/>
+<path d="M 70.0 293.7 L 109.1 307.6 L 148.3 320.5 L 187.4 321.1 L 226.5 320.9 L 265.7 322.2 L 304.8 324.6 L 343.9 326.3 L 383.0 336.1 L 422.2 338.6 L 461.3 313.1 L 500.4 263.9 L 539.6 184.0 L 578.7 138.4 L 617.8 112.8 L 657.0 71.4 L 696.1 96.4 L 735.2 140.4 L 774.3 164.8 L 813.5 188.1 L 852.6 220.5 L 891.7 246.3 L 930.9 268.3 L 970.0 281.3" fill="none" stroke="#0072b2" stroke-width="2.2"/>
+<rect x="70" y="392" width="16" height="4" fill="#0072b2"/>
+<text x="92" y="396" font-family="Arial" font-size="13">co2-1</text>
+</svg>

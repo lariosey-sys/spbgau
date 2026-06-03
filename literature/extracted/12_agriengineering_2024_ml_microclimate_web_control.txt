@@ -1,0 +1,254 @@
+
+
+--- page 1 ---
+Citation: Thwin, K.M.M.;
+Horanont, T.; Phatrapornnant, T.
+Machine-Learning Microclimate
+Forecasting for Adaptive Equipment
+Control via Web Integration in
+Open-Ventilated Greenhouses.
+AgriEngineering 2024, 6, 2845–2869.
+https://doi.org/10.3390/
+agriengineering6030165
+Academic Editor: Simone Pascuzzi
+Received: 19 July 2024
+Revised: 8 August 2024
+Accepted: 9 August 2024
+Published: 13 August 2024
+Copyright: © 2024 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed under the terms and
+conditions of the Creative Commons
+Attribution (CC BY) license (https://
+creativecommons.org/licenses/by/
+4.0/).
+AgriEngineering 
+Article
+Machine-Learning Microclimate Forecasting for
+Adaptive Equipment Control via Web Integration in
+Open-Ventilated Greenhouses
+Kyaw Maung Maung Thwin 1, Teerayut Horanont 1,*
+ and Teera Phatrapornnant 2
+1 School of ICT, Sirindhorn International Institute of Technology, Thammasat University, Bangkadi Muang,
+Pathum Thani 12000, Thailand; m6522040648@g.siit.tu.ac.th
+2 National Electronic and Computer Technology Center, Khlong Luang District, Pathum Thani 10210, Thailand;
+teera.phatrapornnant@nectec.or.th
+* Correspondence: teerayut@siit.tu.ac.th
+Abstract: Open-ventilated greenhouses have reasonable setup costs and low operational costs for
+growers, which is crucial and most appealing for this research. These attributes fit developing nations
+like Thailand and other tropical regions. It is challenging to control the equipment intended to obtain
+an ideal microclimate. This research was conducted in an actual greenhouse setting for data collection
+and experiments, with a proposed system for adaptive equipment control via web integration. Also,
+the proposed multivariate multistep LSTM was forecasted over 1 h and cooperated with sensor data.
+Additional sensors, like a leaf wetness sensor and a CO2 sensor, were installed for detecting plant-
+level precision for vaporization, rather than greenhouse-level. The proposed system can optimize the
+indoor temperature within 34.5 to 36 ◦C with a 39 to 40 ◦C outdoor temperature. Also, humidity was
+still at the ideal level of 68 to 70%; more precisely, the wetness value was below 300 throughout the
+experiment. The model accuracy achieved a sufficient RMSE (0.49) and R2 (0.9788). This proposed
+system architecture and mm-LSTM model has potential as one dimension of a fully smart greenhouse
+system development in open-ventilated greenhouse settings in tropical regions and Southeast Asian
+nations for a better yield rate and less human interaction.
+Keywords: open-ventilated greenhouse; multivariate multistep LSTM; web integration; adaptive
+equipment control
+1. Introduction
+Greenhouses can be categorized into three main types for this research, based on their
+level of enclosure and ventilation and how the greenhouse microclimate interacts with
+the outside environment, which can directly impact the microclimate and suitability of
+different crops [1]. Here are the details of the three categories of greenhouses. The first
+is a fully enclosed greenhouse, which is enclosed entirely from the external environment
+with glass, polycarbonate, or other rigid materials, for roofs and walls, to construct the
+structure and embedded with environmental control systems such as air conditioning,
+heating, ventilation, artificial lighting, and drip irrigation systems to maintain excellent
+growing conditions throughout the plantation. This greenhouse has many advantages,
+such as complete control over the microclimate environmental parameters, being more
+resilient to pests and diseases, year-round production capability, protection from external
+contamination, and maximizing the yield and quality of the plants by controlling the
+ideal microclimate [2]. High initial investment and operational costs would be the most
+significant burden for farmers and growers to set up a fully enclosed greenhouse for
+practical usage [3].
+Secondly, a semi-enclosed greenhouse combines the ventilation approach of a fully
+enclosed greenhouse and an open-ventilated greenhouse. Microclimate control systems
+AgriEngineering 2024, 6, 2845–2869. https://doi.org/10.3390/agriengineering6030165 https://www.mdpi.com/journal/agriengineering
+
+
+--- page 2 ---
+AgriEngineering 2024, 6 2846
+integrate the mechanism of adjusting the vents and windows opening and closing to
+regulate temperature and humidity, reducing the reliance on energy-intensive heating,
+ventilation, and air conditioning (HVAC) systems, which is one of the essential benefits of
+semi-enclosed greenhouses [4]. Technically, this type of greenhouse can act as a fully or
+open-ventilated greenhouse in terms of ventilation. However, it can be easily exposed to
+pest control and disease risks compared to a fully enclosed greenhouse. This greenhouse’s
+disadvantages are high system complexity and maintenance of the actuator and equipment
+due to the adjustable roof, windows, and equipment [5].
+Thirdly, open-ventilated greenhouses are notable for their utilization of natural ventila-
+tion to create natural air circulation; as required, mechanical equipment is equipped in this
+greenhouse to optimize the microclimate and prevent outdoor climate dependency. The
+main advantage of this open-ventilated greenhouse is a lower initial setup cost compared
+to other types of greenhouses and energy efficiency, as well as minimizing the need for
+mechanical cooling and ventilation by leveraging natural ventilation, which can reduce
+operational costs significantly [6]. In research conducted in the literature, countries like
+Thailand and other Southeast Asian nations and tropical regions can benefit from setting
+up this type of greenhouse, since farmers and growers cannot afford high investments
+without international funding and projects. On the other hand, the most challenging part is
+climate dependency in an open-ventilated greenhouse, since natural airflow has an effect
+on the microclimate of the greenhouse, so maintaining optimal growing conditions is up to
+controlling the equipment. However, behaviors of dramatic changes in patterns of outdoor
+climate require monitoring and intervention for equipment control.
+In a South Korean fully enclosed greenhouse, temperature, humidity, and CO2 were
+predicted by using three different neural network architectures, an artificial neutral net-
+work, nonlinear autoregressive exogenous model, and RNN-LSTM (recurrent neutral
+network–long short-term memory), and research prioritized the accuracy of the prediction
+performance and thus evaluated using 5 to 30 min prediction lengths [ 7]. Likewise, an
+unmentioned greenhouse-type environmental parameter prediction was researched using
+GCP-LSTM and a 5 min data processing window sliding approach, and different types of
+crops were experimented with [8]. In Mexico, a ventilated greenhouse experiment with
+RNN-LSTM, with varying arrangements for feeding, modeled a one-hour prediction and
+experimented with five different arrangements of three parameters in an even-ventilated
+greenhouse. Still, none of the equipment was installed indoors [9]. Defining the setpoint
+is one of the challenging things for greenhouse environmental parameters; the LightGbm
+algorithm was used to determine the setpoint with the integration of Neural Language
+Processing (NLP) and an expert hybrid system in a simulated greenhouse, which mimicked
+the collated data from an actual greenhouse [10]. Handling multiple parameters of green-
+house environmental reduction by using the Principal Component Analysis Method (PCA)
+from 15 to 7 parameters, which still represented 99.19%, one researcher proposed improved
+support vector regression using the parameter reducing method to make a prediction that
+integrated with the PSO algorithm for optimization, where the system was used in an
+experiment in tomatoes cultivated in a fully enclosed greenhouse [11].
+Open-ventilated greenhouse-type temperature and humidity optimization research
+was conducted in Indonesia, close to our environmental conditions. It experimented with
+water spray on and off conditions without considering any machine-learning or prediction
+techniques, with nozzle rotation to 60 degrees showing greater effectiveness [12].
+The operational cost of a greenhouse with DDRMPC (data-driven robust model predic-
+tive control) with the integration of dynamic control models is reduced by 4% compared to
+conventional rule-based control [13]. Dealing with a decent humidity level was important;
+it was proportional to temperature reduction in the greenhouse indoors because higher
+vaporization can cause fungus and plant diseases, so the greenhouse installed the leaf
+wetness sensor for more precise detection of vaporization [14]. A greenhouse farm in the
+Netherlands conducted experiments in a fully enclosed greenhouse with five teams for
+five smart greenhouses. The research pointed out the importance of the plants receiving
+
+
+--- page 3 ---
+AgriEngineering 2024, 6 2847
+sufficient illumination and trimming, as well as the fact that not all additional sensors
+effectively improve yield rates [15]. However, the previous research on precision green-
+house systems mentioned above did not sufficiently consider open-ventilated greenhouses.
+Moreover, some research was conducted on weather conditions that differed from those in
+Southeast Asia.
+More details on the open-ventilated type of greenhouse regarding machine-learning
+applications need to be provided. This research focused on open-ventilated greenhouse
+microclimate control and was conducted in Thailand, which is located in a tropical region
+and is a developing nation like other Southeast Asian countries.
+Open-ventilated greenhouses are quickly affected by outdoor weather conditions and
+cannot fully control environmental parameters. This can lead to a decrease in yield rate and
+quality unless growth is consistently monitored. Mechanical equipment like fans, water
+spray, and shading were installed inside the greenhouse. Controlling this equipment was
+one of the challenging factors in achieving the plant’s ideal microclimate level. That led to
+significant human interaction requirements, and time spent for them could detract from
+other aspects of the business or essential tasks that might be more beneficial. High humidity
+and high-temperature countries like Thailand face the drawback of having unfavorable
+climate conditions for indoor plantations. The main objective of this research is to address
+the microclimate in the open-ventilated greenhouses to obtain the ideal temperature and
+humidity by using a data-driven precision greenhouse system that handles time-series
+data analysis with machine learning. Two main questions were identified as requirements:
+What would be an effective way to control the actuators and equipment like fans, mists,
+foggers, and others in the open-ventilated greenhouse to maintain microclimate parameters
+like temperature and humidity? Which data-driven approach is best suited to control the
+equipment during critical hours (daytime) on environmental parameters by integrating
+with machine-learning techniques and sensor data? Possibly answering these questions
+and developing the system led to this research.
+This paper is arranged as follows: Section 2 explains the details of the experimental
+setting in an open-ventilated greenhouse and sensors. Additionally, the architecture of
+the multistep multivariate–long short-term memory (MM-LSTM) model and the data
+preprocessing steps and model training are mentioned, and then, in detail, the architecture
+of the greenhouse equipment control and model deployment system is discussed. Section 3
+describes the entire experiment result in detail to show the mm-LSTM and the capability of
+the developed system. Moreover, the evaluation results presented on the customized mm-
+LSTM model are compared to the baseline mm-LSTM model with the test dataset and
+unseen experimental days dataset. Section 4 discusses the experiment results as well as the
+effectiveness of the proposed mm-LSTM model with the equipment control system and a
+general comparison with previous findings, and Section 5 concludes on the research result
+and tangibility of the proposed system, giving a brief explanation of this research method
+and the requirements of innovative open-ventilated greenhouses in precision agriculture as
+future work.
+2. Materials and Methods
+2.1. Experiment Setup and Data Acquisition
+The experiment was set up in an open-ventilated greenhouse at the Faculty of Sci-
+ence and Technology, Thammasat University, Rangsit campus, located at 14◦04′26.2′′ N
+100◦36′31.8′′ E. It had six greenhouses, and one greenhouse (Figure 1) was used for this re-
+search data collection and the experimental period. This research only focused on soil-based
+cultivation settings in an open-ventilated greenhouse setting. However, the plantation was
+not considered due to the time limitation of the research.
+
+
+--- page 4 ---
+AgriEngineering 2024, 6 2848
+AgriEngineering 2024, 6, FOR PEER REVIEW  4 
+ 
+ 
+ 
+Figure 1. Experimental greenhouse structure from outside. 
+The greenhouse equipment included three fans on the top right side, two indoor fans 
+facing each other, a 0.5 mm top spray, 0.5 mm side spray, and 0.3 mm top spray. The 0.5 
+mm and 0.3 mm sizes refer to the nozzle size of the spray. Indoor temperature, humidity, 
+and illumination sensors (Figure 2a) were in stalled in that greenhouse, and the sensor 
+data were collected in a database. However, this sensor installation was performed by 
+another organization, and additional sensors were installed for our newly developed sys-
+tem, which is intended to achieve more precision. 
+Additional sensors include carbon dioxide (CO2) and leaf wetness sensors. CO2 sen-
+sors (Figure 2b) are an essential tool for measuring CO 2 concentrations for many crops, 
+which can significantly enhance photosynthesis and encourage faster and healthier plant 
+growth. Obtaining adequate CO2 can result in higher crop yields and better crop quality. 
+Knowing the CO2 level indoors has the benefit of balancing the microclimate to reduce the 
+risk of poor air quality and humidity levels, which are associated with causing plant dis-
+eases. Moreover, consistent CO2 can contribute to uniform plant growth, promoting qual-
+ity assurance of crops and commercial cultivation [16]. 
+Leaf wetness sensors (Figure 3) were additionally installed to detect the presence and 
+duration of vaporization on the leaf’s surface; these sensors have many advantages, such 
+as the early detection of leaf surface moisture if the grower uses an irrigation method of 
+spraying over the plant. These sensors can provide real-time data and prevent unneces-
+sary water usage, fungi, and diseases caused by vaporization. Managing the moisture lev-
+els and preventing fungi and diseases can contribute to healthier plants and higher yield 
+rates, especially since some plants are not as favorable to water as others. Therefore, it is 
+better to prevent over-vaporization conditions so crops can achieve better market prices 
+and reduce post-harvest losses [17]. Since measuring solely relative humidity was insuffi-
+cient for an open-ventilated greenhouse, precision moisture level detection at the plant 
+leaf level was required. 
+Figure 1. Experimental greenhouse structure from outside.
+The greenhouse equipment included three fans on the top right side, two indoor fans
+facing each other, a 0.5 mm top spray, 0.5 mm side spray, and 0.3 mm top spray. The 0.5 mm
+and 0.3 mm sizes refer to the nozzle size of the spray. Indoor temperature, humidity, and
+illumination sensors (Figure 2a) were installed in that greenhouse, and the sensor data
+were collected in a database. However, this sensor installation was performed by another
+organization, and additional sensors were installed for our newly developed system, which
+is intended to achieve more precision.
+AgriEngineering 2024, 6, FOR PEER REVIEW  5 
+ 
+ 
+  
+(a) ( b) 
+Figure 2. Temperature, humidity, and illumination sensor (a) and CO2 sensor (b). 
+  
+(a) ( b) 
+Figure 3. Leaf wetness sensor: (a) side view (b) front view. 
+The central control unit controls all equipment used in this experiment. It is equipped 
+in the greenhouse and mainly controls the equipment in two ways: via a semi-automated 
+web portal and manually at the side of the greenhouse. 
+Data collection was a cornerstone of the machine-learning model’s performance and 
+accuracy and hugely impacted our model performance. The data collection period started 
+on 22 February 2024 and ended on 1 May 2024, a total of 70 days. Parameters included the 
+indoor temperature, indoor humidity, indoor illumination, indoor carbon dioxide concen-
+tration, and fan and spray operation status, representing on and off operation throughout 
+the data collection period. A total of 47,270 data points were collected, representing 2112 
+hours in total. However, some hours were missed due to system downtime and internet 
+connection interruptions during the data collection period; a total of 48 hours were 
+missed, and after substruction of the missed hours, the total remaining hours were 2112. 
+The average data interval was calculated by Formula (1). The averag e data interval was 
+approximately 2.7 minutes. 
+Figure 2. Temperature, humidity, and illumination sensor (a) and CO2 sensor (b).
+Additional sensors include carbon dioxide (CO 2) and leaf wetness sensors. CO 2
+sensors (Figure 2b) are an essential tool for measuring CO2 concentrations for many crops,
+which can significantly enhance photosynthesis and encourage faster and healthier plant
+growth. Obtaining adequate CO2 can result in higher crop yields and better crop quality.

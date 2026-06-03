@@ -1,0 +1,211 @@
+
+
+--- page 1 ---
+PLOS One | https://doi.org/10.1371/journal.pone.0344946 March 26, 2026 1 / 46
+ 
+ OPEN ACCESS
+Citation: Hindi I, Alsharkawi A, Al-Ajlouni M, 
+Qarallah B (2026) Enhancing autonomous 
+agriculture control systems in greenhouses for 
+sustainable resource usage using deep learning 
+techniques. PLoS One 21(3): e0344946. 
+https://doi.org/10.1371/journal.pone.0344946
+Editor: Dinesh Kumar Nishad, Dr Shakuntala 
+Misra National Rehabilitation University, INDIA
+Received: July 9, 2025
+Accepted: February 24, 2026
+Published: March 26, 2026
+Copyright: © 2026 Hindi et al. This is an open 
+access article distributed under the terms of 
+the Creative Commons Attribution License, 
+which permits unrestricted use, distribution, 
+and reproduction in any medium, provided the 
+original author and source are credited.
+Data availability statement: The minimal 
+anonymized dataset required to reproduce the 
+findings of this study, together with evalua-
+tion logs and accompanying documentation, 
+is publicly available via Zenodo: https://doi.
+org/10.5281/zenodo.17043199 (DOI: 10.5281/
+zenodo.17043199). All analysis scripts and 
+RESEARCH ARTICLE
+Enhancing autonomous agriculture control 
+systems in greenhouses for sustainable resource 
+usage using deep learning techniques
+Iman Hindi 1,2, Adham Alsharkawi 3*, Malik Al-Ajlouni4, Bassam Qarallah4
+1 Industrial Engineering Department, Al Hussein Technical University, Amman, Jordan, 2 Computer 
+Engineering Department, The University of Jordan, Amman, Jordan, 3 Mechatronics Engineering 
+Department, The University of Jordan, Amman, Jordan, 4 Department of Horticulture and Crop Science, 
+The University of Jordan, Amman, Jordan 
+* a.sharkawi@ju.edu.jo
+Abstract 
+Greenhouse climate control is essential for optimizing crop growth while minimizing 
+resource consumption in controlled environment agriculture. Traditional rule-based 
+and fixed-action strategies often struggle to achieve a balance between these objec-
+tives. This paper proposes a reinforcement learning (RL) based framework for green-
+house climate control, integrating deep learning models to predict both crop growth 
+and resource consumption. The framework enables an RL agent to optimize green-
+house control setpoints dynamically, maximizing crop yield while ensuring sustain-
+able resource usage. The proposed system incorporates a Multi-Layer  Perceptron 
+(MLP) model to predict internal greenhouse climate conditions, a Long Short-Term 
+Memory (LSTM) model for crop parameter estimation, and a separate LSTM model 
+for forecasting daily resource consumption. These models collectively simulate a 
+greenhouse environment where an RL agent learns to regulate temperature, CO2 
+concentration, and irrigation levels by interacting with the virtual environment. A cus-
+tom reward function is designed to guide the agent, considering key crop parameters; 
+stem elongation, stem thickness, and cumulative trusses; alongside resource con-
+sumption metrics, including heating, electricity, CO2, and irrigation costs. To enhance 
+the adaptability of the RL agent, a feature-selection mechanism identified the most 
+influential climate and control features, reducing observation complexity and accel-
+erating convergence. Retraining under stochastic weather conditions strengthened 
+robustness to dynamic environments, enabling the agent to consistently outperform 
+fixed-action strategies. Evaluation revealed a stable Pareto frontier between yield 
+and resource consumption, confirming that the framework accurately captured the 
+productivity and sustainability trade-off and remained robust across varying reward-
+weight settings. Comparative analysis of multiple RL algorithms; Proximal Policy Opti-
+mization (PPO), Deep Deterministic Policy Gradient (DDPG), Soft Actor-Critic (SAC), 
+and Twin Delayed Deep Deterministic Policy Gradient (TD3) demonstrated that TD3 
+
+
+
+--- page 2 ---
+PLOS One | https://doi.org/10.1371/journal.pone.0344946 March 26, 2026 2 / 46
+outperforms other algorithms, achieving the highest cumulative rewards and reaching 
+optimal policies faster. Experimental evaluations demonstrate that the proposed TD3 
+RL-based greenhouse control system achieves higher crop yield growth rates while 
+optimizing resource usage, outperforming conventional greenhouse control strate-
+gies. This study presents a novel data-driven, adaptive greenhouse management 
+approach, bridging the gap between crop growth modeling and autonomous climate 
+control, contributing to sustainable and intelligent agricultural practices.
+1. Introduction
+In the past decade, climate change has significantly impacted global agriculture, 
+creating challenges that demand innovative solutions to ensure food security. As 
+governments and organizations prioritize sustainable energy usage to mitigate car-
+bon footprints, the agricultural sector has increasingly turned to greenhouse farming 
+to address extreme weather conditions such as heat waves, frost, and heavy rain-
+fall. Greenhouses offer a controlled environment that protects crops and optimizes 
+growing conditions, making them an essential tool in meeting the food demands of a 
+global population expected to increase by 2.3 billion by 2050 [1].
+Jordan, one of the world’s most water-scarce nations, faces unique agricultural 
+challenges due to its arid climate, limited water resources, and high sensitivity to 
+climate variability. Agriculture in Jordan consumes 51% of the country’s available 
+water [2], posing critical concerns about resource sustainability. As climatic pressures 
+increase, the need for innovative farming solutions and efficient resource manage-
+ment becomes more urgent. Greenhouse farming is particularly promising in Jordan 
+as it enhances agricultural productivity while mitigating external climate-related con-
+straints. However, the efficient management of greenhouse environments presents 
+significant complexity, requiring real-time adjustments to parameters such as light, 
+water, temperature, CO2 levels, and nutrients to meet plant growth needs.
+Traditional manual control methods often fall short, leading to inefficient resource 
+usage, suboptimal crop yields, and reliance on experienced growers, which are 
+scarce in Jordan. To overcome these challenges, the agricultural sector is increas-
+ingly adopting advanced technologies, including artificial intelligence (AI), deep 
+learning, and reinforcement learning (RL) [3]. These technologies enable farmers to 
+improve decision-making, enhance resource efficiency, and minimize environmental 
+impacts, while ensuring higher crop productivity [4].
+This study presents a novel AI-based solution to automate and optimize green-
+house climate control. The proposed approach integrates reinforcement learning (RL) 
+with ma- chine learning models to predict crop growth and resource consumption, 
+providing a robust framework for real-time control of greenhouse parameters. By con-
+tinuously monitoring and adjusting factors like temperature, irrigation, and CO2 levels, 
+the RL agent optimizes plant growth and reduces unnecessary resource use. Addi-
+tionally, a feature selection mechanism is incorporated to enhance model efficiency 
+by focusing on the most influential predictors, thereby simplifying the training process 
+while maintaining accuracy. Key contributions of this research include:
+figure-generation code are publicly available 
+via GitHub: https://github.com/ImanHindi/
+AACSGH_Paper.git.
+Funding: The author(s) received no specific 
+funding for this work.
+Competing interests: The authors have 
+declared that no competing interests exist.
+
+
+
+--- page 3 ---
+PLOS One | https://doi.org/10.1371/journal.pone.0344946 March 26, 2026 3 / 46
+• Improved Productivity: Maximizes crop yields through optimal greenhouse control.
+• Resource Efficiency: Reduces excessive use of critical resources like water, energy, and CO2 while lowering operational 
+costs.
+• Climate Resilience: Enhances the ability of greenhouses to withstand extreme weather conditions, ensuring stable crop 
+production.
+• Generalizability: Provides insights that are applicable to different climatic conditions, extending the utility of the proposed 
+framework.
+• Enhanced Research Capability: Offers tools for monitoring plant health and studying the impact of environmental vari-
+ables on crop growth.
+The primary objective of this study is to develop a robust, AI-driven greenhouse control system capable of improving 
+crop yields and resource efficiency. Specific objectives include:
+• Designing a Robust AI Model: Developing an AI model that can adapt to varying climatic conditions to optimize green-
+house control
+• Addressing System Complexity: Using reinforcement learning algorithms to identify optimal control policies in non-linear, 
+dynamic greenhouse environments.
+• Resource and Crop Growth Prediction: Employing Long Short-Term Memory (LSTM) models for forecasting daily 
+resource consumption and crop growth parameters.
+• Integrating Feature Selection: Enhancing model efficiency by selecting the most influential features, thereby reducing 
+computational complexity while preserving performance.
+The research assumes the dataset used is recorded from advanced greenhouse infrastructure, including sensors 
+and actuators for monitoring and controlling the environment, and uniform soil structure ensuring consistent water 
+and nutrient distribution. The research focuses on cherry tomato cultivation as a representative crop for the study. 
+Where the data sourced from the 2nd International Autonomous Greenhouse Challenge, providing a robust dataset 
+for model training and evaluation [ 5] which contains the data from six teams participating in the Autonomous Green -
+house Challenge [ 6].
+This research presents an innovative framework integrating reinforcement learning, deep learning, and feature selec-
+tion to optimize greenhouse climate control, addressing critical challenges in controlled environment agriculture. By lever-
+aging AI-driven approaches, the study tackles complexities such as resource overuse, climatic variability, and the scarcity 
+of experienced growers, enabling the optimization of crop yields while ensuring sustainable resource efficiency. This work 
+bridges the gap between advanced AI solutions and practical implementation, paving the way for more sustainable agri-
+cultural practices in greenhouse management.
+2. Literature review
+Increasing crop yield quantity and quality has been a primary focus for researchers globally. Efforts range from developing 
+smart agricultural monitoring systems to designing robust frameworks that accurately detect plant needs based on critical 
+factors such as soil moisture, weather conditions, and irrigation levels. The recent emergence of AI-based technologies, 
+particularly machine learning (ML) and reinforcement learning (RL), has driven significant advancements in this domain. 
+These technologies aim to replace traditional control systems, offering precision and efficiency in addressing the optimiza-
+tion challenges inherent in greenhouse environments.
+
+
+
+--- page 4 ---
+PLOS One | https://doi.org/10.1371/journal.pone.0344946 March 26, 2026 4 / 46
+2.1. Irrigation efficiency and smart watering
+Efficient water management is critical for plant health. Researchers have employed IoT systems and AI algorithms to 
+optimize irrigation processes. For instance, Gutiérrez-Gordillo et al. [7] identified leaf diameter as a key indicator of water 
+stress. Data collection from IoT sensors has been used to train models, such as ensemble learning approaches [8–10] 
+decision trees [11], and K-Nearest Neighbors (KNN) [12], for irrigation prediction. These models rely on soil moisture and 
+weather data to determine water needs accurately.
+In research of [13–15], the data collected used the moisture levels for irrigation control (On/Off) using predefined 
+threshold. And they study various machine learning algorithms. Sema et.al, used IoT system to collect farming data and 
+they used ANN (Artificial Neural Networks) as an irrigation system controller, which is trained as a classifier to turn the 
+pump On/Off based on different parameter ranges of soil moisture, air humidity, and air temperature [16].
+Ben Abdallah et al. [17] utilized Random Forest models combined with FAO’s CLIMWAT tool [18] to estimate water 
+requirements with high accuracy (RMSE = 0.0509, R2 = 0.99). However, mathematical modeling limits real-world adapt-
+ability, as noted by researchers using deep learning classifiers for soil moisture conditions [19]. While in [20] paper, the 
+authors used an estimation of evapotranspiration (ETMPT) from the infrared thermometry to assess the determination of 
+variable rate irrigation (VRI).
+LSTM-based systems have also emerged for predictive irrigation. Lyu et al. [21] and Kashyap et al. [22] demonstrated 
+LSTM’s ability to forecast soil moisture and water needs. Reinforcement learning (RL) models, such as deep Q-networks, 
+have further enhanced irrigation optimization. Alibabaei et al. [23] trained RL agents to maximize crop yield while minimiz-
+ing water usage. Their comparison of on-policy and off-policy RL approaches revealed that on-policy methods reduced 
+water consumption by 20% [24].
+Kamyshova et al. [25] proposed an innovative Phyto-indicator-based approach using computer vision for irrigation 
+prescriptions, while Amir et al. [26] and Yumang et al. [27] focused on greenhouse-specific systems for cherry tomato 
+irrigation using machine learning and fuzzy logic, respectively. Hindi et al. [28] introduced a cascaded-output ANN model, 
+achieving superior irrigation scheduling accuracy using the data of second International Greenhouse Challenge.
+2.2. Monitoring plant status and growth rate
+Monitoring plant health and growth stages is vital for decision-making. Advanced imaging and AI techniques have been 
+widely adopted. Petropoulou et al. [29] and Lin et al. [30] utilized depth imaging and segmentation algorithms for lettuce 
+growth monitoring, optimizing plant spacing and harvest timing. A two-stage CNN architecture by Gang et al. [31] esti-
+mated greenhouse lettuce growth indices such as fresh weight and leaf area with high accuracy.
+Zhang et al. [32] developed a U-net mapping model for phenotypic parameter extraction from point clouds, demonstrat-
+ing high performance in biomass estimation. These advancements facilitate precise growth predictions and enhance crop 
+management.
+Recent studies also highlight the role of Digital Twin frameworks integrated with RL to monitor crop growth and adapt 
+control strategies in real-time [33].
+2.3. Agricultural environmental modeling
+Agricultural environmental modeling integrates crop simulation and machine learning to address changing environmental 
+conditions. Traditional models like DSSAT and APSIM simulate crop growth based on environmental variables. Recent 
+advancements incorporate machine learning for improved predictions [34]. For example, Van Klompenburg et al. high-
+lighted the synergy between machine learning and simulation models [35].
+Recent agricultural intelligence studies have continued to advance predictive and control methodologies beyond con-
+ventional statistical models. Sha et al. [36] proposed the ZHPO-LightXBoost model to handle limited-sample prediction 
+problems for pesticide residues, demonstrating how hybrid machine-learning pipelines can maintain accuracy under data 

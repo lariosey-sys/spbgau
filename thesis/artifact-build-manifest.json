@@ -1,0 +1,138 @@
+{
+  "output": "/Users/sergei/MyProjects/spbgau/thesis/defense_presentation.pptx",
+  "outputBytes": 64113,
+  "slideCount": 12,
+  "slideSize": {
+    "width": 1280,
+    "height": 720
+  },
+  "previewDir": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/preview",
+  "previewPaths": [
+    "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/preview/slide-01.png",
+    "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/preview/slide-02.png",
+    "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/preview/slide-03.png",
+    "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/preview/slide-04.png",
+    "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/preview/slide-05.png",
+    "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/preview/slide-06.png",
+    "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/preview/slide-07.png",
+    "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/preview/slide-08.png",
+    "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/preview/slide-09.png",
+    "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/preview/slide-10.png",
+    "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/preview/slide-11.png",
+    "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/preview/slide-12.png"
+  ],
+  "layoutDir": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/layout",
+  "layoutResults": [
+    {
+      "layoutPath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/layout/slide-01.layout.json"
+    },
+    {
+      "layoutPath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/layout/slide-02.layout.json"
+    },
+    {
+      "layoutPath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/layout/slide-03.layout.json"
+    },
+    {
+      "layoutPath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/layout/slide-04.layout.json"
+    },
+    {
+      "layoutPath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/layout/slide-05.layout.json"
+    },
+    {
+      "layoutPath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/layout/slide-06.layout.json"
+    },
+    {
+      "layoutPath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/layout/slide-07.layout.json"
+    },
+    {
+      "layoutPath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/layout/slide-08.layout.json"
+    },
+    {
+      "layoutPath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/layout/slide-09.layout.json"
+    },
+    {
+      "layoutPath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/layout/slide-10.layout.json"
+    },
+    {
+      "layoutPath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/layout/slide-11.layout.json"
+    },
+    {
+      "layoutPath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/layout/slide-12.layout.json"
+    }
+  ],
+  "contactSheet": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/qa/contact_sheet.png",
+  "slides": [
+    {
+      "index": 1,
+      "requestedSlideNumber": 1,
+      "modulePath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/slides/slide-01.mjs",
+      "exportName": "default"
+    },
+    {
+      "index": 2,
+      "requestedSlideNumber": 2,
+      "modulePath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/slides/slide-02.mjs",
+      "exportName": "default"
+    },
+    {
+      "index": 3,
+      "requestedSlideNumber": 3,
+      "modulePath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/slides/slide-03.mjs",
+      "exportName": "default"
+    },
+    {
+      "index": 4,
+      "requestedSlideNumber": 4,
+      "modulePath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/slides/slide-04.mjs",
+      "exportName": "default"
+    },
+    {
+      "index": 5,
+      "requestedSlideNumber": 5,
+      "modulePath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/slides/slide-05.mjs",
+      "exportName": "default"
+    },
+    {
+      "index": 6,
+      "requestedSlideNumber": 6,
+      "modulePath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/slides/slide-06.mjs",
+      "exportName": "default"
+    },
+    {
+      "index": 7,
+      "requestedSlideNumber": 7,
+      "modulePath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/slides/slide-07.mjs",
+      "exportName": "default"
+    },
+    {
+      "index": 8,
+      "requestedSlideNumber": 8,
+      "modulePath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/slides/slide-08.mjs",
+      "exportName": "default"
+    },
+    {
+      "index": 9,
+      "requestedSlideNumber": 9,
+      "modulePath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/slides/slide-09.mjs",
+      "exportName": "default"
+    },
+    {
+      "index": 10,
+      "requestedSlideNumber": 10,
+      "modulePath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/slides/slide-10.mjs",
+      "exportName": "default"
+    },
+    {
+      "index": 11,
+      "requestedSlideNumber": 11,
+      "modulePath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/slides/slide-11.mjs",
+      "exportName": "default"
+    },
+    {
+      "index": 12,
+      "requestedSlideNumber": 12,
+      "modulePath": "/Users/sergei/MyProjects/spbgau/outputs/019e6559-82d7-7070-949b-3813da0473d0/presentations/greenhouse-defense/slides/slide-12.mjs",
+      "exportName": "default"
+    }
+  ]
+}

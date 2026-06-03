@@ -1,0 +1,31 @@
+Ссылки для ручного скачивания (откройте в браузере и сохраните PDF):
+
+=== Уже скачано вручную / закрыто ===
+https://www.mdpi.com/2077-0472/16/7/761 -> agriculture-16-00761-v2.pdf
+https://www.mdpi.com/1996-1073/18/21/5821 -> energies-18-05821-v2.pdf
+https://www.mdpi.com/2076-3417/16/10/4859 -> applsci-16-04859.pdf
+https://www.mdpi.com/2077-0472/15/23/2461 -> agriculture-15-02461.pdf
+https://www.mdpi.com/2624-7402/7/11/380 -> agriengineering-07-00380.pdf
+https://www.sciencedirect.com/science/article/pii/S2772375524003551 -> 1-s2.0-S2772375524003551-main.pdf
+https://www.researchgate.net/publication/363700078 -> MQTT_Protocol_based_Smart_Greenhouse_Environment_M.pdf
+
+=== ArXiv / Preprints ===
+https://www.preprints.org/manuscript/202602.1268
+
+Примечание: https://arxiv.org/abs/2506.13278 уже скачан как 02_arxiv_2506.13278_RL_MPC_greenhouse.pdf
+Примечание: https://arxiv.org/abs/2507.21669 уже скачан как 04_arxiv_2507.21669_BiLSTM_GRU_predictive_control.pdf
+
+=== ScienceDirect / PMC / E3S ===
+https://www.e3s-conferences.org/articles/e3sconf/abs/2024/37/e3sconf_icftest2024_01066/e3sconf_icftest2024_01066.html
+
+Примечание: https://pmc.ncbi.nlm.nih.gov/articles/PMC8271501/ уже скачан как 07_pmc_sensors_2021_greenhouse_crop_yield_tcn_rnn.pdf
+
+=== ResearchGate / Academia / Прочие (3 источника) ===
+https://www.researchgate.net/publication/363700078
+https://www.academia.edu/51351077
+https://iris.uniroma1.it/retrieve/b1c7a735-278e-4dc0-9a81-e90c58891740/Hoseinzadeh_Can%20AI%20predict_2024.pdf
+
+=== Русскоязычные (3 файла) ===
+http://www.ivdon.ru/uploads/article/pdf/IVD_18_elesin.pdf_1506.pdf
+https://ela.kpi.ua/bitstreams/a60478b3-bc74-4ecf-8acb-b98e4a2de311/download
+https://etnuir.tnu.edu.ua/bitstream/handle/123456789/388/Срібний%20Максим%20Мколайович.pdf

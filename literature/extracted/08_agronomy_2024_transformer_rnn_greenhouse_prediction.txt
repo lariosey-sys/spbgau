@@ -1,0 +1,223 @@
+
+
+--- page 1 ---
+ 
+ 
+ 
+ 
+Agronomy 2024, 14, 417. https://doi.org/10.3390/agronomy14030417  www.mdpi.com/journal/agronomy 
+Article 
+Evaluating Time-Series Prediction of Temperature, Relative 
+Humidity, and CO2 in the Greenhouse with Transformer-Based 
+and RNN-Based Models 
+Ju Yeon Ahn 1,2, Yoel Kim 1, Hyeonji Park 1, Soo Hyun Park 3 and Hyun Kwon Suh 1,2,* 
+1  Department of Integrative Biological Sciences and Industry, Sejong University,  
+Seoul 05006, Republic of Korea; jyahn1998@gmail.com (J.Y.A.); longtailedtit12@gmail.com (Y.K.); 
+hyunji7674@gmail.com (H.P.) 
+2  Digilog Inc., Seoul 05006, Republic of Korea 
+3  Smart Farm Research Center, Korea Institute of Science and Technology (KIST),  
+Gangneung 25451, Republic of Korea; ecoloves@kist.re.kr 
+*  Correspondence: davidsuh79@sejong.edu; Tel.: +82-2-3408-3661 
+Abstract: In greenhouses, plant growth is directly inﬂuenced by internal environmental conditions, 
+and therefore requires continuous management and proper environmental control. Inadequate en-
+vironmental conditions make plants vulnerable to pests and diseases, lower yields, and cause im-
+paired growth and development. Previous studies have explored the combination of greenhouse 
+actuator control history with internal and external environmental data to enhance prediction accu-
+racy, using deep learning-based models such as RNNs and LSTMs. In recent years, transformer-
+based models and RNN-based models have shown good performance in various domains. How-
+ever, their applications for time-series forecasting in a greenhouse environment remain unexplored. 
+Therefore, the objective of this study was to evaluate the prediction performance of temperature, 
+relative humidity (RH), and CO2 concentration in a greenhouse after 1 and 3 h, using a transformer-
+based model (Autoformer), variants of two RNN models (LSTM and SegRNN), and a simple linear 
+model (DLinear). The performance of these four models was compared to assess whether the latest 
+state-of-the-art (SOTA) models, Autoformer and SegRNN, are as eﬀective as DLinear and LSTM in 
+predicting greenhouse environments. The analysis was based on four external climate data samples, 
+three internal data samples, and six actuator data samples. Overall, DLinear and SegRNN consist-
+ently outperformed Autoformer and LSTM. Both DLinear and SegRNN performed well in general, 
+but  were  not  as  strong  in  predicting  CO2  concentration.  SegRNN  outperformed  DLinear  in  CO2 
+predictions, while showing similar performance in temperature and RH prediction. The results of 
+this  study  do  not  provide  a  deﬁnitive  conclusion  that  transformer-based  models,  such  as Auto-
+former, are inferior to linear-based models like DLinear or certain RNN-based models like SegRNN 
+in predicting time series for greenhouse environments. 
+Keywords: Autoformer; DLinear; LSTM; SegRNN; greenhouse; time series 
+ 
+1. Introduction 
+Plant growth in greenhouses is greatly inﬂuenced by internal environmental condi-
+tions, and therefore requires continuous management and proper environmental control. 
+Inadequate environmental conditions make plants vulnerable to pests and diseases, result 
+in decreased yields, and cause impaired growth and development [1–3]. To ensure opti-
+mal growing conditions, monitoring is critical to predict changes in the greenhouse envi-
+ronment. However,  environmental factors in  the  greenhouse  exhibit complex  and  non-
+linear  dynamics,  making  prediction  a  particularly  challenging  task. As  a  result,  simple 
+Citation: Ahn, J.Y.; Kim, Y.; Park, H.; 
+Park, S.H.; Suh, H.K. Evaluating 
+Time-Series Prediction of  
+Temperature, Relative Humidity, 
+and CO2 in the Greenhouse with 
+Transformer-Based and RNN-Based 
+Models. Agronomy 2024, 14, 417. 
+https://doi.org/10.3390/ 
+agronomy14030417 
+Academic Editor: Ya nbo Huang and 
+Miguel-Ángel Muñoz-García 
+Received: 22 November 2023 
+Revised: 26 January 2024 
+Accepted: 16 February 2024 
+Published: 21 February 2024 
+ 
+Copyright:  ©  2024  by  the  authors. 
+Licensee  MDPI,  Basel,  Switzerland. 
+This  article  is  an  open  access  article 
+distributed  under  the  terms  and 
+conditions of the Creative Commons 
+Attribution  (CC  BY)  license 
+(https://creativecommons.org/license
+s/by/4.0/). 
+
+
+
+--- page 2 ---
+Agronomy 2024, 14, 417  2  of  16 
+ 
+ 
+models and formulas are often insuﬃcient to accurately predict environmental changes 
+[4,5]. 
+In previous studies, researchers have primarily used the internal and external envi-
+ronmental data of the greenhouse to predict the conditions inside, or they have combined 
+the data with the control history of the actuators in the greenhouse. As an example of the 
+use of only greenhouse environmental data to predict indoor conditions, Moon et al. [6] 
+utilized nine environmental parameters that were recorded at 10 min intervals to predict 
+changes  in  the  carbon  dioxide  (CO2)  concentration,  using  an  artiﬁcial  neural  network 
+(ANN) model. These authors reported high accuracy even in the absence of ventilation 
+data, demonstrating the potential of a neural network-based model for predicting CO2 in 
+greenhouses. Subsequently, Moon et al. [7] used an LSTM model to predict the CO2 con-
+centration and achieved promising accuracy despite the rapid and inconsistent ﬂuctua-
+tions  in  CO2  levels  in  the  greenhouse.  As  an  alternative  to  neural  network-based  ap-
+proaches, Cao et al. [8] implemented a tree-based machine learning model combined with 
+time-series  features.  Their  proposed  model  demonstrated  high  predictive  performance 
+even though the model was simple and fast to train, in contrast with deep learning-based 
+models such as RNNs and LSTMs. 
+Recent studies have attempted to predict greenhouse conditions by integrating inter-
+nal and external environmental data, as well as data from actuator control history. Choi 
+et al. [9] used a combination of environmental data and operating values of control devices 
+to predict the temperature and relative humidity in a greenhouse 10–120 min in advance. 
+Jung et al. [10] conducted a comparative analysis of RNN-LSTM-based models and NARX 
+models and obtained satisfactory forecasts for temperature and CO2 concentration. How-
+ever,  the  models  did  not  perform  as  well  in  predicting  relative  humidity  in  the  green-
+house, particularly under unusual outdoor weather conditions such as heavy rainfall and 
+storms. Ullah et al. [11] attempted to predict three greenhouse environmental factors: tem-
+perature, CO2 concentration, and relative humidity. To improve the prediction accuracy, 
+they proposed an ANN-based model using a reﬁned Kalman ﬁlter and reported high ac-
+curacy even with noisy sensor readings in the greenhouse. Cai et al. [12] utilized a light 
+gradient  boosting  machine  learning  (LightGBM)  model.  They  reported  that  LightGBM 
+was applicable not only to the prediction of the greenhouse environment but also to real-
+time predictive control applications. Jung et al. [13] used an LSTM model to predict two 
+crucial factors related to moisture in greenhouses: relative humidity and evapotranspira-
+tion. Their study validated the feasibility of applying data-driven deep learning models 
+and demonstrated that the model was able to predict greenhouse conditions in real-world 
+applications, assuming a consistent and extensive collection of suﬃcient environmental 
+data. 
+Overall, the above-mentioned studies have shown that incorporating the greenhouse 
+actuator  control  history  with  indoor  and  outdoor  environmental  data  tends  to  achieve 
+enhanced  prediction  performance.  Various  approaches  ranging  from  machine  learning 
+models to neural network-based deep learning models have been investigated, and most 
+of them have demonstrated satisfactory performance in the context of the given experi-
+ment.  However,  to  the  best  of  our  knowledge,  there  are  no  reports  using  transformer-
+based models for time-series prediction in greenhouse environments, despite their supe-
+rior  performance  over  conventional  deep  learning  models  in  many  applications  across 
+various domains. 
+In recent years, the transformer has demonstrated exceptional performance in many 
+ﬁelds, including natural language processing [14], speech recognition [15], and computer 
+vision [16]. Consequently, many transformer-based models have been proposed, and the 
+performance of these models has been continuously enhanced [17,18]. Research on trans-
+former-based models is also gaining popularity in the ﬁeld of time-series forecasting [19]. 
+Along with this trend, the comparative advantage of transformer-based models over non-
+transformer-based  models  has  become  a  primary  focus  of  investigation  [20–22]. 
+
+
+--- page 3 ---
+Agronomy 2024, 14, 417  3  of  16 
+ 
+ 
+Nonetheless, transformer-based models have not yet been explored to address time-series 
+forecasting in a greenhouse environment. 
+In addition, recent research indicated that the SegRNN model, an enhanced version 
+of the conventional RNN model for time-series prediction, has achieved remarkable per-
+formance. The conventional RNN often suﬀers from performance degradation due to ex-
+cessively  long  look-back  windows  and  forecast  horizons.  The  SegRNN  model  counters 
+this  by  integrating  segment-wise  iterations  and  parallel  multi-step  forecasting,  which 
+greatly reduces the number of RNN iterations required. These changes have led to signif-
+icant improvements in both prediction accuracy and inference speed. However, just like 
+transformer-based models, the SegRNN model has not yet been tested for time-series pre-
+diction in greenhouse environments. 
+Therefore, the objective of this study was to evaluate the predictive performance of 
+temperature, relative humidity (RH), and CO2 concentration in a greenhouse after 1 and 
+3  h,  using  a  transformer-based  model  (Autoformer)  [23],  variants  of  two  RNN  models 
+(LSTM [24] and SegRNN [25]), and a simple linear model (DLinear) [21]. The performance 
+of these four models was compared to assess whether the transformer-based model (Au-
+toformer) and RNN-based model (SegRNN) are as eﬀective as the linear-based model in 
+predicting greenhouse environments. The models were trained and tested using inputs 
+from greenhouse climate conditions and the status of the greenhouse actuators, collected 
+over the previous three days. Prediction performance was evaluated with four metrics: 
+the  mean  absolute  error  (MAE),  mean  squared  error  (MSE),  root-mean-squared  error 
+(RMSE), and coeﬃcient of determination (R2). 
+2. Materials and Methods 
+2.1. Data Acquisition and Preprocessing 
+The dataset for this study was obtained from a Venlo-type tomato greenhouse oper-
+ated by the Korea Institute of Science and Technology (KIST) in Gangneung, Gangwon-
+do, Republic of Korea, with coordinates 37.79868 N, 128.85617 E (Figure 1). An internal 
+sensor module (SH-VT260, Soha Tech, Seoul, Republic of Korea) for measuring tempera-
+ture, humidity, and CO2 inside the greenhouse was installed in height-adjustable positions 
+according to the height of the tomato plants. In addition, an external weather station (Van-
+tage Pro2, Davis Instruments, Hayward, CA, USA) was installed 2 m above the roof of the 
+greenhouse. From 22 September 2020 to 29 June 2021, data were collected on an hourly 
+basis  from  an  internal  sensor  module  as  well  as  from  an  external  weather  station,  and 
+included the status of various greenhouse actuators. This resulted in a total of 6744 records 
+being included in the dataset. 
+For model training, a set of 13 sensor and actuator values was used (Table 1): four 
+measurements from an external weather station (temperature, relative humidity, wind di-
+rection, and wind speed), three measurements from an internal sensor module (tempera-
+ture, relative humidity, and CO2 concentration), and the statuses of six actuators (circulat-
+ing fan, fogging valve, CO2 injection valve, window opening ratio, shading curtain open-
+ing ratio, and heat retention curtain opening ratio). The range of each value is shown in 
+Table 2. 
+
+
+--- page 4 ---
+Agronomy 2024, 14, 417  4  of  16 
+ 
+ 
+ 
+Figure 1. External view of the Venlo-type experimental greenhouse located at KIST, Gangneung, 
+Republic of Korea. 
+Table 1. Data description for model training. Thirteen features were obtained, comprising four ex-
+ternal climate data samples, three internal climate data samples, and six actuator data samples. Each 
+feature was collected every hour. 
+Input Variables (Unit)  Description 
+Environmental values 
+Outside temperature (°C)  Temperature acquired from an external weather station 
+Outside relative humidity (%)  Relative humidity acquired from an external weather station 
+Outside wind direction (°)  Wind direction acquired from an external weather station 
+Outside wind velocity (m·s−1)  Wind speed acquired from an external weather station 
+Temperature (°C)  Air temperature acquired from an internal sensor module 
+Relative humidity (%)  Relative humidity acquired from an internal sensor module 
+CO2 concentration (ppm)  Carbon dioxide concentration acquired from an internal sensor module 
+Actuator values 
+Fan (on/oﬀ)  Circulating fan status 
+Fogging (on/oﬀ)  Fogging valve status 
+CO2 injection (on/oﬀ)  CO2 injection valve status 
+Window openness (%)  Lee-side window opening ratio 
+Shade curtain (%)  Shading curtain opening ratio 
+Heat retention curtain (%)  Heat retention curtain opening ratio 
+Table 2. Range of environmental values and actuator values. 
+Input Variables (Unit)  Range 
+Environmental values 
+Outside temperature (°C) − 16.3–29.9 
+Outside relative humidity (%)  1–100 
+Outside wind direction (°)  0–355 
+Outside wind velocity (m·s−1)  0–0.5 
+Temperature (°C)  8.4–36.9 
+Relative humidity (%)  27.3–94.1 
+CO2 concentration (ppm)  359–582 
+Actuator values 
+Fan (on/oﬀ)  0 or 1 

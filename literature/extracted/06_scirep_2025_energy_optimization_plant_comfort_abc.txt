@@ -1,0 +1,263 @@
+
+
+--- page 1 ---
+Energy optimization and plant 
+comfort management in smart 
+greenhouses using the artificial bee 
+colony algorithm
+Muhammad Jawad1, Fazli Wahid1,2,3, Sikandar Ali1, Yingliang Ma3, Ahmed Alkhyyat4,5,6, 
+Jawad Khan7 & Youngmoon Lee8
+Agriculture is an essential component of human sustenance in this world. These days, with a growing 
+population, we must significantly increase agricultural productivity to meet demand. Agriculture moved 
+toward technologies as a result of the demand for higher yields with less resources. Increasing awareness 
+of the significance and influence of agricultural practices in global climate change has made the use of 
+energy-efficient innovations a vital aspect of the agriculture sector. The use of greenhouses to provide 
+controlled environments that encourage effective plant growth is one of the current associated approaches. 
+If not properly maintained, the energy used to run the greenhouses’ chillers, heaters, humidifiers, carbon 
+dioxide (CO₂) generators, and carbon emissions becomes expensive. The goal of this research is to create 
+a sustainable greenhouse model while achieving the best plant growth requirements with minimal use of 
+energy. In order to achieve the lowest possible amount of energy consumption, the optimization model 
+considered temperature, humidity, CO₂ levels, and sunlight as essential parameters in the environment. The 
+Artificial Bee Colony (ABC) optimization technique was utilized for setting the environmental parameters 
+for plant growth, considered for the suggested system. The system’s inputs were plant-preferred factors, 
+and plant comfort was achieved by applying ABC to boost the parameters’ efficiency. A fuzzy controller 
+was utilized to regulate different devices, including humidifiers, heaters, chillers, and CO₂ generators, by 
+entering the introduced values. The overall efficacy of the fuzzy controllers that switch On/Off the actuators 
+was obtained by minimizing the error between the best estimates of environmental factors and the ABC 
+optimized values. Additionally, the suggested method was contrasted with other effective algorithms, 
+such as Genetic Algorithm (GA), Firefly Algorithm (FA), and Ant Colony Optimization (ACO). Based on the 
+results of the comparison analysis between the ABC algorithm and current practices, present procedures do 
+not minimize the fluctuations in the inaccuracy between the target and actual environmental parameters, 
+which is a necessary step towards increasing energy efficiency. The suggested method used 162.19 kWh 
+for temperature control, 84.65405 kWh for Humidity, 131.2013 kWh for Sunlight, and 603.55208 kWh 
+for CO₂ management, indicating the maximum energy efficiency. ACO needed 172.2621 kWh, 88.269 
+kWh, 175.7127 kWh, and 713.2125 kWh, in contrast to FA 169.7983 kWh, 86.04496 kWh, 155.8442 kWh, 
+and 743.7986 kWh. Temperature, Humidity, Sunlight, and CO₂ were measured by GA at 164.1609 kWh, 
+86.19566 kWh, 174.6429 kWh, and 734.9514 kWh, respectively. In terms of Plant comfort, the suggested 
+approach also outperformed 0.986770848 ACO (0.944043), FA (0.949832), and GA (0.946076). It is 
+important to note that the research being done has the potential to minimize operating costs and maximize 
+the amount of energy needed for plant growth, thereby creating a model for sustainable greenhouse 
+agriculture.
+Keywords Plant’s preferred environment, Greenhouse environment, Energy consumption, Optimization, 
+Smart greenhouse, Fuzzy logic
+1Department of Information Technology, The University of Haripur, Haripur 22620, Pakistan. 2College of Science 
+and Engineering, School of Computing, University of Derby, Derby DE22 3AW, UK. 3School of Computing Sciences, 
+University of East Anglia, Norwich NR4 7TJ, UK. 4College of Technical Engineering, The Islamic University, Najaf 
+54001, Iraq. 5College of Technical Engineering, Islamic University of Diwaniya, Al Diwaniyah 58001, Iraq. 6College 
+of Technical Engineering, The Islamic University of Babylon, Babylon 512002, Iraq. 7School of Computing, Gachon 
+OPEN
+Scientific Reports |         (2025) 15:1752 1| https://doi.org/10.1038/s41598-024-84141-5
+www.nature.com/scientificreports
+
+
+
+--- page 2 ---
+University, Seongnam 13120, Republic of Korea. 8Department of Robotics, Hanyang University, Ansan 15588, 
+Republic of Korea. email: jkhanbk1@gachon.ac.kr; youngmoonlee@hanyang.ac.kr
+Agriculture plays a key factor in ensuring food security, stability, and strengthening the economy of countries. 
+It has to fulfill a growing number of environmental and quality regulations. Integrating new technologies in 
+the agro-alimentary sector may help meet these challenges 1. Worldwide, access to sustainable food and energy 
+sources is a major challenge 2. As a method of intensive and sustainable food production, greenhouse farming 
+has the potential to feed the globe3. Promoting the extensive use of greenhouses in farming could be one way to 
+overcome the obstacles in the way of the transition to sustainable and precision farming practices. A sustainable 
+smart approach could help minimize the effects of climate change, conserve energy and water resources, 
+improve quality of life, mitigate environmental problems, and produce local socioeconomic and environmental 
+benefits4. A greenhouse’s primary goal is to create the ideal atmosphere for growing crops5. The roof and walls 
+of a greenhouse are often constructed from transparent materials like glass or plastic. Plants are cultivated in a 
+controlled environment in greenhouses, where moisture levels, soil nutrients, light levels, temperature, etc. are 
+all regulated. Thus, by creating optimal environmental conditions, greenhouse technology enables humans to 
+grow plants at any time6.
+The greenhouse sector has recently gained a lot of attention and has grown rapidly all around the world. Fresh 
+vegetable production may be done all year long in greenhouses, which have a production rate that is about 50% 
+higher than open-air farming. However, greenhouse production costs are primarily driven by labor and energy 
+costs, which together account for more than 50% of total costs. So even a small performance boost can result 
+in substantial cost savings. Numerous production systems have been developed for the production of food that 
+is entirely natural for humans and leaves the fewest traces of microorganisms and diseases 7. To maintain the 
+environment while handling the resources in a greenhouse, skilled farmers are required. Because professional 
+cultivators are exceedingly hard to locate and command high pay, hiring them takes time and money. Therefore, 
+an IoT-based system must be created that can facilitate the first and enable continuous greenhouse environment 
+monitoring. By keeping track of several essential indicators, such as temperature, humidity, CO2 level, etc., the 
+system may obtain results from producing crops and cultivating a productive greenhouse environment for plant 
+growth8. Utilizing resources as efficiently as possible lowers costs, therefore agriculture machinery should only be 
+utilized when truly necessary. The system can assist in gathering data related to farms for a long-term assessment 
+and accurate decision-making to maximize profit and use resources efficiently. Furthermore, it improves the 
+efficiency of the farmer’s labor by keeping him informed through prompt messages, reminders, and alarms9. The 
+approach significantly lowers the expense of hiring professional farmers by empowering the average farmer to 
+properly run and maintain the farm with little to no training10.
+In the paper, we explain the optimization approach through ABC regarding the means to automate the key 
+greenhouse environmental operations automatically. The proposed approach is set with the aim of providing 
+optimal interior climate conditions to maximize plant productivity and resource efficiency. Therefore, our 
+optimization framework is pursued in detail through mathematical modeling while tested with rigorous 
+experimentation. The proposed method dynamically balances the key greenhouse parameters, especially 
+temperature, CO₂ concentration, sunlight, and humidity while minimizing energy usage for efficient and 
+sustainable greenhouse management. The main goals of this work are to minimize energy costs with comfortable 
+conditions for plant growth, to identify and integrate the parameters necessary for control of greenhouse 
+environmental conditions, and to design an intuitive yet efficient optimization algorithm that achieves efficacy 
+in energy efficiency and comfort for the plants. The contributions go in three aspects: the development of a 
+complete energy-efficient optimization model, validation of the case by comparisons with other metaheuristics, 
+such as ACO, FA, and GA, and laying down a basis for potential applications in real-world scenarios regarding 
+sustainable greenhouse operations.
+To the best of our knowledge, no optimization algorithms have been used to optimize energy use in smart 
+greenhouse systems, despite a thorough investigation of these algorithms in various fields. The algorithms ABC, 
+ACO, FA, and GA are introduced to such a situation in this study. Among the algorithms tested above, ABC 
+outperformed ACO, FA, and GA in terms of efficiency and had the greatest results in terms of plant comfort 
+and energy savings. In addition to having a high plant comfort index, the ABC used the least amount of energy 
+of any significant greenhouse parameter when temperature, humidity, sunshine, and CO2 were managed 
+optimally. Therefore, this work has set a standard for the future by highlighting the ABC algorithm’s potential as 
+an innovative and effective technique for maximizing energy utilization in smart greenhouses.
+The remaining papers are structured as follows. A thorough overview of the literature review and associated 
+work is provided in Sect. 2, the suggested work is presented in Sect. 3, the implementation and experimental 
+findings are shown in Sect. 4, and a thorough discussion is provided in Sect. 4. Section 5 concludes the paper. 
+The abbreviations and descriptions used in this study are listed in Table 1
+Related work
+Different authors have applied IoT in various domains considering parameters according to their specific 
+problems and factors that influence the System’s operation. In this section, several remarkable applications of IoT 
+in different contexts are shown. To forecast a smart building’s interior temperature, the authors in11 suggested 
+integrating IoT and machine learning algorithms. Also, IoT architecture is employed to deliver standardized, 
+interoperable, portable, and safe solutions for forecasting energy usage in smart buildings. The prediction of 
+interior temperature, where variables handle values in several quantities, is the primary focus of this article. It 
+uses meteorological factors such as sun radiation, ambient temperature, and wind speed that have developed 
+over time. Using a time series solution with the help of various well-known machine learning techniques, such 
+as Support Vector Machine (SVM), Random Forest, and Neural Networks, allows us to predict the temperature 
+Scientific Reports |         (2025) 15:1752 2| https://doi.org/10.1038/s41598-024-84141-5
+www.nature.com/scientificreports/
+
+
+--- page 3 ---
+of the conditioned space. In another study, the authors in12 addressed interior environment management using 
+IoT-based smart building technology which seeks to supply the following key features: checking concerning the 
+environmental conditions in the area, identification of the room’s occupants, a cloud-based system where virtual 
+mega entities use machine learning techniques to do data analysis jobs, and digital entities gather the information 
+produced by the sensors. The Raspberry was equipped with a light neural network, which allowed it to determine 
+how many people were in the room based on measurements taken by the sensors and photos taken by the 
+camera. Based on environmental criteria, a bagging tree is used for population estimation and classification. 
+Gaussian process regression provides a Pearson correlation coefficient of 0.939 since it forecasts the total volatile 
+organic compounds (TVOCs) with the number of occupants based on environmental conditions. The article’s 
+primary goal is to forecast energy use and enhance energy management in commercial smart buildings, aiming 
+for improved efficiency. For prediction, k-NN (k-nearest neighbor) is employed. The technique will forecast the 
+peak load based on the amount of electricity used, expressed in kilowatts. Current and voltage comprise the 
+highest demand feature used in the k-NN algorithm 13. The control of smart building ventilation subsystems is 
+the goal of the paper’s discussion and demonstration of a black-box modeling application realized using data 
+mining techniques. Two steps form the foundation of the data processing and learning framework: Raw data 
+streams are compressed using the symbolic aggregate approximation approach, and the resulting section is 
+inserted into the support vector machine algorithm14.
+A Personalized comfort technique is presented in 15 to forecast occupants’ thermal comfort in terms of 
+temperature. Four stages make up the suggested method: gathering data, preparing it, extracting features, 
+choosing features, balancing the data, and predicting thermal sensing using machine learning and deep learning 
+in uncomfortably warm, impartial, and cold climate zones using a combination of logistic regression (LG), 
+random forest (RF), Hoeffding Decision Tree (HDT), and deep artificial neural network (DANN). The authors 
+in16 suggest the use of intelligent irrigation systems to forecast a crop’s water needs. This system includes sensors 
+for temperature, humidity, and moisture that are placed in a field of crops and transmit data via a microprocessor 
+to create an Internet of Things (IoT) device with the cloud. Data in real-time collected from the surroundings is 
+used to anticipate outcomes effectively results are predicted by the decision tree algorithm and sent to the farmer. 
+To identify pests, the authors in 17, combine environmental sensors, artificial intelligence (AI), the Internet of 
+Things (IoT), and picture recognition technology. Using the YOLOv3 (Y ou Only Look Once) series, a neural 
+network approach was utilized to locate insects using image identification and to predict their appearance using 
+Long Short-Term Memory (LSTM) analysis of environmental data from weather stations. The article gives 
+Abbreviation Description
+TNP Total Number of Parameters
+UpBdi Upper Bound of Parameters i
+LowBdi Lower Bound of Parameters i
+Rng Range
+CS Size of Colony
+Max C Maximum Cycles
+CI Comfort Index
+Tu Plant Preferred Temperature
+Cu Plant Preferred Carbon Dioxide
+Hu Plant Preferred Humidity
+Su Plant Preferred Sunlight
+err1 Error Difference between Environmental Temperature and Plant-Preferred Temperature
+err2 Error Difference between Environmental Carbon Dioxide and Plant Preferred Carbon Dioxide
+err3 Error Difference between Environmental Sunlight and Plant Preferred Sunlight
+err4 Error Difference between Environmental Humidity and Preferred Humidity
+Prr1 Preference Parameter for Temperature
+Prr2 Preference Parameter for Carbon Dioxide
+Prr3 Preference Parameter for Sunlight
+Prr4 Preference Parameter for Humidity
+TRp Total Required Power
+RP1 Power Required for Temperature
+RP2 Power Required for Sunlight
+RP3 Power Required for Carbon Dioxide
+RP4 Power Required for Humidity
+ABC Artificial Bee Colony
+ACO Ant Colony Optimization
+FA Firefly Algorithm
+GA Genetic Algorithm
+Table 1. Abbreviation and their description.
+ 
+Scientific Reports |         (2025) 15:1752 3| https://doi.org/10.1038/s41598-024-84141-5
+www.nature.com/scientificreports/
+
+
+--- page 4 ---
+farmers the information they need to precisely apply pesticides at the right time and place, reducing the number 
+of agricultural workers needed for effective pest management and attaining the objective of smart agriculture. 
+Utilizing predictive computational intelligence approaches, wheat crop nitrogen status is assessed. Analysis of 
+crop photographs that were taken in the field under various lighting conditions will be used to determine the 
+evaluation. The wheat crop is first exposed to the HSI color normalization procedure, which is followed by crop 
+precision status categorization utilizing genetic algorithms (GA) and artificial neural networks (ANN) based 
+prediction. By categorizing the crop yield age into groups, an ANN-based optimized technique can effectively 
+distinguish wheat crops from other undesirable plants and weeds 18. The emerging Internet of Things (IoT) 
+environment generates large volumes of unstructured multimedia data. To remove important data derived 
+through the continuously created data, deep learning (DL) techniques are being applied. Because of their low 
+processing power, DL approaches are difficult to integrate with Internet of Things devices. Even so, this problem 
+is addressed with cloud computing, it also contains some drawbacks like service delays and congestion on the 
+network. This paper suggests a way for distributing a part of the DL layers for the fog nodes in an intelligent 
+agriculture system on fog computing. With consideration for each fog node’s available processing power and 
+bandwidth, the best layers of the DL model are selected for each fog node using the suggested deep learning 
+entrusted to fog nodes (DLEFN) approach. A DL framework with modularity and swift speed named Caffe 
+(convolutional architecture for fast feature embedding) is initially employed for the project 19. The authors in20 
+anticipate the recommendation of an IoT-based intelligent irrigation architecture that uses machine learning 
+to estimate soil moisture, leading to a clearer outcome. This research suggests a special EDGE-Fog-IoT-Cloud 
+platform for an IoT-based sustainable agricultural design. This framework aims to provide an example of how 
+AI methods can help in making informed irrigation decisions for agriculture that improve water efficiency. 
+Because the Internet of Things (IoT) devices in a smart city network are linked to sensors that are connected 
+to large cloud servers, they are susceptible to threats and malicious assaults. It is crucial to devise methods to 
+thwart these assaults and keep IoT devices from malfunctioning. In this paper, the authors evaluate an attack and 
+anomaly detection method using machine learning algorithms (LR, SVM, DT, RF , ANN, and KNN) to reduce 
+IoT cybersecurity risks in a smart city. Unlike previous works that focused on single classifiers, the research 
+also explores ensemble methods, such as bagging, boosting, and stacking, to increase the detection system’s 
+performance. Moreover, consider including multiclass classification, cross-validation, and feature selection for 
+the topic at hand21.
+IoT-based smart brain bleeding detection system is debated and uses machine learning methods. It is extremely 
+difficult to detect brain bleeding automatically, which typically results in death or permanent abnormalities. 
+To reduce the likelihood of injuries or lifelong disabilities and to provide high-quality medication right to the 
+patient’s door, this research has created an intelligent Internet of Things application that can accurately identify 
+brain hemorrhage. This Internet of Things application uses a feedforward neural network and support vector 
+machine to identify the various kinds of brain hemorrhages 22. A Machine Learning Approach to Modelling 
+an Intelligent Ecosystem (IEML) is created in23 to evaluate ecosystem performance intelligently and effectively 
+using machine learning techniques. This study describes a smart city that uses ANN techniques to predict the 
+ecosystem instantly. Using the cloud and the Internet of Things, the structure is created to make it easier to store, 
+index, and visualize the data that a smart city’s input parameters create. To create a predictive and intelligent 
+ecosystem model, using a suggested ANN-based method, the Scaled Conjugate Gradient (SCG), Levenberg–
+Marquardt (LM), and Bayesian Regularization (BR) algorithms are employed. To diagnose COVID-19 patients 
+in smart hospitals, an approach that utilizes machine learning (ML) and the Internet of Things (IoT) is presented 
+in24. In this sense, it was highlighted to show how useful IoT technology and machine learning models work in 
+smart healthcare settings. It is possible to improve the diagnostic (classification) accuracy based on laboratory 
+data by utilizing basic machine learning models. Three machine learning (ML) models—Naive Bayes (NB), 
+Random Forest (RF), and Support Vector Machine (SVM)—were developed and evaluated using lab datasets. 
+Diagnostic decisions can be supported by the suggested method, which is based on ML and IoT. Additionally, 
+the results may decrease the workload for medical professionals, address the issue of patient congestion, and 
+lower the COVID-19 pandemic fatality rate. An anomaly detection system, or "ADS," is suggested in 25 for 
+smart hospital infrastructures. It has two modules: IDC for identifying network anomalies and threats (the 
+SVM method is used to classify the received data), and EDC for identifying e-health-related events (SVM is 
+used to find the events of interest, just like IDC). IDC and EDC interact well in a single, integrated system, 
+making administration simple and reducing the cost of system management. The events that EDC detects 
+are carefully analyzed and are no longer trusted after IDC indicates an intrusion. For hospital infrastructures 
+to avoid providing inaccurate signals or making poor decisions about patients’ healthcare, such reliability is 
+necessary. Crop production in greenhouses is now a well-established method, and automation in many areas of 
+this system is now possible due to advancements in technology. Thus, installing an automated smart greenhouse 
+powered by the Internet of Things (IoT) and an Adaptive Neuro-Fuzzy Inference System (ANFIS) might be the 
+best option to increase food output on the land. Real-time sensors are used to gather four types of weather data: 
+temperature, humidity, direct sunlight, and soil moisture. The fuzzy control system then receives these gathered 
+data as input variables. The data are subsequently modified by the optimal values for the climate parameters 
+are then determined by ANFIS and the fuzzy control system. When the optimal winter temperature is 24 °C 
+and the relative humidity is 76.00%, crops grown during the winter are considered in the final simulation. 
+The technique has a 93.62% detection accuracy at the perception layer, with precision at 0.83, recall at 0.78, 
+and FI score at 0.81 26. The learning-to-prediction approach was proposed by the authors as a way to improve 
+the predictive algorithms’ accuracy in dynamic circumstances. To evaluate the sustainability of the proposed 
+approach, an artificial neural network (ANN) learning module is built to increase the accuracy of the Kalman 
+filter method. In experiments, the Kalman filter technique is used to accurately predict the parameters of the 
+indoor climate (temperature, CO 2, and humidity) from noisy sensor measurements in an inside setting that 
+Scientific Reports |         (2025) 15:1752 4| https://doi.org/10.1038/s41598-024-84141-5
+www.nature.com/scientificreports/

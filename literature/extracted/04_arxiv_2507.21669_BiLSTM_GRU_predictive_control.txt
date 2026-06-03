@@ -1,0 +1,156 @@
+
+
+--- page 1 ---
+Data-Driven Greenhouse Climate Regulation in
+Lettuce Cultivation Using BiLSTM and GRU
+Predictive Control
+Soumo Emmanuel Arnaud,∗a, Marcello Calistib, Athanasios Polydorosa
+aUniversity of Lincoln, School of Engineering, Physical Science and Lincoln Centre for
+Autonomous Systems, , Lincoln, LN6 7TS, , United Kingdom
+bSant’Anna School of Advanced Studies, The BioRobotics Institute, Viale Rinaldo
+Piaggio 34, Pontedera, , Pisa, Italy
+Abstract
+Efficient greenhouse management is essential for sustainable food pro-
+duction, but the high energy demand for climate regulation poses signifi-
+canteconomicandenvironmentalchallenges. Whiletraditionalprocess-based
+greenhouse models exist, they are often too complex or imprecise for reliable
+control. To address this, our study introduces a novel data-driven predic-
+tive control framework using Long Short-Term Memory (LSTM) and Gated
+Recurrent Unit (GRU) neural networks within a Model Predictive Control
+(MPC) architecture. Training data were generated from a validated dynamic
+model simulating lettuce cultivation under various environmental conditions.
+The LSTM and GRU networks were trained to predict future greenhouse
+states—including temperature, humidity, CO2 concentration, and crop dry
+matter—with robustness confirmed via10-fold cross-validation. These net-
+works were embedded into an online MPC controller to optimize heating,
+ventilation, and CO2 injection, aiming to minimize energy consumption and
+maximize crop yield while respecting biological constraints. Results showed
+that both the LSTM- and GRU-based controllers significantly outperformed
+a conventional MPC baseline. For example, humidity violations dropped
+from 54.77% (MPC) to 15.45% (GRU) and 17.71% (LSTM), while day–night
+temperature deviations were kept below2◦C. The GRU controller further
+achieved up to 40% lower computation time than its LSTM counterpart, con-
+firming its real-time feasibility. Overall, the proposed GRU-driven predictive
+control approach offers a robust and computationally efficient solution for
+intelligent greenhouse climate automation under practical operational con-
+arXiv:2507.21669v2  [eess.SY]  4 Feb 2026
+
+
+--- page 2 ---
+straints.
+Keywords:Greenhouse climate control, Model Predictive Control (MPC),
+Data-driven modeling, Long Short-Term Memory (LSTM), Gated
+Recurrent Unit (GRU), Deep learning, Precision agriculture,
+Energy-efficient control, Predictive control, Crop yield optimization
+1. INTRODUCTION
+Global food security faces significant challenges. The number of under-
+nourished people has increased steadily since 2014, reaching an estimated 720
+to 811 million in 2020 [1]. This rise occurs as the world population, currently
+around 7.7 billion, is projected to reach 9.7 billion by 2050, driving a rapid
+increase in the demand for fresh and nutritious food [2]. Consequently, food
+production must increase by approximately 70% between 2005 and 2050 to
+meet future needs [3]. At the same time, critical resources such as freshwa-
+ter [4], fossil fuels, and arable land are becoming increasingly scarce, while
+the impacts of climate change continue to intensify. As a result, producing
+high-quality fresh food in a resource-efficient manner is more important than
+ever. Greenhouse cultivation has emerged as a powerful approach to agri-
+cultural intensification. Studies indicate that it can achieve substantial yield
+increases, typically ranging from 10% to 20%, while simultaneously reducing
+critical resource inputs by 25% to 35% [5, 6]. These considerable benefits
+have contributed to the accelerated global growth of protected horticulture.
+Nevertheless, the widespread adoption of greenhouse technologies is limited
+by inherent challenges, notably their high energy demands and the significant
+initial capital investments required [7].
+Greenhousesareessentialforcropcultivation, astheyprovideacontrolleden-
+vironmentthatshieldsplantsfromunpredictableoutdoorweather. Intoday’s
+world where energy costs are rising and labor and resources are becoming in-
+creasingly scarce, efficient and automated greenhouse management is more
+important than ever. This approach helps maximize crop production while
+minimizing resource use. However, outdoor weather constitutes a significant
+disturbance, making it challenging to control greenhouse climate, develop
+accurate models, and optimize operations for optimal performance [8]. A
+greenhouse is a complex system consisting of two primary components: the
+cultivated plants and the surrounding controlled environment. This internal
+environment is influenced by a combination of external weather conditions,
+2
+
+
+--- page 3 ---
+the functioning of greenhouse equipment, and the physiological activities of
+the plants themselves. To understand, predict and optimize the behavior of
+such systems, researchers commonly rely on mathematical modeling. These
+models serve a dual purpose: they offer information on the underlying physi-
+cal and biological processes and support the development of control strategies
+to improve system performance [9, 10].
+Traditional greenhouse modeling approaches are typically deterministic and
+based on first-principles, drawing from established scientific understanding
+of plant physiology, thermodynamics, and fluid dynamics [11, 12]. Although
+these models can provide detailed and mechanistic insights, they are often
+complex, featuring nonlinear dynamics and a large number of parameters
+that have to be manually tuned. This complexity reduces their adaptability
+to different greenhouse setups or operational conditions. Furthermore, first-
+principles models are generally limited in their ability to handle uncertainty,
+as estimating the variability in model parameters requires extensive datasets
+and computationally demanding statistical methods. Although these mod-
+els use data for calibration, they are not data-driven like machine learning
+models. As a result, they lack the flexibility to adapt to new conditions
+without manual adjustments. Building upon these modeling approaches, au-
+tomated control systems have been increasingly adopted in greenhouse oper-
+ations to maintain optimal environmental conditions [13]. Among advanced
+techniques, the MPC-controller stands out for its superior performance and
+energy efficiency compared to traditional methods [14]. The prediction model
+forms the cornerstone of any MPC strategy; its accuracy directly influences
+the quality of future state predictions and, consequently, the effectiveness of
+control actions. MPC typically employs analytical models—often in state-
+space form—to forecast system dynamics and determine the optimal control
+inputs over a specified prediction horizon [15]. However, in practical appli-
+cations, the development of first-principles models is frequently hindered by
+challenges such as incomplete system knowledge, complex parameter iden-
+tification, and computational burdens that are incompatible with real-time
+operation. This has led to the emergence of data-driven black-box models as
+a viable alternative within the MPC framework. These models, trained ex-
+clusively on system input and output data, offer enhanced adaptability and
+computational efficiency. However, existing machine learning applications in
+greenhouse climate control have shown considerable promise but still face
+several fundamental challenges. Models often struggle to generalize under
+unseen weather conditions, exhibit sensitivity to sensor noise, and require
+3
+
+
+--- page 4 ---
+computational resources that hinder real-time deployment [16]. At the core
+of these issues lies a critical trade-off between maintaining expressive capacity
+for capturing long-term temporal dependencies and ensuring computational
+efficiency suitable for continuous control tasks. Although Transformer-based
+architectures are a dominant choice in many time-series applications, their
+substantialcomputationaloverheadandmixedperformanceevidence—where
+recurrent models such as GRUs and LSTMs have demonstrated superior ac-
+curacy [17, 18] in certain contexts make them less suitable for the present
+application.
+Recurrent neural networks (RNNs)—particularly LSTM and GRU architec-
+tures—address several of these challenges through their ability to model non-
+linear relationships and retain long-range temporal dependencies within se-
+quential data. Unlike static regression models, LSTM and GRU networks can
+dynamically adapt to evolving system conditions, providing improved fore-
+casting accuracy and robustness to environmental fluctuations [19]. More-
+over, their compact architecture enables real-time deployment when properly
+optimized, making them attractive candidates for integration within MPC
+frameworks.
+Despite these advantages, their systematic evaluation for real-time green-
+house climate control remains limited. Few studies have rigorously assessed
+the predictive accuracy, robustness, and computational feasibility of LSTM-
+and GRU-based models within operational control settings. This research
+aims to fill this gap by integrating and comparing LSTM and GRU black-
+box models within an MPC framework for greenhouse control. The study
+investigates their performance in terms of predictive capability, resilience to
+environmental disturbances, and suitability for real-time implementation un-
+der realistic operational constraints and varying prediction horizons.
+The remainder of this paper is organized as follows. Section II reviews re-
+latedworkondata-drivencontrolapproachesforgreenhousesystems. Section
+III presents the experimental setup and dataset used in this study. Section
+IV introduces the architecture and performance evaluation of the proposed
+LSTM and GRU predictive models. Section V describes the integration of
+these models within a MPC framework. Section VI reports and discusses the
+simulation results, highlighting the control performance. Finally, Section VII
+concludes the paper and outlines directions for future research.
+4

@@ -1,0 +1,559 @@
+
+
+--- page 1 ---
+arXiv:2506.13278v1  [eess.SY]  16 Jun 2025
+RL-Guided MPC for
+Autonomous Greenhouse Control
+Salim Msaad ∗ Murray Harraway ∗ Robert D. McAllister ∗
+∗ Delft Center for Systems and Control (DCSC),
+Delft University of Technology, Delft, The Netherlands
+Abstract: The efficient operation of greenhouses is essential for enhancing crop yield while
+minimizing energy costs. This paper investigates a control strategy that integrates Reinforce-
+ment Learning (RL) and Model Predictive Control (MPC) to optimize economic benefits in
+autonomous greenhouses. Previous research has explored the use of RL and MPC for greenhouse
+control individually, or by using MPC as the function approximator for the RL agent. This
+study introduces the RL-Guided MPC framework, where a RL policy is trained and then
+used to construct a terminal cost and terminal region constraint for the MPC optimization
+problem. This approach leverages the ability to handle uncertainties of RL with MPC’s online
+optimization to improve overall control performance. The RL-Guided MPC framework is
+compared with both MPC and RL via numerical simulations. Two scenarios are considered: a
+deterministic environment and an uncertain environment. Simulation results demonstrate that,
+in both environments, RL-Guided MPC outperforms both RL and MPC with shorter prediction
+horizons.
+Keywords: Greenhouse Control, Model Predictive Control, Reinforcement Learning, Economic
+Optimization
+1. INTRODUCTION
+The sustainable and efficient operation of greenhouses is
+pivotal to modern agriculture, offering a controlled envi-
+ronment to maximize crop yield while optimizing resource
+efficiency. Modern greenhouse systems demand advanced
+control strategies to dynamically manage climatic vari-
+ables, such as temperature, humidity, and CO2 levels, with
+fluctuating external conditions. Traditional control meth-
+ods struggle to balance long-term economic objectives with
+real-time operational demands. Reinforcement Learning
+(RL) and Model Predictive Control (MPC) have shown
+promise in addressing these challenges. Prior research has
+explored RL and MPC as standalone solutions for green-
+house automation. RL excels in handling stochastic envi-
+ronments, while MPC leverages model-based optimization
+to enforce constraints and recalibrate actions in real time.
+RL approaches for greenhouse control have been studied in
+van Laatum et al. (2024) and in Morcego et al. (2023). The
+first study presents an open-source RL environment for
+greenhouse control, comparing different RL approaches,
+while the second study introduces a RL-based controller
+that utilizes deep deterministic policy gradient for green-
+house climate control, comparing it to a MPC controller.
+Boersma et al. (2022) propose a robust MPC controller
+for greenhouse climate control, showing improved perfor-
+mance over traditional MPC. Mallick et al. (2025) inte-
+grate RL and MPC by using MPC as a function approxi-
+mator within the RL framework.
+The autonomous greenhouse control problem is an eco-
+nomic optimization task. Conventional MPC approaches
+focus on tracking an economically optimal steady-state for
+the system. However, for applications such as greenhouse
+control, steady-state tracking is not desirable as optimal
+economic operation requires dynamically adjusting the
+temperature, humidity, and CO2 levels in the greenhouse.
+Economic MPC, which uses economic costs directly in
+the stage cost and does not focus on stabilizing a steady-
+state target, is therefore more appropriate for greenhouse
+control. Nonetheless, a steady-state or reference trajectory
+is often used to improve and guarantee performance of eco-
+nomic MPC implementations (Amrit et al., 2011; Risbeck
+and Rawlings, 2020; Angeli et al., 2012)
+This paper presents the RL-Guided MPC framework,
+where an RL policy informs the terminal cost and region
+constraints in the MPC optimization. The policy is used to
+build a cost function approximator for the terminal cost,
+while rollouts using the actor define the terminal region
+constraint. This integration improves control performance
+while ensuring computational efficiency in scenarios with
+limited prediction horizons. The efficacy of the proposed
+approach is validated through numerical simulations, com-
+paring RL-Guided MPC against standalone MPC and RL
+controllers. The simulations are conducted in two environ-
+ments. One environment is deterministic, while the other
+is stochastic with parametric uncertainty.
+Section 2 outlines the greenhouse model, simulation envi-
+ronments, and the optimization problem tackled by the
+RL agent, MPC, and RL-Guided MPC. Section 3 and
+Section 4 describe the RL agent and MPC controller,
+while Section 5 introduces the RL-Guided MPC frame-
+work. Numerical results are presented in Section 6, and
+the conclusions are presented in Section 7.
+
+
+--- page 2 ---
+Table 1. Physical meaning of input u, state x, and disturbance d
+u1 CO2 injection (mg m−2 s−1) x1 dry weight (kg m−2) d1 solar radiation (W m−2)
+u2 ventilation (mm s−1) x2 indoor CO 2 (ppm) d2 outdoor CO 2 (kg m−3)
+u3 heating (W m−2) x3 indoor temperature ( ◦C) d3 outdoor temperature ( ◦C)
+x4 indoor humidity (%) d4 outdoor humidity (kg m−3)
+2. BACKGROUND
+2.1 Greenhouse Model
+The greenhouse and crop model utilized in this paper is
+the same as in Van Henten (1994). The model is discretised
+with the fourth order Runge-Kutta method with a sample
+period ∆t = 1800 s (30 minutes), resulting in the following
+state space model:
+x(k + 1) = f(x(k), u(k), d(k), p) (1)
+with discrete time k ∈ Z+, state variable x(k) ∈ R4,
+control input u(k) ∈ R3 and weather disturbance d(k) ∈
+R4. The parameter p ∈ R22 represents all parameters
+used in the model. The values and meaning of p and the
+nonlinear function f(·) are described in Boersma et al.
+(2022). State estimation is not considered in this work. It
+is assumed that the state variable x(k) is always known.
+Table 1 provides the physical meaning of the state, input,
+and disturbance variables.
+The weather data for simulations and training was sourced
+from the Venlow Greenhouse in Bleiswijk, covering the
+period from January 30 to March 11, 2014. The weather
+is assumed to be deterministic and known at each time
+step. This dataset spans a 40-day growing period with a
+time step of 30 minutes, resulting in a total of 1920 time
+steps. For the numerical simulations, two scenarios are
+considered: a deterministic environment and a stochastic
+environment. In a real-world greenhouse, uncertainty is
+present in all aspects of the model. Uncertainty may
+arise in the weather prediction, measurement noise on the
+outputs, and the control inputs may not be exact. As done
+in Boersma et al. (2022), the uncertainty in the stochastic
+environment is modelled as parametric uncertainty, which
+aims to offer a simplified representation of the real-world
+uncertainties. It is assumed that the uncertain parameters
+ˆp ∈ R22 follow the uniform probability distribution
+ˆp ∼ U (p(1 − δ), p(1 + δ)), (2)
+where vector p represents the nominal values of the pa-
+rameters and δ is a percentage that defines the range of
+the distribution. The value of δ is set to 5% for all of
+the stochastic simulations presented in Section 6. For each
+simulation in the stochastic environment, a new set of
+uncertain parameters ˆp is sampled from the distribution
+in (2), and the system dynamics in (1), with p = ˆp, are
+used for simulation.
+2.2 Optimization Problem
+Optimal greenhouse control involves maintaining suitable
+environmental conditions for crop growth, including tem-
+perature, humidity, and CO 2 levels, while minimizing re-
+source use. This is achieved through control inputs for
+heating using heating pipes, ventilation by controlling
+window openings, and CO 2 injection. The goal is to max-
+imize crop yield while minimizing resource consumption.
+Table 2. Pricing and penalty factors
+Symbol Value Unit
+c1 1.906 · 10−1 e mg−1
+c3 1.281 · 10−1 e J−1
+r 20.93* e kg−1
+λ2 5 · 10−5 e(ppm m2)−1
+λ3 5 · 10−3 e(°C m2)−1
+λ4 7 · 10−4 e(% m2)−1
+* Corresponding to 1.07 e kg−1 for fresh weight.
+Table 3. Input and output constraints and
+initial conditions
+Symbol Value Symbol Value Symbol Value
+umin
+1 0 umax
+1 1.2 u1(0) 0
+umin
+2 0 umax
+2 7.5 u2(0) 0
+umin
+3 0 umax
+3 150 u3(0) 50
+xmin
+1 0 xmax
+1 ∞ x1(0) 0.0035
+xmin
+2 500 xmax
+2 1600 x2(0) 0.001
+xmin
+3 10 xmax
+3 20 x3(0) 15
+xmin
+4 0 xmax
+4 80% (78%)* x4(0) 0.008
+* Constraint tightening of 2% for the stochastic case.
+Deciding the harvest time is also an important factor in
+profitability. However, in this study, a fixed growing period
+of 40 days is chosen instead of including this decision in
+the optimization problem. This approach aligns with other
+studies in the literature (Boersma et al. (2022); Morcego
+et al. (2023); Mallick et al. (2025)). At the conclusion of
+this growing period, the crop is harvested and sold, mark-
+ing the end of the cultivation cyle. The revenue generated
+from the sale is then used to calculate the Economic Profit
+Indicator (EP I), which is determined by subtracting the
+heating and CO2 costs from the total earnings, as follows:
+EP I = r x1(tf) −
+tfX
+k=0
+ 
+c1u1(k) + c3u3(k)
+
+∆t, (3)
+where tf denotes the final time, set at 40 days,c1 represent
+the CO 2 injection cost coefficient, c3 the heating cost
+coefficient, r the revenue coefficient from lettuce sales, and
+∆t the sample period. The values of these pricing factors
+are listed in Table 2.
+The EP I defines the objective function for the greenhouse
+control problem. However, directly optimizing (3) using
+MPC or RL is difficult due to the sparse reward structure,
+since rewards are given only at the end of the growing
+period. To overcome this challenge, the following economic
+stage cost is defined for each time step:
+ℓe
+ 
+x(k), u(k)
+
+= − r
+ 
+x1(k) − x1(k − 1)
+
++
+ 
+c1u1(k) + c3u3(k)
+
+∆t. (4)
+The cumulative sum of the stage costs in (4) over the
+growing period is equivalent to the EP I in (3), but
+with the opposite sign. State constraints are essential to
+ensure the system operates within realistic and feasible
+bounds. Temperature, humidity, and CO 2 concentration
+
+
+--- page 3 ---
+must stay within specified minimum and maximum limits.
+However, due to inherent uncertainties, these constraints
+cannot be strictly enforced. Instead, they are treated as
+soft constraints by incorporating three penalty terms into
+the objective function to account for any violations. As a
+result, the following stage cost function is defined:
+ℓ
+ 
+x(k), u(k)
+
+= ℓe
+ 
+x(k), u(k)
+
++ g2
+ 
+x2(k)
+
++ g3
+ 
+x3(k)
+
++ g4
+ 
+x4(k)
+
+, (5)
+where g2, g3, g4 are the penalty functions for the indoor
+CO2 concentration, temperature, and humidity, respec-
+tively. These penalty functions are defined as
+gi
+ 
+xi(k)
+
+=
+
+
+
+λi
+ 
+xi(k) − xmax
+i
+
+if xi(k) > x max
+i ,
+λi
+ 
+xmin
+i − xi(k)
+
+if xi(k) < x min
+i ,
+0 otherwise .
+(6)
+The penalty coefficients λ2, λ3, and λ4 are defined in
+Table 2. The state’s minimum and maximum threshold
+values xmin
+i and xmax
+i are defined in Table 3. In addition
+to the state constraints, the control inputs are also subject
+to constraints. The heating injection, ventilation, and CO2
+injection are bounded by their respective minimum and
+maximum values, as defined in Table 3. Moreover, the
+control inputs are subject to rate constraints to prevent
+abrupt changes in the control actions. For each control
+input i = {1, 2, 3}, the absolute rate of change is limited
+to δumax
+i = umax
+i /10.
+Considering the objective function in (5), along with the
+state and rate constraints, the optimal greenhouse control
+task is described by the following optimization problem:
+min
+u(·)
+tfX
+k=0
+ℓ
+ 
+x(k), u(k)
+
+, (7a)
+s.t. x(k + 1) = f
+ 
+x(k), u(k), d(k), p
+
+, (7b)
+umin ≤ ui(k) ≤ umax, (7c)
+|u(k) − u(k − 1)| ≤ δumax. (7d)
+The RL agent, MPC and RL-Guided MPC all seek to
+solve the optimization problem in (7) and are ultimately
+evaluated based on the cumulative cost in (7a). The initial
+conditions, detailed in Table 3, were kept constant for
+every episode and for both the deterministic and stochastic
+cases.
+3. REINFORCEMENT LEARNING
+Actor-critic methods combine elements of both policy-
+based and value-based approaches, enabling stable and
+efficient learning. The actor is responsible for learning a
+policy, while the critic evaluates the quality of actions
+taken. By leveraging this dual structure, actor-critic al-
+gorithms allow policies to improve based on both direct
+experience and feedback from the critic. One key advan-
+tage of actor-critic algorithms is their ability to handle
+continuous state and action spaces effectively (Sutton and
+Barto (2020)), in contrast to other methods, such as Q-
+learning, that are better suited to discrete environments.
+This makes them well-suited for complex control tasks,
+such as greenhouse climate optimization. The actor-critic
+algorithm employed in this study is soft actor-critic (SAC)
+(Haarnoja et al. (2018)), a widely used actor-critic algo-
+rithm. SAC introduces an entropy term into the reward
+function, explicitly balancing exploration and exploitation.
+Table 4. Hyperparameters for the RL agent
+Parameter Value
+Training episodes 100
+Warm-up episodes 9
+Hidden layers 2
+Neurons per hidden layer 128
+Batch size 1024
+Learning rate 5 · 10−3
+Buffer size 100,000
+Activation function ReLU
+Discount factor γ 0.95
+This leads to the learning of a policy πθ(s(k)), function
+of the current observation s(k) and parameterized by θ,
+where the entropy term determines policy randomness.
+By optimizing both the expected cumulative reward and
+entropy, the agent encourages diverse action selection.
+Careful selection of the agent’s observation space is cru-
+cial for effective learning. Providing insufficient informa-
+tion may hinder the agent’s ability to learn meaningful
+strategies, while excessive information can make it difficult
+to extract relevant patterns. In a real-world greenhouse
+setting, expert growers do not have direct access to the
+current dry weight of the lettuce crop. However, in this
+study, it is assumed that this value, denoted by x1(k),
+is available to the RL agent, to MPC and to RL-Guided
+MPC. The agent also receives data on the greenhouse’s
+indoor temperature x2(k), CO 2 concentration x3(k), and
+humidity x4(k), which are typically measured by sensors
+in real-world greenhouses. Moreover, the previous input
+u(k − 1) is included in the observation space. This infor-
+mation is crucial, since the difference between the current
+and previous control inputs is constrained, by (7d), to
+prevent abrupt changes. The weather disturbance d(k) is
+also available to the agent, as it is for the MPC and for the
+RL-Guided MPC. Finally, the agent is designed to be time-
+aware, meaning that the current time step k is explicitly
+provided. This allows the agent to make decisions based on
+the stage of the growing period. Without this information,
+the agent would not be able to distinguish between early
+and late stages of the growing period, which is crucial
+for effective control. Therefore, the observation space is
+defined as:
+s(k) =
+ 
+x(k), u(k − 1), d(k), k
+
+. (8)
+To ensure that the control input u(k) adheres to the
+constraints specified in (7), the agent’s action, denoted as
+a(k) = πθ(s(k)) with a ∈ [−1, 1]3, is interpreted as an
+adjustment to the previous control input:
+u(k) = max
+ 
+umin,
+min(umax, u(k − 1) + a(k)δumax)
+
+. (9)
+The reward function that the RL agent is trained to
+maximize is the same objective function defined in (5)
+but with an inverted sign. This formulation ensures that
+both methods operate under a consistent optimization
+framework, allowing for direct comparisons between all
+approaches. The discount factor, γ, is a crucial hyperpa-
+rameter. For long-term tasks, γ = 1 allows the agent to
+consider the entire growth period and optimize long-term
+economic outcomes. However, it can destabilize training.
+To address this, we used γ = 0.95, which improved policy
+effectiveness. Table 4 lists all RL agent hyperparameters.
+Two different RL agents were trained, one for the de-
+
+
+--- page 4 ---
+terministic environment and the other for the stochastic
+environment. Both agents were trained using identical
+hyperparameters, with the only difference being the envi-
+ronment, and consequently, the datasets they were exposed
+to during training.
+4. MODEL PREDICTIVE CONTROL
+The MPC controller in this study is designed to solve the
+optimization problem defined in (7). At time step k0, the
+following optimization problem is solved:
+min
+u(k)
+k0+NpX
+k=k0
+ℓ
+ 
+x(k), u(k)
+
+, (10a)
+s.t. x(k + 1) = f(x(k), u(k), d(k), p), (10b)
+umin ≤ u(k) ≤ umax, (10c)
+|u(k) − u(k − 1)| ≤ δumax, (10d)
+x(k0) = xk0 , (10e)
+where Np is the prediction horizon, and xk0 is the system’s
+state at time k0. Once the optimization problem is solved,
+the first control input is applied to the system, and the
+optimization problem is solved again at the next time step.
+This process is repeated at each time step until the end of
+the growing period. Moreover, to help with the feasibility
+of the optimization problem, the solver is warm-started
+with the previous solution. The optimization problem is
+solved numerically using the open-source software frame-
+work CasADi (Andersson et al. (2019)) and the IPOPT
+solver (W¨ achter and Biegler (2006)).
+Two different MPC controllers are designed, one for the
+deterministic environment and the other for the stochastic
+environment. The MPC formulation in (10) is used for
+both environments. The only modification for the stochas-
+tic case is a tighter indoor humidity constraint xmax
+4 , 78%
+instead of 80%. This constraint tightening in the MPC for-
+mulation reduces the risk of violating the actual constraint
+at 80% in the stochastic simulation environment.
+5. RL-GUIDED MPC
+In the following, we outline the RL-Guided MPC frame-
+work, which incorporates the agent trained in Section 3
+into the MPC optimization problem of Section 4. First,
+we outline how the terminal cost is derived from the critic.
+Next, we describe how the actor is utilized to define the
+terminal region constraint. Finally, we illustrate how the
+actor helps to provide a warm-start initial guess for the
+RL-Guided MPC optimization problem.
+5.1 Terminal cost
+In the RL-Guided MPC framework, the terminal cost is
+directly obtained from the actor network of the SAC agent
+trained in Section 3. Using the learned policy πθ, multiple
+closed-loop trajectories are generated. This data is then
+used to train a cost function approximator ˜Jϕ that esti-
+mates the expected return for a given state. This approach
+enables the RL-Guided MPC to account for long-term
+effects over the entire growing period without extending
+the prediction horizon.
+The cost function approximator is trained through ex-
+pected return learning. Given a nominal state trajectory
+Table 5. Hyperparameters for the cost function
+approximator
+Parameter Value
+Hidden layers 2
+Neurons per hidden layer 128
+Batch size 1024
+Learning rate 1 · 10−3
+Buffer size 1024
+Activation function tanh
+xn(k), 1000 time steps are uniformly sampled from the
+interval {0, 1, . . . , tf }. For each sampled time step k(i), an
+initial state x(k(i)) is sampled from a uniform distribution
+within a range defined by the nominal trajectory:
+x(k(i)) ∼ U
+ 
+xn
+min(k(i)), xn
+max(k(i))
+
+(11)
+where
+xn
+min(k) = xn(k)(1 − σ),
+xn
+max(k) = xn(k)(1 + σ). (12)
+The parameter σ, set at 50%, determines the spread of the
+sampled initial states around the nominal trajectory.
+Next, from each sampled state x(k(i)), the respective
+agent’s observation s(k(i)), defined in (8), is constructed
+and the policy πθ is used to obtain a closed-loop trajectory
+that extends until the end of the growing cycle tf. The
+cumulative cost of each trajectory is then defined as:
+Jπθ(s(k(i))) =
+tfX
+k=ks
+ℓ
+ 
+x(k), πθ(s(k))
+
+. (13)
+The cumulative cost of each trajectory is collected together
+with its respective dry weight x1(k(i)) and sampled time
+k(i) to form dataset D. This dataset is divided into training
+and validation sets, with 80% of the data used for training
+and 20% for validation. To construct the cost function
+approximator ˜Jϕ, a neural network parameterized by ϕ
+is trained using the values of x1(k(i)) and k(i) as inputs
+and the values of Jπθ(s(k(i))) as targets. The following loss
+function is minimized using the Adam optimizer (Kingma
+and Ba (2017)):
+L(ϕ, D) = 1
+Ns
+NsX
+i=1
+
+˜Jϕ(x1(k(i)), k(i)) − Jπθ(s(k(i)))
+2
+.
+The hyperparameters used for the cost function approxi-
+mator are indicated in Table 5.
+The cost function approximator is then added as a term to
+the objective function of the MPC optimization problem
+defined in (10). At each time step k0, the cost function for
+the RL-Guided MPC is thus defined as
+k0+NpX
+k=k0
+ℓ
+ 
+x(k), u(k)
+
++ ˜Jϕ
+ 
+x1(k0 + Np), k0 + Np
+
+. (14)
+5.2 Terminal region constraint and initial guess
+For the first time step, the terminal region constraint
+and the initial guess are constructed using the initial
+conditions, defined in Table 3, and the actor’s policy. The
+agent’s observation s(0) is constructed using the initial
+conditions. Policy πθ is then used to compute the closed-
+loop trajectory from the initial time step to Np + 1:
+{s(0), s(1), . . . , s(Np + 1)}, (15)

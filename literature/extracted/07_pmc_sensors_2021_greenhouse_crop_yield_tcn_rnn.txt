@@ -1,0 +1,209 @@
+
+
+--- page 1 ---
+8.23.5
+Deep Learning Based Prediction on
+Greenhouse Crop Yield Combined
+TCN and RNN
+Liyun Gong, Miao Yu, Shouyong Jiang, Vassilis Cutsuridis a nd Simon Pearson
+Topic Collection
+Convolutional Neural Networks Applications in Sensing and Imaging: Architectures, Insight,
+Visualization, Transparency
+Edited by
+Prof. Dr. Stefanos Kollias
+Communication
+https://doi.org/10.3390/s21134537
+
+
+--- page 2 ---
+sensors
+Communication
+Deep Learning Based Prediction on Greenhouse Crop Yield
+Combined TCN and RNN
+Liyun Gong 1,*, Miao Yu 1, Shouyong Jiang 1, V assilis Cutsuridis1 and Simon Pearson 2
+/gid00030/gid00035/gid00032/gid00030/gid00038/gid00001/gid00033/gid00042/gid00045/gid00001
+/gid00048/gid00043/gid00031/gid00028/gid00047/gid00032/gid00046
+Citation: Gong, L.; Yu, M.; Jiang, S.;
+Cutsuridis, V .; Pearson, S. Deep
+Learning Based Prediction on
+Greenhouse Crop Yield Combined
+TCN and RNN. Sensors 2021, 21, 4537.
+https://doi.org/10.3390/s21134537
+Academic Editor: Benoit V ozel
+Received: 17 May 2021
+Accepted: 25 June 2021
+Published: 1 July 2021
+Publisher’s Note: MDPI stays neutral
+with regard to jurisdictional claims in
+published maps and institutional afﬁl-
+iations.
+Copyright: © 2021 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed under the terms and
+conditions of the Creative Commons
+Attribution (CC BY) license (https://
+creativecommons.org/licenses/by/
+4.0/).
+1 School of Computer Science, University of Lincoln, Lincoln LN6 7TS, UK; myu@lincoln.ac.uk (M.Y .);
+sjiang@lincoln.ac.uk (S.J.); vcutsuridis@lincoln.ac.uk (V .C.)
+2 Lincoln Institute for Agri-Food Technology , University of Lincoln, Lincoln LN6 7TS, UK;
+SPearson@lincoln.ac.uk
+* Correspondence: yun200634234@outlook.com
+Abstract:
+Currently , greenhouses are widely applied for plant growth, and environmental parameters
+can also be controlled in the modern greenhouse to guarantee the maximum crop yield. In order
+to optimally control greenhouses’ environmental parameters, one indispensable requirement is
+to accurately predict crop yields based on given environmental parameter settings. In addition,
+crop yield forecasting in greenhouses plays an important role in greenhouse farming planning and
+management, which allows cultivators and farmers to utilize the yield prediction results to make
+knowledgeable management and ﬁnancial decisions. It is thus important to accurately predict the
+crop yield in a greenhouse considering the beneﬁts that can be brought by accurate greenhouse
+crop yield prediction. In this work, we have developed a new greenhouse crop yield prediction
+technique, by combining two state-of-the-arts networks for temporal sequence processing—temporal
+convolutional network (TCN) and recurrent neural network (RNN). Comprehensive evaluations of
+the proposed algorithm have been made on multiple datasets obtained from multiple real greenhouse
+sites for tomato growing. Based on a statistical analysis of the root mean square errors (RMSEs)
+between the predicted and actual crop yields, it is shown that the proposed approach achieves more
+accurate yield prediction performance than both traditional machine learning methods and other
+classical deep neural networks. Moreover, the experimental study also shows that the historical yield
+information is the most important factor for accurately predicting future crop yields.
+Keywords:
+deep learning; temporal convolutional network (TCN); recurrent neural network (RNN);
+crop yield prediction; greenhouse
+1. Introduction
+Compared with ﬁeld growing, currently , greenhouse growing is preferred by many
+crop growers. Growing crops in the greenhouse can extend their growing season, protect
+crops against temperature and weather changes and thus provide a safe growing environ-
+ment. Moreover, environmental parameters (e.g., humidity , temperature radiation, carbon
+dioxide, etc. [1,2] can also be controlled in the modern greenhouse to guarantee crops grow
+at the most appropriate environmental conditions.
+Crop yield forecasting in greenhouses plays an important role in farming planning
+and management in greenhouses, and optimally controlling environmental parameters
+guarantees the maximum crop yield. Cultivators and farmers can utilize yield prediction in
+greenhouses to make knowledgeable management and ﬁnancial decisions. However, it is
+an extremely challenging task. There are many factors that have an inﬂuence on crop yield
+in a greenhouse, such as radiations, carbon dioxide concentrations, temperature, quality of
+crop seeds, soil quality and fertilization, and disease occurrences (as shown in [ 3–5]). It is
+not straightforward to construct an explicit model to reﬂect the relationship between such
+a variety of factors and crop yield.
+Sensors 2021, 21, 4537. https://doi.org/10.3390/s21134537 https://www.mdpi.com/journal/sensors
+
+
+--- page 3 ---
+Sensors 2021, 21, 4537 2 of 16
+In this work, we propose a deep neural network-based greenhouse crop yield predic-
+tion method, by combining two state-of-the-art networks for temporal sequence processing:
+recurrent neural network (RNN) and temporal convolutional network (TCN). The pro-
+posed deep neural network is developed for predicting future crop yields in a greenhouse
+based on a sequence of historical greenhouse input parameters (e.g., temperature, humidity ,
+carbon dioxide, radiation) as well as yield information. According to the experimental
+evaluations of multiple datasets collected from multiple greenhouses in different time
+periods, it is shown that the RNN+TCN-based deep learning approach achieves more
+accurate yield prediction results with smaller root mean square errors (RMSEs), compared
+with both classical machine learning and other popular deep learning-based counterparts.
+2. Literature Works
+Although there is much research related to crop yield prediction for the farming
+ﬁeld, a relatively small amount of works focus on greenhouse crop yield forecasting.
+Approaches that have been developed for greenhouse crop yield forecasting are divided
+into two main categories: the explanatory biophysical model-based approach and the data
+driven/machine learning model-based approach.
+Explanatory biophysical model-based approach: Based on a series of ordinary differ-
+ential equations (ODEs) reﬂecting a dynamic process, the explanatory model describes the
+relationship between some environmental factors and crop growth or morphological devel-
+opment. Different biophysical models have been applied for crop growth modelling which
+can thus be used for yield forecasting, based on greenhouse environmental parameters.
+The Tomgro model is proposed by Jones et al. in [ 6], which models the tomato growth
+and fruit yield with respect to dynamically changing temperature, solar radiation, and CO 2
+concentration inside a greenhouse. A more complex Tomsim biophysical model is proposed
+in [7], which contains multiple sub-modules developed for modelling different aspects
+(i.e., photosynthesis, dry matter production, truss appearance rate, fruit growth period
+and dry matter partitioning, etc.) related to tomato growth. A crop yield model that
+describes the effects of greenhouse climate on yield based on ODEs was described and
+validated in [
+4]. This yield model was validated for four temperature regimes. Results
+demonstrated that the tomato yield was simulated accurately for both near-optimal and
+non-optimal temperature conditions in the Netherlands and southern Spain, respectively ,
+with varying light and CO 2 concentrations. An integrated Yield Prediction Model [ 8],
+which is an integration of Tomgro model [ 6] and Vanthoor model [ 4], is applied to predict
+the crop yield in greenhouses based on controllable greenhouse environmental parameters.
+Different biophysical models, including Vanthoor model [ 4], Tomsim model [ 7], Green-
+house Technology applications (GTa) model, the model proposed in [ 9] and their combined
+version were compared in [ 10]. The experimental studies show that the combined model
+can outperform original models with smaller root mean square errors (RMSEs) for yield
+prediction. The biophysical models proposed in [ 11,12] describe effects of electrical con-
+ductivity , nitrogen, phosphorus, potassium, and light quality on dry matter yield and
+photosynthesis of greenhouse tomatoes and cucumbers, respectively .
+The explanatory model is practical to reﬂect the actual growth process of crops, which
+is bio-physically meaningful and explainable. However, the aforementioned explanatory
+models suffer from the following two main limitations:
+(i) There are many intrinsic model parameters associated with a biophysical model and
+the performance of an explanatory model is highly sensitive to its model parameters
+(as shown in [ 13]). Moreover, the model parameter setting suitable for predicting
+greenhouse crop yield in one region may not be workable for other regions [ 13].
+(ii) In addition, most biophysical models are also not universal and restricted to model the
+growth for a speciﬁc type of plant. For example, the Tomgro model [ 6] and Tomsim
+model [7] can only be used to model/predict the growth/yield of tomatoes.
+Due to the limitations of the explanatory biophysical model-based approaches, in this
+work, we refer to another category of approach–machine learning model-based approach
+
+
+--- page 4 ---
+Sensors 2021, 21, 4537 3 of 16
+for greenhouse crop yield prediction. More details of the machine learning model-based
+approach are introduced as follows.
+Machine learning model-based approach: Data driven/machine learning technique-
+based approaches have also been applied for greenhouse crop yield forecasting in many
+studies, which treat the crop yield output as a very complex and nonlinear function of the
+greenhouse environmental variables and historical crop yield information. In particular,
+linear and polynomial regression models are used in [ 14] for strawberry growth and fruit
+yield using environmental data such as average daily air temperature (ADAT), relative
+humidity (RH), soil moisture content (SMC), and so on. However, an assumption of
+a linear or polynomial relationship between the crop yield and environmental factors
+is not always valid. Partial least squares regression (PLSR) has been applied in [
+15],
+for modelling the yield of snap bean based on the data collected from hyperspectral sensing.
+Neural networks have also been widely applied for greenhouse crop yield prediction.
+For example, an artiﬁcial neural network (ANN) has been applied in [
+16], for weekly
+crop yield prediction. While in [ 17], ANN has been applied to predict the pepper fruit
+yield based on factors such as fruit water content, days to ﬂowering initiation, and so
+on. An Evolving Fuzzy Neural Network (EFuNN) was proposed in [ 18] for automatic
+tomato yield prediction, given different environmental variables inside the greenhouse,
+namely , temperature, CO
+2, vapour pressure deﬁcit (VPD), and radiation, as well as past
+yield. A Dynamic Artiﬁcial Neural Network (DANN) [ 19] was implemented to predict
+tomato yields, based on a series of predictors such as CO 2 ﬁxation, transpiration, solar
+radiation as well as past yield. The ﬁndings show that the most important environmental
+variable for yield prediction was CO 2 ﬁxation, and the least important was transpiration.
+Although ANN-based approaches have been widely applied for greenhouse crop yield
+prediction tasks as in [ 16–19], their performance is highly sensitive to different choices of
+network architectures and network hyper-parameters settings. Furthermore, there is a
+lack of studies on optimally designing network architecture and tuning network hyper-
+parameters for the greenhouse crop yield prediction.
+The aforementioned works focus on using classical machine learning approaches
+for greenhouse crop yield prediction. Given a certain amount of training data, classical
+machine learning models (such as linear/polynomial regression models, artiﬁcial neural
+network model, etc.) are constructed to predict greenhouse crop yields based on certain
+factors (such as environmental and past yield information). However, these works suffer
+from limitations due to the adoptions of simple and ‘shallow’ classical machine learning
+models, for example:
+(i) Features extracted from data for building the classical machine learning models may
+not be optimal and most representative, thus deteriorating the performance for yield
+prediction (as shown by our experiment, in most cases, the classical machine learning
+models perform worse than the deep learning-based ones).
+(ii) The classical machine learning models cannot effectively handle data with either high
+volume or high complexity .
+Deep learning is a very popular machine learning technique and it has been suc-
+cessfully applied in a variety of applications (e.g., image classiﬁcation, computer vision,
+natural language processing, etc.) [ 20]. Recently , deep learning technology has also been
+applied for crop yield prediction in the outdoor environment. For example, in [ 21], a recur-
+rent neural network deep learning algorithm over the Q-Learning reinforcement learning
+algorithm is used to predict the crop yield. The results show that the proposed model
+outperforms the existing models with high accuracy for crop yield prediction. CNN and
+LSTM are combined in [ 22] for both end-of-season and in-season county-level soybean
+yield prediction, based on the remote sensing data in the outdoor environment. Compared
+with the outdoor application scenarios, there are very few works related to the applications
+of the deep learning approach for indoor greenhouse crop yield prediction. Some related
+works can be found in [ 5,23], from which the researchers have adopted the recurrent
+neural network (RNN) model with long-short temporal memory (LSTM) units for tomato

@@ -1,0 +1,229 @@
+
+
+--- page 1 ---
+Received: 16 February 2026
+Revised: 21 March 2026
+Accepted: 25 March 2026
+Published: 30 March 2026
+Copyright: © 2026 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed under the terms and
+conditions of the Creative Commons
+Attribution (CC BY) license.
+Review
+Smart Greenhouses in the Era of IoT and AI: A Comprehensive
+Review of AI Applications, Spectral Sensing, Multimodal Data
+Fusion, and Intelligent Systems
+Wiam El Ouaham 1,*, Mohamed Sadik 1
+ , Abdelhadi Ennajih 1
+ , Youssef Mouzouna 1
+ , Houda Orchi 1
+and Samir Elouaham 2
+1 NEST Research Group, Energy and Electrical Systems Laboratory (LESE Lab.), National Higher School of
+Electricity and Mechanics (ENSEM), Hassan II University of Casablanca, Casablanca 20000, Morocco;
+m.sadik@ensem.ac.ma (M.S.); a.ennajih@ensem.ac.ma (A.E.); y.mouzouna@ensem.ac.ma (Y.M.);
+houda.orchi@ensem.ac.ma (H.O.)
+2 Information Systems and Technology Engineering Laboratory (LISTI), National School of Applied Sciences of
+Agadir (ENSA), Agadir 80000, Morocco; elouaham.s@ucd.ac.ma
+* Correspondence: wiam.elouaham.doc22@ensem.ac.ma
+Abstract
+Smart greenhouses (SGHs) are controlled-environment agricultural systems that leverage
+digital technologies to optimize crop production and resource management. In particular,
+recent advances in artificial intelligence (AI) and the Internet of Things (IoT) have enabled
+the development of intelligent monitoring, predictive modeling, and automated decision-
+support systems within these environments. Against this backdrop, this comprehensive
+review synthesizes over 130 studies published between 2020 and 2025, with a focus on
+AI-driven monitoring, predictive modeling, and decision-support frameworks in SGH
+environments. More specifically, key application domains include microclimate regula-
+tion, crop growth assessment, disease and pest detection, yield estimation, and robotic
+harvesting. Moreover, particular attention is given to the interplay between AI method-
+ologies and their data sources, encompassing IoT sensor networks, RGB, multispectral,
+and hyperspectral imaging, as well as multimodal data-fusion approaches. In addition,
+publicly available datasets, model architectures, and performance metrics are consolidated
+to support reproducibility and cross-study comparison. Nevertheless, persistent challenges
+are critically discussed, including data heterogeneity, limited model generalization across
+sites, interpretability constraints, and practical barriers to deployment. Finally, emerging
+research directions are identified, notably multimodal learning, edge-AI integration, stan-
+dardized benchmarks, and scalable system architectures, with the overarching objective
+of guiding the development of robust, sustainable, and operationally feasible AI-enabled
+SGH systems.
+Keywords: smart greenhouse; artificial intelligence; machine learning; deep learning;
+Internet of Things; multimodal data fusion; hyperspectral and multispectral imaging;
+crop monitoring
+1. Introduction
+Ongoing climate change exerts growing pressure on the agriculture sector [1]. Accord-
+ing to the World Meteorological Organization (WMO), the past eleven years from 2015 to
+2025 present the warmest period on record, as well as the temperature from January to
+August 2025 was approximately 1.42 °C ± 0.12 °C above pre-industrial levels [2,3].
+Agriculture 2026, 16, 761 https://doi.org/10.3390/agriculture16070761
+
+
+--- page 2 ---
+Agriculture 2026, 16, 761 2 of 63
+In parallel, the frequency and intensity of extreme events, including heatwaves,
+droughts, and heavy rainfall, have increased, disrupting crop schedules and exacerbating
+yield instability [4]. Over the past five decades, heat and drought have reduced global
+yields of key crops such as maize, wheat, and barley by 4–13% [5].
+Furthermore, abiotic stressors have been shown to exacerbate biotic risks; Heat and
+water deficits can accelerate pest and pathogen life cycles and broaden their geographic
+ranges, thereby amplifying crop losses [6]. The FAO (2021) estimates that pests and diseases
+account for about 40% of global crop losses annually, resulting in economic losses of
+approximately 220 billion USD [7]. A 2025 review reported that warming of around 2 °C
+may increase pest-related yield damage by up to 46% in wheat and by more than 30% in
+maize [6].
+Moreover, farming labor availability is declining due to urbanization, coupled with an
+aging population and a reduced participation of young workers as well [8,9]. For example,
+in Europe, less than 5% of workers are employed in agriculture, and globally, the proportion
+of young workers in agrifood systems in most countries has declined by around 10% in
+2023 [9,10]. Meanwhile, projections indicate that the global population will peak at roughly
+10.3 billion in the mid-2080s [11].
+The aforementioned challenges highlight the vulnerability of the conventional open-
+field agricultural sector in the face of climate change, pest and disease pressure, and labor
+shortages [1,7,10]. Consequently, many sustainable strategies increasingly aim to ensure
+stable yield and quality under resource constraints and climatic uncertainty [ 12]. Thus,
+controlled-environment agriculture (CEA), specifically SGHs, offers a practical route to
+mitigate these challenges [12,13].
+On the one hand, CEA is being more widely adopted, especially in developed coun-
+tries, and serves as a strategy to support open-field agriculture and mitigate its vulnerability
+to climatic stress [13,14]. Previous studies highlight the capacity of CEA to deliver more
+consistent yields under climatic unpredictability [13], and describe CEA as an important
+approach for enhancing food security [ 12,13]. On the other hand, the integration of in-
+formation and communication technologies (ICT) has become a predominant means in
+modern agriculture [15]. SGHs have appeared as an innovative technological solution that
+promises efficiency, precision, and sustainability [16].
+Beyond that, recent advances in IoT-enabled sensing, high-resolution imaging, GPU-
+accelerated computing, and artificial intelligence (AI), including machine learning (ML)
+and deep learning (DL), have catalyzed the evolution of SGHs, where continuous data ac-
+quisition is coupled with data-driven analytics and automated actuation. In this paradigm,
+SGHs enable continuous monitoring of crop growth and health, regulation of internal
+variables such as humidity, temperature, CO 2, and light intensity, and robotic harvest-
+ing [16,17]. Figure 1 presents a conceptual overview of the main components of AI-driven
+smart greenhouse systems discussed in this review, including sensing, processing, and ap-
+plication domains.
+Numerous studies have investigated the integration of AI and IoT techniques in
+smart greenhouses (SGHs). Escamilla-García et al. (2020) [ 18] reviewed artificial neural
+network (ANN) applications for microclimate prediction, energy optimization, and plant
+growth modeling. Liu et al. (2024) [ 19] focused on machine learning–based time-series
+forecasting of greenhouse environmental parameters. Akbar et al. (2024) [20] surveyed deep
+learning–based computer vision techniques for greenhouse agriculture. Yu et al. (2025) [21]
+reviewed AI- and IoT-enabled sensing technologies for tomato production. Al-Najadi et al.
+(2025) [16] examined the integration of IoT, AI, and robotics in autonomous greenhouse
+systems, while Al-Qudah et al. (2025) [ 22] surveyed AI applications and sensory data
+https://doi.org/10.3390/agriculture16070761
+
+
+--- page 3 ---
+Agriculture 2026, 16, 761 3 of 63
+utilization in SGHs for sustainable agriculture. The most relevant surveys are summarized
+in Table 1; further details are presented in Table A1 provided in Appendix A.
+Although existing surveys provide valuable perspectives, they often focus on a single
+task (e.g., microclimate prediction), a specific technology (e.g., vision-based DL), or a
+particular crop. A consolidated, data-centric synthesis that jointly examines (i) multi-
+sensor data acquisition, (ii) multimodal data fusion across IoT and imaging modalities
+(RGB/MSI/HSI), and (iii) AI models for the full range of SGH applications remains limited.
+To address this gap, this review makes four contributions: (i) Comprehensive coverage
+(2020–2025): synthesis of 133 peer-reviewed studies spanning microclimate prediction,
+crop growth and yield estimation, pest and disease monitoring, and robotic harvesting;
+(ii) model-centric analysis: structured comparison of single, hybrid, and ensemble ML/DL
+architectures across sensing modalities; (iii) reproducibility support: consolidation of
+publicly available datasets and commonly used evaluation metrics; and (iv) critical outlook:
+discussion of deployment barriers, generalization challenges, and future research directions
+for scalable and sustainable SGH systems.
+The remainder of this paper is organized as follows: Section 2 describes the PRISMA-
+based review methodology and study selection process. Section 3 reviews the major
+SGH application domains covered in this review, including microclimate modeling, crop
+health monitoring and diagnosis, crop growth, yield estimation, and robotics harvesting,
+and consolidates the evaluation metrics used in the reviewed studies. Section 4 synthesizes
+HSI and MSI imaging in SGHs, Section 5 emphasizes multi-data source and multimodal
+data fusion in SGHs, Section 6 is dedicated to work incorporating AI and IoT in SGHs,
+Sections 7 and 8 discuss recurring challenges and future research directions, Section 9
+presents the discussion, and Section 10 concludes the review.
+Figure 1. Conceptual overview of AI-driven smart greenhouse systems, highlighting the main
+sensing, processing, and application components discussed in this review.
+https://doi.org/10.3390/agriculture16070761
+
+
+--- page 4 ---
+Agriculture 2026, 16, 761 4 of 63
+Table 1. Compact summary of related survey papers on smart greenhouse (SGH) systems.
+Ref. Period Papers Domain Tasks Summary
+[16] 2021–2025 100 Intelligent and autonomous green-
+house systems
+Sensing; prediction/control; disease
+detection; growth/yield assessment;
+irrigation/fertilization; robotics
+Reviewed AI, IoT, ML/DL, and robotics for autonomous greenhouse management. It
+concludes that multimodal fusion and IoT improve monitoring and automation, while
+robotics can reduce labor demands, but standardization, interpretability, generalization,
+and deployment cost remain key barriers.
+[18] NR NR ANN applications in
+greenhouse technology
+Prediction/control; energy optimiza-
+tion; CO2 management
+Examined ANN use in greenhouse systems and highlights that feedforward ANNs dom-
+inate, while recurrent and hybrid ANNs are less explored. Optimization methods such
+as GA, PSO, fuzzy logic and PCA improve ANN training and performance. The ANN
+models can surpass physical models for short-term prediction.
+[19] NR 61 ML/DL time-series forecasting in
+greenhouse environments
+Microclimate prediction; water qual-
+ity and dissolved oxygen forecasting;
+energy-related variables
+Mapped the development of time-series forecasting models in greenhouse-related en-
+vironments and finds that deep learning outperforms traditional methods for nonlin-
+ear spatio-temporal data. Attention and memory-based architectures improve long-
+sequence prediction, while shorter sampling intervals increase accuracy.
+[20] 2020–2023 100 Deep-learning-based computer vision
+in greenhouse applications
+Growth monitoring; disease detection;
+yield estimation; classification; harvest-
+ing; pest and weed monitoring
+Reviews DL-enabled computer vision for greenhouse agriculture and shows strong
+potential for automation. However, progress is limited by scarce labeled datasets, weak
+transferability from open-field data, insufficient lightweight models for edge deploy-
+ment, and underused multimodal sensing.
+[21] NR NR Sensing and AI for tomato
+greenhouse production
+Environmental and physiological
+sensing; disease/stress detection;
+yield/quality assessment; irriga-
+tion/fertilization management
+Examined non-invasive sensing, multi-sensor fusion, and AI diagnostics for tomato
+greenhouse production. It found that multimodal deep learning improves disease and
+stress diagnosis, early sensing supports proactive management, and IoT/WSN integra-
+tion enables more precise automated control.
+[22] 2020–2024 74 AI-driven smart greenhouses
+Climate control; secure data handling;
+disease/pest detection; growth evalua-
+tion; big data management
+Provides a state-of-the-art synthesis of AI and sensing in SGHs and identifies persistent
+limitations in multimodal datasets, benchmarks, and real-time deployment. ML/DL
+dominate the field, while RL, LLMs, XAI, and generative AI are still weakly represented.
+[23] 2019–2020 73 mechanistic, time-series, and
+ML approaches
+Microclimate prediction; climate control
+and optimization
+Reviewed greenhouse modeling approaches and showed that dynamic and ANN-based
+methods dominate. RNN/LSTM adoption increased during 2018–2020, heuristic/swarm
+optimization is widely used, and temperature and humidity are the most common
+prediction targets.
+[24] 2014–2023 107 Environmental control strategies and
+greenhouse models
+Heating; cooling; lighting; ven-
+tilation control; mechanistic and
+data-driven modeling
+Reviewed greenhouse control strategies and modeling methods, showing that PID
+remains common while MPC and neural-network control are increasingly adopted. It
+also notes frequent use of heuristic optimizers and continued emphasis on temperature
+and humidity regulation.
+[25] 2010–2025 106 Conventional/intelligent control and
+modeling techniques
+Climate control; irrigation; crop-growth
+control; NN- and RL-based controllers
+Systematically summarized conventional and intelligent control approaches together
+with modeling techniques. It highlights the growing role of neural networks and re-
+inforcement learning while pointing out gaps in real-time adaptability, sustainability,
+and integrated control model design.
+NR: Not reported.
+https://doi.org/10.3390/agriculture16070761

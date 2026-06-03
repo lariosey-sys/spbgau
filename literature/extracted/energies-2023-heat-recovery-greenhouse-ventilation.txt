@@ -1,0 +1,1127 @@
+
+
+--- page 1 ---
+Citation: Ghaderi, M.; Reddick, C.;
+Sorin, M. A Systematic Heat
+Recovery Approach for Designing
+Integrated Heating, Cooling, and
+Ventilation Systems for Greenhouses.
+Energies 2023, 16, 5493. https://
+doi.org/10.3390/en16145493
+Academic Editors: Yuehong Su,
+Jae-Weon Jeong, Jingyu Cao,
+Devrim Aydin, Michele Bottarelli
+and Carlos Jimenez-Bescos
+Received: 22 June 2023
+Revised: 12 July 2023
+Accepted: 18 July 2023
+Published: 20 July 2023
+Copyright: © 2023 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed under the terms and
+conditions of the Creative Commons
+Attribution (CC BY) license (https://
+creativecommons.org/licenses/by/
+4.0/).
+energies
+Article
+A Systematic Heat Recovery Approach for Designing Integrated
+Heating, Cooling, and Ventilation Systems for Greenhouses
+Mohsen Ghaderi, Christopher Reddick and Mikhail Sorin *
+Department of Mechanical Engineering, Université de Sherbrooke, 2500 Boul. de l’ Université,
+Sherbrooke, QC J1K 2R1, Canada; gham2203@usherbrooke.ca (M.G.); j.christopher.reddick@usherbrooke.ca (C.R.)
+* Correspondence: mikhail.v.sorin@usherbrooke.ca
+Abstract: Ventilation heat loss is one of the most important factors contributing to energy performance
+of greenhouses. This paper suggests a systematic method based on dynamic pinch analysis (PA)
+to design an integrated heating, cooling, and ventilation system that uses ventilation waste heat in
+a cost-effective and energy efﬁcient way. A heat recovery system including an air handling unit,
+borehole thermal storage, and a heat pump is proposed to investigate all heat integration scenarios
+for an entire year. In the ﬁrst step, the heat integration scenarios are reduced to a few typical days
+using a clustering technique. Then, a generic methodology for designing a heat exchanger network
+(HEN) for a dynamic system, ensuring both direct and indirect heat recovery, is presented and a set
+of HENs are designed according to the conditions of typical days. Afterwards, the best HEN design
+is selected among all design alternatives using a techno-economic analysis. The whole procedure
+is applied to a commercial greenhouse and the best HEN conﬁguration and required equipment
+sizes are calculated. It is shown that the best-performing design for the greenhouse under study
+produces primary energy savings of 57%, resulting in the shortest payback period of 9.5 years among
+all design alternatives.
+Keywords: greenhouse; pinch analysis; heat exchanger network; clustering; techno-economic
+1. Introduction
+As demand for greenhouse agriculture continues to grow, reducing the associated
+energy cost has become a major challenge. The greenhouse industry is an energy-intensive
+sector and the energy cost can be as high as 70–85% of the total operating cost in a typical
+greenhouse [1]. The primary reason for this is the signiﬁcant climate control energy demand
+accounting for up to 90% of the total energy requirements [2]. The high energy consumption
+is mostly due to the energy losses associated with inefﬁcient practices for maintaining
+greenhouse cultivation conditions. Currently, natural ventilation through opening the roof
+vents is common practice to control the humidity level inside greenhouses. However, this
+incurs signiﬁcant heat loss from greenhouses during the heating season and is among
+the biggest challenges in greenhouse energy management, particularly in cold regions [3].
+Excessive heat loss can be partially mitigated through forced/mechanical ventilation by
+removing undesired energy exchange due to the lack of control over the airﬂows in natural
+ventilation. However, mechanical ventilation introduces an extra energy cost due to the
+electricity consumption of fans, and as a result, a combination system of forced ventilation
+and natural ventilation would offer the most economically viable solution [4,5].
+In addition, heat recovery systems, which can capture and reuse heat from ventilation
+air, can be an effective strategy in reducing energy consumption. Various technical options
+exist for recovering thermal energy from ventilation systems, which can be categorized
+into two main groups: passive and active recovery systems. Passive systems refer to
+different conﬁgurations of air-to-air heat exchangers (AHXs), enabling direct heat recovery
+without any need for an external device such as a heat pump. The utilization of AHXs
+Energies 2023, 16, 5493. https://doi.org/10.3390/en16145493 https://www.mdpi.com/journal/energies
+
+
+--- page 2 ---
+Energies 2023, 16, 5493 2 of 22
+in greenhouse ventilation systems has proven to provide considerable energy efﬁciency
+beneﬁts. Coomans et al. [ 6] compared a semi-closed greenhouse equipped with a recu-
+peration stage with a naturally ventilated greenhouse. It was observed that employing a
+heat recovery device enhances the energy efﬁciency of the greenhouse by 28%. Maslak [7]
+studied the energy saving potential of a non-hygroscopic rotary air-to-air heat exchanger
+for a tomato greenhouse and a 17% energy efﬁciency improvement was achieved. Rousse
+et al. [3] investigated the performance of a low-cost air-to-air heat exchanger unit for a
+greenhouse located in Quebec. It was shown that the application of multi-pipe counterﬂow
+heat exchangers is favorable in small scale within the range of 0.5–1 ACH.
+On the other hand, in an active recovery system, heat recovery is conducted through a
+thermal cycle created by a heat pump. The exhaust air heat pump (EAHP) is increasingly
+gaining popularity as an innovative technology in modern ventilation systems. In an EAHP ,
+heat is recovered from the warm exhausted air by an evaporator and is delivered to a
+condenser to preheat the supply air during winter. Currently, EAHPs are being widely
+used in many energy efﬁcient buildings and are used in almost all newly built family
+houses in Europe [8]. However, due to the limited capacity of EAHPs, auxiliary devices
+are often needed to maximize heat recovery potential [ 9]. Li et al. [ 10] evaluated the
+performance of an AHX coupled with an EAHP under different climatic conditions. It was
+concluded that the integration of an AHX always reduces the annual energy consumption
+of the heating, cooling, and air conditioning (HVAC) system. Perone et al. [11] introduced
+and optimized the heating performance of a prototype forced ventilation system using a
+combination AHX/heat pump for a greenhouse. The results showed superior performance
+of the system in terms of energy efﬁciency and temperature control in the greenhouse.
+Shuailing Liu et al. [12] proposed a more complex integrated system that incorporates both
+a pump-driven loop heat pipe and an EAHP to improve energy efﬁciency in cold regions.
+The temperature effectiveness of the integrated system was calculated to be 52.9% higher
+than that of the heat pump alone. A comprehensive literature review reveals that existing
+heat recovery technologies are primarily based on direct heat recovery, and indirect heat
+recovery through thermal energy storage is completely overlooked, which prevents the
+whole heat recovery potential from being fully realized. In addition, current studies on heat
+recovery predominantly concentrate on analyzing heat recovery devices and there is a lack
+of a comprehensive and systematic approach for sizing and designing the conﬁguration of
+the heat recovery system, especially in more complex units.
+The heat integration technique based on pinch analysis (PA) has been a well-established
+method in the process industry for many years for designing and optimizing heat recovery
+systems [13]. In general, a PA problem starts with an energy targeting phase to determine
+the maximum heat recovery possible and is followed by matching an optimal heat ex-
+changer network (HEN) that connects heat sources and sinks in the most energy efﬁcient
+way. In recent years, some attempts have been made to extend the applicability of the
+pinch-based design approach to HVAC systems. For example, in the study by Miseviciute
+et al. [14], PA was employed to analyze and redesign the HEN of a building’s ventilation
+system. It was demonstrated that the building’s energy demand could be reduced by
+approximately 26% through heat integration compared to the reference system without
+heat recovery. Reddick et al. [15] further developed this idea by using steady-state pinch
+analysis to integrate waste heat into a building’s heating system. However, the impact
+of dynamic behavior of the waste heat source, and ever-changing temperature values,
+were not reﬂected in this study, which could raise serious questions about the relevance
+of the steady-state pinch method for such applications. Hosseinnia et al. [ 16] proposed
+a dynamic pinch strategy that uses instantaneous energy targeting to handle changes in
+the heat capacity of waste heat and other renewable sources. Dynamic PA also allows for
+integration scenarios using thermal energy storage by accounting for charging/discharging
+timing. This method was successfully applied to the integration of gray water waste heat,
+and sizing a hybrid solar-assisted heat pump with seasonal heat storage for a residential
+building [17].
+
+
+--- page 3 ---
+Energies 2023, 16, 5493 3 of 22
+Given the fact that any temperature change in heat sources and sinks (hot/cold
+streams) can alter the HEN structure, designing a HEN to completely meet dynamic energy
+targets is not a trivial task. Superstructure-based mathematical programming is a widely
+used approach for HEN design. However, the superstructure, which represents all potential
+matches between hot and cold streams, may introduce a huge number of variables for a
+dynamic system, making this method complex and impractical for dynamic heat integration.
+Therefore, a simple yet effective HEN design method is required to consider the variability
+in temperatures and heat capacities of the streams.
+The present paper presents a heuristic method to design a cost-efﬁcient HEN for a set
+of dynamic streams. This generic method is then applied to a case study greenhouse to
+design an integrated climate conditioning system enabling ventilation waste heat recovery.
+This study is a continuation of our previous work [ 18] in which heat integration was
+successfully accomplished by deﬁning the greenhouse heating, cooling, and ventilation
+systems as a set of streams. A clustering technique, as the cornerstone of the method, was
+proposed to limit the problem size from a year to a few typical days. This paper addresses
+the HEN design problem for the obtained typical time periods and discusses the selection
+criteria of the best conﬁguration of an integrated greenhouse climate conditioning system.
+Furthermore, the key techno-economic aspects and potential proﬁtability of different heat
+integration schemes based on different typical seasonal weather conditions of a year are
+examined. To the best of our knowledge, this is the very ﬁrst attempt to apply dynamic
+PA for the design of greenhouse climate conditioning systems. This innovative approach
+opens up new possibilities for designing greenhouses that effectively utilize and harness
+the extremely dynamic ventilation waste heat. Aside from novelty in application, this
+paper presents a generic heuristic method for identifying the most efﬁcient and economical
+heat integration scenario, maximizing heat recovery and minimizing total cost for any
+dynamic energy system. Furthermore, the proposed method is more easily applicable
+and practical for determining equipment sizes and the HEN conﬁguration than complex
+superstructure-based mathematical programming. This research lays the foundation for
+future advancements in greenhouse design and highlights the potential of dynamic PA as a
+valuable tool in ﬁnding sustainable and energy-efﬁcient design alternatives.
+2. Case Study Description
+A 1125 m 2 four-span commercial greenhouse located in Saskatoon is selected as a
+case study [19]. In the original design, which is referred to as the reference case hereafter,
+the greenhouse heating is supplied by a natural gas (NG) boiler connected to a heating
+distribution circuit including a set of fan coil units (FCU loop). Furthermore, the cooling and
+dehumidiﬁcation loads are met through air exchange by natural ventilation. In the present
+study, the feasibility of enhancing the reference climate control system’s performance by
+integrating ventilation waste heat is examined. The basic idea is to integrate the natural
+ventilation system with a mechanical ventilation system equipped with a heat recovery
+heat pump and heat storage. So, the proposed system is composed of (1) an air handling
+unit (AHU) to accommodate an efﬁcient heat exchanger network to collect the ventilation
+waste heat, (2) borehole thermal energy storage (BTES) that acts as seasonal energy storage,
+allowing the waste heat to be stored during the warmer months and then used during
+the colder months, and ﬁnally, (3) a heat pump. Figure 1 shows the streams representing
+the suggested system annotated from 1 to 10 and the potential heat integration schemes
+in greenhouse heating and cooling modes. A detailed description of the streams can be
+found in our previous work [ 18] and is not reiterated here. Table 1 brieﬂy presents the
+speciﬁcations of all streams in the system, including the source and target temperatures, as
+well as the heat capacity (CP =
+.
+m·cp) for each stream. Note that the streams associated with
+the water ﬂow passing through the FCUs and the air passing over the coils (streams 9 and
+10) are excluded from analysis since they are already matched via fan coil heat exchangers
+and cannot be integrated in any other way (see Figure 1). Similarly, the water/glycol
+mixture ﬂow supplied to the boreholes (stream 8) is disregarded (this stream can only
+
+
+--- page 4 ---
+Energies 2023, 16, 5493 4 of 22
+exchange heat with the ground through borehole heat exchangers). The returning ﬂow
+from boreholes are represented by two non-coexisting streams depending on whether the
+boreholes are charging (stream 5) or discharging (stream 6) since the working temperature
+of the BTES is different in heating and cooling modes (see Table 1). Furthermore, “hot and
+cold utilities” are supplied by a natural gas boiler and natural ventilation, respectively.
+Figure 1. Schematic of heat integration schemes of the proposed climate conditioning systems for
+the greenhouse (red and blue colors are used for heating and cooling and gray arrows represent
+the streams).
+Table 1. Stream properties.
+No. Stream Name Description Hot/Cold Fluid T s (◦C) T t (◦C) CP (kW/ ◦C)
+1 HP_Cond refrigerant ﬂow passing
+through the condenser of HP H R152a 78.7 45 constant
+2 HP_Eva refrigerant ﬂow passing
+through the evaporator of HP C R152a −10 −5 constant
+3 Supply air airﬂow delivered to the
+greenhouse using AHU H/C air T out TAHU dynamic
+4 Exhaust air airﬂow rejected from the
+greenhouse using AHU H air T in Tout dynamic
+5 BTES ch
+BTES return ﬂow during
+BTES charging (cooling mode) C water/glycol 10 15 dynamic
+6 BTES d
+BTES return ﬂow during BTES
+discharging (heating mode) H water/glycol 0 −5 dynamic
+7 Heating loop FCU loop return ﬂow C water 30 40 dynamic
+3. Methodology
+Figure 2 shows the overview of the design methodology, which is structured into four
+sequential steps, namely, data preparation, energy targeting, HEN design, and techno-
+economic analysis. This work is a sequel to our previous study [18] in which the former
+two steps were discussed in detail. In summary, to begin with, the required input data
+to fully deﬁne the streams listed in Table 1 (i.e., hourly thermal loads, ventilation rate,
+relative humidity, and temperature proﬁles) were generated using a greenhouse climate
+model. Then, dynamic PA was introduced by dividing the total time into smaller time
+intervals in which steady-state conditions could be achieved. So, the energy targeting was
+performed by constructing composite curves (CCs) based on the collected data on an hourly
+scale to provide sufﬁcient temporal resolution to capture key characteristics in proﬁles of
+
+
+--- page 5 ---
+Energies 2023, 16, 5493 5 of 22
+temperatures and heat capacities. Furthermore, in order to reduce the data to a manageable
+size, the input data were clustered into a number of groups (i.e., 10 clusters plus two
+extreme heating/cooling days) containing similar days in terms of daily patterns of thermal
+loads. For each cluster, a “typical day” (TD), which is the most representative day of the
+cluster (i.e., centroid of the cluster), was selected and a weight was assigned denoting
+the number of days in the cluster. In fact, by using typical days, the heat integration
+problem has been successfully limited to only a few typical scenarios that are repeated
+during the year. It should be mentioned that the detailed description of the clustering
+process, including ﬁnding the optimum number of typical days, accuracy of clustering,
+and algorithm selection have already been discussed [ 18] and are not reiterated here.
+Furthermore, to facilitate interpretation of the results in this study, all chosen typical days
+are categorized into three main climatic conditions. TD1 to TD4 represent “very cold” days
+(no cooling) of the year, which are typical of winter days. TD5, 6, 8, and 9 are typical fall or
+spring days with cold nights and relatively warm days, which are labelled as “mild-cold”
+days. Finally, TD7, 10, 11, and 12 describe “warm” days of the year. Figure 3 shows the
+selected typical days and corresponding typical climates for the greenhouse under study.
+Figure 2. Design methodology structure (the non-colored sections were discussed in our previous
+paper [18]).
+This work is built on the energy targeting results derived from the composite curves
+for the selected typical days. First, a step-by-step approach to design, combine, and merge
+all hourly-based HENs into a few HEN structures corresponding to the available typical
+days is described. Once the HEN structures are set for all TDs, the equipment sizing
+is carried out. Then, a holistic techno-economic analysis is performed to ﬁnd the best
+design conﬁguration for the greenhouse climate conditioning system. The present method
+not only provides a practical method to design a cost-effective HEN representing the
+best interconnection of system components, but also determines the equipment size and
+supports the decision-making process for the selection of climate control technologies for
+the greenhouse. In particular, the mechanical/natural ventilation ratio, electriﬁcation ratio
+of the reference system (i.e., HP/NG boiler capacity ratio), the structure of hybrid multi-
+source HP , and the required BTES size are the most important outcomes that can be directly
+
+
+--- page 6 ---
+Energies 2023, 16, 5493 6 of 22
+achieved from the proposed method without any need for complex and time-consuming
+superstructure-based mathematical programming. While the proposed methodology does
+not guarantee the global optimum for the HEN due to the heuristics involved, it could
+provide a promising solution by selecting one of the best local optimums among all those
+calculated for the most repetitive typical scenarios (i.e., TDs) in a year.
+Figure 3. Selected typical days, their associated weights, and corresponding typical climates; blue
+color shows the typical winter days, light blue shows the typical mild-cold climate (transition days),
+and red color denotes the typical warm days [18].
+3.1. HEN Design Strategy
+The procedure of HEN design in this study is adapted from the general method
+used for batch process HEN synthesis [ 20]. In fact, each typical day is considered as a
+batch period with 24 equally sized time intervals. For each hour, a subnetwork, which
+is a heat exchanger network for that particular hour of the day, is designed based on
+the conventional grid diagram in which hot/cold stream matching is conducted using
+basic PA principles including CP inequality, stream splitting, and avoiding cross pinch
+heat transfer [21]. Once the hourly grid diagrams are built, the sizes of the various heat
+exchangers must be determined using the logarithmic mean temperature difference (LMTD)
+method. According to this method, the total heat transfer area for a given heat exchanger
+can be calculated as follows:
+A = Q
+U∆TLMTD
+(
+m2
+)
+(1)
+where Q and ∆TLMTD represent the thermal duty and logarithmic mean temperature
+difference (LMTD) of the heat exchanger and can be extracted from grid diagrams. U is
+the overall heat transfer coefﬁcient and is highly dependent on the type and geometric
+parameters of the heat exchanger. In the present study, three different heat exchanger types
+are involved: ﬁnned tube heat exchangers for air/water matches, corrugated plate heat
+exchangers for AHX, and plate heat exchangers for the evaporator and condenser of the
+HP . Accordingly, different thermal models have been developed to calculate theU value
+based on the heat exchanger type. The elaborate description of the mathematical modeling
+for the different types of heat exchangers under investigation is given in Appendix A.
+Finally, the overall heat exchanger network for each TD is made up by the combination
+of the corresponding subnetworks. It should be noticed that there might be some heat
+exchangers connecting the same stream pair in different subnetworks of a day. In this
+case, the largest area of all the shared heat exchangers in the subnetworks of the day is
+selected for the area size. As a result, there are 12 potential HEN designs corresponding
+to 12 typical days (including the hottest and coldest days of the year, i.e., TD1 and TD12)
+
+
+--- page 7 ---
+Energies 2023, 16, 5493 7 of 22
+maximizing heat recovery for their respective cluster. In the following section, the process
+of sizing the system components fulﬁlling the HEN requirements for each typical scenario
+will be described.
+3.2. Equipment Sizing
+For each TD, the HP is sized to supply the corresponding heating load entirely. As a
+result, no extra hot utility is required for all days of the cluster for which the HP is sized. So,
+the condenser capacity, evaporator capacity, and compressor nominal power consumption
+are calculated as follows:
+∀TD
+.
+Q
+Design
+Cond = ∑24
+h=1
+.
+Q
+Load
+h
+HP working hours (2)
+∀TD
+.
+W
+Design
+comp =
+.
+Q
+Design
+Cond /COP (3)
+∀TD
+.
+Q
+Design
+Eva =
+.
+Q
+Design
+Cond −
+.
+W
+Design
+comp (4)
+The buffer tank is sized based on the worst-case scenario for the coldest day of the year
+(TD1). The details of HP cycle design and condenser-buffer tank matching were described
+in detail in the energy targeting phase in an earlier publication [18]. Knowing the heating
+capacity of the HP , the natural gas boiler capacity can be simply derived by subtracting the
+HP heating capacity from that of TD1 in which the HP is sized based on the coldest day of
+the year (i.e., HP-only scenario).
+∀TD
+.
+Q
+Design
+Boiler =
+.
+Q
+Design ,TD1
+Cond −
+.
+Q
+Design ,TD
+Cond (5)
+3.3. BTES Sizing
+The BTES sizing is based on the well-known ASHRAE/Kavanaugh model [22]. This
+model calculates the total borehole length using the following equation:
+L = QaRga + Qeva
+(
+Rb + PLF mRgm + FscRgst
+)
+Tg− Twi +Two
+2 + Tp
+(6)
+where Rb, Rga, and Rgst are the ground thermal resistances per unit length. PLF denotes
+the part-load factor during the heating month; Tg is the undisturbed ground temperature,
+which is 5◦C for the greenhouse location; Qa and Qeva represent the net annual average
+heat transfer to the ground and evaporator capacity, respectively.Twi, Two are the inlet and
+outlet borehole temperatures at design conditions. Finally, Tp represents the long-term
+ground temperature penalty caused by ground heat transfer imbalances. According to this
+equation, the heat imbalance during charging/discharging of the BTES can affect Qa and
+Tp, which result in a larger BTES. Therefore, direct charging of the BTES through ventilation
+heat may improve the thermal balance and allow a smaller BTES to be selected. It also
+substantially reduces the electricity consumption required for active charging of the BTES
+using the HP .
+The previous equation is used to determine the appropriate BTES size for all 12 pro-
+posed HEN conﬁgurations. To do so, the ﬁrst step is to calculate the net annual average
+heat transfer to the ground, Qa. Hence, given the HENs’ layouts and the size of all heat ex-
+changers, dynamic modeling of the HEN is performed for all scenarios using the Simulink
+platform. Yearly analysis of HEN yields the total heat recovered to charge the BTES, allow-
+ing for the calculation of Qa. Then, the Qevap and PLF m are set based on the corresponding
+HP size and the BTES length is calculated. Note that Qevap is the averaged heat extracted
+from the ground, which is calculated by deducting the contribution of the air evaporator
+from the nominal evaporator capacity.
+
+
+--- page 8 ---
+Energies 2023, 16, 5493 8 of 22
+3.4. Technoeconomic Analysis
+3.4.1. Economic Model
+In order to compare the feasibility and proﬁtability of the designed systems and
+facilitate the selection of the best scenario, an economic analysis is conducted. Capital and
+operating costs are two key factors that are considered in an economic assessment. Capital
+investment is mostly associated with the purchased equipment and can be estimated by
+summation of individual equipment costs. Table 2 summarizes the cost functions used to
+estimate initial expenses of the system under study.
+Table 2. Capital cost correlations for system components.
+Equipment Component Correlation Ref
+HP
+PHX CPHX = 805A0.74 [23]
+Compressor CComp = 71.7
+.
+m
+0.92−ηis
+PrLn (Pr) [24]
+Expansion valve Cvalve = 114
+.
+m [24]
+AHU
+FTHX CFTHX = 100A0.85 [25]
+Fan CFan = 1500
+( .
+m
+10
+)0.36 [26]
+AHX CAHX = 231A0.639 [23]
+BTES Borehole heat exchanger (drilling, installation, and pipe costs) 43 CAD/m [27]
+NG boiler NG boiler CBoiler = 205 Q0.87
+Boiler [28]
+The operating cost is primarily composed of natural gas and electricity consumption
+expenses. The required hot utility provided by the NG boiler is obtained by applying
+a daily thermal balance to the buffer tank. So, the total yearly hot utility for each TD is
+calculated as:
+QH
+Utility =
+365
+∑
+d=1
+max
+(
+24
+∑
+h=1
+.
+Q
+Load
+h − 24
+.
+Q
+Design
+Cond,TD, 0
+)
+(7)
+Furthermore, the electric utility is related to the electricity consumption of the HP ,
+AHU fans, and circulation pumps that are expressed by the following equations:
+EHP
+Utility ={
+365
+∑
+d=1
+(
+24
+∑
+h=1
+.
+Q
+Load
+h )− QH
+Utility} 1
+COP (8)
+EFan
+Utility =
+.
+Vair·∆PAHU (9)
+EPump
+Utility = ∆Pre f·LBTES·
+.
+VBTES (10)
+In the above equations, ∆PAHU denotes the total pressure drop across the AHU,
+.
+Vair
+is the volumetric ﬂow rate of the air,
+.
+VBTES is the water/glycol ﬂow rate circulated in the
+BTES, and ∆Pre f is the head loss per meter of the borehole heat exchangers that is assumed
+to be 0.4 kPa/m based on the typical values often used in BTES design methodologies [27].
+Note that the cost associated with the FCU recirculation pump is excluded from the analysis
+since it is common to all scenarios. The total operating cost is calculated as follows:
+COP =QH
+Utility·CNG +
+(
+EHP
+Utility + EFan
+Utility + EPump
+Utility
+)
+·Celec (11)
+where CNG and Celec are the electricity and natural gas prices and are set to 0.079 ¢/kWh
+and 0.028 ¢/kWh, respectively, based on averaged Canadian tariffs for businesses. In
+addition, annual maintenance costs are assumed to be 2% of the total capital cost [29].
+
+
+--- page 9 ---
+Energies 2023, 16, 5493 9 of 22
+3.4.2. Economic Performance Criteria
+In order to determine the best trade-off between capital and operating costs, two
+different economic criteria are evaluated, namely, total annualized cost (TAC) and payback
+period (PBP). The TAC is obtained by summation of the operating costs and the annualized
+capital costs. The annualized capital cost is expressed as:
+Cinv
+anul = CRF·Cinv (12)
+TAC = Cinv
+anul + Cop (13)
+where, CRF is the capital recovery factor, which is a function of the interest rate and project
+lifetime. In this study, the interest rate and project lifetime are assumed to be 5% and 20
+years, respectively.
+CRF = i(i + 1)n
+(i + 1)n− 1 (14)
+The payback period (PBP) is deﬁned as the required time to recover the initial invest-
+ment. This index shows the ability of the system to refund the additional initial capital
+investment by a reduction in operating costs. In the present study, the NG boiler-only
+scenario is used as the reference heating system to calculate the PBP . So, the PBP for each
+HEN is given by:
+PBP =
+Cinv− Cinv
+re f
+Cop− Cop
+re f
+(15)
+3.4.3. Energy Saving Potential
+To determine the energy efﬁciency of the suggested HEN designs, the energy savings
+achieved for each system with respect to the reference case are calculated. In that regard, the
+PESR (primary energy saving ratio) is used as the evaluation criterion to assess the energy
+savings potential. The PESR is deﬁned as the ratio of the energy saved by introducing the
+HEN to the energy consumption of the reference system and is written as:
+PESR HEN = PERe f− PEHEN
+PERe f (16)
+where PE is the primary energy consumption (non-renewable sources) and is calculated by
+the summation of electricity and natural gas consumption for all components of the system.
+4. Results
+4.1. Conﬁguration of HEN Design Alternatives
+In this section, in order to better understand the problem of HEN design, the HEN
+layouts designed based on different TDs are investigated. Figure 4 compares CCs and
+grid diagrams for three different subnetworks corresponding to different times of TD5. As
+shown in this ﬁgure, the grid diagram conﬁguration changes substantially depending on
+the availability of streams, instantaneous CP values, and temperature ranges. The selected
+times exhibit all possible HEN topologies that can occur during TD5. For the remaining
+hours of the day, the HEN topology is quite similar to any of these three subnetworks
+although heat exchanger duties differ.
+As mentioned earlier, TD5 is a “mild-cold” typical day with a relatively moderate
+ventilation rate. Figure 5 illustrates the variations of weather parameters and their impact
+on the required heating and ventilation rate during TD5. At t = 0 h, the greenhouse requires
+heating while the ventilation system is off. At this time the system acts exactly like a
+regular geothermal HP , meaning that the BTES is the only heat source available to the
+HP . However, around noon, at t = 13 h, when radiation is maximum, the accumulation of
+solar energy inside the greenhouse causes a transition from heating to cooling mode and
+
+
+--- page 10 ---
+Energies 2023, 16, 5493 10 of 22
+the HP is switched off. In addition, the excessive moisture removal requirement arising
+from biological activity of the plants, intensiﬁed by high levels of radiation, forces the
+ventilation system to operate at its maximum capacity during this speciﬁc period. In this
+case, according to the grid diagram, two exchangers are required by which the exhaust air
+heat is ﬁrst utilized to recharge the BTES (HX3) and then used to preheat outdoor frigid air
+(HX4) to a level meeting the cooling load. However, since the HP is off, part of the exhaust
+air energy that could have been reused by the HP is rejected to the environment and this is
+shown by an imaginary cold utility applied to the exhaust air stream in the grid diagram.
+Figure 4. Composite curves and corresponding grid diagrams for different subnetworks during
+different times of the day (TD5); from top to bottom: t = 0 h, t = 13 h, and t = 16 h.
+
+
+--- page 11 ---
+Energies 2023, 16, 5493 11 of 22
+Figure 5. Variations of weather parameters and the required heating and ventilation rate during TD5.
+As the radiation intensity gradually decreases, the greenhouse climate control system
+shifts back to heating mode and the HP switches on again (t = 14–17 h). The designed HEN
+structures under this condition allow the HP to work in a hybrid mode, which means an
+auxiliary evaporator (HX5) must be placed downstream of the AHX (HX4) to capture the
+remaining heat from the exhaust air (see Figure 4, t = 16 h). Since the AHX heat duty is
+relatively high to recover as much heat as possible from the exhaust air in heating mode,
+the remaining exhaust airﬂow heat content is not sufﬁcient to fully supply the evaporation
+heat and a BTES evaporator is still required.
+In order to better understand the stream interconnections in the network, the schematic
+conﬁguration of the overall HEN for TD5 is shown in Figure 6. Given the fact that the
+sizing process was based on TD5 conditions, the composite curves show that there is no
+need for any hot utility during TD5. However, it is obvious that the HEN5 designed for
+a mild-cold day (i.e., TD5) requires additional hot utility when used for cold days (for
+example TD1). As a result, a backup NG boiler is used to provide the required “hot utility”
+to meet the heating demand for off-design operation of the system. In addition, since TD5
+represents a winter day with a relatively low outdoor temperature, there is not a signiﬁcant
+potential for supply airﬂow heat recovery and only one exchanger, HX4, is assigned to the
+supply side. In other words, AHX (HX4) is the only mechanism for generating cooling,
+resulting in an undersized system for the summer in terms of cooling capability. Thus, in
+order to meet the cooling loads in summer, the supplementary “cold utility” is provided
+by natural ventilation. It is worth mentioning that the ﬂow capacity of the AHU, which is
+an important factor inﬂuencing the size of the AHU and its fans, is equal to the maximum
+required ventilation rate of the corresponding TD. This allows the AHU size to ﬂexibly
+change during the design phase according to the TD conditions, which provides valuable
+design insights to determine the best balance between forced and natural ventilation.
+To better analyze the structural changes of HEN architecture for different TDs, the
+HEN schematics for TD6 and TD7 are demonstrated in Figures 7 and 8. Since TD5 and
+TD6 are both typical mild-cold days, the overall arrangement of the system is relatively
+similar to that of TD5. The only change is a bypass channel with an extra heat exchanger at
+the exhaust side of the AHU. In fact, the network has been adjusted to handle a larger air
+ﬂow rate with more heating capacity (i.e., CP). In this design, by changing the bypass ratio
+using shutters, the heat recovery priority may be shifted from direct heat recovery (HX4) to
+indirect heat recovery (HX6).
+
+
+--- page 12 ---
+Energies 2023, 16, 5493 12 of 22
+Figure 6. Schematic of the HEN design based on heat integration for TD5 (HEN5).
+Figure 7. Schematic of the HEN design based on heat integration for TD6 (HEN6).
+The AHU structure for typical summer days is quite different in some respects from
+those of winter days. As shown in Figure 8, for TD7, an additional heat exchanger (HX6)
+is positioned before the AHX to capture the incoming air excess heat and store it in the
+BTES. This can effectively improve the system capability in terms of cooling performance.
+Furthermore, adding a bypass on the supply side allows better control over the HX4 heat
+duty to achieve the desired outlet temperature for the air handling unit (AHU). Note that
+for the rest of the HENs represented by the typical “mild-cold “and “warm” days (i.e., TD8
+to TD12) the HEN topology is similar to either TD6 or TD7, while they differ in terms of
+the size of both the heat exchangers and the equipment.
+
+
+--- page 13 ---
+Energies 2023, 16, 5493 13 of 22
+Figure 8. Schematic of the HEN design based on heat integration for TD7 (HEN7).
+For typical “cold” days, TD1 to TD4, since the HEN structure is conﬁgured to ac-
+commodate a ventilation rate of zero, the AHU is excluded from the design, leading to
+comparatively simpler conﬁgurations. Figure 9 compares HENs 1 to 4 structures against
+the reference design. In the case of HEN1, the boiler is not required since the HP is sized
+based on the coldest day of the year. However, HENs 1 to 3 offer three design alternatives
+for combinations of a GSHP and a boiler based on the three most frequently occurring
+weather patterns of winter. It is important to note that all structures initially designed
+based on winter days without an AHU operate with a conventional natural ventilation
+system during summer. In the following section, the sizing results of the designed HENs
+will be discussed.
+Figure 9. Comparison of (a) reference design with (b) HEN1 and (c) HEN2,3,4.
+4.2. Speciﬁcations of the Designed HENs
+A detailed description of all 12 designed HENs is presented in Table 3. As discussed
+earlier, out of all design alternatives, four different scenarios (HEN1 to HEN4) are the
+hybridization of an NG boiler with a geothermal heat pump for a naturally-ventilated
+greenhouse. Without an air handling unit, PHXs in the HP cycle are the only heat exchang-
+ers of these HENs.
+On the other hand, there are eight different HENs (HEN5 to HEN12) in which the
+ventilation waste heat is effectively integrated into the system using an AHU. In these cases,
+the HP features an additional air-source evaporator resulting in a considerably smaller
+BTES length than scenarios with regular GSHP (HEN1 to HEN4). Furthermore, for the
+typical days representing “warm” days of the year (TD7, 10, 11, and 12), since the HEN is
+conﬁgured to provide sufﬁcient cooling capacity, there needs to be a large FTHX to collect a
+
+
+--- page 14 ---
+Energies 2023, 16, 5493 14 of 22
+signiﬁcant amount of heat from the air delivered to the greenhouse. This is the main reason
+why the total FTHX heat transfer area is a large number for networks designed based on
+warm typical days.
+Table 3. Speciﬁcations of the HENs designed for different typical days (Ref denotes the reference
+greenhouse).
+No. of HEN Ref 1 2 3 4 5 6 7 8 9 10 11 12
+HP heating capacity (kW) - 167.5 141.7 99.2 30.8 71.5 54 35.6 52.1 62.5 38.5 34 33.1
+Boiler capacity (kW) 167.5 - 25.8 68.3 136.7 96 113.5 131.9 115.4 105 129 133.5 134.4
+BTES total length (m) - 4092 3671 2879 895 806 611 309 499 634 345 283 275
+PHX (m2) - 13.9 12.7 10.5 5.6 8.7 7.5 6 7.4 8.2 6.2 5.8 5.7
+AHX (m2) - - - - - 37 354 247 384 264 239 153 165
+FTHX (m2) - - - - - 54 110 274 107 132 410 569 588
+Fans capacity (m3/s) - - - - - 3 11.4 19.6 16 12.6 42.6 43 50
+4.3. Yearly Performance Analysis of the Designed HENs
+Table 4 compares the performance of the design candidates calculated by dynamic
+simulation of each scenario over the course of an entire year. As can be seen, integration of
+ventilation airﬂows substantially decreases the ventilation losses and the HENs with higher
+forced/natural ventilation ratios have lower ventilation losses. The maximum reduction of
+5% in the total heating demand can be achieved by a nearly fully-integrated ventilation
+system (HEN12). In addition, the results highlight that even for the smallest AHU designed
+for HEN5, almost 17% ventilation can be achieved through forced ventilation. The reason
+for this is that the daily ventilation peaks occur for only a few hours per day, and the
+typical ventilation rate is relatively low during the day. On the contrary, the largest AHU
+corresponds to HEN12 in which almost all ventilation peaks are covered by a forced
+ventilation system. Furthermore, the HP heating ratio values, deﬁned as the thermal
+contribution of the HP to the overall heating, are reported in this table. As expected,
+the share of thermal energy provided by the HP is higher for the colder typical weather
+conditions in comparison to the others. Particularly, HEN5 has the highest HP contribution
+among all designs with an integrated ventilation system (i.e., TD5 to TD12).
+Table 4. Yearly performance of the greenhouse (Ref denotes the reference greenhouse).
+No. of HEN Ref 1 2 3 4 5 6 7 8 9 10 11 12
+Total heating (MWh) 481.4 481.4 481.4 481.4 481.4 475.9 469.6 472.4 468.6 469.1 460.8 457.7 457.6
+Ventilation loss (kwh) 37,834 37,834 37,834 37,834 37,834 32,298 25,988 28,814 25,009 25,538 17,231 14,121 14,000
+Forced/natural
+ventilation ratio 0 0 0 0 0 0.17 0.53 0.72 0.65 0.57 0.92 0.92 0.95
+HP heating ratio 0 1 0.99 0.94 0.5 0.82 0.72 0.57 0.71 0.78 0.56 0.54 0.54
+4.4. Economic Analysis
+In this section, the economic analysis results are presented to examine the practicality
+of all designed HENs. Figure 10 shows the investment cost breakdown of the proposed
+HENs. As can be seen, the BTES size is the most important factor contributing to the total
+investment cost, particularly for designs without an AHU (HEN1 to HEN4). The system
+has the maximum investment cost for the standalone GSHP sized according the coldest day
+of the year (HEN1). In this case, the initial capital investment is about seven times more
+than the reference case scenario. For all GSHP + boiler scenarios, namely, HENs 2, 3, and
+4, the contribution of BTES to the total capital cost becomes relatively smaller as a larger
+boiler is integrated. However, a larger boiler may incur more operating cost and reduce the
+energy savings potential of the system. As shown in Figure 11, the total operating cost for
+HEN4 with a 137 kW boiler is about 17% more than that of the HEN1 with no boiler.
+
+
+--- page 15 ---
+Energies 2023, 16, 5493 15 of 22
+Figure 10. Breakdown of capital investment costs for the designed HENs.
+Figure 11. Breakdown of operating costs for the designed HENs.
+On the other hand, for all designed HENs having an AHU (HEN5 to HEN12), the
+AHU unit cost accounts for a large proportion of the total investment cost. For HENs
+designed based on the warmer typical days of the year (HEN10, 11, and 12), the HP , BTES,
+and boiler are comparatively smaller, and the AHU investment cost contribution can be
+as much as 52% of the total investment cost. Note that a larger AHU requires larger fans
+resulting in increased operating costs. However, the contribution of fan energy cost ranges
+from only 3% to 13% of the total operating cost and the utility costs are still dominated by
+the energy consumption of the HP and boiler. Additionally, the operating cost related to
+the circulation pumps varies based on the BTES size and causes a slight increase in the total
+energy cost of the system.
+The comparison of TAC and PBP values for different HENs is demonstrated in
+Figure 12. The HENs with a payback period beyond the project’s lifetime (20 years) are
+deemed infeasible and therefore discarded.
+
+
+--- page 16 ---
+Energies 2023, 16, 5493 16 of 22
+Figure 12. TAC values and corresponding PBPs for the designed HENs.
+The results clearly show that the conventional boiler-assisted GSHP designs (HEN1, 2,
+and 3) have long PBPs and are not economically competitive unless a relatively small HP is
+integrated (HEN4). This can be attributed to the signiﬁcantly high initial costs due to the
+larger BTES. On the other hand, taking advantage of ventilation waste heat, HEN5–12 have
+relatively lower TAC values. Nevertheless, for HEN7, 11, and 12, each with a relatively
+large AHU, the AHU’s capital cost and fan energy consumption offset the cost beneﬁt from
+energy savings, resulting in infeasible PBPs. HEN5 has the lowest TAC of 15,720 USD/y,
+which is quite comparable to that of the reference case. In this case, effective integration
+of ventilation air reduces the operating cost by a large margin and can make HEN5 a
+cost-competitive design with a PBP of 9.5 years. In general, increasing the contribution of
+forced ventilation adversely affects the cost-effectiveness of the HEN.
+4.5. Selection of Optimal HEN Design
+Table 5 presents the PESR values for all economically feasible HEN designs. According
+to this table, HEN5 is the best performing structure in terms of energy efﬁciency, which
+reduces the primary energy consumption by 57.3%. Having high energy efﬁciency with a
+short PBP of 9.5 years and almost the same TAC value as the reference design, HEN5 is
+selected as the best integrated network among all designed HENs.
+Table 5. PESR values for different HENs.
+No. of HEN 4 5 6 8 9 10
+PESR HEN 0.326 0.573 0.48 0.466 0.509 0.41
+5. Conclusions
+This paper investigated the possibility of ventilation waste heat recovery in green-
+houses in the context of heat integration. A systematic methodology based on dynamic
+PA was developed to design an HEN with respect to economic and energy savings criteria.
+The proposed methodology was demonstrated based on a greenhouse climate conditioning
+system including a boiler, a heat pump, an air handling unit, and borehole heat storage.
+A number of typical days were identiﬁed through a clustering approach to reduce the
+integration scenarios to a manageable size, and as a result, 12 HENs were designed and
+
+
+--- page 17 ---
+Energies 2023, 16, 5493 17 of 22
+optimal equipment sizing and heat exchanger placement were determined. Finally, the best
+design was selected using a techno-economic analysis.
+Thermal efﬁciency and economic performance of all design alternatives were exam-
+ined using different criteria, including TAC, PBP , and PESR. The best performing design
+was found to be HEN5 with a TAC of 15,720 USD/y and a PBP of 9.5. The optimal sys-
+tem also demonstrated a signiﬁcant energy saving potential of 57% with respect to the
+reference design.
+In addition, it was shown that the BTES size is the most important factor contributing
+to the total system investment cost. The integration of ventilation air as a supplementary
+heat source for the HP decreases the required BTES size and thereby signiﬁcantly reduces
+the investment cost. Although the reference design (NG boiler and natural ventilation)
+still has a lower initial cost by a large margin, the integrated systems showed superior
+performance over the reference design in terms of operating cost with the given energy
+tariffs. However, the operating cost beneﬁt of a larger AHU unit, particularly for those
+scenarios associated with HENs designed for typical summer days (HEN7, 10, 11, 12),
+was diminished by the elevated fan energy consumption. In the case of the best design
+(HEN5), the integrated forced-ventilation contribution was found to be only 17% of the
+total ventilation requirement. So, it can be concluded that smaller AHUs are favored in
+terms of TAC. HEN5 also has the highest thermal contribution of the HP to the total heating
+requirements, being 82%.
+Overall, there is a huge potential for heat recovery from ventilation air ﬂows in green-
+houses. Integration of ventilation waste heat into the greenhouse HVAC system not only
+allows for smaller BTES but also signiﬁcantly improves greenhouse energy efﬁciency. Fur-
+thermore, dynamic PA has been proven to be a promising approach to addressing a highly
+dynamic heat integration problem. However, one important limitation of this method is that
+it does not provide a guarantee for achieving the optimal year-round design, as it primarily
+deals with local optima derived from the most frequently occurring scenarios throughout
+the year. Consequently, there is a need for further research to explore approaches that can
+address this limitation and enable the identiﬁcation of global optimum solutions. One
+promising solution for future investigation is the integration of superstructure-based math-
+ematical heat exchange network (HEN) design with clustering techniques. This integration
+could offer a more comprehensive analysis by considering a wider range of scenarios
+and their associated solutions, leading to a better understanding of the optimal design
+conﬁgurations for greenhouse climate-conditioning systems.
+Author Contributions: M.G.: Conceptualization, methodology, investigation, validation, software,
+visualization, writing—original draft, writing—review and editing; C.R.: conceptualization, review
+and editing; M.S.: supervision, resources, methodology, funding acquisition, writing—review and
+editing. All authors have read and agreed to the published version of the manuscript.
+Funding: The authors acknowledge the ﬁnancial support of the Natural Sciences and Engineering
+Research Council of Canada for this project (RGPIN-2019-05826).
+Data Availability Statement: Not applicable.
+Conﬂicts of Interest: The authors declare no conﬂict of interest.
+Nomenclature
+Abbreviations
+AHU air handling unit
+AHX air-to-air heat exchanger
+BTES borehole thermal energy storage
+CAD Canadian dollar
+CCs composite curves
+COP coefﬁcient of performance of heat pump
+EAHP exhaust air heat pump
+
+
+--- page 18 ---
+Energies 2023, 16, 5493 18 of 22
+FCU fan coil unit
+FTHX ﬁnned tube heat exchanger
+GHI global horizontal irradiance (W/m 2)
+GSHP ground source heat pump
+HEN heat exchanger network
+HP heat pump
+HX heat exchanger
+HVAC heating, cooling, and air conditioning
+NG natural gas
+PA pinch analysis
+PBP payback period
+PESR primary energy saving ratio
+PHX plate heat exchanger
+TAC total annualized cost
+TD typical day
+Subscripts
+air airﬂow passing through AHU
+annul annualized
+ce cold stream outlet
+ci cold stream inlet
+cond condenser of heat pump
+comp compressor of heat pump
+eva evaporator of heat pump
+g gas/or ground
+he hot stream outlet
+hi hot stream inlet
+l liquid
+R refrigerant
+ref reference greenhouse
+w water
+Superscripts
+Design designed capacity
+elec electricity
+inv investment
+Load heating demand
+H heating
+OP operational
+Variables
+A total heat transfer area (m 2)
+Amin min ﬂow area (m2)
+C cost (USD)
+CP heat capacity of streams (kW/K)
+cp speciﬁc heat capacity (kJ/kg·K)
+d tube inside diameter (m)
+D tube outside diameter (m)
+Dh hydraulic diameter (m)
+E electricity consumption (kWh)
+f friction coefﬁcient
+G mass ﬂux (kg/m 2 s)
+h convection heat transfer coefﬁcient (W/m 2 K)
+k conduction heat transfer coefﬁcient (W/m K)
+L length (m).
+m mass ﬂow rate (kg/s)
+Nu Nusselt number
+Pr Prandtl number
+
+
+--- page 19 ---
+Energies 2023, 16, 5493 19 of 22
+Q thermal energy (kWh).
+Q thermal energy rate (kW)
+Re Reynolds number
+t plate thickness (m)
+T temperature ( ◦C)
+U overall heat transfer coefﬁcient (W/m 2 K).
+V volumetric ﬂow rate (m 3/s).
+W power consumption (kW)
+x saturated vapor quality
+Greek letters
+β chevron angle, degrees
+ρ density (kg/m3)
+ηis isentropic efﬁciency
+Appendix A. Heat Exchanger Models
+Various types of heat exchanger are involved in the present study. In this paper, the
+thermal design and sizing of heat exchangers is accomplished using the LMTD (logarithmic
+mean temperature difference) method. Figure A1 shows the ﬂowchart describing the
+process of sizing the heat exchangers. In this method, different thermodynamic models
+have been developed enabling appropriate sizing of the heat exchanger network. It should
+be mentioned that a limit of 500 Pa is set on the maximum allowable pressure drop within
+the AHU and 0.5 bar for the HP cycle. The correlations used to calculate the pressure drop
+are summarize in Table A1.
+Figure A1. Heat exchangers sizing ﬂowchart.
+Appendix A.1. Plate Heat Exchangers (PHXs)
+In the proposed system, PHXs are used as evaporator and condenser in the HP cycle.
+The thermodynamic modeling of PHXs experiencing phase change is usually conducted by
+
+
+--- page 20 ---
+Energies 2023, 16, 5493 20 of 22
+dividing the exchanger into single phase and two-phase zones. Each section is designed
+separately under speciﬁed operating conditions according to the log mean temperature
+difference approach, and the total heat transfer area is calculated accordingly.
+Appendix A.1.1. Single Phase
+For the single-phase ﬂows in PHXs, the U value can be expressed as:
+1
+U = 1
+hw
++ t
+k + 1
+hR
+(A1)
+where the heat transfer coefﬁcients,h, are calculated using the Chisholm and Waniarchi [30]
+correlation:
+Nu = 0.724( 6β
+π )0.646Re0.583Pr0.33 (A2)
+h = k
+Nu·Dh
+(A3)
+where Dh is the hydraulic diameter and k is the thermal conductivity.
+Appendix A.1.2. Two-Phase Region
+A well-accepted approach for two-phase region modeling is to divide the heat ex-
+changer into a number of smaller regions, in which the ﬂuid properties can be assumed
+constant. Then, for each region, the overall heat transfer coefﬁcient can be obtained by
+using Equation (A1). The heat transfer coefﬁcients on the refrigerant side for the evaporator
+and condenser under two-phase conditions are calculated by the following equations [31]:
+NuEva,i = 1.926Boi
+0.3Rei
+0.5Pri
+0.33(1− xi + xi( ρl
+ρv
+)0.5) (A4)
+NuCond,i = 4.118Rei
+0.4Pri
+0.33 (A5)
+where Bo is the boiling number and xi is the quality of refrigerant for the ith region [32].
+Appendix A.2. Air-to-Air Heat Exchangers (AHXs)
+Cross-corrugated air-to-air heat exchangers are used as the typical AHX in the present
+study. For this type of heat exchanger, the heat transfer coefﬁcients are calculated based on
+the Zhang [33] correlation as follows
+Nu = 0.274Re0.569Pr0.33 (A6)
+Appendix A.3. Finned-Tube Heat Exchanger (FTHXs)
+For ﬁnned tube heat exchangers, different correlations are used for the air side and
+liquid side. The convective heat transfer inside the tubes is estimated by the Gnielinski
+equation [34]:
+Nu =
+(f
+8
+)
+(Re− 1000)Pr
+1 + 12.7
+√
+f
+8
+(
+Pr
+2
+3− 1
+) (A7)
+f =
+(
+1.82log 10Re− 1.64)−2 (A8)
+The heat transfer coefﬁcient of the airﬂow side of the exchanger can be expressed by
+the Dias and Young correlation [35].
+Nu = 0.1378Re0.718Pr0.33
+( Y
+H )0.296 (A9)
+
+
+--- page 21 ---
+Energies 2023, 16, 5493 21 of 22
+The overall heat transfer coefﬁcient is formulated based on the tube outside diameter
+as follows:
+U = 1
+D/d
+hin
++
+(
+Dln( D
+d )
+2k
+)
++ 1
+hout η f in
+(A10)
+Table A1. The correlations used to calculate pressure drop.
+HX Type Correlation Ref.
+PHX
+∆P = f l
+D
+ρV2
+m
+2
+f =
+[
+0.5cos(β)
+(0.18tan(β)+0.36sin(β)+ f0/cos(β))0.5 + 1−cos(β)√
+15.2 f1
+]−2
+f0 = 64/Re
+f1 = 597/Re
+[36]
+AHX
+∆P = f l
+D
+ρV2
+m
+2
+f = 6.536Re−0.421 [37]
+FTHX (over the tube bank)
+∆P = G2
+2ρg
+[
+f A
+Amin
+ρg
+ρl
++
+(
+1 + σ2)(ρg
+ρl
+− 1
+)]
+σ = minimum f ree f low
+f rontal area
+[38]
+FTHX (inside the tubes)
+∆P = f l
+D
+ρV2
+m
+2
+f = 0.064
+Re0.2
+References
+1. Anifantis, A.S.; Colantoni, A.; Pascuzzi, S. Thermal energy assessment of a small scale photovoltaic, hydrogen and geothermal
+stand-alone system for greenhouse heating. Renew. Energy 2017, 103, 115–127. [CrossRef]
+2. Kristinsson, J. The energy-producing greenhouse. In Proceedings of the PLEA2006—The 23rd Conference on Passive and Low
+Energy Architecture, Geneva, Switzerland, 6–8 September 2006.
+3. Rousse, D.R.; Martin, D.; Thériault, R.; Léveillée, F.; Boily, R. Heat recovery in greenhouses: A practical solution.Appl. Therm.
+Eng. 2000, 20, 687–706. [CrossRef]
+4. Gieling, T.H.; Bruins, M.; Campen, J.; Janssen, H.; Kempkes, F.; Raaphorst, M.; Sapounas, A.Monitoring Technische Systemen in
+Semi-Gesloten Kassen; Wageningen UR Greenhouse Horticulture: Wageningen, The Netherlands, 2010.
+5. Van den Bulck, N.; Coomans, M.; Wittemans, L.; Hanssens, J.; Steppe, K. Monitoring and energetic performance analysis of an
+innovative ventilation concept in a Belgian greenhouse. Energy Build. 2013, 57, 51–57. [CrossRef]
+6. Coomans, M.; Allaerts, K.; Wittemans, L.; Pinxteren, D. Monitoring and energetic performance of two similar semi-closed
+greenhouse ventilation systems. Energy Convers. Manag. 2013, 76, 128–136. [CrossRef]
+7. Maslak, K.; Nimmermark, S. Thermal energy use for dehumidiﬁcation of a tomato greenhouse by natural ventilation and a
+system with an air-to-air heat exchanger. Agric. Food Sci. 2017, 26, 56–66. [CrossRef]
+8. Fehrm, M.; Reiners, W.; Ungemach, M. Exhaust air heat recovery in buildings. Int. J. Refrig. 2002, 25, 439–449. [CrossRef]
+9. Fracastoro, G.V .; Serraino, M. Energy analyses of buildings equipped with exhaust air heat pumps (EAHP).Energy Build. 2010, 42,
+1283–1289. [CrossRef]
+10. Li, B.; Wild, P .; Rowe, A. Performance of a heat recovery ventilator coupled with an air-to-air heat pump for residential suites in
+Canadian cities. J. Build. Eng. 2019, 21, 343–354. [CrossRef]
+11. Perone, C.; Orsino, M.; La Fianza, G.; Giametta, F.; Catalano, P . Study of a mechanical ventilation system with heat recovery to
+control temperature in a monitored agricultural environment under Summer conditions.J. Build. Eng. 2021, 43, 102745. [CrossRef]
+12. Liu, S.; Ma, G.; Xu, S.; Jia, X.; Wu, G. Experimental study of ventilation system with heat recovery integrated by pump-driven
+loop heat pipe and heat pump. J. Build. Eng. 2022, 52, 104404. [CrossRef]
+13. Smith, R. Chemical Process: Design and Integration; John Wiley & Sons: Hoboken, NJ, USA, 2005.
+14. Miseviˇ ci¯ut˙e, V .; Motuzien˙e, V .; Valanˇ cius, K. The application of the Pinch method for the analysis of the heat exchangers network
+in a ventilation system of a building. Appl. Therm. Eng. 2018, 129, 772–781. [CrossRef]
+15. Reddick, C.; Sorin, M.; Bonhivers, J.-C.; Laperle, D. Waste heat and renewable energy integration in buildings. Energy Build. 2020,
+211, 109803. [CrossRef]
+
+
+--- page 22 ---
+Energies 2023, 16, 5493 22 of 22
+16. Hosseinnia, S.M.; Sorin, M. A systematic pinch approach to integrate stratiﬁed thermal energy storage in buildings. Energy Build.
+2021, 232, 110663. [CrossRef]
+17. Hosseinnia, S.M.; Sorin, M. Energy targeting approach for optimum solar assisted ground source heat pump integration in
+buildings. Energy 2022, 248, 123528. [CrossRef]
+18. Ghaderi, M.; Hosseinnia, S.M.; Sorin, M. Assessment of waste heat recovery potential in greenhouse ventilation systems using
+dynamic pinch analysis. Appl. Therm. Eng. 2023, 227, 120363. [CrossRef]
+19. Ahamed, M.S.; Guo, H.; Tanino, K. A quasi-steady state model for predicting the heating requirements of conventional green-
+houses in cold regions. Inf. Process. Agric. 2018, 5, 33–46. [CrossRef]
+20. Yang, P .; Liu, L.-l.; Du, J.; Li, J.-l.; Meng, Q.-w. Heat exchanger network synthesis for batch processes by involving heat storages
+with cost targets. Appl. Therm. Eng. 2014, 70, 1276–1282. [CrossRef]
+21. Kemp, I.C. Pinch Analysis and Process Integration: A User Guide on Process Integration for the Efﬁcient Use of Energy ; Elsevier:
+Amsterdam, The Netherlands, 2011.
+22. Kavanaugh, S.P . Design of geothermal systems for commercial and institutional buildings. InGround-Source Heat Pumps; ASHRE:
+New York, NY, USA, 1997.
+23. Wang, B.; Arsenyeva, O.; Zeng, M.; Klemeš, J.J.; Varbanov, P .S. An advanced Grid Diagram for heat exchanger network retroﬁt
+with detailed plate heat exchanger design. Energy 2022, 248, 123485. [CrossRef]
+24. Xu, Y.; Mao, C.; Huang, Y.; Shen, X.; Xu, X.; Chen, G. Performance evaluation and multi-objective optimization of a low-
+temperature CO2 heat pump water heater based on artiﬁcial neural network and new economic analysis.Energy 2021, 216, 119232.
+[CrossRef]
+25. Hsieh, J.-C.; Lai, C.-C.; Chen, Y.-H. Thermoeconomic analysis of a waste heat recovery system with ﬂuctuating ﬂue gas scenario.
+Energy 2022, 258, 124866. [CrossRef]
+26. Le Roux, D.; Olivès, R.; Neveu, P . Geometry optimisation of an industrial thermocline Thermal Energy Storage combining exergy,
+Life Cycle Assessment and Life Cycle Cost Analysis. J. Energy Storage 2022, 55, 105776. [CrossRef]
+27. Robert, F.; Gosselin, L. New methodology to design ground coupled heat pump systems based on total cost minimization. Appl.
+Therm. Eng. 2014, 62, 481–491. [CrossRef]
+28. Ghamari, V .; Hajabdollahi, H.; Dehaj, M.S.; Saleh, A. Investigating the effect of energy storage tanks on thermoeconomic
+optimization of integrated combined cooling, heating and power generation with desalination plant. J. Energy Storage 2022, 56,
+106120. [CrossRef]
+29. Sagani, A.; Vrettakos, G.; Dedoussis, V . Viability assessment of a combined hybrid electricity and heat system for remote
+household applications. Sol. Energy 2017, 151, 33–47. [CrossRef]
+30. Chisholm, D.; Wanniarachchi, A. Plate heat exchangers: Plate selection and arrangement. In Proceedings of the AIChE Meeting,
+Orlando, FL, USA, 18–22 March 1990.
+31. Li, R.; Wang, H.; Yao, E.; Zhang, S. Thermo-economic comparison and parametric optimizations among two compressed air
+energy storage system based on Kalina cycle and ORC. Energies 2016, 10, 15. [CrossRef]
+32. Imran, M.; Usman, M.; Park, B.-S.; Kim, H.-J.; Lee, D.-H. Multi-objective optimization of evaporator of organic Rankine cycle
+(ORC) for low temperature geothermal heat source. Appl. Therm. Eng. 2015, 80, 1–9. [CrossRef]
+33. Zhang, L.-Z. Numerical study of periodically fully developed ﬂow and heat transfer in cross-corrugated triangular channels in
+transitional ﬂow regime. Numer. Heat Transf. Part A Appl. 2005, 48, 387–405. [CrossRef]
+34. Gnielinski, V . New equations for heat and mass transfer in turbulent pipe and channel ﬂow. Int. Chem. Eng. 1976, 16, 359–368.
+35. Wang, Z.; Hu, Y.; Xia, X.; Zuo, Q.; Zhao, B.; Li, Z. Thermo-economic selection criteria of working ﬂuid used in dual-loop ORC for
+engine waste heat recovery by multi-objective optimization. Energy 2020, 197, 117053. [CrossRef]
+36. Chatzopoulou, M.A.; Lecompte, S.; De Paepe, M.; Markides, C.N. Off-design optimisation of organic Rankine cycle (ORC) engines
+with different heat exchangers and volumetric expanders in waste heat recovery applications. Appl. Energy 2019, 253, 113442.
+[CrossRef]
+37. Liang, C.; Tong, X.; Lei, T.; Li, Z.; Wu, G. Optimal design of an air-to-air heat exchanger with cross-corrugated triangular ducts by
+using a particle swarm optimization algorithm. Appl. Sci. 2017, 7, 554. [CrossRef]
+38. Wang, C.-C. Recent progress on the air-side performance of ﬁn-and-tube heat exchangers. Int. J. Heat Exch. 2000, 1, 49–76.
+Disclaimer/Publisher’s Note: The statements, opinions and data contained in all publications are solely those of the individual
+author(s) and contributor(s) and not of MDPI and/or the editor(s). MDPI and/or the editor(s) disclaim responsibility for any injury to
+people or property resulting from any ideas, methods, instructions or products referred to in the content.

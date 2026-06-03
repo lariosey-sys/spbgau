@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="420" viewBox="0 0 1000 420">
+<rect width="100%" height="100%" fill="white"/>
+<text x="500.0" y="28" text-anchor="middle" font-family="Arial" font-size="20">Средний суточный ход: Влажность, %</text>
+<text x="18" y="210.0" transform="rotate(-90 18 210.0)" text-anchor="middle" font-family="Arial" font-size="13">Влажность, %</text>
+<line x1="70" y1="360.0" x2="970" y2="360.0" stroke="#dddddd"/>
+<text x="62" y="364.0" text-anchor="end" font-family="Arial" font-size="12">25.0</text>
+<line x1="70" y1="298.0" x2="970" y2="298.0" stroke="#dddddd"/>
+<text x="62" y="302.0" text-anchor="end" font-family="Arial" font-size="12">28.3</text>
+<line x1="70" y1="236.0" x2="970" y2="236.0" stroke="#dddddd"/>
+<text x="62" y="240.0" text-anchor="end" font-family="Arial" font-size="12">31.6</text>
+<line x1="70" y1="174.0" x2="970" y2="174.0" stroke="#dddddd"/>
+<text x="62" y="178.0" text-anchor="end" font-family="Arial" font-size="12">34.8</text>
+<line x1="70" y1="112.0" x2="970" y2="112.0" stroke="#dddddd"/>
+<text x="62" y="116.0" text-anchor="end" font-family="Arial" font-size="12">38.1</text>
+<line x1="70" y1="50.0" x2="970" y2="50.0" stroke="#dddddd"/>
+<text x="62" y="54.0" text-anchor="end" font-family="Arial" font-size="12">41.4</text>
+<line x1="70" y1="360" x2="970" y2="360" stroke="#333"/>
+<line x1="70" y1="50" x2="70" y2="360" stroke="#333"/>
+<path d="M 70.0 142.1 L 109.1 144.7 L 148.3 147.3 L 187.4 127.1 L 226.5 90.5 L 265.7 83.1 L 304.8 79.8 L 343.9 71.4 L 383.0 73.9 L 422.2 104.6 L 461.3 121.8 L 500.4 121.1 L 539.6 127.8 L 578.7 134.3 L 617.8 134.7 L 657.0 139.4 L 696.1 146.2 L 735.2 143.2 L 774.3 145.4 L 813.5 149.7 L 852.6 147.2 L 891.7 143.7 L 930.9 142.2 L 970.0 143.3" fill="none" stroke="#0072b2" stroke-width="2.2"/>
+<rect x="70" y="392" width="16" height="4" fill="#0072b2"/>
+<text x="92" y="396" font-family="Arial" font-size="13">co2-1</text>
+<path d="M 70.0 310.4 L 109.1 312.9 L 148.3 316.5 L 187.4 320.6 L 226.5 296.1 L 265.7 276.7 L 304.8 265.9 L 343.9 256.1 L 383.0 250.0 L 422.2 258.8 L 461.3 282.1 L 500.4 287.5 L 539.6 289.5 L 578.7 291.0 L 617.8 288.0 L 657.0 297.8 L 696.1 303.6 L 735.2 299.1 L 774.3 302.2 L 813.5 306.7 L 852.6 308.7 L 891.7 305.9 L 930.9 305.5 L 970.0 308.6" fill="none" stroke="#d55e00" stroke-width="2.2"/>
+<rect x="190" y="392" width="16" height="4" fill="#d55e00"/>
+<text x="212" y="396" font-family="Arial" font-size="13">th-1</text>
+<path d="M 70.0 331.4 L 109.1 334.7 L 148.3 338.6 L 187.4 337.9 L 226.5 331.3 L 265.7 320.0 L 304.8 313.2 L 343.9 302.1 L 383.0 294.4 L 422.2 292.1 L 461.3 300.2 L 500.4 306.7 L 539.6 304.7 L 578.7 286.8 L 617.8 274.2 L 657.0 294.6 L 696.1 303.9 L 735.2 301.1 L 774.3 305.8 L 813.5 312.8 L 852.6 319.1 L 891.7 322.7 L 930.9 324.5 L 970.0 328.1" fill="none" stroke="#009e73" stroke-width="2.2"/>
+<rect x="310" y="392" width="16" height="4" fill="#009e73"/>
+<text x="332" y="396" font-family="Arial" font-size="13">th-2</text>
+</svg>

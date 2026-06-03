@@ -1,0 +1,244 @@
+
+
+--- page 1 ---
+Citation: Platero-Horcajadas, M.;
+Pardo-Pina, S.; Cámara-Zapata, J.-M.;
+Brenes-Carranza, J.-A.; Ferrández-
+Pastor, F.-J. Enhancing Greenhouse
+Efficiency: Integrating IoT and
+Reinforcement Learning for
+Optimized Climate Control. Sensors
+2024, 24, 8109. https://doi.org/
+10.3390/s24248109
+Academic Editors: Alessandra
+Rizzardi, Dinko Oletic and Nahina
+Islam
+Received: 23 July 2024
+Revised: 22 November 2024
+Accepted: 29 November 2024
+Published: 19 December 2024
+Copyright: © 2024 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed under the terms and
+conditions of the Creative Commons
+Attribution (CC BY) license (https://
+creativecommons.org/licenses/by/
+4.0/).
+sensors
+Article
+Enhancing Greenhouse Efficiency: Integrating IoT and
+Reinforcement Learning for Optimized Climate Control
+Manuel Platero-Horcajadas 1
+ , Sofia Pardo-Pina 2, José-María Cámara-Zapata 2
+ , José-Antonio Brenes-Carranza 3
+and Francisco-Javier Ferrández-Pastor 1,*
+1 Informática Industrial y Redes de Computadores (I2RC), University of Alicante, 03690 Alicante, Spain
+2 Centro de Investigación e Innovación Agroalimentario y Agroambiental (CIAGRO), Miguel Hernandez
+University, 03312 Orihuela, Spain; spardo@umh.es (S.P .-P .); jm.camara@umh.es (J.-M.C.-Z.)
+3 Centro de Investigaciones en Tecnologías de la Información y Comunicación (CITIC), University of Costa
+Rica, San José 11501, Costa Rica; joseantonio.brenes@ucr.ac.cr
+* Correspondence: fjferran@ua.es
+Abstract: Automated systems, regulated by algorithmic protocols and predefined set-points for
+feedback control, require the oversight and fine tuning of skilled technicians. This necessity is
+particularly pronounced in automated greenhouses, where optimal environmental conditions depend
+on the specialized knowledge of dedicated technicians, emphasizing the need for expert involvement
+during installation and maintenance. To address these challenges, this study proposes the integration
+of data acquisition technologies using Internet of Things (IoT) protocols and optimization services
+via reinforcement learning (RL) methodologies. The proposed model was tested in an industrial
+production greenhouse for the cultivation of industrial hemp, applying adapted strategies to the
+crop, and was guided by an agronomic technician knowledgeable about the plant. The expertise
+of this technician was crucial in transferring the RL model to a real-world automated greenhouse
+equipped with IoT technology. The study concludes that the integration of IoT and RL technologies
+is effective, validating the model’s ability to manage and optimize greenhouse operations efficiently
+and adapt to different types of crops. Moreover, this integration not only enhances operational
+efficiency but also reduces the need for constant human intervention, thereby minimizing labor costs
+and increasing scalability for larger agricultural enterprises. Furthermore, the RL-based control has
+demonstrated its ability to maintain selected temperatures and achieve energy savings compared to
+classical control methods.
+Keywords: smart agriculture; reinforcement learning; IoT; greenhouse energy management
+1. Introduction
+The integration of IoT and RL creates an intelligent and adaptive control system for
+greenhouses. IoT sensors provide a constant flow of accurate information, which RL algo-
+rithms then process to optimize growing conditions. Automated systems implement the
+decisions made by RL, and the system constantly improves on the basis of the results ob-
+tained. This synergy allows for more efficient resource management, increased productivity,
+and better adaptation to changing conditions, which is crucial in the current context of
+climate change and food security. By combining the data collection capabilities of IoT with
+the decision-making power of RL, greenhouse operators can create a self-improvement
+system that continuously adapts to changing environmental conditions and plant needs.
+This integration not only improves crop yield and quality but also contributes to sustainable
+agriculture practices by optimizing resource use. As climate change continues to pose
+challenges to traditional farming methods, the integrated IoT-RL approach in greenhouses
+offers a promising solution to ensure food security in an environmentally responsible
+way. This paper is structured as follows. Section 2 provides a comprehensive review of
+the literature, highlighting key contributions and future research directions in the use of
+Sensors 2024, 24, 8109. https://doi.org/10.3390/s24248109 https://www.mdpi.com/journal/sensors
+
+
+--- page 2 ---
+Sensors 2024, 24, 8109 2 of 24
+reinforcement learning (RL) for energy management in greenhouses. Section 3 presents
+materials and methods. In Section 3.1, we present the proposed model, detailing the inte-
+gration of IoT and RL technologies for optimized climate control in greenhouses. Section 3.2
+discusses the methodology, including the phases of development of control strategies, IoT
+infrastructure design, dataset generation, and the application of digital models and RL
+algorithms. The IoT infrastructure is proposed in Section 3.3. In Section 3.4, we analyze
+the generation of dataset and the materials used. Section 3.5 proposes the RL algorithm
+based on the model. Section 3.6 implements and evaluates the RL agent, comparing its
+performance with traditional control methods. Finally, Sections 4 and 5 conclude the article,
+summarizing the findings and discussing the implications for future research and practical
+applications in greenhouse management.
+Automated greenhouse systems require the meticulous configuration of diverse pa-
+rameters to guarantee that the actuators execute the designated functions accurately. This
+configuration entails the determination of appropriate set-points for various subsystems
+including climate, lighting, and irrigation control. Typically, these parameters and control
+rules are reactive. In recent years, numerous studies have advanced models based on set-
+point selection strategies employing various heuristic or artificial intelligence paradigms
+coupled with the implementation of predictive solutions. The application of reinforcement
+learning (RL) to greenhouse management has gained significant attention in recent years
+due to its potential to optimize energy usage and automate various control processes. This
+section provides an overview of the most relevant studies categorized by their approaches
+and contributions.
+2. Literature Review
+The use of reinforcement learning (RL) in the energy management of greenhouses
+and precision agriculture techniques has evolved significantly. This analysis is based on
+the references provided, which highlight key contributions in this field. Future research
+directions are also discussed. This paper reviews key contributions to the field, analyzes
+their contributions, and discusses future research directions.
+Kiumarsi et al. [1] present a comprehensive survey and implementation guidelines for
+optimal and autonomous control using RL. They discuss applications in complex systems,
+emphasizing their potential to enhance energy efficiency and reduce operational costs in
+greenhouses. Perera et al. [2] review various applications of RL in energy management from
+generation to consumption. They highlight specific cases of intelligent greenhouses that
+use RL to optimize energy use. Wang et al. [3] present an RL controller based on recurring
+neural networks based on Long Short-Term Memory (LSTM) for microgrid management
+with potential applications in greenhouses.
+Kazmi et al. [4] explore the use of deep RL for optimal control in hybrid energy systems
+of buildings, which is applicable to energy management in greenhouses. Ruelens et al. [5]
+examine the application of RL in electric water heaters with direct implications for energy
+management in greenhouses.
+Zhang et al. [6] discuss the developments and future challenges in precision agriculture,
+including the integration of RL for better resource management in greenhouses. Liu et al. [6]
+provide a comprehensive review of RL applications in smart agriculture, highlighting
+various use cases and the potential benefits of RL in optimizing agricultural processes,
+including greenhouse energy management.
+Mason et al. [7] review the applications of RL in smart grids, discussing how these
+methods can be applied to improve energy management and efficiency in interconnected
+systems such as greenhouses. Hosseinloo et al. [8] explore data-driven predictive control
+using RL for energy efficiency and comfort management in buildings with potential appli-
+cations in greenhouses to optimize climate control systems. Sun et al. [9] present a study on
+multi-agent RL for the integrated energy management of interconnected microgrids, which
+is applicable to complex greenhouse energy systems. Alani et al. [10] discuss the opportu-
+
+
+--- page 3 ---
+Sensors 2024, 24, 8109 3 of 24
+nities and challenges of RL-based energy management for smart homes and buildings with
+insights applicable to greenhouse energy systems.
+Fu et al. [ 11] survey the applications of RL in building energy management, pro-
+viding information relevant to greenhouse energy systems. Mauree et al. [ 12] review
+data-driven and machine learning models for building energy performance prediction,
+fault detection, and optimization, all of which are applicable to greenhouse energy man-
+agement. Kazmi et al. [13] discuss the application of multi-agent RL for building energy
+management with potential benefits for greenhouse systems. Yang et al. [ 14] explore
+energy optimization in smart home buildings using deep RL, providing information for
+greenhouse energy management.
+Ruelens et al. [15] discuss learning sequential decision making for the optimal con-
+trol of thermally activated resources, which is applicable to greenhouse energy systems.
+Vázquez-Canteli and Henze [16] discuss the integration of reinforcement learning with
+predictive control of the model for the response to demand in buildings, which can be
+applied to optimize energy management in greenhouses. Sutton and Barto [17] discuss the
+application of RL in real-world games, providing insights that can be adapted to complex
+energy management systems in greenhouses. Peters et al. [ 18] discuss a reinforcement
+learning approach to autonomous vehicles, which can provide insights for autonomous
+control in greenhouse energy systems. Kar et al. [ 19] present QD learning, which is a
+collaborative Q-learning approach that can be applied to cooperative energy management
+strategies in greenhouses.
+Sierla et al. [20] review reinforcement learning applications in urban energy systems,
+which can provide valuable information for energy management in greenhouse environ-
+ments. Vázquez-Canteli and Nagy [21] discuss reinforcement learning for demand response,
+which is highly relevant for dynamic energy management in greenhouses. Mauree et al. [12]
+review assessment methods for urban environments, providing methodologies that can be
+adapted to evaluate energy performance in greenhouses.
+2.1. Future Research Directions
+Despite significant advancements, several areas require further exploration to fully
+implement RL in greenhouse energy management.
+• Integration with IoT: The integration of RL with IoT devices can enhance real-time
+data acquisition and decision-making processes in greenhouses. Future research
+should focus on developing seamless IoT-RL integration frameworks.
+• Scalability: Research on scaling RL solutions to larger, more complex greenhouse
+systems is necessary to ensure widespread adoption. Studies should address compu-
+tational challenges and the ability to handle large datasets.
+• Interdisciplinary Approaches: Combining RL with other AI techniques, such as
+genetic algorithms and fuzzy logic, could yield more robust energy management
+solutions. The exploration of hybrid models that leverage the strengths of different AI
+paradigms is essential.
+• Environmental Adaptability : Developing RL algorithms capable of adapting to
+diverse environmental conditions will be crucial for global applications. This includes
+designing algorithms that can learn and adapt to changing weather patterns, pest
+infestations, and other environmental variables.
+• Economic Viability: Studies on the cost-effectiveness of RL implementations in green-
+houses can drive commercial interest and investment. Future research should focus
+on performing cost–benefit analyses and developing business models that highlight
+the economic advantages of RL-based energy management systems.
+• User-Friendly Interfaces: Developing user-friendly interfaces and control systems
+for greenhouse operators is vital for the practical implementation of RL. Research
+should focus on creating intuitive dashboards and control panels that allow operators
+to easily interact with and oversee RL systems.
+
+
+--- page 4 ---
+Sensors 2024, 24, 8109 4 of 24
+• Sustainability Metrics: Future work should also explore the development of sustain-
+ability metrics that RL systems can optimize. This includes not only energy efficiency
+but also water usage, pesticide application, and overall environmental impact.
+• Policy and Regulatory Compliance: Research should address how RL systems can be
+designed to comply with local and international policies and regulations concerning
+energy usage and environmental protection.
+• Data Privacy and Security : With the increasing use of IoT and RL, ensuring data
+privacy and security is essential. Future research should develop robust security
+protocols to protect sensitive data in greenhouse management systems.
+• Real-World Case Studies: Conducting real-world case studies and pilot projects can
+provide valuable insights into the practical challenges and benefits of implementing
+RL in greenhouses. These studies can help refine RL models and identify best practices
+for successful adoption.
+2.2. Literature Review Conclusions
+The RL paradigm has shown significant potential to optimize energy management
+in greenhouses and precision agriculture techniques. From optimal autonomous control
+to deep RL, the reviewed references indicate a growing trend toward intelligent, adap-
+tive solutions that promote energy efficiency and sustainability. Future research should
+focus on integrating RL with IoT, scalability, interdisciplinary approaches, environmen-
+tal adaptability, economic viability, user-friendly interfaces, sustainability metrics, policy
+compliance, data privacy and security, and real-world case studies to further advance this
+technological evolution.
+In conclusion, the field of reinforcement learning for greenhouse management has
+made significant progress, yet challenges remain. Future research should focus on improv-
+ing scalability, integrating advanced technologies, and developing hybrid models to fully
+realize the potential of RL in this domain.
+3. Materials and Methods
+3.1. Model Proposed
+The reinforcement learning (RL) problem involves a digital agent exploring an environ-
+ment to achieve a specific goal. In the field of automated greenhouses, it is about managing
+environmental conditions and crop growth while optimizing resources and inputs. RL is
+based on the hypothesis that all goals can be characterized by maximizing the expected cumu-
+lative reward. The agent must learn to perceive and manipulate the state of the environment
+through its actions to optimize this reward. In the model presented in this work, the agent
+performs control actions to adjust the set-points, ensuring that the internal conditions of the
+greenhouse stay within the predefined maximum and minimum limits. By doing so, the
+agent optimizes the management of resources such as water, energy , and inputs, leading to
+improved plant growth. Figure 1 shows the application scenario of the RL paradigm.
+The system must be able to collect relevant data, establish the necessary sensors and
+communication protocols, and manage them appropriately using the IOT paradigm.
+The proposed model uses a layered architecture (Figure 2) to integrate the services
+and functionalities of the platform (IoT + RL). In an agricultural facility, whether newly
+constructed or already operational, monitoring and actuation devices are installed and inter-
+faced with the processing and control layer. The following provides a detailed description
+of each layer.
+In the physical layer, IoT sensors/actuators, human–machine interfaces (HMIs) and
+machine-to-machine interfaces (MMIs) are installed. The farmer and technicians can act by
+entering data and requests. The processing layer filters data, executes control actions, and
+communicates with the upper layer.
+The control layer embedded devices receive data from the upper layer to manage the
+different processes and perform control and maintenance actions. This layer must provide
+the necessary support to communicate the data to the sensor/actuators installed.
