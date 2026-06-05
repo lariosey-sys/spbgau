@@ -149,6 +149,63 @@ def chart_relay_hourly(relay):
     save(fig, "chart_relay_hourly.pdf")
 
 
+def chart_thermal_inertia(data):
+    """Кривая ночного остывания th-1 и экспоненциальный фит (тепловая инерция).
+
+    Ночью (22:00-06:00) реле не переключаются и нагрев не работает, поэтому
+    остывание бокса описывается первым порядком T(t)=T_inf+(T0-T_inf)exp(-t/tau).
+    По наклону логарифма идентифицируется постоянная времени tau, на порядки
+    превышающая воздушную, что отражает эффективную теплоемкость массивных
+    элементов (гидропонные баки, субстрат, конструкции).
+    """
+    series = {dt: t for dt, t, _, _ in data["th-1"] if t and 0 < t < 60}
+    times = sorted(series)
+    t0, t1 = datetime(2026, 4, 22, 21, 30), datetime(2026, 4, 23, 6, 0)
+    seg = [dt for dt in times if t0 <= dt <= t1]
+    xs = [(dt - seg[0]).total_seconds() / 3600 for dt in seg]  # часы
+    ys = [series[dt] for dt in seg]
+    t_end = ys[-1]
+    best = None
+    off = 0.2
+    while off <= 3.01:
+        t_inf = t_end - off
+        lx, ly, ok = [], [], True
+        for x, y in zip(xs, ys):
+            v = y - t_inf
+            if v <= 0:
+                ok = False
+                break
+            lx.append(x)
+            ly.append(math.log(v))
+        off += 0.2
+        if not ok or len(lx) < 30:
+            continue
+        n = len(lx)
+        mx, my = sum(lx) / n, sum(ly) / n
+        sxx = sum((x - mx) ** 2 for x in lx)
+        sxy = sum((x - mx) * (y - my) for x, y in zip(lx, ly))
+        slope = sxy / sxx
+        if slope >= 0:
+            continue
+        b = my - slope * mx
+        ssr = sum((y - (slope * x + b)) ** 2 for x, y in zip(lx, ly))
+        sst = sum((y - my) ** 2 for y in ly)
+        r2 = 1 - ssr / sst if sst > 0 else 0
+        if best is None or r2 > best[-1]:
+            best = (t_inf, slope, b, r2)
+    t_inf, slope, b, r2 = best
+    tau = -1 / slope  # часы
+    fit = [t_inf + math.exp(b) * math.exp(slope * x) for x in xs]
+    fig, ax = plt.subplots(figsize=(6.2, 3.4))
+    ax.plot(xs, ys, color=BLUE, lw=1.5, label="th-1, ночь 22–23.04.2026")
+    ax.plot(xs, fit, "--", color=RED, lw=1.8,
+            label=f"экспонента, τ≈{tau:.1f} ч (R²={r2:.2f})")
+    ax.set_xlabel("Время от начала ночного остывания, ч")
+    ax.set_ylabel("Температура воздуха, °C")
+    ax.legend(fontsize=9)
+    save(fig, "chart_thermal_inertia.pdf")
+
+
 # Подтвержденные значения эксперимента со светом (среднее по 6 сортам).
 VAR = [1, 2, 3, 4, 5]
 DLI = [5.12, 6.16, 9.77, 11.75, 15.91]
@@ -258,6 +315,7 @@ def main():
     chart_daily(data)
     chart_vpd(data)
     chart_relay_hourly(relay)
+    chart_thermal_inertia(data)
     chart_light_yield()
     chart_light_quality()
     chart_ml_metrics()
