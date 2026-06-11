@@ -34,6 +34,7 @@
 | `li2023heathumidityventilation` | 30 | глава 1 |
 | `ghaderi2023heatrecoverygreenhouse` | 31 | введение, глава 1 |
 | `samarin2025simulationmicroclimate` | 32 | введение, глава 1 |
+| `rozhdestvensky1980controlled` | 33 | глава 1, глава 3 (световая кривая, тепловлажностный режим, термопериодизм) |
 
 ## Источники в общем списке, пока не цитируемые в основном тексте
 

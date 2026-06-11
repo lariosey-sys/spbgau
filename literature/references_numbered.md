@@ -34,3 +34,4 @@
 30. Li H., Li A., Hou Y., Zhang C., Guo J., Li J., Ma Y., Wang T., Yin Y. Analysis of Heat and Humidity in Single-Slope Greenhouses with Natural Ventilation // Buildings. – 2023. – Vol. 13, No. 3. – Article 606. – DOI: 10.3390/buildings13030606.
 31. Ghaderi M., Reddick C., Sorin M. A Systematic Heat Recovery Approach for Designing Integrated Heating, Cooling, and Ventilation Systems for Greenhouses // Energies. – 2023. – Vol. 16, No. 14. – Article 5493. – DOI: 10.3390/en16145493.
 32. Самарин Г. Н., Попов А. Н., Плотников С. В., Ружьев В. А. Методика построения имитационной модели оптимального управления параметрами микроклимата сельскохозяйственного объекта // Аграрный научный журнал. – 2025. – № 1. – С. 126-135. – DOI: 10.28983/asj.y2025i1pp126-135.
+33. Рождественский В. И., Клешнин А. Ф. Управляемое культивирование растений в искусственной среде. Биотехнические основы. – М.: Наука, 1980. – 199 с.

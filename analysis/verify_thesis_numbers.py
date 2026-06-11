@@ -196,6 +196,56 @@ if mlcsv.exists():
 else:
     print("[WARN] ml_baseline_metrics.csv не найден — таблица 3.7 проверена при построении")
 
+# --- Статистика по световому эксперименту (подраздел 3.9): ANOVA, ДИ, корреляции ---
+factorial = ROOT / "analysis" / "салат_отчёт" / "factorial.csv"
+if factorial.exists():
+    try:
+        from scipy import stats
+        rows_f = list(csv.DictReader(factorial.open(encoding="utf-8")))
+
+        def fnum(x):
+            try:
+                return float(x)
+            except (TypeError, ValueError):
+                return None
+
+        cells = {(r["cultivar"], int(float(r["variant"]))): r for r in rows_f}
+        cults = sorted({k[0] for k in cells})
+        vars_ = sorted({k[1] for k in cells})
+        a, b = len(vars_), len(cults)
+        col, sd, nn = "leaf_mass_mkt_g", "leaf_mass_mkt_g_sd", "leaf_mass_mkt_g_n"
+        SSE = sum((fnum(cells[k][nn]) - 1) * fnum(cells[k][sd]) ** 2 for k in cells)
+        dfE = sum(fnum(cells[k][nn]) - 1 for k in cells)
+        MSE = SSE / dfE
+        n_h = (a * b) / sum(1.0 / fnum(cells[k][nn]) for k in cells)
+        M = {k: fnum(cells[k][col]) for k in cells}
+        grand = sum(M.values()) / (a * b)
+        vmean = {v: sum(M[(c, v)] for c in cults) / b for v in vars_}
+        SSA = n_h * b * sum((vmean[v] - grand) ** 2 for v in vars_)
+        FA = (SSA / (a - 1)) / MSE
+        check("ANOVA свет: F(вариант)", FA, 20.4, tol=0.03)
+        check("ANOVA свет: df ошибки", dfE, 110.0, tol=0.001)
+        ci = stats.t.ppf(0.975, dfE) * math.sqrt(MSE / (n_h * b))
+        check("ДИ урожая по варианту, ±г", ci, 12.2, tol=0.05)
+        q = stats.studentized_range.ppf(0.95, a, dfE)
+        hsd = q * math.sqrt(MSE / (n_h * b))
+        check("Tukey HSD, г", hsd, 24.2, tol=0.05)
+        for label, ccol, exp in [("корень", "root_mass_g", 0.77),
+                                 ("нитраты", "nitrate", -0.62),
+                                 ("сухое в-во", "dm_pct", 0.55),
+                                 ("высота", "height_cm", -0.47)]:
+            xs = [fnum(cells[(c, v)]["dli"]) for c in cults for v in vars_]
+            ys = [fnum(cells[(c, v)][ccol]) for c in cults for v in vars_]
+            pr = [(x, y) for x, y in zip(xs, ys) if x is not None and y is not None]
+            rr = stats.pearsonr([p[0] for p in pr], [p[1] for p in pr])[0]
+            check(f"corr DLI×{label} (n=30)", rr, exp, tol=0.02)
+        rcrit = math.sqrt(1 / (1 + 3 / stats.t.ppf(0.975, 3) ** 2))
+        check("критическое |r| при n=5", rcrit, 0.878, tol=0.005)
+    except ImportError:
+        print("[WARN] scipy не установлен — статистика 3.9 не перепроверена")
+else:
+    print("[WARN] factorial.csv не найден — статистика 3.9 проверена при построении")
+
 print()
 print(f"ИТОГО: пройдено {PASS}, провалено {FAIL}")
 raise SystemExit(1 if FAIL else 0)
