@@ -193,7 +193,48 @@ def body_markdown() -> str:
     return apply_citation_replacements(text)
 
 
+# Маскируемые при типографской правке тире фрагменты: огороженный код,
+# выключные формулы (raw TeX), строчный код и строчная математика $...$.
+# Внутри них «-» может быть минусом/частью идентификатора и не трогается.
+_DASH_PROTECT = re.compile(
+    r"```.*?```"
+    r"|\\begin\{(equation\*?|align\*?|gather\*?|multline\*?)\}.*?\\end\{\1\}"
+    r"|`[^`]*`"
+    r"|\$(?:\\.|[^$\\])*\$",
+    re.S,
+)
+
+
+def convert_typographic_dashes(text: str) -> str:
+    """Приводит дефис-минус в роли тире к типографски корректному виду.
+
+    В русском наборе тире отбивается пробелами, причём пробел ПЕРЕД тире —
+    неразрывный, чтобы тире не оказалось в начале строки. Поэтому « - »
+    (пробел-дефис-пробел) в прозе заменяется на неразрывный пробел + длинное
+    тире (U+2014); pandoc выводит это как «~---». Числовые/датовые диапазоны
+    вида «28.03.2026 - 26.05.2026» получают короткое тире (U+2013) без пробелов.
+    Код, листинги и формулы ($...$, \\begin{equation}) защищаются от замены.
+    """
+    placeholders: list[str] = []
+
+    def stash(match: re.Match) -> str:
+        placeholders.append(match.group(0))
+        return f"\x00{len(placeholders) - 1}\x00"
+
+    masked = _DASH_PROTECT.sub(stash, text)
+    # диапазон между числами/датами: короткое тире без пробелов
+    masked = re.sub(r"(?<=\d) - (?=\d)", "–", masked)
+    # прочее « - » в прозе: неразрывный пробел + длинное тире
+    masked = masked.replace(" - ", " — ")
+
+    def unstash(match: re.Match) -> str:
+        return placeholders[int(match.group(1))]
+
+    return re.sub(r"\x00(\d+)\x00", unstash, masked)
+
+
 def preprocess_markdown(text: str) -> str:
+    text = convert_typographic_dashes(text)
     text = text.replace("CO2", r"CO$_2$")
     text = re.sub(r"URL:\s*(https?://[^\s)]+)", r"URL: <\1>", text)
     # DOI делаем кликабельной ссылкой на doi.org (отображается сам DOI).
@@ -484,18 +525,9 @@ def build_main_tex(abstract_tex: str, body_tex: str) -> str:
     )
 
 
-def fix_pdf_text_layer(pdf_path: Path) -> None:
-    """Чинит текстовый слой PDF: шрифт Times New Roman использует один глиф для
-    «;» и греческого знака вопроса (U+037E), и xdvipdfmx прописывает в ToUnicode
-    именно U+037E. Визуально PDF корректен, но копирование/извлечение текста
-    дает нестандартный символ. Заменяем отображение на обычную «;» (U+003B).
-    Требует pikepdf; при его отсутствии шаг пропускается с предупреждением."""
-    try:
-        import pikepdf
-    except ImportError:
-        print("ПРЕДУПРЕЖДЕНИЕ: pikepdf не установлен - текстовый слой PDF "
-              "не исправлен (U+037E вместо ';' при копировании).")
-        return
+def _fix_text_layer_pikepdf(pdf_path: Path) -> int:
+    import pikepdf
+
     fixed = 0
     with pikepdf.open(str(pdf_path), allow_overwriting_input=True) as pdf:
         for obj in pdf.objects:
@@ -512,6 +544,48 @@ def fix_pdf_text_layer(pdf_path: Path) -> None:
                 continue
         if fixed:
             pdf.save(str(pdf_path))
+    return fixed
+
+
+def _fix_text_layer_fitz(pdf_path: Path) -> int:
+    import fitz  # PyMuPDF
+
+    doc = fitz.open(str(pdf_path))
+    fixed = 0
+    for xref in range(1, doc.xref_length()):
+        try:
+            if not doc.xref_is_stream(xref):
+                continue
+            data = doc.xref_stream(xref)
+            if b"beginbfchar" not in data and b"beginbfrange" not in data:
+                continue
+            if b"<037E>" in data:
+                doc.update_stream(xref, data.replace(b"<037E>", b"<003B>"))
+                fixed += 1
+        except Exception:
+            continue
+    if fixed:
+        doc.save(str(pdf_path), incremental=True, encryption=fitz.PDF_ENCRYPT_KEEP)
+    doc.close()
+    return fixed
+
+
+def fix_pdf_text_layer(pdf_path: Path) -> None:
+    """Чинит текстовый слой PDF: шрифт Times New Roman использует один глиф для
+    «;» и греческого знака вопроса (U+037E), и xdvipdfmx прописывает в ToUnicode
+    именно U+037E. Визуально PDF корректен, но копирование/извлечение текста
+    дает нестандартный символ. Заменяем отображение на обычную «;» (U+003B).
+    Используется pikepdf, при его отсутствии - PyMuPDF (fitz); если нет ни того,
+    ни другого, шаг пропускается с предупреждением."""
+    try:
+        fixed = _fix_text_layer_pikepdf(pdf_path)
+    except ImportError:
+        try:
+            fixed = _fix_text_layer_fitz(pdf_path)
+        except ImportError:
+            print("ПРЕДУПРЕЖДЕНИЕ: нет ни pikepdf, ни PyMuPDF - текстовый слой "
+                  "PDF не исправлен (U+037E вместо ';' при копировании).")
+            return
     if fixed:
         print(f"Текстовый слой PDF исправлен: {fixed} ToUnicode-карт(ы), ';' вместо U+037E.")
 

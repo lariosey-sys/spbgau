@@ -211,6 +211,7 @@ VAR = [1, 2, 3, 4, 5]
 DLI = [5.12, 6.16, 9.77, 11.75, 15.91]
 POWER = [116.3, 97.0, 221.0, 321.5, 478.0]
 YIELD = [33.8, 89.9, 85.6, 105.6, 93.8]
+YIELD_CI = [12.2, 12.2, 12.2, 12.2, 12.2]
 GPERW = [0.29, 0.93, 0.39, 0.33, 0.20]
 NITRATE = [6.96, 3.22, 1.86, 1.86, 1.79]
 DRYMATTER = [5.24, 5.41, 7.24, 7.21, 7.90]
@@ -218,7 +219,10 @@ DRYMATTER = [5.24, 5.41, 7.24, 7.21, 7.90]
 
 def chart_light_yield():
     fig, ax = plt.subplots(figsize=(6.2, 3.6))
-    ax.plot(DLI, YIELD, "-o", color=GREEN, label="Урожай товарного листа")
+    # 95% ДИ средней товарной массы по вариантам (двухфакторный ANOVA, MSE=1026,
+    # n_h*b плодов за вариантом): половина интервала ≈ 12,2 г для всех вариантов.
+    ax.errorbar(DLI, YIELD, yerr=YIELD_CI, fmt="-o", color=GREEN, capsize=4,
+                ecolor=GREEN, elinewidth=1, label="Урожай товарного листа (95% ДИ)")
     ax.set_xlabel("Световая доза DLI, моль/(м²·сут)")
     ax.set_ylabel("Урожай, г/растение", color=GREEN)
     ax.tick_params(axis="y", labelcolor=GREEN)
@@ -274,37 +278,65 @@ def chart_ml_metrics():
     save(fig, "chart_ml_metrics.pdf")
 
 
-def box(ax, x, y, w, h, text, fc):
-    ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.02",
-                                fc=fc, ec="#333", lw=1.2))
-    ax.text(x + w / 2, y + h / 2, text, ha="center", va="center", fontsize=9.5)
+def box(ax, x, y, w, h, title, body, fc):
+    ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.015",
+                                fc=fc, ec="#2b2b2b", lw=1.3))
+    cx = x + w / 2
+    ax.text(cx, y + h - 0.30, title, ha="center", va="center",
+            fontsize=10, fontweight="bold")
+    ax.text(cx, y + (h - 0.55) / 2, body, ha="center", va="center",
+            fontsize=8.6, linespacing=1.35)
 
 
-def arrow(ax, p1, p2):
-    ax.add_patch(FancyArrowPatch(p1, p2, arrowstyle="-|>", mutation_scale=12,
-                                 color="#333", lw=1.2))
+def arrow(ax, p1, p2, label=None, lpos=0.5, ldx=0.0, ldy=0.0, rad=0.0, color="#2b2b2b"):
+    style = f"arc3,rad={rad}" if rad else "arc3"
+    ax.add_patch(FancyArrowPatch(p1, p2, arrowstyle="-|>", mutation_scale=14,
+                                 color=color, lw=1.4, shrinkA=2, shrinkB=2,
+                                 connectionstyle=style))
+    if label:
+        mx = p1[0] + (p2[0] - p1[0]) * lpos + ldx
+        my = p1[1] + (p2[1] - p1[1]) * lpos + ldy
+        ax.text(mx, my, label, ha="center", va="center", fontsize=7.8,
+                color="#333", bbox=dict(boxstyle="round,pad=0.12", fc="white",
+                                        ec="none", alpha=0.85))
 
 
 def chart_architecture():
-    fig, ax = plt.subplots(figsize=(6.4, 4.3))
+    fig, ax = plt.subplots(figsize=(6.9, 5.2))
     ax.set_xlim(0, 10)
     ax.set_ylim(0, 10)
     ax.axis("off")
-    box(ax, 0.3, 7.6, 4.3, 1.7,
-        "Сенсорный уровень\nESP8266: DHT11 (th-1, th-2),\nSCD30 (co2-1)", "#d6eaf8")
-    box(ax, 5.4, 7.6, 4.3, 1.7,
-        "Исполнительный уровень\nArduino Mega 2560 + ESP8266,\n15 силовых реле", "#fdebd0")
-    box(ax, 3.0, 4.6, 4.0, 1.5, "MQTT-брокер\nMosquitto", "#e8daef")
-    box(ax, 0.3, 1.2, 4.3, 1.9,
-        "Серверный уровень\nFlask-dashboard,\nправила и профили", "#d5f5e3")
-    box(ax, 5.4, 1.2, 4.3, 1.9,
-        "Хранение и анализ\nSQLite-журнал,\nML / экспорт данных", "#d5f5e3")
-    arrow(ax, (2.4, 7.6), (4.2, 6.1))   # sensors -> mqtt
-    arrow(ax, (5.0, 6.1), (7.5, 7.6))   # mqtt -> relay (commands)
-    arrow(ax, (7.5, 7.6), (5.0, 6.1))   # relay -> mqtt (state)
-    arrow(ax, (4.2, 4.6), (2.4, 3.1))   # mqtt -> dashboard
-    arrow(ax, (5.8, 4.6), (7.5, 3.1))   # mqtt -> storage
-    arrow(ax, (4.6, 2.1), (5.4, 2.1))   # dashboard <-> storage
+
+    EDGE_S, EDGE_A, BROK, SRV = "#d6eaf8", "#fdebd0", "#e8daef", "#d5f5e3"
+    # верхний уровень: датчики и исполнительные устройства
+    box(ax, 0.2, 7.55, 4.4, 1.95,
+        "Сенсорный уровень",
+        "ESP8266 + DHT11 (th-1, th-2),\nSCD30 (co2-1)", EDGE_S)
+    box(ax, 5.4, 7.55, 4.4, 1.95,
+        "Исполнительный уровень",
+        "Arduino Mega 2560 + ESP8266,\n15 силовых реле", EDGE_A)
+    # средний уровень: брокер
+    box(ax, 2.95, 4.45, 4.1, 1.55,
+        "MQTT-брокер (Mosquitto)",
+        "единая шина обмена,\nretained-сообщения", BROK)
+    # нижний уровень: сервер и хранилище
+    box(ax, 0.2, 0.9, 4.4, 2.05,
+        "Серверный уровень",
+        "Flask-dashboard,\nправила и профили", SRV)
+    box(ax, 5.4, 0.9, 4.4, 2.05,
+        "Хранение и анализ",
+        "SQLite-журнал,\nML и экспорт данных", SRV)
+
+    # потоки данных
+    arrow(ax, (2.4, 7.55), (3.9, 6.0), "телеметрия", lpos=0.5, ldx=-0.55)
+    arrow(ax, (6.1, 6.0), (6.9, 7.55), "команды", lpos=0.45, ldx=-0.5, rad=0.18)
+    arrow(ax, (7.7, 7.55), (6.9, 6.0), "состояния", lpos=0.55, ldx=0.7, rad=0.18)
+    arrow(ax, (3.9, 4.45), (2.4, 2.95), "подписка", lpos=0.5, ldx=-0.55)
+    arrow(ax, (6.1, 4.45), (7.6, 2.95), "журнал", lpos=0.5, ldx=0.5)
+    arrow(ax, (4.6, 1.92), (5.4, 1.92), rad=0.0)
+    arrow(ax, (5.4, 1.55), (4.6, 1.55), rad=0.0)
+    ax.text(5.0, 2.35, "обмен\nданными", ha="center", va="center", fontsize=7.6,
+            color="#333")
     save(fig, "chart_architecture.pdf")
 
 
