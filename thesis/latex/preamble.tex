@@ -63,6 +63,13 @@
 \usepackage{enumitem}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{newunicodechar}
+% Times New Roman не содержит надстрочного минуса U+207B: без явного
+% отображения он превращается в .notdef-прямоугольник (виден, например, в
+% «ч⁻¹»). Отображаем его надстрочным минусом основного шрифта - согласуется
+% с предопределёнными надстрочными ¹, ², ³.
+\providecommand{\textminus}{\ensuremath{-}}
+\newunicodechar{⁻}{\textsuperscript{\textminus}}
 \usepackage{fvextra}
 \usepackage{listings}
 \usepackage{lastpage}

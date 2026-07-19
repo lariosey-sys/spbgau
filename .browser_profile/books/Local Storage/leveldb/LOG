@@ -1,0 +1,5 @@
+2026/07/05-16:01:20.896 1a6a941 Creating DB /Users/sergei/MyProjects/spbgau/.browser_profile/books/Local Storage/leveldb since it was missing.
+2026/07/05-16:01:20.906 1a6a941 Reusing MANIFEST /Users/sergei/MyProjects/spbgau/.browser_profile/books/Local Storage/leveldb/MANIFEST-000001
+2026/07/05-16:02:50.893 1a6a944 Level-0 table #5: started
+2026/07/05-16:02:50.901 1a6a944 Level-0 table #5: 183594 bytes OK
+2026/07/05-16:02:50.903 1a6a944 Delete type=0 #3

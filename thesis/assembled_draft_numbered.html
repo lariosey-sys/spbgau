@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Разработка и внедрение интеллектуальной системы управления микроклиматом в теплице</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     html {
-      line-height: 1.5;
-      font-family: Georgia, serif;
-      font-size: 20px;
       color: #1a1a1a;
       background-color: #fdfdfd;
     }
@@ -28,13 +28,16 @@
     @media (max-width: 600px) {
       body {
         font-size: 0.9em;
-        padding: 1em;
+        padding: 12px;
       }
       h1 {
         font-size: 1.8em;
       }
     }
     @media print {
+      html {
+        background-color: white;
+      }
       body {
         background-color: transparent;
         color: black;
@@ -58,6 +61,10 @@
       color: #1a1a1a;
     }
     img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
       max-width: 100%;
     }
     h1, h2, h3, h4, h5, h6 {
@@ -84,9 +91,10 @@
       color: #606060;
     }
     code {
-      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
       font-size: 85%;
       margin: 0;
+      hyphens: manual;
     }
     pre {
       margin: 1em 0;
@@ -102,8 +110,8 @@
      overflow: visible;
     }
     hr {
-      background-color: #1a1a1a;
       border: none;
+      border-top: 1px solid #1a1a1a;
       height: 1px;
       margin: 1em 0;
     }
@@ -148,10 +156,21 @@
     }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -215,7 +234,6 @@
     code span.va { color: #19177c; } /* Variable */
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
 </head>
 <body>
@@ -287,66 +305,66 @@ greenhouse, IoT-архитектурам, прогнозированию мик�
 обозначений</h1>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Сокращение</th>
 <th>Расшифровка</th>
 <th>Пояснение в контексте работы</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>АСУ</td>
 <td>автоматизированная система управления</td>
 <td>система наблюдения и управления параметрами микроклимата</td>
 </tr>
-<tr class="even">
+<tr>
 <td>ВКР</td>
 <td>выпускная квалификационная работа</td>
 <td>итоговая квалификационная работа магистранта</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>ИИ</td>
 <td>искусственный интеллект</td>
 <td>методы анализа данных и поддержки принятия решений</td>
 </tr>
-<tr class="even">
+<tr>
 <td>IoT</td>
 <td>internet of things</td>
 <td>подход к объединению датчиков, исполнительных устройств и
 программных сервисов</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>ML</td>
 <td>machine learning</td>
 <td>машинное обучение, применяемое для анализа и прогнозирования
 временных рядов</td>
 </tr>
-<tr class="even">
+<tr>
 <td>MQTT</td>
 <td>message queuing telemetry transport</td>
 <td>легкий протокол обмена сообщениями в IoT-системах</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>CO2</td>
 <td>carbon dioxide</td>
 <td>концентрация углекислого газа в воздухе теплицы</td>
 </tr>
-<tr class="even">
+<tr>
 <td>MPC</td>
 <td>model predictive control</td>
 <td>модельно-предиктивное управление</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>RL</td>
 <td>reinforcement learning</td>
 <td>обучение с подкреплением</td>
 </tr>
-<tr class="even">
+<tr>
 <td>MAE</td>
 <td>mean absolute error</td>
 <td>средняя абсолютная ошибка прогноза</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>RMSE</td>
 <td>root mean squared error</td>
 <td>корень из средней квадратичной ошибки прогноза</td>
@@ -1006,45 +1024,45 @@ ML-слоя. Правило проверяет значение датчика, 
 <p>Таблица 2.1 – Перспективная модель данных расширяемой платформы</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Сущность</th>
 <th>Назначение</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>devices</code></td>
 <td>реестр сенсорных и исполнительных устройств</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>metrics</code></td>
 <td>справочник измеряемых параметров и единиц</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>sensor_readings</code></td>
 <td>нормализованная история измерений</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>actuator_events</code></td>
 <td>события исполнительных устройств</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>control_profiles</code></td>
 <td>профили управления и последовательности действий</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>experiment_batches</code></td>
 <td>партии растений и сроки выращивания</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>growth_variants</code></td>
 <td>варианты света, питания, зоны и ярусы</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>plant_measurements</code></td>
 <td>биометрия, хлорофилл, качество и хранение</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>ml_feature_windows</code></td>
 <td>подготовленные окна признаков для обучения</td>
 </tr>
@@ -1087,110 +1105,140 @@ PPFD, DLI, электрическая мощность освещения, EC и
 <p>\begin{equation} C_{\text{в}} \frac{dT}{dt} = Q_{\text{нагр}} +
 Q_{\text{свет}} + Q_{\text{сол}} - Q_{\text{пот}} - Q_{\text{вент}} -
 Q_{\text{исп}}, \tag{2.1} \end{equation}</p>
-<p>где $T$ - температура воздуха, °C; $C_{\text{в}}$ - эффективная
-теплоемкость воздуха и конструкций; $Q_{\text{нагр}}$ - тепловая
-мощность нагрева; $Q_{\text{свет}}$ - тепловыделение освещения;
-$Q_{\text{сол}}$ - приток солнечной радиации; $Q_{\text{пот}}$ -
-теплопотери через ограждения; $Q_{\text{вент}}$ - потери или приток
-тепла при вентиляции; $Q_{\text{исп}}$ - тепловой эффект испарения.</p>
+<p>где <span class="math inline"><em>T</em></span> - температура
+воздуха, °C; <span class="math inline"><em>C</em><sub>в</sub></span> -
+эффективная теплоемкость воздуха и конструкций; <span
+class="math inline"><em>Q</em><sub>нагр</sub></span> - тепловая мощность
+нагрева; <span class="math inline"><em>Q</em><sub>свет</sub></span> -
+тепловыделение освещения; <span
+class="math inline"><em>Q</em><sub>сол</sub></span> - приток солнечной
+радиации; <span class="math inline"><em>Q</em><sub>пот</sub></span> -
+теплопотери через ограждения; <span
+class="math inline"><em>Q</em><sub>вент</sub></span> - потери или приток
+тепла при вентиляции; <span
+class="math inline"><em>Q</em><sub>исп</sub></span> - тепловой эффект
+испарения.</p>
 <p>Баланс влаги можно представить как:</p>
 <p>\begin{equation} C_{\text{вл}} \frac{dH}{dt} = G_{\text{исп}} +
 G_{\text{увл}} - G_{\text{вент}} - G_{\text{конд}}, \tag{2.2}
 \end{equation}</p>
-<p>где $H$ - влагосодержание воздуха; $C_{\text{вл}}$ - влагоемкость
-воздуха; $G_{\text{исп}}$ - испарение с растений и раствора;
-$G_{\text{увл}}$ - подача влаги увлажнителем; $G_{\text{вент}}$ -
-удаление влаги вентиляцией; $G_{\text{конд}}$ - конденсация.</p>
+<p>где <span class="math inline"><em>H</em></span> - влагосодержание
+воздуха; <span class="math inline"><em>C</em><sub>вл</sub></span> -
+влагоемкость воздуха; <span
+class="math inline"><em>G</em><sub>исп</sub></span> - испарение с
+растений и раствора; <span
+class="math inline"><em>G</em><sub>увл</sub></span> - подача влаги
+увлажнителем; <span class="math inline"><em>G</em><sub>вент</sub></span>
+- удаление влаги вентиляцией; <span
+class="math inline"><em>G</em><sub>конд</sub></span> - конденсация.</p>
 <p>Баланс CO2 в упрощенном виде:</p>
 <p>\begin{equation} V \frac{dC}{dt} = F_{\text{обм}}(C_{\text{нар}} - C)
 + G_C - U_{\text{раст}}, \tag{2.3} \end{equation}</p>
-<p>где $C$ - концентрация CO2 в теплице; $V$ - объем воздуха;
-$F_{\text{обм}}$ - воздухообмен; $C_{\text{нар}}$ - наружная
-концентрация; $G_C$ - подача или внутреннее образование углекислого
-газа; $U_{\text{раст}}$ - поглощение растениями. Для опытного бокса
-объем воздуха $V$ составляет около 24 м³ (размеры 2 × 4 м при высоте 3
-м), что задает масштаб инерционности концентрации CO2 при
-воздухообмене.</p>
+<p>где <span class="math inline"><em>C</em></span> - концентрация CO2 в
+теплице; <span class="math inline"><em>V</em></span> - объем воздуха;
+<span class="math inline"><em>F</em><sub>обм</sub></span> -
+воздухообмен; <span class="math inline"><em>C</em><sub>нар</sub></span>
+- наружная концентрация; <span
+class="math inline"><em>G</em><sub><em>C</em></sub></span> - подача или
+внутреннее образование углекислого газа; <span
+class="math inline"><em>U</em><sub>раст</sub></span> - поглощение
+растениями. Для опытного бокса объем воздуха <span
+class="math inline"><em>V</em></span> составляет около 24 м³ (размеры 2
+× 4 м при высоте 3 м), что задает масштаб инерционности концентрации CO2
+при воздухообмене.</p>
 <p>Эти уравнения показывают, почему в данных нужны не только значения
 датчиков, но и управляющие воздействия. Без информации о вентиляции,
 нагреве и увлажнении невозможно отличить естественный суточный ход от
 реакции на оборудование.</p>
 <p>Чтобы уравнения (2.1)-(2.3) не оставались чисто символическими, их
-параметры оцениваются численно для опытного бокса объемом $V = 24$ м³
-(площадь ограждений около $A = 44$ м²). Теплоемкость воздушного объема
-составляет $C_{\text{возд}} = \rho c_p V \approx 1{,}2 \cdot 1005 \cdot
-24 \approx 28{,}9$ кДж/К ($\approx 8{,}0$ Вт·ч/К). Коэффициент
+параметры оцениваются численно для опытного бокса объемом <span
+class="math inline"><em>V</em> = 24</span> м³ (площадь ограждений около
+<span class="math inline"><em>A</em> = 44</span> м²). Теплоемкость
+воздушного объема составляет <span
+class="math inline"><em>C</em><sub>возд</sub> = <em>ρ</em><em>c</em><sub><em>p</em></sub><em>V</em> ≈ 1, 2 ⋅ 1005 ⋅ 24 ≈ 28, 9</span>
+кДж/К (<span class="math inline"> ≈ 8, 0</span> Вт·ч/К). Коэффициент
 теплопередачи ограждений, разделяющих бокс и окружающее отапливаемое
-помещение, при удельной теплопередаче ограждающей конструкции $U \approx
-2{,}5$ Вт/(м²·К) равен $K!F = U A \approx 110$ Вт/К. Вентиляционный
-канал при паспортном расходе приточного вентилятора $L \approx 1200$
-м³/ч задает кратность воздухообмена $n = L/V \approx 50$ ч⁻¹ и
-вентиляционный коэффициент потерь $G_{\text{вент}} = \rho c_p L/3600
-\approx 400$ Вт/К. Сводка расчетных параметров теплотехнической модели
-приведена в таблице 2.2.</p>
+помещение, при удельной теплопередаче ограждающей конструкции <span
+class="math inline"><em>U</em> ≈ 2, 5</span> Вт/(м²·К) равен <span
+class="math inline"><em>K</em> <em>F</em> = <em>U</em><em>A</em> ≈ 110</span>
+Вт/К. Вентиляционный канал при паспортном расходе приточного вентилятора
+<span class="math inline"><em>L</em> ≈ 1200</span> м³/ч задает кратность
+воздухообмена <span
+class="math inline"><em>n</em> = <em>L</em>/<em>V</em> ≈ 50</span> ч⁻¹ и
+вентиляционный коэффициент потерь <span
+class="math inline"><em>G</em><sub>вент</sub> = <em>ρ</em><em>c</em><sub><em>p</em></sub><em>L</em>/3600 ≈ 400</span>
+Вт/К. Сводка расчетных параметров теплотехнической модели приведена в
+таблице 2.2.</p>
 <p>Таблица 2.2 – Расчетные параметры теплотехнической модели опытного
 бокса</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Параметр</th>
 <th>Обозначение</th>
 <th style="text-align: right;">Значение</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Объем воздуха</td>
-<td>$V$</td>
+<td><span class="math inline"><em>V</em></span></td>
 <td style="text-align: right;">24 м³</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Площадь ограждений</td>
-<td>$A$</td>
+<td><span class="math inline"><em>A</em></span></td>
 <td style="text-align: right;">44 м²</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Теплоемкость воздуха</td>
-<td>$C_{\text{возд}}$</td>
+<td><span class="math inline"><em>C</em><sub>возд</sub></span></td>
 <td style="text-align: right;">28,9 кДж/К</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Коэффициент теплопередачи ограждений</td>
-<td>$K!F = U A$</td>
+<td><span
+class="math inline"><em>K</em> <em>F</em> = <em>U</em><em>A</em></span></td>
 <td style="text-align: right;">≈ 110 Вт/К</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Кратность воздухообмена</td>
-<td>$n = L/V$</td>
+<td><span
+class="math inline"><em>n</em> = <em>L</em>/<em>V</em></span></td>
 <td style="text-align: right;">≈ 50 ч⁻¹</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Вентиляционный коэффициент потерь</td>
-<td>$G_{\text{вент}}$</td>
+<td><span class="math inline"><em>G</em><sub>вент</sub></span></td>
 <td style="text-align: right;">≈ 400 Вт/К</td>
 </tr>
 </tbody>
 </table>
 <p>Сопоставление этих величин уже на стадии проектирования выявляет
 двухмасштабную структуру объекта. Воздушная постоянная времени мала:
-$\tau_{\text{возд}} = C_{\text{возд}}/K!F \approx 4$ мин при выключенной
-вентиляции и $C_{\text{возд}}/G_{\text{вент}} \approx 1$ мин при
-работающем притоке. Поэтому температура воздуха быстро реагирует на
-вентиляцию, тогда как реальная инерционность бокса определяется не
+<span
+class="math inline"><em>τ</em><sub>возд</sub> = <em>C</em><sub>возд</sub>/<em>K</em> <em>F</em> ≈ 4</span>
+мин при выключенной вентиляции и <span
+class="math inline"><em>C</em><sub>возд</sub>/<em>G</em><sub>вент</sub> ≈ 1</span>
+мин при работающем притоке. Поэтому температура воздуха быстро реагирует
+на вентиляцию, тогда как реальная инерционность бокса определяется не
 воздухом, а массивными элементами (гидропонные баки, субстрат,
-конструкции стеллажей), эффективная теплоемкость которых
-$C_{\text{эфф}}$ на два порядка превышает $C_{\text{возд}}$. Численная
-идентификация $C_{\text{эфф}}$ по фактическим данным выполнена в
-подразделе 3.11.</p>
+конструкции стеллажей), эффективная теплоемкость которых <span
+class="math inline"><em>C</em><sub>эфф</sub></span> на два порядка
+превышает <span class="math inline"><em>C</em><sub>возд</sub></span>.
+Численная идентификация <span
+class="math inline"><em>C</em><sub>эфф</sub></span> по фактическим
+данным выполнена в подразделе 3.11.</p>
 <p>Для анализа временных рядов используются более простые расчетные
 показатели. Изменение параметра после события реле определяется как:</p>
 <p>\begin{equation} \Delta x = \bar{x}<em>{\text{после}} -
 \bar{x}</em>{\text{до}}, \tag{2.4} \end{equation}</p>
-<p>где $\bar{x}<em>{\text{до}}$ - среднее значение в окне до события;
-$\bar{x}</em>{\text{после}}$ - среднее значение в окне после события.
-Для оценки прогноза используются стандартные метрики - средняя
-абсолютная ошибка (2.5), корень из средней квадратичной ошибки (2.6) и
-коэффициент детерминации (2.7):</p>
+<p>где <span class="math inline"><em>x̄</em><sub>до</sub></span> -
+среднее значение в окне до события; <span
+class="math inline"><em>x̄</em><sub>после</sub></span> - среднее значение
+в окне после события. Для оценки прогноза используются стандартные
+метрики - средняя абсолютная ошибка (2.5), корень из средней
+квадратичной ошибки (2.6) и коэффициент детерминации (2.7):</p>
 <p>\begin{equation} MAE = \frac{1}{n}\sum_{i=1}^{n}|y_i-\hat{y}_i|,
 \tag{2.5} \end{equation}</p>
 <p>\begin{equation} RMSE =
@@ -1199,8 +1247,11 @@ $\bar{x}</em>{\text{после}}$ - среднее значение в окне 
 <p>\begin{equation} R^2 = 1 -
 \frac{\sum_{i=1}^{n}(y_i-\hat{y}<em>i)^2}{\sum</em>{i=1}^{n}(y_i-\bar{y})^2},
 \tag{2.7} \end{equation}</p>
-<p>где $y_i$ - фактическое значение; $\hat{y}_i$ - прогноз; $\bar{y}$ -
-среднее фактических значений; $n$ - число точек.</p>
+<p>где <span class="math inline"><em>y</em><sub><em>i</em></sub></span>
+- фактическое значение; <span
+class="math inline"><em>ŷ</em><sub><em>i</em></sub></span> - прогноз;
+<span class="math inline"><em>ȳ</em></span> - среднее фактических
+значений; <span class="math inline"><em>n</em></span> - число точек.</p>
 <h2 id="210-подготовка-данных-для-ml-слоя">2.10. Подготовка данных для
 ML-слоя</h2>
 <p>ML-слой в работе рассматривается как верхний прогнозный уровень, а не
@@ -1249,31 +1300,40 @@ gong2021tcnrnnyield; choi2025probabilisticmicroclimate].</p>
 <p>Энергозатраты освещения определяются по формуле:</p>
 <p>\begin{equation} E_{\text{осв}} = P_{\text{осв}} \cdot
 t_{\text{осв}}, \tag{2.8} \end{equation}</p>
-<p>где $P_{\text{осв}}$ - электрическая мощность светильника;
-$t_{\text{осв}}$ - продолжительность работы. Для световых вариантов с
-фотопериодом 18 ч/сут суточная световая доза DLI рассчитывается по
-формуле (2.9):</p>
+<p>где <span class="math inline"><em>P</em><sub>осв</sub></span> -
+электрическая мощность светильника; <span
+class="math inline"><em>t</em><sub>осв</sub></span> - продолжительность
+работы. Для световых вариантов с фотопериодом 18 ч/сут суточная световая
+доза DLI рассчитывается по формуле (2.9):</p>
 <p>\begin{equation} DLI = \frac{PPFD \cdot 18 \cdot 3600}{1,000,000},
 \tag{2.9} \end{equation}</p>
-<p>где $PPFD$ - фотосинтетический поток фотонов, мкмоль/(м²·с);
-множители 18 и 3600 переводят фотопериод в секунды, а делитель приводит
-мкмоль к моль. Энергия исполнительных устройств рассчитывается по
-длительности включения реле согласно формуле (2.10):</p>
+<p>где <span
+class="math inline"><em>P</em><em>P</em><em>F</em><em>D</em></span> -
+фотосинтетический поток фотонов, мкмоль/(м²·с); множители 18 и 3600
+переводят фотопериод в секунды, а делитель приводит мкмоль к моль.
+Энергия исполнительных устройств рассчитывается по длительности
+включения реле согласно формуле (2.10):</p>
 <p>\begin{equation} E_{\text{обор}} = \sum_{j=1}^{m} P_j \cdot t_j,
 \tag{2.10} \end{equation}</p>
-<p>где $P_j$ - номинальная мощность $j$-го устройства; $t_j$ - суммарное
-время его включения по журналу реле; $m$ - число устройств. Если
+<p>где <span class="math inline"><em>P</em><sub><em>j</em></sub></span>
+- номинальная мощность <span class="math inline"><em>j</em></span>-го
+устройства; <span
+class="math inline"><em>t</em><sub><em>j</em></sub></span> - суммарное
+время его включения по журналу реле; <span
+class="math inline"><em>m</em></span> - число устройств. Если
 фактическая мощность части оборудования неизвестна, расчет должен
 выполняться сценарно с явно указанными допущениями.</p>
 <p>Сценарная экономия от прогнозного управления может быть оценена как
 доля предотвращенных лишних включений по формуле (2.11):</p>
 <p>\begin{equation} S_{\text{эк}} = E_{\text{баз}} \cdot k_{\text{эк}}
 \cdot c_{\text{эл}}, \tag{2.11} \end{equation}</p>
-<p>где $E_{\text{баз}}$ - базовое энергопотребление; $k_{\text{эк}}$ -
-сценарная доля экономии; $c_{\text{эл}}$ - тариф на электроэнергию.
-Отдельно может оцениваться эффект от снижения потерь продукции и
-сокращения ручного контроля, но эти величины должны быть представлены
-как расчетная оценка при заданных предпосылках.</p>
+<p>где <span class="math inline"><em>E</em><sub>баз</sub></span> -
+базовое энергопотребление; <span
+class="math inline"><em>k</em><sub>эк</sub></span> - сценарная доля
+экономии; <span class="math inline"><em>c</em><sub>эл</sub></span> -
+тариф на электроэнергию. Отдельно может оцениваться эффект от снижения
+потерь продукции и сокращения ручного контроля, но эти величины должны
+быть представлены как расчетная оценка при заданных предпосылках.</p>
 <h2 id="212-выводы-по-главе">2.12. Выводы по главе</h2>
 <p>Во второй главе спроектирована расширяемая IoT/ML-платформа
 мониторинга и управления микроклиматом теплицы. В отличие от простой
@@ -1347,7 +1407,7 @@ alt="Рисунок 3.2 – Шкаф управления: блоки питан
 бокса</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Оборудование</th>
 <th style="text-align: right;">Кол-во</th>
 <th>Модель</th>
@@ -1356,28 +1416,28 @@ alt="Рисунок 3.2 – Шкаф управления: блоки питан
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Канальные электро­нагреватели (ТЭН)</td>
 <td style="text-align: right;">2</td>
 <td>Ровен ЭНП 400×200/6,0</td>
 <td>380 В, 50 Гц; ток до 9,1 А</td>
 <td style="text-align: right;">6 кВт каждый, 12 кВт суммарно</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Канальные вентиляторы</td>
 <td style="text-align: right;">2</td>
 <td>VCP-40-​20/​20-​GQ/​4E/​220</td>
 <td>1500 об/мин</td>
 <td style="text-align: right;">0,33 кВт каждый, 0,66 кВт суммарно</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Циркуля­ционные насосы</td>
 <td style="text-align: right;">4</td>
 <td>НБЦ-380</td>
 <td>2010 л/ч; напор 25 м; 2,5 атм</td>
 <td style="text-align: right;">0,38 кВт каждый, 1,52 кВт суммарно</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Светодиодные фитосветильники</td>
 <td style="text-align: right;">8 на бокс</td>
 <td>LED-драйвер MEAN WELL XLG-50-AB</td>
@@ -1385,7 +1445,7 @@ alt="Рисунок 3.2 – Шкаф управления: блоки питан
 <td style="text-align: right;">116-478 Вт на ярус (см. подраздел
 3.9)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Силовые реле коммутации</td>
 <td style="text-align: right;">15 каналов</td>
 <td>SONGLE SLA-​05VDC-​SL-​C</td>
@@ -1517,19 +1577,19 @@ Pi <code>green</code> и сохранена как локальное доказ
 <p>Таблица 3.2 – Объем и временной охват таблиц истории</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Таблица</th>
 <th style="text-align: right;">Число строк</th>
 <th style="text-align: center;">Период</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>sensor_log</code></td>
 <td style="text-align: right;">243 946</td>
 <td style="text-align: center;">28.03.2026 - 26.05.2026</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>relay_log</code></td>
 <td style="text-align: right;">165</td>
 <td style="text-align: center;">28.03.2026 - 25.05.2026</td>
@@ -1553,7 +1613,7 @@ Pi <code>green</code> и сохранена как локальное доказ
 технических нулей</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Устройство</th>
 <th style="text-align: right;">Строк</th>
 <th style="text-align: right;">Средняя температура, °C</th>
@@ -1562,21 +1622,21 @@ Pi <code>green</code> и сохранена как локальное доказ
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><code>co2-1</code></td>
 <td style="text-align: right;">81 315</td>
 <td style="text-align: right;">24,98</td>
 <td style="text-align: right;">37,36</td>
 <td style="text-align: right;">354,61</td>
 </tr>
-<tr class="even">
+<tr>
 <td><code>th-1</code></td>
 <td style="text-align: right;">81 316</td>
 <td style="text-align: right;">25,17</td>
 <td style="text-align: right;">28,53</td>
 <td style="text-align: right;">-</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><code>th-2</code></td>
 <td style="text-align: right;">81 315</td>
 <td style="text-align: right;">27,85</td>
@@ -1625,55 +1685,60 @@ Pi <code>green</code> и сохранена как локальное доказ
 \frac{\varphi}{100}\right), \qquad e_{\text{н}}(T) =
 0{,}6108,\exp!\left(\frac{17{,}27,T}{T + 237{,}3}\right), \tag{3.1}
 \end{equation}</p>
-<p>где $T$ - температура воздуха, °C; $\varphi$ - относительная
-влажность, %; $e_{\text{н}}(T)$ - давление насыщенного водяного пара по
-формуле Тетенса, кПа. С позиции теплоэнергетики VPD определяет
-интенсивность транспирации растений и испарения с раствора, а значит -
-связанный с ними поток скрытой теплоты парообразования; поэтому VPD
-напрямую влияет на влажностную и тепловую нагрузку на системы вентиляции
-и увлажнения и является энергетически значимым показателем микроклимата.
-Среднее значение VPD составило около 2,31 кПа по <code>th-1</code> и
-2,74 кПа по <code>th-2</code> при медианных значениях 2,23 и 2,76 кПа
-соответственно. Агрономически благоприятным для салата считается
-диапазон VPD примерно 0,8-1,2 кПа; в опытном датасете доля времени,
-когда VPD попадал в этот диапазон, составила практически 0 % по обоим
-датчикам. Таким образом, воздух в боксе был существенно суше
-оптимального, и ультразвуковые увлажнители (каналы 2 и 3 в журнале реле)
-при наблюдавшейся длительности работы не выводили влажностный режим к
-оптимуму. Этот результат - пример того, как платформа из простого набора
-показаний позволяет получить интегральную характеристику качества
-микроклимата и сформулировать конкретную инженерную рекомендацию:
-увеличить производительность или время работы увлажнения и
-контролировать VPD как целевой показатель. Распределение мгновенных
-значений VPD по обоим датчикам относительно благоприятного диапазона
-показано на рисунке 3.6: основная масса измерений лежит в области
-1,8-3,2 кПа, тогда как оптимальная зона 0,8-1,2 кПа практически не
-достигается.</p>
+<p>где <span class="math inline"><em>T</em></span> - температура
+воздуха, °C; <span class="math inline"><em>φ</em></span> - относительная
+влажность, %; <span
+class="math inline"><em>e</em><sub>н</sub>(<em>T</em>)</span> - давление
+насыщенного водяного пара по формуле Тетенса, кПа. С позиции
+теплоэнергетики VPD определяет интенсивность транспирации растений и
+испарения с раствора, а значит - связанный с ними поток скрытой теплоты
+парообразования; поэтому VPD напрямую влияет на влажностную и тепловую
+нагрузку на системы вентиляции и увлажнения и является энергетически
+значимым показателем микроклимата. Среднее значение VPD составило около
+2,31 кПа по <code>th-1</code> и 2,74 кПа по <code>th-2</code> при
+медианных значениях 2,23 и 2,76 кПа соответственно. Агрономически
+благоприятным для салата считается диапазон VPD примерно 0,8-1,2 кПа; в
+опытном датасете доля времени, когда VPD попадал в этот диапазон,
+составила практически 0 % по обоим датчикам. Таким образом, воздух в
+боксе был существенно суше оптимального, и ультразвуковые увлажнители
+(каналы 2 и 3 в журнале реле) при наблюдавшейся длительности работы не
+выводили влажностный режим к оптимуму. Этот результат - пример того, как
+платформа из простого набора показаний позволяет получить интегральную
+характеристику качества микроклимата и сформулировать конкретную
+инженерную рекомендацию: увеличить производительность или время работы
+увлажнения и контролировать VPD как целевой показатель. Распределение
+мгновенных значений VPD по обоим датчикам относительно благоприятного
+диапазона показано на рисунке 3.6: основная масса измерений лежит в
+области 1,8-3,2 кПа, тогда как оптимальная зона 0,8-1,2 кПа практически
+не достигается.</p>
 <p><embed src="figures/chart_vpd.pdf" /></p>
-<p>Давление насыщения $e_{\text{н}}(T)$ в формуле (3.1) вычислялось по
-температуре воздуха в боксе (а не по температуре листа), что
-соответствует распространенной инженерной оценке VPD по данным
-климатических датчиков и оговаривается как методическое допущение.
-Физическая причина хронически высокого дефицита связана с режимом
-вентиляции: в весенний период приток подает наружный воздух с низким
-влагосодержанием, который при нагреве в боксе дает низкую относительную
-влажность и, как следствие, высокий VPD. То есть высокий дефицит - не
-только следствие недостаточной мощности увлажнителей, но и прямое
-следствие интенсивного воздухообмена сухим воздухом.</p>
+<p>Давление насыщения <span
+class="math inline"><em>e</em><sub>н</sub>(<em>T</em>)</span> в формуле
+(3.1) вычислялось по температуре воздуха в боксе (а не по температуре
+листа), что соответствует распространенной инженерной оценке VPD по
+данным климатических датчиков и оговаривается как методическое
+допущение. Физическая причина хронически высокого дефицита связана с
+режимом вентиляции: в весенний период приток подает наружный воздух с
+низким влагосодержанием, который при нагреве в боксе дает низкую
+относительную влажность и, как следствие, высокий VPD. То есть высокий
+дефицит - не только следствие недостаточной мощности увлажнителей, но и
+прямое следствие интенсивного воздухообмена сухим воздухом.</p>
 <p>Это позволяет численно оценить требуемую влагопроизводительность.
-Чтобы при $T \approx 25$ °C снизить VPD с 2,3 до 1,0 кПа, относительную
-влажность нужно поднять примерно с 28 до 69 %, что соответствует
-увеличению влагосодержания на $\Delta x \approx 8{,}2$ г/кг. При
+Чтобы при <span class="math inline"><em>T</em> ≈ 25</span> °C снизить
+VPD с 2,3 до 1,0 кПа, относительную влажность нужно поднять примерно с
+28 до 69 %, что соответствует увеличению влагосодержания на <span
+class="math inline"><em>Δ</em><em>x</em> ≈ 8, 2</span> г/кг. При
 компенсации вентиляционного выноса влаги потребная подача увлажнителя
-составляет $G_{\text{увл}} = \rho L,\Delta x$: при умеренном расходе
-притока 200 м³/ч это около 2 л/ч, а при полном расходе 1200 м³/ч - до 12
-л/ч воды. Сопоставление с журналом реле (суммарное время работы
-увлажнителей - каналы 2 и 3 - около 72 ч за два месяца) показывает, что
-наблюдавшаяся производительность и продолжительность увлажнения на 1-2
-порядка ниже необходимой, что и объясняет недостижение оптимального VPD.
-Рекомендация по увеличению увлажнения, таким образом, подкреплена
-конкретной расчетной потребностью, а не только качественным
-наблюдением.</p>
+составляет <span
+class="math inline"><em>G</em><sub>увл</sub> = <em>ρ</em><em>L</em> <em>Δ</em><em>x</em></span>:
+при умеренном расходе притока 200 м³/ч это около 2 л/ч, а при полном
+расходе 1200 м³/ч - до 12 л/ч воды. Сопоставление с журналом реле
+(суммарное время работы увлажнителей - каналы 2 и 3 - около 72 ч за два
+месяца) показывает, что наблюдавшаяся производительность и
+продолжительность увлажнения на 1-2 порядка ниже необходимой, что и
+объясняет недостижение оптимального VPD. Рекомендация по увеличению
+увлажнения, таким образом, подкреплена конкретной расчетной
+потребностью, а не только качественным наблюдением.</p>
 <h2 id="37-журнал-реле-и-естественные-эксперименты">3.7. Журнал реле и
 естественные эксперименты</h2>
 <p>Журнал реле содержит 165 событий. Наиболее активными оказались каналы
@@ -1684,7 +1749,7 @@ Pi <code>green</code> и сохранена как локальное доказ
 период наблюдений</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: right;">Реле</th>
 <th>Назначение по профилям</th>
 <th style="text-align: right;">Событий</th>
@@ -1693,35 +1758,35 @@ Pi <code>green</code> и сохранена как локальное доказ
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: right;">8</td>
 <td>приток с улицы (бокс 2), основное действие</td>
 <td style="text-align: right;">43</td>
 <td style="text-align: center;">22/21</td>
 <td style="text-align: right;">39 556,75</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: right;">9</td>
 <td>приток с улицы (бокс 2), подготовка</td>
 <td style="text-align: right;">37</td>
 <td style="text-align: center;">19/18</td>
 <td style="text-align: right;">38 273,87</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: right;">11</td>
 <td>приток с улицы (бокс 2), подготовка</td>
 <td style="text-align: right;">33</td>
 <td style="text-align: center;">17/16</td>
 <td style="text-align: right;">39 513,27</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: right;">2</td>
 <td>ультра­звуковой увлажнитель 2</td>
 <td style="text-align: right;">18</td>
 <td style="text-align: center;">9/9</td>
 <td style="text-align: right;">2 961,92</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: right;">3</td>
 <td>ультра­звуковой увлажнитель 1</td>
 <td style="text-align: right;">6</td>
@@ -1808,7 +1873,7 @@ controlled experiment.</p>
 мощность</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: right;">Вариант</th>
 <th style="text-align: right;">PPFD, мкмоль/(м²·с)</th>
 <th style="text-align: right;">DLI, моль/​(м²·сут)</th>
@@ -1816,31 +1881,31 @@ controlled experiment.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">79,0</td>
 <td style="text-align: right;">5,12</td>
 <td style="text-align: right;">116,3</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">95,0</td>
 <td style="text-align: right;">6,16</td>
 <td style="text-align: right;">97,0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">150,8</td>
 <td style="text-align: right;">9,77</td>
 <td style="text-align: right;">221,0</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">181,3</td>
 <td style="text-align: right;">11,75</td>
 <td style="text-align: right;">321,5</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">245,5</td>
 <td style="text-align: right;">15,91</td>
@@ -1892,7 +1957,7 @@ controlled experiment.</p>
 энергоэффективность и качество салата (среднее по 6 сортам)</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: right;">Вариант</th>
 <th style="text-align: right;">DLI, моль/​(м²·сут)</th>
 <th style="text-align: right;">Урожай, г/раст.</th>
@@ -1903,7 +1968,7 @@ controlled experiment.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">5,12</td>
 <td style="text-align: right;">33,8</td>
@@ -1912,7 +1977,7 @@ controlled experiment.</p>
 <td style="text-align: right;">5,24</td>
 <td style="text-align: right;">6,96</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">6,16</td>
 <td style="text-align: right;">89,9</td>
@@ -1921,7 +1986,7 @@ controlled experiment.</p>
 <td style="text-align: right;">5,41</td>
 <td style="text-align: right;">3,22</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">9,77</td>
 <td style="text-align: right;">85,6</td>
@@ -1930,7 +1995,7 @@ controlled experiment.</p>
 <td style="text-align: right;">7,24</td>
 <td style="text-align: right;">1,86</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">11,75</td>
 <td style="text-align: right;">105,6</td>
@@ -1939,7 +2004,7 @@ controlled experiment.</p>
 <td style="text-align: right;">7,21</td>
 <td style="text-align: right;">1,86</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">15,91</td>
 <td style="text-align: right;">93,8</td>
@@ -2017,13 +2082,14 @@ EC, температура раствора, биометрия и итогов�
 наблюдений. Соответствующее потребление составляет:</p>
 <p>\begin{equation} E_{\text{вент}} = 0{,}33 \cdot 659 \approx 217
 \text{ кВт·ч}. \tag{3.5} \end{equation}</p>
-<p>Тариф $c_{\text{эл}}$ в работе берется сценарно, без привязки к
-конкретному поставщику: для диапазона 6-9 руб./кВт·ч (характерного для
-прочих потребителей и сельхозпроизводителей) затраты по одному
-вентиляционному каналу составляют примерно 1300-1950 руб. за два месяца.
-Заслонки (каналы 9, 11) при этом потребляют пренебрежимо мало, так как
-являются исполнительными механизмами позиционирования. Наибольший вклад
-в энергобаланс вносит нагрев: два канальных электронагревателя по 6 кВт
+<p>Тариф <span class="math inline"><em>c</em><sub>эл</sub></span> в
+работе берется сценарно, без привязки к конкретному поставщику: для
+диапазона 6-9 руб./кВт·ч (характерного для прочих потребителей и
+сельхозпроизводителей) затраты по одному вентиляционному каналу
+составляют примерно 1300-1950 руб. за два месяца. Заслонки (каналы 9,
+11) при этом потребляют пренебрежимо мало, так как являются
+исполнительными механизмами позиционирования. Наибольший вклад в
+энергобаланс вносит нагрев: два канальных электронагревателя по 6 кВт
 при работе в холодный период определяют основную статью энергозатрат. Их
 установленная мощность 12 кВт получает инженерное обоснование в
 подразделе 3.12 - она соответствует потребной мощности подогрева
@@ -2033,11 +2099,15 @@ EC, температура раствора, биометрия и итогов�
 предотвращенной избыточной работы оборудования по формуле (3.6):</p>
 <p>\begin{equation} S = k_{\text{эк}} \cdot E_{\text{баз}} \cdot
 c_{\text{эл}}, \tag{3.6} \end{equation}</p>
-<p>где $E_{\text{баз}}$ - базовое энергопотребление по журналу;
-$k_{\text{эк}}$ - сценарная доля экономии; $c_{\text{эл}}$ - тариф на
-электроэнергию. Коэффициент $k_{\text{эк}}$ не постулируется
+<p>где <span class="math inline"><em>E</em><sub>баз</sub></span> -
+базовое энергопотребление по журналу; <span
+class="math inline"><em>k</em><sub>эк</sub></span> - сценарная доля
+экономии; <span class="math inline"><em>c</em><sub>эл</sub></span> -
+тариф на электроэнергию. Коэффициент <span
+class="math inline"><em>k</em><sub>эк</sub></span> не постулируется
 единственным числом, а рассматривается как диапазон чувствительности:
-для консервативной оценки $k_{\text{эк}} = 0{,}05{-}0{,}15$
+для консервативной оценки <span
+class="math inline"><em>k</em><sub>эк</sub> = 0, 05 − 0, 15</span>
 (предотвращение части избыточных включений нагрева за счет прогнозного
 упреждения) экономия по нагреву составляет, в зависимости от тарифа и
 доли, от нескольких сотен до полутора-двух тысяч рублей в месяц. Такой
@@ -2093,7 +2163,7 @@ CO2 на горизонте 10 и 30 минут. Данные разделяли
 и 30 минут</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Цель</th>
 <th style="text-align: right;">Горизонт</th>
 <th>Модель</th>
@@ -2103,7 +2173,7 @@ CO2 на горизонте 10 и 30 минут. Данные разделяли
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Темп. <code>th-1</code>, °C</td>
 <td style="text-align: right;">10 мин</td>
 <td>last value</td>
@@ -2111,7 +2181,7 @@ CO2 на горизонте 10 и 30 минут. Данные разделяли
 <td style="text-align: right;">0,149</td>
 <td style="text-align: right;">0,989</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Темп. <code>th-1</code>, °C</td>
 <td style="text-align: right;">10 мин</td>
 <td>ridge regression</td>
@@ -2119,7 +2189,7 @@ CO2 на горизонте 10 и 30 минут. Данные разделяли
 <td style="text-align: right;">0,127</td>
 <td style="text-align: right;">0,992</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Темп. <code>th-1</code>, °C</td>
 <td style="text-align: right;">30 мин</td>
 <td>last value</td>
@@ -2127,7 +2197,7 @@ CO2 на горизонте 10 и 30 минут. Данные разделяли
 <td style="text-align: right;">0,331</td>
 <td style="text-align: right;">0,945</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Темп. <code>th-1</code>, °C</td>
 <td style="text-align: right;">30 мин</td>
 <td>ridge regression</td>
@@ -2135,7 +2205,7 @@ CO2 на горизонте 10 и 30 минут. Данные разделяли
 <td style="text-align: right;">0,273</td>
 <td style="text-align: right;">0,963</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Влажность <code>th-1</code>, %</td>
 <td style="text-align: right;">10 мин</td>
 <td>last value</td>
@@ -2143,7 +2213,7 @@ CO2 на горизонте 10 и 30 минут. Данные разделяли
 <td style="text-align: right;">0,400</td>
 <td style="text-align: right;">0,990</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Влажность <code>th-1</code>, %</td>
 <td style="text-align: right;">10 мин</td>
 <td>ridge regression</td>
@@ -2151,7 +2221,7 @@ CO2 на горизонте 10 и 30 минут. Данные разделяли
 <td style="text-align: right;">0,363</td>
 <td style="text-align: right;">0,991</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Влажность <code>th-1</code>, %</td>
 <td style="text-align: right;">30 мин</td>
 <td>last value</td>
@@ -2159,7 +2229,7 @@ CO2 на горизонте 10 и 30 минут. Данные разделяли
 <td style="text-align: right;">0,674</td>
 <td style="text-align: right;">0,971</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Влажность <code>th-1</code>, %</td>
 <td style="text-align: right;">30 мин</td>
 <td>ridge regression</td>
@@ -2167,7 +2237,7 @@ CO2 на горизонте 10 и 30 минут. Данные разделяли
 <td style="text-align: right;">0,633</td>
 <td style="text-align: right;">0,974</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>CO2 <code>co2-1</code>, ppm</td>
 <td style="text-align: right;">10 мин</td>
 <td>last value</td>
@@ -2175,7 +2245,7 @@ CO2 на горизонте 10 и 30 минут. Данные разделяли
 <td style="text-align: right;">9,298</td>
 <td style="text-align: right;">0,967</td>
 </tr>
-<tr class="even">
+<tr>
 <td>CO2 <code>co2-1</code>, ppm</td>
 <td style="text-align: right;">10 мин</td>
 <td>ridge regression</td>
@@ -2183,7 +2253,7 @@ CO2 на горизонте 10 и 30 минут. Данные разделяли
 <td style="text-align: right;">9,467</td>
 <td style="text-align: right;">0,965</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>CO2 <code>co2-1</code>, ppm</td>
 <td style="text-align: right;">30 мин</td>
 <td>last value</td>
@@ -2191,7 +2261,7 @@ CO2 на горизонте 10 и 30 минут. Данные разделяли
 <td style="text-align: right;">14,103</td>
 <td style="text-align: right;">0,924</td>
 </tr>
-<tr class="even">
+<tr>
 <td>CO2 <code>co2-1</code>, ppm</td>
 <td style="text-align: right;">30 мин</td>
 <td>ridge regression</td>
@@ -2230,30 +2300,38 @@ id="312-численная-теплотехническая-модель-и-пр
 отапливаемого здания, поэтому имеет два канала теплопотерь: кондукцию
 через ограждения в окружающее помещение и вентиляционный обмен с
 наружным воздухом при работе приточных каналов. Геометрия бокса (2 × 4 ×
-3 м) дает объем воздуха $V = 24$ м³ и площадь ограждений $A \approx 44$
+3 м) дает объем воздуха <span class="math inline"><em>V</em> = 24</span>
+м³ и площадь ограждений <span class="math inline"><em>A</em> ≈ 44</span>
 м² (стены 36 м² и перекрытие 8 м²).</p>
-<p>Теплоемкость воздушного объема невелика: $C_{\text{возд}} = \rho c_p
-V \approx 1{,}2 \cdot 1005 \cdot 24 \approx 28{,}9$ кДж/К ($\approx
-8{,}0$ Вт·ч/К). При удельной теплопередаче ограждающих перегородок $U
-\approx 2{,}5$ Вт/(м²·К) (принято для легкой светопрозрачной
-перегородки, граничащей с отапливаемым помещением) коэффициент
-теплопередачи составляет $K!F = U A \approx 110$ Вт/К. Лумпированный
-(сосредоточенный) тепловой баланс бокса как объекта управления
-записывается в виде (3.7):</p>
+<p>Теплоемкость воздушного объема невелика: <span
+class="math inline"><em>C</em><sub>возд</sub> = <em>ρ</em><em>c</em><sub><em>p</em></sub><em>V</em> ≈ 1, 2 ⋅ 1005 ⋅ 24 ≈ 28, 9</span>
+кДж/К (<span class="math inline"> ≈ 8, 0</span> Вт·ч/К). При удельной
+теплопередаче ограждающих перегородок <span
+class="math inline"><em>U</em> ≈ 2, 5</span> Вт/(м²·К) (принято для
+легкой светопрозрачной перегородки, граничащей с отапливаемым
+помещением) коэффициент теплопередачи составляет <span
+class="math inline"><em>K</em> <em>F</em> = <em>U</em><em>A</em> ≈ 110</span>
+Вт/К. Лумпированный (сосредоточенный) тепловой баланс бокса как объекта
+управления записывается в виде (3.7):</p>
 <p>\begin{equation} C_{\text{эфф}} \frac{dT}{dt} = \sum
 Q_{\text{подвод}} - (K!F + G_{\text{вент}})(T - T_{\text{окр}}), \qquad
 \tau = \frac{C_{\text{эфф}}}{K!F + G_{\text{вент}}}, \tag{3.7}
 \end{equation}</p>
-<p>где $C_{\text{эфф}}$ - эффективная теплоемкость бокса с учетом
-массивных элементов; $\sum Q_{\text{подвод}}$ - суммарный подвод тепла
-(нагрев, освещение); $G_{\text{вент}}$ - вентиляционный коэффициент
-потерь; $T_{\text{окр}}$ - температура среды, к которой стремится бокс;
-$\tau$ - постоянная времени.</p>
+<p>где <span class="math inline"><em>C</em><sub>эфф</sub></span> -
+эффективная теплоемкость бокса с учетом массивных элементов; <span
+class="math inline">∑<em>Q</em><sub>подвод</sub></span> - суммарный
+подвод тепла (нагрев, освещение); <span
+class="math inline"><em>G</em><sub>вент</sub></span> - вентиляционный
+коэффициент потерь; <span
+class="math inline"><em>T</em><sub>окр</sub></span> - температура среды,
+к которой стремится бокс; <span class="math inline"><em>τ</em></span> -
+постоянная времени.</p>
 <p>Если бы инерционность определялась только воздухом, постоянная
-времени была бы малой: $\tau_{\text{возд}} = C_{\text{возд}}/K!F \approx
-28{,}9{\cdot}10^3 / 110 \approx 260$ с $\approx 4$ мин. Фактические
-данные дают принципиально иную картину. Ночью (22:00-06:00) реле ни разу
-не переключались (0 событий из 165) и нагрев не работал, поэтому ночное
+времени была бы малой: <span
+class="math inline"><em>τ</em><sub>возд</sub> = <em>C</em><sub>возд</sub>/<em>K</em> <em>F</em> ≈ 28, 9 ⋅ 10<sup>3</sup>/110 ≈ 260</span>
+с <span class="math inline"> ≈ 4</span> мин. Фактические данные дают
+принципиально иную картину. Ночью (22:00-06:00) реле ни разу не
+переключались (0 событий из 165) и нагрев не работал, поэтому ночное
 остывание является чистым релаксационным процессом и описывается первым
 порядком (3.8):</p>
 <p>\begin{equation} T(t) = T_{\text{окр}} + \big(T(0) -
@@ -2261,47 +2339,56 @@ T_{\text{окр}}\big), e^{-t/\tau}. \tag{3.8} \end{equation}</p>
 <p>По 56 ночам опытного периода медианное падение температуры
 <code>th-1</code> составило около 2,64 °C за 8 ч, то есть всего около
 0,33 °C/ч. Экспоненциальная аппроксимация ночных кривых остывания
-(рисунок 3.12) дает постоянную времени $\tau_{\text{ноч}} \approx
-9{-}10$ ч (для показанной ночи 22-23.04.2026 - 9,6 ч при коэффициенте
-детерминации $R^2 = 0{,}91$). Отсюда по соотношению (3.9)
-восстанавливается эффективная теплоемкость:</p>
+(рисунок 3.12) дает постоянную времени <span
+class="math inline"><em>τ</em><sub>ноч</sub> ≈ 9 − 10</span> ч (для
+показанной ночи 22-23.04.2026 - 9,6 ч при коэффициенте детерминации
+<span class="math inline"><em>R</em><sup>2</sup> = 0, 91</span>). Отсюда
+по соотношению (3.9) восстанавливается эффективная теплоемкость:</p>
 <p>\begin{equation} C_{\text{эфф}} = \tau_{\text{ноч}} \cdot K!F \approx
 9{,}6 \cdot 3600 \cdot 110 \approx 3{,}8 \text{ МДж/К}. \tag{3.9}
 \end{equation}</p>
 <p><embed src="figures/chart_thermal_inertia.pdf" /></p>
-<p>Полученное значение $C_{\text{эфф}} \approx 3{,}8$ МДж/К примерно в
-130 раз превышает теплоемкость воздуха и эквивалентно теплоемкости около
-0,9 т воды. Это физически согласуется с конструкцией бокса: гидропонные
-емкости, влажный субстрат и металл стеллажей запасают на два порядка
-больше тепла, чем воздух. Таким образом, тепловой баланс (2.1) не только
-записан, но и замкнут численно, а его ключевой параметр - эффективная
-теплоемкость - подтвержден экспериментальной кривой остывания, а не
-задан произвольно.</p>
+<p>Полученное значение <span
+class="math inline"><em>C</em><sub>эфф</sub> ≈ 3, 8</span> МДж/К
+примерно в 130 раз превышает теплоемкость воздуха и эквивалентно
+теплоемкости около 0,9 т воды. Это физически согласуется с конструкцией
+бокса: гидропонные емкости, влажный субстрат и металл стеллажей запасают
+на два порядка больше тепла, чем воздух. Таким образом, тепловой баланс
+(2.1) не только записан, но и замкнут численно, а его ключевой параметр
+- эффективная теплоемкость - подтвержден экспериментальной кривой
+остывания, а не задан произвольно.</p>
 <p>Вентиляционный канал меняет баланс качественно. При паспортном
-расходе приточного вентилятора $L \approx 1200$ м³/ч кратность
-воздухообмена составляет $n = L/V \approx 50$ ч⁻¹, а вентиляционный
-коэффициент потерь - $G_{\text{вент}} = \rho c_p L / 3600 \approx 400$
-Вт/К, что в 3-4 раза превышает кондуктивный $K!F$. Поэтому при включении
-притока воздушная составляющая отклика становится быстрой
-($C_{\text{возд}}/G_{\text{вент}} \approx 1$ мин), что прямо объясняет
-наблюдавшийся в подразделе 3.7 быстрый эффект: после включения приточных
-каналов температура <code>th-1</code> снизилась на 0,51 °C уже за первые
-30 минут. Двухмасштабная структура «быстрый воздух - медленная масса»
-является основным теплотехническим выводом анализа и обосновывает выбор
-горизонта прогноза 10-30 минут для ML-слоя.</p>
+расходе приточного вентилятора <span
+class="math inline"><em>L</em> ≈ 1200</span> м³/ч кратность
+воздухообмена составляет <span
+class="math inline"><em>n</em> = <em>L</em>/<em>V</em> ≈ 50</span> ч⁻¹,
+а вентиляционный коэффициент потерь - <span
+class="math inline"><em>G</em><sub>вент</sub> = <em>ρ</em><em>c</em><sub><em>p</em></sub><em>L</em>/3600 ≈ 400</span>
+Вт/К, что в 3-4 раза превышает кондуктивный <span
+class="math inline"><em>K</em> <em>F</em></span>. Поэтому при включении
+притока воздушная составляющая отклика становится быстрой (<span
+class="math inline"><em>C</em><sub>возд</sub>/<em>G</em><sub>вент</sub> ≈ 1</span>
+мин), что прямо объясняет наблюдавшийся в подразделе 3.7 быстрый эффект:
+после включения приточных каналов температура <code>th-1</code>
+снизилась на 0,51 °C уже за первые 30 минут. Двухмасштабная структура
+«быстрый воздух - медленная масса» является основным теплотехническим
+выводом анализа и обосновывает выбор горизонта прогноза 10-30 минут для
+ML-слоя.</p>
 <p>Численная модель позволяет также дать инженерное обоснование
 установленной мощности нагрева. Потребная тепловая мощность для
 подогрева приточного воздуха оценивается по (3.10):</p>
 <p>\begin{equation} Q_{\text{нагр}} = \frac{\rho c_p
 L}{3600},(T_{\text{внутр}} - T_{\text{нар}}). \tag{3.10}
 \end{equation}</p>
-<p>При $L = 1200$ м³/ч и зимнем перепаде $T_{\text{внутр}} -
-T_{\text{нар}} = 30$ °C (например, от −8 до +22 °C) требуется
-$Q_{\text{нагр}} \approx 0{,}333 \cdot 1{,}2 \cdot 1005 \cdot 30 \approx
-12$ кВт. Это с высокой точностью совпадает с установленной мощностью
-двух канальных ТЭНов (12 кВт) и показывает, что нагрев рассчитан именно
-на температурную подготовку приточного воздуха в холодный период, а не
-на компенсацию кондуктивных потерь (которые при граничащем отапливаемом
+<p>При <span class="math inline"><em>L</em> = 1200</span> м³/ч и зимнем
+перепаде <span
+class="math inline"><em>T</em><sub>внутр</sub> − <em>T</em><sub>нар</sub> = 30</span>
+°C (например, от −8 до +22 °C) требуется <span
+class="math inline"><em>Q</em><sub>нагр</sub> ≈ 0, 333 ⋅ 1, 2 ⋅ 1005 ⋅ 30 ≈ 12</span>
+кВт. Это с высокой точностью совпадает с установленной мощностью двух
+канальных ТЭНов (12 кВт) и показывает, что нагрев рассчитан именно на
+температурную подготовку приточного воздуха в холодный период, а не на
+компенсацию кондуктивных потерь (которые при граничащем отапливаемом
 помещении невелики). Отсутствие событий ТЭНов в журнале реле за весенний
 период наблюдений (28.03-26.05) получает физическое объяснение: при
 умеренной наружной температуре приточный воздух не требовал догрева, а
@@ -2312,7 +2399,7 @@ $Q_{\text{нагр}} \approx 0{,}333 \cdot 1{,}2 \cdot 1005 \cdot 30 \approx
 бокса</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Параметр</th>
 <th>Обозначение</th>
 <th style="text-align: right;">Значение</th>
@@ -2320,51 +2407,56 @@ $Q_{\text{нагр}} \approx 0{,}333 \cdot 1{,}2 \cdot 1005 \cdot 30 \approx
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Теплоемкость воздуха</td>
-<td>$C_{\text{возд}}$</td>
+<td><span class="math inline"><em>C</em><sub>возд</sub></span></td>
 <td style="text-align: right;">28,9 кДж/К</td>
-<td>расчет $\rho c_p V$</td>
+<td>расчет <span
+class="math inline"><em>ρ</em><em>c</em><sub><em>p</em></sub><em>V</em></span></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Коэффициент теплопередачи ограждений</td>
-<td>$K!F$</td>
+<td><span class="math inline"><em>K</em> <em>F</em></span></td>
 <td style="text-align: right;">≈ 110 Вт/К</td>
-<td>расчет $U A$, $U=2{,}5$</td>
+<td>расчет <span class="math inline"><em>U</em><em>A</em></span>, <span
+class="math inline"><em>U</em> = 2, 5</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Вентиляционный коэффициент потерь</td>
-<td>$G_{\text{вент}}$</td>
+<td><span class="math inline"><em>G</em><sub>вент</sub></span></td>
 <td style="text-align: right;">≈ 400 Вт/К</td>
-<td>расчет по $L=1200$ м³/ч</td>
+<td>расчет по <span class="math inline"><em>L</em> = 1200</span>
+м³/ч</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Кратность воздухообмена</td>
-<td>$n$</td>
+<td><span class="math inline"><em>n</em></span></td>
 <td style="text-align: right;">≈ 50 ч⁻¹</td>
-<td>$L/V$</td>
+<td><span class="math inline"><em>L</em>/<em>V</em></span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Постоянная времени по воздуху</td>
-<td>$\tau_{\text{возд}}$</td>
+<td><span class="math inline"><em>τ</em><sub>возд</sub></span></td>
 <td style="text-align: right;">≈ 4 мин</td>
-<td>$C_{\text{возд}}/K!F$</td>
+<td><span
+class="math inline"><em>C</em><sub>возд</sub>/<em>K</em> <em>F</em></span></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Постоянная времени бокса (ночь)</td>
-<td>$\tau_{\text{ноч}}$</td>
+<td><span class="math inline"><em>τ</em><sub>ноч</sub></span></td>
 <td style="text-align: right;">≈ 9-10 ч</td>
 <td>фит кривой остывания, 56 ночей</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Эффективная теплоемкость</td>
-<td>$C_{\text{эфф}}$</td>
+<td><span class="math inline"><em>C</em><sub>эфф</sub></span></td>
 <td style="text-align: right;">≈ 3,8 МДж/К</td>
-<td>$\tau_{\text{ноч}} K!F$</td>
+<td><span
+class="math inline"><em>τ</em><sub>ноч</sub><em>K</em> <em>F</em></span></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Потребная мощность подогрева притока</td>
-<td>$Q_{\text{нагр}}$</td>
+<td><span class="math inline"><em>Q</em><sub>нагр</sub></span></td>
 <td style="text-align: right;">≈ 12 кВт</td>
 <td>(3.10), ΔT=30 °C</td>
 </tr>
@@ -2393,10 +2485,12 @@ RC-модель объекта: эффективная теплоемкость,
 тепловой баланс и потребная мощность нагрева оценены расчетно (подраздел
 3.12), но для итогового энергоаудита требуется прямой учет энергии
 ТЭНов;</li>
-<li>удельная теплопередача ограждений $U$ принята оценочно для условий
-бокса внутри отапливаемого здания; уточнение $U$ инструментальным
-методом изменит абсолютные значения коэффициентов потерь, но не
-двухмасштабную структуру объекта.</li>
+<li>удельная теплопередача ограждений <span
+class="math inline"><em>U</em></span> принята оценочно для условий бокса
+внутри отапливаемого здания; уточнение <span
+class="math inline"><em>U</em></span> инструментальным методом изменит
+абсолютные значения коэффициентов потерь, но не двухмасштабную структуру
+объекта.</li>
 </ol>
 <p>Эти ограничения не отменяют результата ВКР. Напротив, они показывают,
 какие требования должна закрывать следующая итерация платформы: добавить
@@ -2453,9 +2547,11 @@ SQLite-журнал и экспорт данных. С Raspberry Pi получе
 реле, естественные эксперименты включения оборудования и связь с
 агробиологическими данными по салату. Отдельным профильным результатом
 стала численная теплотехническая модель бокса: по фактическим кривым
-ночного остывания идентифицированы постоянная времени ($\tau \approx
-9{-}10$ ч) и эффективная теплоемкость ($C_{\text{эфф}} \approx 3{,}8$
-МДж/К), рассчитаны коэффициенты кондуктивных и вентиляционных потерь, а
+ночного остывания идентифицированы постоянная времени (<span
+class="math inline"><em>τ</em> ≈ 9 − 10</span> ч) и эффективная
+теплоемкость (<span
+class="math inline"><em>C</em><sub>эфф</sub> ≈ 3, 8</span> МДж/К),
+рассчитаны коэффициенты кондуктивных и вентиляционных потерь, а
 установленная мощность нагрева 12 кВт получила инженерное обоснование
 как мощность подогрева приточного воздуха. Тем самым тепловой баланс
 замкнут численно и проверен по экспериментальным данным. Основной
@@ -2515,10 +2611,15 @@ web-панель оператора, правила, профили, журна�
 увлажнения (около 2-12 л/ч в зависимости от расхода притока). Построена
 и идентифицирована по фактическим данным численная теплотехническая
 модель бокса: по кривым ночного остывания определены постоянная времени
-($\tau \approx 9{-}10$ ч) и эффективная теплоемкость ($C_{\text{эфф}}
-\approx 3{,}8$ МДж/К), рассчитаны коэффициенты кондуктивных ($K!F
-\approx 110$ Вт/К) и вентиляционных ($G_{\text{вент}} \approx 400$ Вт/К)
-потерь и кратность воздухообмена ($n \approx 50$ ч⁻¹), а установленная
+(<span class="math inline"><em>τ</em> ≈ 9 − 10</span> ч) и эффективная
+теплоемкость (<span
+class="math inline"><em>C</em><sub>эфф</sub> ≈ 3, 8</span> МДж/К),
+рассчитаны коэффициенты кондуктивных (<span
+class="math inline"><em>K</em> <em>F</em> ≈ 110</span> Вт/К) и
+вентиляционных (<span
+class="math inline"><em>G</em><sub>вент</sub> ≈ 400</span> Вт/К) потерь
+и кратность воздухообмена (<span
+class="math inline"><em>n</em> ≈ 50</span> ч⁻¹), а установленная
 мощность нагрева 12 кВт обоснована как мощность подогрева приточного
 воздуха при зимнем перепаде температур; тем самым тепловой баланс
 замкнут численно и проверен по эксперименту. Зафиксировано, что

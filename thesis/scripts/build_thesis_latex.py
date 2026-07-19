@@ -450,6 +450,12 @@ def postprocess_tex(tex: str) -> str:
 # кафедра, направление, руководитель). Вернуть в True, когда титул будет готов.
 INCLUDE_TITLE_PAGE = False
 
+# Титульный лист печатается и подшивается ОТДЕЛЬНО (в PDF его нет), но по
+# ГОСТ 7.32-2017 он входит в общую нумерацию как стр. 1 (номер на нём не
+# ставится). Поэтому реферат должен начинаться со стр. 2. Задание и отзыв —
+# отдельные вкладыши и в нумерацию пояснительной записки не входят.
+EXTERNAL_TITLE_PAGE = True
+
 
 def build_main_tex(abstract_tex: str, body_tex: str) -> str:
     preamble = PREAMBLE.read_text(encoding="utf-8")
@@ -462,6 +468,8 @@ def build_main_tex(abstract_tex: str, body_tex: str) -> str:
             r"\setcounter{page}{2}",
             r"\hypersetup{pageanchor=true}",
         ]
+    elif EXTERNAL_TITLE_PAGE:
+        front_matter = [r"\setcounter{page}{2}"]
     return "\n".join(
         [
             preamble,
